@@ -10,7 +10,7 @@ const navItems = [
   { href: "/novinky", label: "Novinky" },
   { href: "/zapas", label: "Zápasy" },
   { href: "/tabulka", label: "Tabuľka" },
-  { href: "/galeria", label: "Galéria" },
+  { href: "/kategorie", label: "Kategórie" },
   { href: "/about", label: "O klube" },
   { href: "/kontakt", label: "Kontakt" },
 ];
