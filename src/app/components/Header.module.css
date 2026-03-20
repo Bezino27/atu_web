@@ -188,8 +188,8 @@
 }
 
 .menuButton {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border: flex;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
@@ -401,9 +401,9 @@
 
 /* CONTENT GRID */
 .dropdownContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* COLUMN TITLE */
