@@ -1,15 +1,15 @@
 .header {
   position: sticky;
   top: 0;
-  left: 0;
   z-index: 1000;
   width: 100%;
   transform: translateY(0);
-  transition: transform 0.3s ease;
+  transition: transform 0.05s ease-out;
+  backface-visibility: hidden;
   will-change: transform;
 }
 .headerShifted {
-  transform: translateY(-45px); /* výška topBar */
+  transform: translateY(-50px); /* výška topBar */
 }
 .container {
   max-width: 1280px;
@@ -20,14 +20,8 @@
 .topBar {
   background: linear-gradient(90deg, #0f0f11 0%, #17181c 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transform: translateY(0);
-  transition: transform 0.3s ease;
-  will-change: transform;
 }
 
-.topBarHidden {
-  transform: translateY(-100%);
-}
 
 
 .topBarInner {
