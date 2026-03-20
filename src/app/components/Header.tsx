@@ -19,16 +19,14 @@ const navItems = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
    // Toggle on click
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
 
-  // Close when leaving (desktop UX)
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-  };
+
 
  useEffect(() => {
   const handleScroll = () => {
@@ -51,6 +49,7 @@ export default function Header() {
     >
       <div className={`${styles.topBar} ${!showTopBar ? styles.topBarHidden : ""}`}>
         <div className={styles.container}>
+          
           <div className={styles.topBarInner}>
             <div className={styles.topLeft}>
               <span>ATU Košice • Florbalový klub</span>
@@ -93,13 +92,58 @@ export default function Header() {
               </div>
             </Link>
 
-            <nav className={styles.desktopNav}>
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href} className={styles.navLink}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+          {navItems.map((item) => {
+            if (item.label === "Kategórie") {
+              return (
+                <div
+                  key={item.href}
+                  className={styles.dropdown}
+                  
+                >
+                  {/* TRIGGER */}
+                  <button
+                    className={styles.navLink}
+                    onClick={handleToggle}
+                  >
+                    {item.label}
+                  </button>
+
+                  {/* DROPDOWN */}
+                  <div
+                    className={`${styles.dropdownMenu} ${
+                      isOpen ? styles.show : ""
+                    }`}
+                  >
+                    <div className={styles.dropdownContent}>
+
+                      <div>
+                        <p className={styles.columnTitle}>Mládež</p>
+                        <Link href="/kategorie/u10">U10</Link>
+                        <Link href="/kategorie/u12">U12</Link>
+                        <Link href="/kategorie/u14">U14</Link>
+                        <Link href="/kategorie/u16">U16</Link>
+                      </div>
+
+                      <div>
+                        <p className={styles.columnTitle}>Muži</p>
+                        <Link href="/kategorie/a-tim">A-tím</Link>
+                        <Link href="/kategorie/b-tim">B-tím</Link>
+                        <Link href="/kategorie/rekreacni">Rekreační</Link>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ostatné linky normálne
+            return (
+              <Link key={item.href} href={item.href} className={styles.navLink}>
+                {item.label}
+              </Link>
+            );
+          })}
 
             <div className={styles.actions}>
               <Link href="/kontakt" className={styles.ctaButton}>

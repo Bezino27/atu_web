@@ -190,7 +190,7 @@
 .menuButton {
   width: 48px;
   height: 48px;
-  border: none;
+  border: flex;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   display: none;
@@ -352,5 +352,99 @@
     display: none;
   }
 }
+/* Wrapper */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+/* Button */
+.dropdownTrigger {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 8px 12px;
+  color: #222;
+}
+
+/* MENU BASE */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(8px);
+
+  background: rgba(10, 10, 11, 0.82);
+  border-radius: 12px;
+  padding: 16px;
+
+  min-width: 220px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  /* animation base */
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: all 0.25s ease;
+  z-index: 1000;
+}
+
+/* SHOW STATE */
+.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* CONTENT GRID */
+.dropdownContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* COLUMN TITLE */
+.columnTitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/* LINKS */
+.dropdownContent a {
+  display: block;
+  padding: 6px 0;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.76);
+  transition: color 0.2s ease;
+}
+
+.dropdownContent a:hover {
+  color: #0070f3;
+}
+
+/* HOVER SUPPORT (desktop) */
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 768px) {
+  .dropdownMenu {
+    position: static;
+    transform: none;
+    opacity: 1;
+    box-shadow: none;
+    padding: 10px 0;
+  }
+
+  .dropdownContent {
+    grid-template-columns: 1fr;
+  }
+}
 
