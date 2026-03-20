@@ -118,17 +118,16 @@ export default function Header() {
 
                       <div>
                         <p className={styles.columnTitle}>Mládež</p>
-                        <Link href="/kategorie/u10">U10</Link>
-                        <Link href="/kategorie/u12">U12</Link>
-                        <Link href="/kategorie/u14">U14</Link>
-                        <Link href="/kategorie/u16">U16</Link>
+                        <Link href="/kategorie/pripravky">Prípravky</Link>
+                        <Link href="/kategorie/mladsi_ziaci">Mladší žiaci</Link>
+                        <Link href="/kategorie/starsi_ziaci">Starší žiaci</Link>
+                        <Link href="/kategorie/dorast">Dorast</Link>
+                        <Link href="/kategorie/juniori">Juniori</Link>
                       </div>
-
                       <div>
-                        <p className={styles.columnTitle}>Muži</p>
-                        <Link href="/kategorie/a-tim">A-tím</Link>
-                        <Link href="/kategorie/b-tim">B-tím</Link>
-                        <Link href="/kategorie/rekreacni">Rekreační</Link>
+                        <Link href="/kategorie/muzi" className={styles.columnTitle}>
+                          Muži
+                        </Link>
                       </div>
 
                     </div>
