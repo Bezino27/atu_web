@@ -1,28 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
 
+
 const navItems = [
   { href: "/", label: "Domov" },
-  { href: "/novinky", label: "Novinky" },
+  { href: "/klub", label: "O klube" },
   { href: "/zapas", label: "Zápasy" },
   { href: "/tabulka", label: "Tabuľka" },
   { href: "/kategorie", label: "Kategórie" },
-  { href: "/about", label: "O klube" },
   { href: "/kontakt", label: "Kontakt" },
 ];
 
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [showTopBar, setShowTopBar] = useState(true);
   const closeMenu = () => setMenuOpen(false);
+   // Toggle on click
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
 
+  // Close when leaving (desktop UX)
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setShowTopBar(false);
+    } else {
+      setShowTopBar(true);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <header className={styles.header}>
-      <div className={styles.topBar}>
+      <div className={`${styles.topBar} ${!showTopBar ? styles.topBarHidden : ""}`}>
         <div className={styles.container}>
           <div className={styles.topBarInner}>
             <div className={styles.topLeft}>
@@ -41,8 +64,12 @@ export default function Header() {
           </div>
         </div>
       </div>
-
-      <div className={styles.mainBar}>
+      
+        <div
+          className={`${styles.mainBar} ${
+            !showTopBar ? styles.mainBarShifted : ""
+          }`}
+        >
         <div className={styles.container}>
           <div className={styles.mainBarInner}>
             <Link href="/" className={styles.logoWrap} onClick={closeMenu}>

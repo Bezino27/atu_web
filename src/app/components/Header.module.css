@@ -55,7 +55,10 @@
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+  margin-top: 40px; /* uprav podľa výšky topBar */
+  transition: all 0.05s ease;
 }
+
 
 .mainBarInner {
   min-height: 82px;
@@ -63,6 +66,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 22px;
+}
+.mainBarShifted {
+  margin-top: 0;
 }
 
 .logoWrap {
@@ -337,4 +343,18 @@
   .logoText span {
     display: none;
   }
+}
+.topBar {
+  position: fixed;   /* ← kľúčové */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  transition: all 0.2s ease;
+}
+
+.topBarHidden {
+  transform: translateY(-100%);
+  opacity: 0;
 }
