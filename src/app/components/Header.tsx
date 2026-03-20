@@ -75,7 +75,7 @@ export default function Header() {
             <Link href="/" className={styles.logoWrap} onClick={closeMenu}>
               <div className={styles.logoBox}>
                 <Image
-                  src="/images/logo.png"
+                  src="/logo/znak_atu_white.svg"
                   alt="ATU Košice logo"
                   width={52}
                   height={52}
