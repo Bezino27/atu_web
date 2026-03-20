@@ -1,105 +1,187 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "ATU Košice | Florbalový klub",
+  title: "ATU Košice – Florbalový klub",
   description:
-    "Oficiálna stránka florbalového klubu ATU Košice. Výsledky, zápasy, tabuľka, novinky, galéria a partneri klubu.",
+    "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
 };
 
-const standings = [
-  { pos: 1, team: "ATU Košice", played: 18, wins: 14, losses: 4, goals: "109:61", points: 42 },
-  { pos: 2, team: "Florko Košice", played: 18, wins: 13, losses: 5, goals: "101:67", points: 39 },
-  { pos: 3, team: "Tsunami ZB", played: 18, wins: 11, losses: 7, goals: "94:70", points: 35 },
-  { pos: 4, team: "Grasshoppers", played: 18, wins: 10, losses: 8, goals: "86:79", points: 31 },
-  { pos: 5, team: "ŠK Lido", played: 18, wins: 8, losses: 10, goals: "80:83", points: 27 },
-  { pos: 6, team: "Capitals", played: 18, wins: 6, losses: 12, goals: "74:90", points: 21 },
+const topArticles = [
+  {
+    id: 1,
+    title: "ATU Košice mieri do play-off. Klub žije florbalom a čaká nás veľký záver sezóny",
+    excerpt:
+      "A-tím zvládol dôležitú časť sezóny, mládež pokračuje vo výborných výkonoch a fanúšikov čakajú rozhodujúce zápasy. Pozri si, čo všetko sa aktuálne deje v klube a čo nás čaká v najbližších týždňoch.",
+    image: "/images/news1.jpg",
+    category: "Hlavná udalosť",
+    date: "20. marec 2026",
+    slug: "/clanky/atu-kosice-mieri-do-playoff",
+  },
+  {
+    id: 2,
+    title: "Pozvánka na najbližší domáci zápas proti FK Florko",
+    excerpt:
+      "Dôležitý duel pred domácimi fanúšikmi sa blíži. Príď podporiť ATU Košice v ďalšom ligovom stretnutí.",
+    image: "/images/news1.jpg",
+    category: "Pozvánka",
+    date: "19. marec 2026",
+    slug: "/clanky/pozvanka-na-domaci-zapas-florko",
+  },
+  {
+    id: 3,
+    title: "Mládežnícke tímy zbierajú cenné výhry a skúsenosti",
+    excerpt:
+      "Počas víkendu sa darilo aj našim mládežníckym kategóriám, ktoré pokračujú v kvalitných výkonoch.",
+    image: "/images/news1.jpg",
+    category: "Mládež",
+    date: "18. marec 2026",
+    slug: "/clanky/mladeznicke-timy-zbieraju-vyhry",
+  },
+  {
+    id: 4,
+    title: "ATU Košice zvládlo derby a berie dôležité 3 body",
+    excerpt:
+      "Napínavý zápas rozhodol tretí útok v závere tretej tretiny. Pozri si priebeh stretnutia, góly a reakcie hráčov.",
+    image: "/images/news1.jpg",
+    category: "A-tím",
+    date: "18. marec 2026",
+    slug: "/clanky/atu-kosice-zvladlo-derby",
+  },
+  {
+    id: 5,
+    title: "Rozhovor s trénerom: Čo chceme zlepšiť pred play-off",
+    excerpt:
+      "Tréner otvorene o aktuálnej forme tímu, disciplíne, nomináciách a cieľoch do ďalších týždňov.",
+    image: "/images/news1.jpg",
+    category: "Rozhovor",
+    date: "14. marec 2026",
+    slug: "/clanky/rozhovor-s-trenerom-playoff",
+  },
+];
+const latestPosts = [
+  {
+    id: 4,
+    title: "Fotogaléria z posledného domáceho zápasu",
+    image: "/images/news1.jpg",
+    date: "12. marec 2026",
+    category: "Galéria",
+    slug: "/clanky/fotogaleria-domaci-zapas",
+  },
+  {
+    id: 5,
+    title: "Juniori získali cenné body na palubovke súpera",
+    image: "/images/news1.jpg",
+    date: "10. marec 2026",
+    category: "Juniori",
+    slug: "/clanky/juniori-ziskali-cenne-body",
+  },
+  {
+    id: 6,
+    title: "Prípravka má za sebou ďalší úspešný turnaj",
+    image: "/images/news1.jpg",
+    date: "8. marec 2026",
+    category: "Prípravka",
+    slug: "/clanky/pripravka-uspesny-turnaj",
+  },
+  {
+    id: 7,
+    title: "Klub spúšťa nábor nových hráčov do mládeže",
+    image: "/images/news1.jpg",
+    date: "6. marec 2026",
+    category: "Klub",
+    slug: "/clanky/nabor-novych-hracov",
+  },
+  {
+    id: 8,
+    title: "Ako prebiehala zimná príprava nášho A-tímu",
+    image: "/images/news1.jpg",
+    date: "4. marec 2026",
+    category: "A-tím",
+    slug: "/clanky/zimna-priprava-a-timu",
+  },
+  {
+    id: 9,
+    title: "Pozvánka na víkendové domáce zápasy",
+    image: "/images/news1.jpg",
+    date: "2. marec 2026",
+    category: "Pozvánka",
+    slug: "/clanky/pozvanka-na-vikend",
+  },
 ];
 
-const matches = [
+const standings = [
+  { pos: 1, team: "ATU Košice", matches: 18, points: 42, score: "98:51" },
+  { pos: 2, team: "FK Florko", matches: 18, points: 39, score: "93:57" },
+  { pos: 3, team: "Grasshoppers Žilina", matches: 18, points: 34, score: "87:63" },
+  { pos: 4, team: "Capitals Bratislava", matches: 18, points: 29, score: "75:68" },
+  { pos: 5, team: "Tsunami Záhorská", matches: 18, points: 25, score: "69:72" },
+  { pos: 6, team: "Lido Bratislava", matches: 18, points: 20, score: "61:80" },
+];
+
+const nextMatches = [
   {
-    date: "23. 3. 2026",
+    date: "24. 3. 2026",
     time: "18:30",
+    opponent: "FK Florko",
+    venue: "Mestská športová hala Košice",
     competition: "Extraliga mužov",
-    home: "ATU Košice",
-    away: "Tsunami Záhorská Bystrica",
-    venue: "Mestská športová hala, Košice",
   },
   {
     date: "30. 3. 2026",
     time: "17:00",
+    opponent: "Grasshoppers Žilina",
+    venue: "Domáca hala ATU",
     competition: "Extraliga mužov",
+  },
+  {
+    date: "5. 4. 2026",
+    time: "14:00",
+    opponent: "Capitals Bratislava",
+    venue: "ŠH Bratislava",
+    competition: "Extraliga mužov",
+  },
+];
+
+const results = [
+  {
     home: "ATU Košice",
-    away: "Grasshoppers AC UNIZA",
-    venue: "Mestská športová hala, Košice",
-  },
-  {
-    date: "6. 4. 2026",
-    time: "11:00",
-    competition: "Juniori U19",
-    home: "ATU Košice U19",
-    away: "Florko Košice U19",
-    venue: "Športová hala, Košice",
-  },
-];
-
-const articles = [
-  {
-    title: "ATU Košice víťazí v derby a upevňuje si prvé miesto",
-    excerpt:
-      "Domáci tím predviedol výborný výkon, oprel sa o kvalitnú defenzívu a efektivitu v zakončení.",
-    date: "19. 3. 2026",
-    category: "Zápas",
-    image: "/images/news/news1.jpg",
-    href: "/novinky/atu-vitazi-v-derby",
-  },
-  {
-    title: "Mládežnícke tímy pokračujú v príprave na záver sezóny",
-    excerpt:
-      "Tréningový proces napreduje a hráči zbierajú cenné skúsenosti v zápasoch aj na turnajoch.",
+    away: "Lido Bratislava",
+    score: "7:4",
     date: "17. 3. 2026",
-    category: "Mládež",
-    image: "/images/news/news2.jpg",
-    href: "/novinky/mladez-priprava",
   },
   {
-    title: "Pozvánka na víkendový domáci zápas v Košiciach",
-    excerpt:
-      "Príďte podporiť ATU Košice priamo do haly a vytvoriť skvelú atmosféru pre celý tím.",
-    date: "15. 3. 2026",
-    category: "Klub",
-    image: "/images/news/news3.jpg",
-    href: "/novinky/pozvanka-na-zapas",
+    home: "Tsunami Záhorská",
+    away: "ATU Košice",
+    score: "3:5",
+    date: "9. 3. 2026",
   },
   {
-    title: "Rozhovor s trénerom po dôležitom víťazstve",
-    excerpt:
-      "Po zápase sme sa rozprávali o výkone mužstva, energii v tíme a cieľoch do ďalších týždňov.",
-    date: "12. 3. 2026",
-    category: "Rozhovor",
-    image: "/images/news/news4.jpg",
-    href: "/novinky/rozhovor-s-trenerom",
+    home: "ATU Košice",
+    away: "Capitals Bratislava",
+    score: "6:6",
+    date: "1. 3. 2026",
   },
 ];
 
-const gallery = [
-  "/images/gallery/gallery1.jpg",
-  "/images/gallery/gallery2.jpg",
-  "/images/gallery/gallery3.jpg",
-  "/images/gallery/gallery4.jpg",
+const categories = [
+  "A-tím",
+  "Juniori",
+  "Dorast",
+  "Starší žiaci",
+  "Mladší žiaci",
+  "Prípravka",
 ];
 
-const partners = [
-  "/images/partners/partner1.png",
-  "/images/partners/partner2.png",
-  "/images/partners/partner3.png",
-  "/images/partners/partner4.png",
-  "/images/partners/partner5.png",
-  "/images/partners/partner6.png",
+const sponsors = [
+  "General Partner",
+  "Mesto Košice",
+  "Technická univerzita",
+  "Hlavný partner",
 ];
 
 export default function HomePage() {
@@ -108,245 +190,257 @@ export default function HomePage() {
       <Header />
 
       <main className={styles.page}>
-        <section className={styles.hero}>
-          <div className={styles.heroOverlay} />
-          <div className={styles.heroInner}>
-            <div className={styles.heroContent}>
-              <span className={styles.eyebrow}>Florbalový klub ATU Košice</span>
-              <h1>Výsledky, zápasy, novinky a život klubu na jednom mieste</h1>
-              <p>
-                Sleduj aktuálne dianie v klube, najbližšie zápasy, postavenie v tabuľke,
-                články, fotografie a partnerov ATU Košice.
-              </p>
+       
 
-              <div className={styles.heroButtons}>
-                <Link href="/novinky" className={styles.primaryButton}>
-                  Novinky
-                </Link>
-                <Link href="/zapas" className={styles.secondaryButton}>
-                  Program zápasov
-                </Link>
-              </div>
-            </div>
+        <section className={styles.topNewsSection}>
+  <div className={styles.sectionHeader}>
+    <div>
+      <span className={styles.sectionEyebrow}>Top obsah</span>
+      <h2>Najnovšie a najdôležitejšie články</h2>
+    </div>
+    <Link href="/clanky" className={styles.sectionLink}>
+      Všetky články
+    </Link>
+  </div>
 
-            <div className={styles.heroScoreCard}>
-              <div className={styles.heroScoreTop}>
-                <span className={styles.liveBadge}>Posledný zápas</span>
-                <span className={styles.heroCompetition}>Extraliga mužov</span>
-              </div>
+  <div className={styles.topNewsGrid}>
+    <Link href={topArticles[0].slug} className={styles.topNewsMain}>
+      <div className={styles.topNewsMainImageWrap}>
+        <Image
+          src={topArticles[0].image}
+          alt={topArticles[0].title}
+          fill
+          className={styles.cardImage}
+          priority
+        />
+        <div className={styles.imageOverlay} />
+      </div>
 
-              <div className={styles.heroScoreMiddle}>
-                <div className={styles.heroTeam}>ATU Košice</div>
-                <div className={styles.heroScore}>7 : 4</div>
-                <div className={styles.heroTeam}>Florko Košice</div>
-              </div>
+      <div className={styles.topNewsMainContent}>
+        <div className={styles.metaRow}>
+          <span className={styles.badge}>{topArticles[0].category}</span>
+          <span>{topArticles[0].date}</span>
+        </div>
+        <h1>{topArticles[0].title}</h1>
+        <p>{topArticles[0].excerpt}</p>
+      </div>
+    </Link>
 
-              <div className={styles.heroScoreBottom}>
-                <span>Košice • Mestská športová hala</span>
-                <Link href="/zapas/posledny" className={styles.heroScoreLink}>
-                  Detail zápasu
-                </Link>
-              </div>
-            </div>
+    <div className={styles.topNewsSide}>
+      {topArticles.slice(1, 3).map((article) => (
+        <Link key={article.id} href={article.slug} className={styles.topNewsSmall}>
+          <div className={styles.topNewsSmallImageWrap}>
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              className={styles.cardImage}
+            />
+            <div className={styles.imageOverlay} />
           </div>
-        </section>
 
-        <section className={styles.quickStats}>
-          <div className={styles.container}>
-            <div className={styles.statCard}>
-              <strong>1. miesto</strong>
-              <span>aktuálne v tabuľke</span>
+          <div className={styles.topNewsSmallContent}>
+            <div className={styles.metaRow}>
+              <span className={styles.badge}>{article.category}</span>
+              <span>{article.date}</span>
             </div>
-            <div className={styles.statCard}>
-              <strong>18</strong>
-              <span>odohraných zápasov</span>
-            </div>
-            <div className={styles.statCard}>
-              <strong>109</strong>
-              <span>strelených gólov</span>
-            </div>
-            <div className={styles.statCard}>
-              <strong>42</strong>
-              <span>získaných bodov</span>
-            </div>
+            <h3>{article.title}</h3>
           </div>
-        </section>
+        </Link>
+      ))}
+    </div>
 
-        <section className={styles.mainSection}>
-          <div className={styles.container}>
-            <div className={styles.contentGrid}>
-              <div className={styles.leftColumn}>
-                <div className={styles.block}>
-                  <div className={styles.blockHeader}>
-                    <div>
-                      <span className={styles.sectionEyebrow}>Tabuľka</span>
-                      <h2>Aktuálne poradie ligy</h2>
-                    </div>
-                    <Link href="/tabulka" className={styles.linkButton}>
-                      Celá tabuľka
-                    </Link>
-                  </div>
+    <div className={styles.topNewsBottom}>
+      {topArticles.slice(3, 5).map((article) => (
+        <Link key={article.id} href={article.slug} className={styles.topNewsBottomCard}>
+          <div className={styles.topNewsBottomImageWrap}>
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              className={styles.cardImage}
+            />
+          </div>
 
-                  <div className={styles.tableWrapper}>
-                    <table className={styles.table}>
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Tím</th>
-                          <th>Z</th>
-                          <th>V</th>
-                          <th>P</th>
-                          <th>Skóre</th>
-                          <th>Body</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {standings.map((team) => (
-                          <tr
-                            key={team.pos}
-                            className={team.team === "ATU Košice" ? styles.highlightRow : ""}
-                          >
-                            <td>{team.pos}</td>
-                            <td>{team.team}</td>
-                            <td>{team.played}</td>
-                            <td>{team.wins}</td>
-                            <td>{team.losses}</td>
-                            <td>{team.goals}</td>
-                            <td>{team.points}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+          <div className={styles.topNewsBottomContent}>
+            <div className={styles.metaRow}>
+              <span className={styles.smallBadge}>{article.category}</span>
+              <span>{article.date}</span>
+            </div>
+            <h3>{article.title}</h3>
+            <p>{article.excerpt}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
 
-                <div className={styles.block}>
-                  <div className={styles.blockHeader}>
-                    <div>
-                      <span className={styles.sectionEyebrow}>Zápasy</span>
-                      <h2>Najbližší program</h2>
-                    </div>
-                    <Link href="/zapas" className={styles.linkButton}>
-                      Všetky zápasy
-                    </Link>
-                  </div>
+        <section className={styles.dashboardSection}>
+          <div className={styles.dashboardGrid}>
+            <div className={styles.panel}>
+              <div className={styles.panelHeader}>
+                <span className={styles.sectionEyebrow}>Liga</span>
+                <h3>Aktuálna tabuľka</h3>
+              </div>
 
-                  <div className={styles.matchList}>
-                    {matches.map((match) => (
-                      <article key={`${match.date}-${match.home}-${match.away}`} className={styles.matchRow}>
-                        <div className={styles.matchDate}>
-                          <strong>{match.date}</strong>
-                          <span>{match.time}</span>
-                        </div>
-
-                        <div className={styles.matchInfo}>
-                          <span className={styles.matchCompetition}>{match.competition}</span>
-                          <h3>
-                            {match.home} <span className={styles.vs}>vs</span> {match.away}
-                          </h3>
-                          <p>{match.venue}</p>
-                        </div>
-
-                        <div className={styles.matchAction}>
-                          <Link href="/zapas" className={styles.smallButton}>
-                            Detail
-                          </Link>
-                        </div>
-                      </article>
+              <div className={styles.tableWrap}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Tím</th>
+                      <th>Z</th>
+                      <th>Skóre</th>
+                      <th>B</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {standings.map((team) => (
+                      <tr
+                        key={team.pos}
+                        className={team.team === "ATU Košice" ? styles.highlightRow : ""}
+                      >
+                        <td>{team.pos}</td>
+                        <td>{team.team}</td>
+                        <td>{team.matches}</td>
+                        <td>{team.score}</td>
+                        <td>{team.points}</td>
+                      </tr>
                     ))}
-                  </div>
-                </div>
+                  </tbody>
+                </table>
               </div>
+            </div>
 
-              <aside className={styles.rightColumn}>
-                <div className={styles.sidebarBlock}>
-                  <div className={styles.blockHeaderSmall}>
-                    <div>
-                      <span className={styles.sectionEyebrow}>Novinky</span>
-                      <h2>Najnovšie články</h2>
+            <div className={styles.sideStack}>
+              <div className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <span className={styles.sectionEyebrow}>Program</span>
+                  <h3>Najbližšie zápasy</h3>
+                </div>
+
+                <div className={styles.matchList}>
+                  {nextMatches.map((match, index) => (
+                    <div key={index} className={styles.matchCard}>
+                      <div className={styles.matchDate}>
+                        <strong>{match.date}</strong>
+                        <span>{match.time}</span>
+                      </div>
+                      <div className={styles.matchInfo}>
+                        <h4>ATU Košice vs {match.opponent}</h4>
+                        <p>{match.competition}</p>
+                        <span>{match.venue}</span>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className={styles.articleList}>
-                    {articles.map((article) => (
-                      <article key={article.title} className={styles.articleItem}>
-                        <Link href={article.href} className={styles.articleImageWrap}>
-                          <Image
-                            src={article.image}
-                            alt={article.title}
-                            width={140}
-                            height={100}
-                            className={styles.articleImage}
-                          />
-                        </Link>
-
-                        <div className={styles.articleContent}>
-                          <div className={styles.articleMeta}>
-                            <span>{article.category}</span>
-                            <span>{article.date}</span>
-                          </div>
-                          <h3>
-                            <Link href={article.href}>{article.title}</Link>
-                          </h3>
-                          <p>{article.excerpt}</p>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-              </aside>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.gallerySection}>
-          <div className={styles.container}>
-            <div className={styles.blockHeader}>
-              <div>
-                <span className={styles.sectionEyebrow}>Galéria</span>
-                <h2>Fotografie z klubu</h2>
               </div>
-              <Link href="/galeria" className={styles.linkButton}>
-                Otvoriť galériu
-              </Link>
-            </div>
 
-            <div className={styles.galleryGrid}>
-              {gallery.map((image) => (
-                <div key={image} className={styles.galleryCard}>
-                  <Image
-                    src={image}
-                    alt="Fotografia ATU Košice"
-                    width={500}
-                    height={350}
-                    className={styles.galleryImage}
-                  />
+              <div className={`${styles.panel} ${styles.playerPanel}`}>
+                <div className={styles.panelHeader}>
+                  <span className={styles.sectionEyebrow}>Klubová anketa</span>
+                  <h3>Hráč mesiaca</h3>
                 </div>
-              ))}
+
+                <div className={styles.playerOfMonth}>
+                  <div className={styles.playerAvatar}>19</div>
+                  <div>
+                    <h4>Martin Novák</h4>
+                    <p>Útočník • A-tím</p>
+                    <span>6 gólov • 4 asistencie • líder tímu v marci</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className={styles.partnersSection}>
-          <div className={styles.container}>
-            <div className={styles.partnersHeader}>
-              <span className={styles.sectionEyebrow}>Partneri a sponzori</span>
-              <h2>Ďakujeme partnerom za podporu</h2>
+        <section className={styles.contentSection}>
+          <div className={styles.contentGrid}>
+            <div className={styles.leftColumn}>
+              <div className={styles.sectionHeader}>
+                <div>
+                  <span className={styles.sectionEyebrow}>Klubový blog</span>
+                  <h2>Ďalšie novinky a články</h2>
+                </div>
+              </div>
+
+              <div className={styles.postsGrid}>
+                {latestPosts.map((post) => (
+                  <Link key={post.id} href={post.slug} className={styles.postCard}>
+                    <div className={styles.postImageWrap}>
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className={styles.cardImage}
+                      />
+                    </div>
+                    <div className={styles.postContent}>
+                      <div className={styles.metaRow}>
+                        <span className={styles.smallBadge}>{post.category}</span>
+                        <span>{post.date}</span>
+                      </div>
+                      <h3>{post.title}</h3>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            <div className={styles.partnersGrid}>
-              {partners.map((partner, index) => (
-                <div key={index} className={styles.partnerCard}>
-                  <Image
-                    src={partner}
-                    alt={`Partner ${index + 1}`}
-                    width={180}
-                    height={90}
-                    className={styles.partnerLogo}
-                  />
+            <aside className={styles.rightColumn}>
+              <div className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <span className={styles.sectionEyebrow}>Výsledky</span>
+                  <h3>Posledné zápasy</h3>
                 </div>
-              ))}
-            </div>
+
+                <div className={styles.resultsList}>
+                  {results.map((result, index) => (
+                    <div key={index} className={styles.resultCard}>
+                      <div>
+                        <strong>{result.home}</strong>
+                        <span>vs</span>
+                        <strong>{result.away}</strong>
+                      </div>
+                      <div className={styles.resultScore}>{result.score}</div>
+                      <small>{result.date}</small>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <span className={styles.sectionEyebrow}>Kategórie</span>
+                  <h3>Naše tímy</h3>
+                </div>
+
+                <div className={styles.categoryList}>
+                  {categories.map((category) => (
+                    <Link key={category} href="/timy" className={styles.categoryPill}>
+                      {category}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.panel}>
+                <div className={styles.panelHeader}>
+                  <span className={styles.sectionEyebrow}>Partneri</span>
+                  <h3>Podporujú nás</h3>
+                </div>
+
+                <div className={styles.sponsorsGrid}>
+                  {sponsors.map((sponsor) => (
+                    <div key={sponsor} className={styles.sponsorCard}>
+                      {sponsor}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
       </main>
