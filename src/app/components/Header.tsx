@@ -123,7 +123,7 @@ export default function Header() {
                         <Link href="/kategorie/starsi_ziaci">Starší žiaci</Link>
                         <Link href="/kategorie/dorast">Dorast</Link>
                         <Link href="/kategorie/juniori">Juniori</Link>
-                        <Link href="/kategorie/muzi" className={styles.columnTitle}></Link>
+                        <Link href="/kategorie/muzi">Muži</Link>
 
 
                       </div>
