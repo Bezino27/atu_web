@@ -30,21 +30,25 @@ export default function Header() {
     setIsOpen(false);
   };
 
-  useEffect(() => {
+ useEffect(() => {
   const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setShowTopBar(false);
-    } else {
-      setShowTopBar(true);
-    }
+    const shouldShow = window.scrollY <= 50;
+    setShowTopBar((prev) => {
+      if (prev !== shouldShow) return shouldShow;
+      return prev;
+    });
   };
 
   window.addEventListener("scroll", handleScroll);
 
   return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+}, []);
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${
+        !showTopBar ? styles.headerShifted : ""
+      }`}
+    >
       <div className={`${styles.topBar} ${!showTopBar ? styles.topBarHidden : ""}`}>
         <div className={styles.container}>
           <div className={styles.topBarInner}>
