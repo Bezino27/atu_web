@@ -87,8 +87,7 @@ export default function Header() {
               </div>
 
               <div className={styles.logoText}>
-                <strong>ATU Košice</strong>
-                <span>Florbalový klub</span>
+                <strong>FaBK ATU Košice</strong>
               </div>
             </Link>
 
@@ -143,7 +142,7 @@ export default function Header() {
 
             <div className={styles.actions}>
               <Link href="/kontakt" className={styles.ctaButton}>
-                Pridať sa k nám
+                Pridaj sa k nám
               </Link>
 
               <button
@@ -177,7 +176,7 @@ export default function Header() {
             ))}
 
             <Link href="/kontakt" className={styles.mobileCta} onClick={closeMenu}>
-              Pridať sa k nám
+              Pridaj sa k nám
             </Link>
           </nav>
         </div>

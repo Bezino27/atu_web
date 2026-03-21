@@ -1,44 +1,200 @@
 .novinkySection {
   width: 100%;
-  padding: 80px 0; /* veľký spacing medzi sekciami */
+  padding: 80px 0;
+  background-color: #ffffff;
 }
 
 .container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.title {
-  font-size: 32px;
+.mainTitle {
+  font-family: var(--font-geist-sans);
+  font-weight: 850; /* Ešte o niečo hrubšie pre športový vzhľad */
+  font-size: clamp(2rem, 4vw, 3rem); /* Mierne zväčšené */
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  text-transform: none;
+  text-align: left;
+  
+  /* Zarovnanie a medzery */
+  margin-top: 0;
+  margin-bottom: 40px; /* Väčšia medzera od karty pre "dýchanie" */
+  position: relative;
+  
+  /* Červená linka */
+  padding-left: 25px; 
+  border-left: 6px solid #e63946;
+  
+  /* Fix pre zarovnanie: ak chceš, aby TEXT lícoval s fotkou, 
+     musíš nadpis posunúť o šírku linky a paddingu doľava */
+  margin-left: -31px; /* (6px linka + 25px padding) */
+}
+@media (max-width: 768px) {
+  .mainTitle {
+    margin-left: 0; /* Na mobile vrátime späť, aby to neutieklo z displeja */
+    padding-left: 15px;
+    border-left-width: 4px;
+    font-size: 1.8rem;
+  }
+}
+.preTitle {
+  display: block;
+  color: #e63946;
   font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 40px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.novinkySection {
+  width: 100%;
+  padding: 30px 0 80px 0; /* 30px hore, 0 po bokoch, 80px dole */
+  background-color: #ffffff;
 }
 
+/* --- SPOLOČNÉ NASTAVENIA PRE VŠETKY KARTY --- */
+.heroCard, .card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #000;
+  transition: box-shadow 0.3s ease;
+}
+
+.heroCard:hover, .card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Efekt pre obrázok (zoom) - platí pre všetky */
+.img {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.heroCard:hover .img, 
+.card:hover .img {
+  transform: scale(1.08); /* Jemné priblíženie pri hoveri */
+}
+
+/* Spoločný posun obsahu nahor */
+.heroOverlay, .cardOverlay {
+  transition: background 0.4s ease;
+}
+
+.heroTitle, .heroDescription, .metaRow,
+.cardTitle, .cardDescription, .metaRowSmall {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.heroDescription {
+  color: rgba(255, 255, 255, 0.9); /* Biela s 90% viditeľnosťou */
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 800px;
+  margin-top: 10px;
+}
+
+/* Reakcia na hover - posun textových prvkov */
+.heroCard:hover .heroTitle,
+.heroCard:hover .heroDescription,
+.heroCard:hover .metaRow,
+.card:hover .cardTitle,
+.card:hover .cardDescription,
+.card:hover .metaRowSmall {
+  transform: translateY(-8px);
+}
+.cardDescription {
+  color: rgba(255, 255, 255, 0.85); /* Trochu jemnejšia biela pre menšie karty */
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 5px;
+}
+.heroCard:hover .heroDescription,
+.card:hover .cardDescription {
+  color: #ffffff; /* Úplne čistá biela pri hoveri */
+}
+/* --- ŠPECIFICKÉ ÚPRAVY PRE HERO --- */
+.heroCard {
+  margin-top: 10px; /* Priblížime kartu k nadpisu */
+  /* Pridáme jemný vnútorný tieň navrchu, aby lepšie sedela */
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.05), 0 20px 40px rgba(0,0,0,0.2);
+  height: 600px;
+  border-radius: 40px;
+  margin-bottom: 24px;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* --- ŠPECIFICKÉ ÚPRAVY PRE GRID --- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 vedľa seba */
-  gap: 24px; /* rovnaké medzery */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
+  height: 280px;
+  border-radius: 30px;
 }
 
-.image {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 16px;
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.95) 5%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* --- TEXTY A BADGE --- */
+.badge, .badgeSmall {
+  background: #e63946;
+  color: white;
+  font-weight: 800;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.dateText, .dateTextSmall {
+  color: #fff;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.heroTitle {
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 10px 0;
 }
 
 .cardTitle {
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0;
 }

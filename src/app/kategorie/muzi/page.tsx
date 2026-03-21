@@ -2,9 +2,9 @@ import React from "react";
 import styles from "../kategorie.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import NasledujuceZapasy from "./nasledujuce_zapasy/Nasledujuce_zapasy";
+import NasledujuceZapasy from "./nasledujuce_zapasy/page";
 import Image from "next/image";
-import Novinky from "./novinky/novinky";
+import Novinky from "./novinky/page";
 
 const matches = [
   {
