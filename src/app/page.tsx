@@ -4,115 +4,13 @@ import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
+import { getHomepagePosts, type Post } from "./lib/posts";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:
     "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
 };
-
-const topArticles = [
-  {
-    id: 1,
-    title: "ATU Košice mieri do play-off. Klub žije florbalom a čaká nás veľký záver sezóny",
-    excerpt:
-      "A-tím zvládol dôležitú časť sezóny, mládež pokračuje vo výborných výkonoch a fanúšikov čakajú rozhodujúce zápasy. Pozri si, čo všetko sa aktuálne deje v klube a čo nás čaká v najbližších týždňoch.",
-    image: "/images/news1.jpg",
-    category: "Hlavná udalosť",
-    date: "20. marec 2026",
-    slug: "/clanky/atu-kosice-mieri-do-playoff",
-  },
-  {
-    id: 2,
-    title: "Pozvánka na najbližší domáci zápas proti FK Florko",
-    excerpt:
-      "Dôležitý duel pred domácimi fanúšikmi sa blíži. Príď podporiť ATU Košice v ďalšom ligovom stretnutí.",
-    image: "/images/news1.jpg",
-    category: "Pozvánka",
-    date: "19. marec 2026",
-    slug: "/clanky/pozvanka-na-domaci-zapas-florko",
-  },
-  {
-    id: 3,
-    title: "Mládežnícke tímy zbierajú cenné výhry a skúsenosti",
-    excerpt:
-      "Počas víkendu sa darilo aj našim mládežníckym kategóriám, ktoré pokračujú v kvalitných výkonoch.",
-    image: "/images/news1.jpg",
-    category: "Mládež",
-    date: "18. marec 2026",
-    slug: "/clanky/mladeznicke-timy-zbieraju-vyhry",
-  },
-  {
-    id: 4,
-    title: "ATU Košice zvládlo derby a berie dôležité 3 body",
-    excerpt:
-      "Napínavý zápas rozhodol tretí útok v závere tretej tretiny. Pozri si priebeh stretnutia, góly a reakcie hráčov.",
-    image: "/images/news1.jpg",
-    category: "A-tím",
-    date: "18. marec 2026",
-    slug: "/clanky/atu-kosice-zvladlo-derby",
-  },
-  {
-    id: 5,
-    title: "Rozhovor s trénerom: Čo chceme zlepšiť pred play-off",
-    excerpt:
-      "Tréner otvorene o aktuálnej forme tímu, disciplíne, nomináciách a cieľoch do ďalších týždňov.",
-    image: "/images/news1.jpg",
-    category: "Rozhovor",
-    date: "14. marec 2026",
-    slug: "/clanky/rozhovor-s-trenerom-playoff",
-  },
-];
-const latestPosts = [
-  {
-    id: 4,
-    title: "Fotogaléria z posledného domáceho zápasu",
-    image: "/images/news1.jpg",
-    date: "12. marec 2026",
-    category: "Galéria",
-    slug: "/clanky/fotogaleria-domaci-zapas",
-  },
-  {
-    id: 5,
-    title: "Juniori získali cenné body na palubovke súpera",
-    image: "/images/news1.jpg",
-    date: "10. marec 2026",
-    category: "Juniori",
-    slug: "/clanky/juniori-ziskali-cenne-body",
-  },
-  {
-    id: 6,
-    title: "Prípravka má za sebou ďalší úspešný turnaj",
-    image: "/images/news1.jpg",
-    date: "8. marec 2026",
-    category: "Prípravka",
-    slug: "/clanky/pripravka-uspesny-turnaj",
-  },
-  {
-    id: 7,
-    title: "Klub spúšťa nábor nových hráčov do mládeže",
-    image: "/images/news1.jpg",
-    date: "6. marec 2026",
-    category: "Klub",
-    slug: "/clanky/nabor-novych-hracov",
-  },
-  {
-    id: 8,
-    title: "Ako prebiehala zimná príprava nášho A-tímu",
-    image: "/images/news1.jpg",
-    date: "4. marec 2026",
-    category: "A-tím",
-    slug: "/clanky/zimna-priprava-a-timu",
-  },
-  {
-    id: 9,
-    title: "Pozvánka na víkendové domáce zápasy",
-    image: "/images/news1.jpg",
-    date: "2. marec 2026",
-    category: "Pozvánka",
-    slug: "/clanky/pozvanka-na-vikend",
-  },
-];
 
 const standings = [
   { pos: 1, team: "ATU Košice", matches: 18, points: 42, score: "98:51" },
@@ -184,97 +82,123 @@ const sponsors = [
   "Hlavný partner",
 ];
 
-export default function HomePage() {
+function formatDate(dateString?: string) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toLocaleDateString("sk-SK", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function getImageUrl(image?: string | null) {
+  if (!image) return "/images/news1.jpg";
+
+  if (image.startsWith("http://") || image.startsWith("https://")) {
+    return image;
+  }
+
+  const apiUrl = process.env.API_URL || "http://127.0.0.1:8000/api";
+  const backendBase = apiUrl.replace("/api", "");
+
+  return `${backendBase}${image}`;
+}
+
+export default async function HomePage() {
+  const posts: Post[] = await getHomepagePosts("atu-kosice");
+
+  const heroArticle: Post | undefined = posts[0];
+  const sideArticles: Post[] = posts.slice(1, 3);
+
+  // spodná sekcia bude zobrazovať všetko od 6. článku ďalej
+  const latestPosts: Post[] = posts.slice(3);
+
   return (
     <>
       <Header />
 
       <main className={styles.page}>
-       
-
         <section className={styles.topNewsSection}>
-  <div className={styles.sectionHeader}>
-    <div>
-      <span className={styles.sectionEyebrow}>Top obsah</span>
-      <h2>Najnovšie a najdôležitejšie články</h2>
-    </div>
-    <Link href="/clanky" className={styles.sectionLink}>
-      Všetky články
-    </Link>
-  </div>
-
-  <div className={styles.topNewsGrid}>
-    <Link href={topArticles[0].slug} className={styles.topNewsMain}>
-      <div className={styles.topNewsMainImageWrap}>
-        <Image
-          src={topArticles[0].image}
-          alt={topArticles[0].title}
-          fill
-          className={styles.cardImage}
-          priority
-        />
-        <div className={styles.imageOverlay} />
-      </div>
-
-      <div className={styles.topNewsMainContent}>
-        <div className={styles.metaRow}>
-          <span className={styles.badge}>{topArticles[0].category}</span>
-          <span>{topArticles[0].date}</span>
-        </div>
-        <h1>{topArticles[0].title}</h1>
-        <p>{topArticles[0].excerpt}</p>
-      </div>
-    </Link>
-
-    <div className={styles.topNewsSide}>
-      {topArticles.slice(1, 3).map((article) => (
-        <Link key={article.id} href={article.slug} className={styles.topNewsSmall}>
-          <div className={styles.topNewsSmallImageWrap}>
-            <Image
-              src={article.image}
-              alt={article.title}
-              fill
-              className={styles.cardImage}
-            />
-            <div className={styles.imageOverlay} />
-          </div>
-
-          <div className={styles.topNewsSmallContent}>
-            <div className={styles.metaRow}>
-              <span className={styles.badge}>{article.category}</span>
-              <span>{article.date}</span>
+          <div className={styles.sectionHeader}>
+            <div>
+              <span className={styles.sectionEyebrow}>Top obsah</span>
+              <h2>Najnovšie a najdôležitejšie články</h2>
             </div>
-            <h3>{article.title}</h3>
-          </div>
-        </Link>
-      ))}
-    </div>
-
-    <div className={styles.topNewsBottom}>
-      {topArticles.slice(3, 5).map((article) => (
-        <Link key={article.id} href={article.slug} className={styles.topNewsBottomCard}>
-          <div className={styles.topNewsBottomImageWrap}>
-            <Image
-              src={article.image}
-              alt={article.title}
-              fill
-              className={styles.cardImage}
-            />
+            <Link href="/clanky" className={styles.sectionLink}>
+              Všetky články
+            </Link>
           </div>
 
-          <div className={styles.topNewsBottomContent}>
-            <div className={styles.metaRow}>
-              <span className={styles.smallBadge}>{article.category}</span>
-              <span>{article.date}</span>
+          {heroArticle && (
+            <div className={styles.topNewsGrid}>
+              <Link href={`/clanky/${heroArticle.slug}`} className={styles.topNewsMain}>
+                <div className={styles.topNewsMainImageWrap}>
+                  <Image
+                    src={getImageUrl(heroArticle.featured_image)}
+                    alt={heroArticle.title}
+                    fill
+                    className={styles.cardImage}
+                    priority
+                    unoptimized
+                  />
+                  <div className={styles.imageOverlay} />
+                </div>
+
+                <div className={styles.topNewsMainContent}>
+                  <div className={styles.metaRow}>
+                    <span className={styles.badge}>
+                      {heroArticle.category?.name || "Novinka"}
+                    </span>
+                    <span>{formatDate(heroArticle.published_at)}</span>
+                  </div>
+                  <h1>{heroArticle.title}</h1>
+                  <p>{heroArticle.excerpt || ""}</p>
+                </div>
+              </Link>
+
+              {sideArticles.length > 0 && (
+                <div className={styles.topNewsSide}>
+                  {sideArticles.map((article: Post) => (
+                    <Link
+                      key={article.id}
+                      href={`/clanky/${article.slug}`}
+                      className={styles.topNewsSmall}
+                    >
+                      <div className={styles.topNewsSmallImageWrap}>
+                        <Image
+                          src={getImageUrl(article.featured_image)}
+                          alt={article.title}
+                          fill
+                          className={styles.cardImage}
+                          unoptimized
+                        />
+                        <div className={styles.imageOverlay} />
+                      </div>
+
+                      <div className={styles.topNewsSmallContent}>
+                        <div className={styles.metaRow}>
+                          <span className={styles.badge}>
+                            {article.category?.name || "Novinka"}
+                          </span>
+                          <span>{formatDate(article.published_at)}</span>
+                        </div>
+                        <h3>{article.title}</h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+
             </div>
-            <h3>{article.title}</h3>
-            <p>{article.excerpt}</p>
-          </div>
-        </Link>
-      ))}
-    </div>
-  </div>
-</section>
+          )}
+        </section>
 
         <section className={styles.dashboardSection}>
           <div className={styles.dashboardGrid}>
@@ -366,27 +290,36 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className={styles.postsGrid}>
-                {latestPosts.map((post) => (
-                  <Link key={post.id} href={post.slug} className={styles.postCard}>
-                    <div className={styles.postImageWrap}>
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className={styles.cardImage}
-                      />
-                    </div>
-                    <div className={styles.postContent}>
-                      <div className={styles.metaRow}>
-                        <span className={styles.smallBadge}>{post.category}</span>
-                        <span>{post.date}</span>
+              {latestPosts.length > 0 ? (
+                <div className={styles.postsGrid}>
+                  {latestPosts.map((post: Post) => (
+                    <Link key={post.id} href={`/clanky/${post.slug}`} className={styles.postCard}>
+                      <div className={styles.postImageWrap}>
+                        <Image
+                          src={getImageUrl(post.featured_image)}
+                          alt={post.title}
+                          fill
+                          className={styles.cardImage}
+                          unoptimized
+                        />
                       </div>
-                      <h3>{post.title}</h3>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                      <div className={styles.postContent}>
+                        <div className={styles.metaRow}>
+                          <span className={styles.smallBadge}>
+                            {post.category?.name || "Novinka"}
+                          </span>
+                          <span>{formatDate(post.published_at)}</span>
+                        </div>
+                        <h3>{post.title}</h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.emptyPosts}>
+                  Zatiaľ nie sú k dispozícii ďalšie články.
+                </div>
+              )}
             </div>
 
             <aside className={styles.rightColumn}>

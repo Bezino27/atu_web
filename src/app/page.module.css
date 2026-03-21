@@ -417,6 +417,15 @@
   padding: 18px;
 }
 
+.emptyPosts {
+  padding: 28px;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 1px solid #ececec;
+  color: #666;
+  font-size: 15px;
+}
+
 .postContent h3 {
   margin: 12px 0 0;
   font-size: 1.15rem;
