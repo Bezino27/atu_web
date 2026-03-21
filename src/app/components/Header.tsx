@@ -117,7 +117,6 @@ export default function Header() {
                     <div className={styles.dropdownContent}>
 
                       <div>
-                        <p className={styles.columnTitle}>Mládež</p>
                         <Link href="/kategorie/pripravky">Prípravky</Link>
                         <Link href="/kategorie/mladsi_ziaci">Mladší žiaci</Link>
                         <Link href="/kategorie/starsi_ziaci">Starší žiaci</Link>

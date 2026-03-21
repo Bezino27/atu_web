@@ -1,0 +1,297 @@
+.page {
+  background: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  gap: 60px; /* Zväčšený priestor medzi sekciami pre čistejší look */
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #111;
+  border-left: 4px solid #e3242b; /* Športový červený akcent podľa webu */
+  padding-left: 12px;
+}
+
+/* --- HERO --- */
+.hero {
+  width: 100vw; /* plná šírka obrazovky */
+  margin-left: calc(-50vw + 50%); /* aby sa vyrovnal centrálny container */
+  position: relative;
+  height: 350px;
+  border-radius: 0; /* full width nemá border-radius */
+  background: url("https://placehold.co/1920x400/222/fff?text=Timova+Fotka") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.hero h1 { font-size: 48px; font-weight: 800; margin: 0; text-transform: uppercase; }
+.hero p { font-size: 18px; margin: 12px 0 24px; opacity: 0.9; }
+
+.primaryBtn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: #e3242b; /* ATU červená */
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.primaryBtn:hover { background: #c21e25; }
+
+/* --- QUICK INFO --- */
+.quickInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.infoCard {
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #eee;
+}
+
+.infoLabel { font-size: 13px; color: #666; text-transform: uppercase; margin-bottom: 8px; }
+.infoCard strong { font-size: 18px; color: #111; }
+
+/* --- NEWS --- */
+.newsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.newsCard {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  border: 1px solid #eee;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.newsCard:hover { transform: translateY(-4px); }
+
+.newsImagePlaceholder {
+  height: 180px;
+  background: #e0e0e0;
+}
+
+.newsContent { padding: 20px; }
+.newsTag {
+  background: #ffe5e6;
+  color: #e3242b;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 12px;
+}
+.newsDate { font-size: 13px; color: #888; }
+.newsContent h3 { margin: 12px 0 0; font-size: 18px; color: #111; line-height: 1.4; }
+
+/* --- TABS & MATCHES --- */
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.tabBtn {
+  padding: 10px 20px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 20px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activeTab {
+  background: #111;
+  color: #fff;
+}
+
+.matchesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.matchCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  border: 1px solid #eee;
+}
+
+.matchTeams { font-weight: 700; font-size: 16px; color: #111; display: flex; justify-content: center; gap: 8px;}
+.vs { color: #888; font-weight: 400; }
+.score { font-size: 32px; font-weight: 800; color: #e3242b; margin: 12px 0; }
+.upcomingTime { font-size: 16px; font-weight: 600; color: #555; margin: 16px 0; }
+.date { font-size: 14px; color: #666; }
+
+/* --- ROSTER --- */
+.rosterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.playerCard {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  border: 1px solid #eee;
+  text-align: center;
+}
+
+.playerPhotoPlaceholder {
+  height: 220px;
+  background: #f5f5f5;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.playerNumber {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #111;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.playerInfo { padding: 16px; }
+.playerInfo h4 { margin: 0 0 4px; font-size: 18px; color: #111; }
+.playerInfo p { margin: 0; font-size: 14px; color: #666; }
+
+/* --- STATS --- */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.statCard {
+  background: #111;
+  color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statLabel { font-size: 12px; text-transform: uppercase; color: #aaa; margin-bottom: 12px; letter-spacing: 1px;}
+.statValue { font-size: 28px; font-weight: 800; color: #e3242b; margin-bottom: 4px; }
+.statName { font-size: 16px; font-weight: 500; }
+/* =========================================
+   RESPONZIVITA - ÚPRAVY PRE PC A TABLETY
+   ========================================= */
+
+/* Pre menšie mobily (jemné doladenie) */
+@media (max-width: 767px) {
+  .hero {
+    height: 300px;
+  }
+  .hero h1 {
+    font-size: 36px;
+  }
+  .quickInfo {
+    grid-template-columns: repeat(2, 1fr); /* 2 stĺpce na mobile (ako máš na screene) */
+  }
+  .newsGrid, .matchesGrid, .rosterGrid, .statsGrid {
+    grid-template-columns: 1fr; /* Na mobile pekne pod sebou */
+  }
+}
+
+/* Pre Tablety a PC (všetko nad 768px) */
+@media (min-width: 768px) {
+  .page {
+    padding: 60px 40px; /* Viac priestoru po krajoch na veľkej obrazovke */
+  }
+
+  /* Zväčšenie Hero sekcie pre profi "wow" efekt na PC */
+  .hero {
+    height: 480px; 
+  }
+  .hero h1 {
+    font-size: 64px;
+  }
+  .hero p {
+    font-size: 22px;
+  }
+
+  /* Quick Info roztiahneme do 1 riadku (4 karty vedľa seba) */
+  .quickInfo {
+    grid-template-columns: repeat(4, 1fr); 
+  }
+
+  /* Novinky budú 3 vedľa seba */
+  .newsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Zápasy môžeme dať 2 vedľa seba (aby neboli zbytočne široké) */
+  .matchesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Súpiska - 4 hráči v jednom riadku */
+  .rosterGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Štatistiky - 3 lídri vedľa seba */
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Pre veľmi veľké monitory (nad 1200px) môžeme pridať ešte drobné úpravy */
+@media (min-width: 1200px) {
+  .matchesGrid {
+    grid-template-columns: repeat(4, 1fr); /* Ak chceš 4 zápasy vedľa seba na ultra širokom monitore */
+  }
+}
