@@ -11,42 +11,37 @@ const player = {
 
 export default function TopPlayer() {
   return (
-    <div className={styles.card}>
-      <div className={styles.accentLine} />
-
-      <div className={styles.header}>
-        <div className={styles.headerBar} />
-        <span className={styles.headerText}>Najlepší hráč</span>
-      </div>
-
-      <div className={styles.bigNumber}>{player.number}</div>
-
-      <div className={styles.info}>
-        <span className={styles.playerName}>{player.name}</span>
-        <span className={styles.playerPosition}>{player.position}</span>
-      </div>
-
-      <div className={styles.mvpBadge}>
-        <div className={styles.mvpDot} />
-        <span className={styles.mvpText}>Hviezda sezóny</span>
-      </div>
-
-      <div className={styles.divider} />
-
-      <div className={styles.stats}>
-        {[
-          { label: "Góly", value: player.goals, accent: true },
-          { label: "Asistencie", value: player.assists, accent: false },
-          { label: "Úsp. striel.", value: player.shotAcc, accent: true },
-        ].map((s, i) => (
-          <div key={i} className={styles.stat}>
-            <div className={`${styles.statValue} ${s.accent ? styles.statValueAccent : styles.statValueNeutral}`}>
-              {s.value}
-            </div>
-            <div className={styles.statLabel}>{s.label}</div>
-          </div>
-        ))}
-      </div>
+<div className={styles.mvpCard}>
+  {/* Horná časť: Číslo a Text oddelene */}
+  <div className={styles.topSection}>
+    <div className={styles.numberBox}>
+      <span className={styles.bigNumber}>77</span>
     </div>
+    
+    <div className={styles.infoBox}>
+      <span className={styles.mvpTitle}>MVP</span>
+      <h2 className={styles.playerName}>Ondrej Duda</h2>
+      <span className={styles.playerPosition}>Útočník</span>
+    </div>
+  </div>
+
+  {/* Štatistiky - teraz majú viac priestoru */}
+  <div className={styles.statsGrid}>
+    <div className={styles.statBox}>
+      <span className={styles.statValue}>12</span>
+      <span className={styles.statLabel}>Góly</span>
+    </div>
+    
+    <div className={styles.statBox}>
+      <span className={styles.statValue}>7</span>
+      <span className={styles.statLabel}>Asistencie</span>
+    </div>
+    
+    <div className={styles.statBox}>
+      <span className={styles.statValue}>81%</span>
+      <span className={styles.statLabel}>Úsp. striel</span>
+    </div>
+  </div>
+</div>
   );
 }

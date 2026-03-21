@@ -1,157 +1,104 @@
-.card {
-  background: linear-gradient(135deg, #fff5f5 0%, #ffffff 60%, #fff0f0 100%);
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&display=swap');
+
+.mvpCard {
+  /* Gradient cez celú kartu: z jemnej béžovo-šedej do čistej bielej */
+  background: linear-gradient(135deg, #838483 0%, #c7c5c5 40%, #e7e6e6 100%);
   border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(230, 57, 70, 0.12);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
   position: relative;
-  height: fit-content;
-  border: 1px solid rgba(230, 57, 70, 0.1);
+  overflow: hidden;
+  font-family: 'Barlow Condensed', sans-serif;
+  max-width: 450px;
+  border: 1px solid rgba(255, 255, 255, 0.446); /* Jemný lesk na hrane */
 }
 
-.accentLine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: #e63946;
-}
-
-.header {
-  padding: 24px 28px 0;
+/* Horná sekcia je teraz priehľadná, aby vynikol gradient pozadia */
+.topSection {
   display: flex;
   align-items: center;
-  gap: 10px;
+  padding: 35px 30px;
+  gap: 20px;
 }
 
-.headerBar {
-  display: none;
-}
-
-.headerText {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #e63946;
-  text-transform: uppercase;
-  font-family: 'Barlow Condensed', sans-serif;
+.numberBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
 }
 
 .bigNumber {
-  font-size: 160px;
+  font-size: 110px;
   font-weight: 900;
-  color: rgba(230, 57, 70, 0.25);
-  line-height: 1;
-  letter-spacing: -10px;
-  padding: 0 20px;
-  margin-top: -4px;
-  user-select: none;
-  font-family: 'Barlow Condensed', sans-serif;
+  color: #111;
+  line-height: 0.8;
+  opacity: 0.4; /* Číslo je v pozadí gradientu */
 }
 
-.info {
-  padding: 0 28px 20px;
-  margin-top: -38px;
+.infoBox {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  position: relative;
-  z-index: 1;
+}
+
+.mvpTitle {
+  font-size: 22px; /* Väčšie MVP */
+  font-weight: 900;
+  color: #e63946;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.playerName {
+  font-size: 42px;
+  font-weight: 900;
+  color: #111;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .playerPosition {
-  font-size: 11px;
-  font-weight: 700;
-  color: #373737;
+  font-size: 15px;
+  font-weight: 900;
+  color: #292727;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  font-family: 'Barlow Condensed', sans-serif;
+  margin-top: 6px;
 }
 
-.statLabel {
-  font-size: 9px;
-  font-weight: 600;
-  color: #373737;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  font-family: 'Barlow Condensed', sans-serif;
-}
-
-.mvpBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #e63946;
-  border: none;
-  border-radius: 20px;
-  padding: 5px 14px;
-  margin: 0 28px 20px;
-  width: fit-content;
-}
-
-.mvpDot {
-  display: none;
-}
-
-.mvpText {
-  font-size: 10px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-family: 'Barlow Condensed', sans-serif;
-}
-
-.divider {
-  height: 1px;
-  background: rgba(230, 57, 70, 0.1);
-  margin: 0 28px;
-}
-
-.stats {
+/* Štatistiky na bielom podklade, aby na gradiente vynikli */
+.statsGrid {
   display: flex;
-  padding: 16px 16px 20px;
-  gap: 8px;
+  padding: 0 25px 30px;
+  gap: 12px;
 }
 
-.stat {
+.statBox {
   flex: 1;
+  background: rgba(255, 255, 255, 0.8); /* Polopriehľadná biela */
+  backdrop-filter: blur(5px); /* Jemný efekt skla nad gradientom */
+  padding: 18px 5px;
+  border-radius: 18px;
   text-align: center;
-  padding: 12px 8px;
-  position: relative;
-  background: rgba(230, 57, 70, 0.04);
-  border-radius: 14px;
-}
-
-.stat + .stat::before {
-  display: none;
+  border: 1px solid white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
 .statValue {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 900;
+  color: #111;
+  display: block;
   line-height: 1;
-  letter-spacing: -1px;
-  font-family: 'Barlow Condensed', sans-serif;
-}
-
-.statValueAccent {
-  color: #e63946;
-}
-
-.statValueNeutral {
-  color: #111827;
 }
 
 .statLabel {
-  font-size: 9px;
-  font-weight: 600;
-  color: #9ca3af;
-  letter-spacing: 1.8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2d2c2c;
   text-transform: uppercase;
-  margin-top: 5px;
-  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
 }

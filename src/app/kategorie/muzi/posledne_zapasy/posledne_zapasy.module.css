@@ -62,7 +62,7 @@
 }
 
 .teamName {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: #373737;
   white-space: nowrap;
@@ -76,14 +76,13 @@
 }
 
 .vs {
-  font-size: 11px;
-  font-weight: 800;
-  color: #b0b0b0;
+  font-size: 13px;
+  font-weight: 900;
+  color: #373737;
   letter-spacing: 1px;
   flex-shrink: 0;
   font-family: 'Barlow Condensed', sans-serif;
 }
-
 .right {
   display: flex;
   align-items: center;
@@ -92,7 +91,7 @@
 }
 
 .score {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 900;
   color: #373737;
   letter-spacing: -0.3px;
@@ -100,7 +99,7 @@
 }
 
 .date {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #373737;
   font-family: 'Barlow Condensed', sans-serif;
