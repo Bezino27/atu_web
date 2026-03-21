@@ -113,14 +113,18 @@ const MuziPage = () => {
           </div>
         </section>
 
-        {/* ZÁPASY A NOVINKY */}
+       {/* ZÁPASY A NOVINKY */}
         <div className={styles.mainGridContainer}>
           <NasledujuceZapasy matches={matches} />
           <Novinky />
-          <StandingsTable/>
-          <RecentMatches/>
-          <TopPlayer/>
         </div>
+         <div className={styles.statsGrid}>
+           <StandingsTable />
+          <div className={styles.rightColumn}>
+           <RecentMatches />
+           <TopPlayer />
+         </div>
+        </div> 
       </main>
 
       <Footer />

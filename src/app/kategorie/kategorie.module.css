@@ -125,3 +125,17 @@ color: #f9f3f3;
   .bannerOverlay { padding: 30px; }
   .countdownBar { padding: 12px 20px; flex-direction: column; gap: 5px; }
 }
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  padding: 40px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
