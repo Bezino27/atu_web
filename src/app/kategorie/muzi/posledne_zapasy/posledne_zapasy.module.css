@@ -1,0 +1,123 @@
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  height: 100%;
+}
+
+.cardLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 28px 20px;
+}
+
+.cardLabelBar {
+  width: 4px;
+  height: 22px;
+  background: #e63946;
+  border-radius: 2px;
+}
+
+.cardLabelText {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 20px;
+  gap: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  gap: 12px;
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.row:hover {
+  background: #f9f9f9;
+}
+
+.row + .row {
+  border-top: 1px solid #f3f4f6;
+}
+
+.matchup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.teamName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.teamNameOwn {
+  color: #e63946;
+}
+
+.vs {
+  font-size: 11px;
+  font-weight: 800;
+  color: #d1d5db;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.score {
+  font-size: 15px;
+  font-weight: 900;
+  color: #111827;
+  letter-spacing: -0.3px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.date {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badgeW { background: #dcfce7; color: #15803d; }
+.badgeL { background: #fee2e2; color: #dc2626; }
+.badgeD { background: #f3f4f6; color: #6b7280; } 

@@ -43,10 +43,10 @@ export default function Novinky() {
 
   return (
     <section className={styles.novinkySection}>
-      <div className={styles.container}>
+
         <div className={styles.titleWrapper}>
         <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-         <h2 className={styles.mainTitle}>Najnovejšie a najdôležitejšie články</h2>
+         <h2 className={styles.mainTitle}>Najnovšie a najdôležitejšie články</h2>
         </div>
         {/* HERO CARD */}
         {heroNews && (
@@ -83,7 +83,6 @@ export default function Novinky() {
             </div>
           ))}
         </div>
-      </div>
     </section>
   );
 }
