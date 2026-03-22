@@ -19,7 +19,7 @@ export type Post = {
 type PostsResponse = Post[] | { results: Post[] };
 
 export async function getHomepagePosts(clubSlug: string): Promise<Post[]> {
-  const baseUrl = process.env.API_URL || "http://127.0.0.1:8000/api";
+  const baseUrl = process.env.API_URL || "http://178.104.54.84:8000/api";
 
   const res = await fetch(`${baseUrl}/public/posts/${clubSlug}/`, {
     cache: "no-store",

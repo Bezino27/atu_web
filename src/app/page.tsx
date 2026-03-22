@@ -105,7 +105,7 @@ function getImageUrl(image?: string | null) {
     return image;
   }
 
-  const apiUrl = process.env.API_URL || "http://127.0.0.1:8000/api";
+  const apiUrl = process.env.API_URL || "http://178.104.54.84:8000/api";
   const backendBase = apiUrl.replace("/api", "");
 
   return `${backendBase}${image}`;
