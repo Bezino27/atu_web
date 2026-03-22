@@ -1,0 +1,236 @@
+/* TrainingTable.module.css */
+
+/* ─────────────────────────────────────────────────
+   SEKCIA
+───────────────────────────────────────────────── */
+.section {
+  padding: 80px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* NADPIS — rovnaký štýl ako .mainTitle v novinkách */
+.sectionTitle {
+  font-family: var(--font-geist-sans);
+  font-weight: 850;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: black;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  text-transform: none;
+  text-align: left;
+
+  margin-top: 0;
+  margin-bottom: 40px;
+  position: relative;
+
+  padding-left: 25px;
+  border-left: 6px solid #e63946;
+  margin-left: -31px;
+}
+
+/* ─────────────────────────────────────────────────
+   GRID: tabuľka vľavo, mapa vpravo
+───────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* ─────────────────────────────────────────────────
+   TABUĽKA — WRAPPER (biela)
+───────────────────────────────────────────────── */
+.tableWrapper {
+  background: #f7f7f8;
+  border-radius: 24px;
+  padding: 36px 40px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+  height: fit-content;
+  align-self: stretch;
+}
+
+/* ─────────────────────────────────────────────────
+   TABUĽKA
+───────────────────────────────────────────────── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  color: rgba(0, 0, 0, 0.30);
+  font-family: var(--font-geist-sans);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  padding-bottom: 22px;
+  text-align: left;
+}
+
+/* th zdieľa stĺpec s td — šírky sa dedia automaticky, stačí text-align */
+.th.placeCol {
+  text-align: right;
+}
+
+/* ─────────────────────────────────────────────────
+   RIADKY
+───────────────────────────────────────────────── */
+.tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  transition: background 0.2s ease;
+  cursor: default;
+  position: relative;
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.tr::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 55%;
+  width: 3px;
+  background: #e63946;
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transition: opacity 0.3s ease, left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tr:hover::before,
+.trActive::before {
+  opacity: 1;
+  left: -20px;
+}
+
+.tr:hover,
+.trActive {
+  background: rgba(230, 57, 70, 0.04);
+}
+
+/* ─────────────────────────────────────────────────
+   BUNKY
+───────────────────────────────────────────────── */
+.td {
+  padding: 22px 0;
+  font-family: var(--font-geist-sans);
+  font-size: 16px;
+  color: #0a0a0a;
+  vertical-align: middle;
+}
+
+.dayCol {
+  width: 30%;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+
+.timeCol {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.40);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.placeCol {
+  width: 50%;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────────────
+   MAPA
+───────────────────────────────────────────────── */
+.mapWrapper {
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+  min-height: 420px;
+}
+
+/* Skryť Leaflet attribution a zoom */
+.mapWrapper :global(.leaflet-control-attribution) {
+  display: none !important;
+}
+
+.mapWrapper :global(.leaflet-control-zoom) {
+  display: none !important;
+}
+
+.mapLoading {
+  width: 100%;
+  min-height: 420px;
+  background: #f5f5f5;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 13px;
+  font-family: var(--font-geist-sans);
+  letter-spacing: 1px;
+}
+
+/* ─────────────────────────────────────────────────
+   RESPONZIVITA
+───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .section {
+    padding: 48px 20px;
+  }
+
+  .sectionTitle {
+    margin-bottom: 28px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+
+  .tableWrapper {
+    padding: 28px 24px;
+  }
+
+  .tr::before {
+    display: none;
+  }
+
+  .td {
+    font-size: 14px;
+    padding: 18px 0;
+  }
+
+  .mapWrapper {
+    min-height: 300px;
+  }
+
+  .mapLoading {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dayCol  { font-size: 13px; }
+  .timeCol { font-size: 13px; }
+  .placeCol { font-size: 12px; }
+}

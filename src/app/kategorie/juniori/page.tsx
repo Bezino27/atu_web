@@ -30,7 +30,7 @@ const matches = [
   },
 ];
 
-const MuziPage = () => {
+const JunioriPage = () => {
   // 1. Nastavenie cieľového dátumu
   const targetDate = new Date("2026-03-25T18:30:00").getTime();
 
@@ -132,4 +132,4 @@ const MuziPage = () => {
   );
 };
 
-export default MuziPage;
+export default JunioriPage;
