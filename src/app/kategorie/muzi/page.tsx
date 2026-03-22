@@ -1,15 +1,15 @@
 'use client'; // Dôležité, ak používaš Next.js (kvôli useEffect a useState)
 
 import React, { useState, useEffect } from 'react';
-import styles from "../kategorie.module.css";
+import styles from "../styles/kategorie.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import NasledujuceZapasy from "./nasledujuce_zapasy/page";
+import NasledujuceZapasy from "./components/nasledujuce_zapasy";
 import Image from "next/image";
-import Novinky from "./novinky/page";
-import StandingsTable from './tabulka/page';
-import TopPlayer from './najlepsi_hrac/page';
-import RecentMatches from './posledne_zapasy/page';
+import Novinky from "./components/novinky";
+import StandingsTable from './components/tabulka';
+import TopPlayer from './components/najlepsi_hrac';
+import RecentMatches from './components/posledne_zapasy';
 
 const matches = [
   {
