@@ -3,7 +3,7 @@
 // /kategorie/dorast/components/TrainingMap.tsx
 
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Location } from '@/data/treningy_dorast';
@@ -36,7 +36,7 @@ const createMarkerIcon = (isActive: boolean) =>
 
 const TrainingMap: React.FC<TrainingMapProps> = ({ locations, activeLocation }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const center: [number, number] = [48.7290, 21.2510];
+  const center: [number, number] = [48.701863877567845, 21.24410781827243];
 
   // Zaistí že mapa sa renderuje len na klientovi, nie počas hydration
   useEffect(() => {
@@ -56,11 +56,12 @@ const TrainingMap: React.FC<TrainingMapProps> = ({ locations, activeLocation }) 
       zoomControl={false}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
         maxZoom={19}
       />
-
+        {/* Pridaj toto ovládanie manuálne pre presnú pozíciu */}
+        <ZoomControl position="topleft" />
       {Object.entries(locations).map(([id, loc]) => (
         <Marker
           key={id}

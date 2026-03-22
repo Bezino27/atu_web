@@ -15,14 +15,14 @@ export const locations: Record<string, Location> = {
   jedlikova: {
     name: 'Jedlíkova 7',
     address: 'Jedlíkova 7, Košice',
-    lat: 48.7399,   // ⚠️ Overte
-    lng: 21.2458,   // ⚠️ Overte
+    lat: 48.69814880000001,   // ⚠️ Overte
+    lng: 21.23390379325404,   // ⚠️ Overte
   },
   ostrovského: {
     name: 'SOŠ Ostrovského',
     address: 'Ostrovského, Košice',
-    lat: 48.7180,   // ⚠️ Overte
-    lng: 21.2560,   // ⚠️ Overte
+    lat: 48.70384291872286,    // ⚠️ Overte
+    lng: 21.250515615589894,  // ⚠️ Overte
   },
 };
  
