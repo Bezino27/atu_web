@@ -276,3 +276,69 @@
   .timeCol { font-size: 13px; }
   .placeCol { font-size: 12px; }
 }
+/* ─────────────────────────────────────────────────
+   CUSTOM MAP MARKER & LABEL
+───────────────────────────────────────────────── */
+.customMarker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.markerDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.markerLabel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left center;
+}
+
+.markerLabel strong {
+  font-family: var(--font-geist-sans);
+  font-size: 13px;
+  font-weight: 850;
+  color: #111;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.markerLabel span {
+  font-family: var(--font-geist-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  margin-top: 2px;
+  transition: color 0.3s ease;
+}
+
+/* AKTÍVNY STAV MARKERU (keď prejdeš myšou na tréning v tabuľke) */
+.markerActive {
+  z-index: 1000 !important;
+}
+
+.markerActive .markerLabel {
+  background: #e63946; /* Zmení sa na červenú */
+  border-color: #e63946;
+  transform: scale(1.08) translateX(4px); /* Jemne sa zväčší a posunie vpravo */
+  box-shadow: 0 12px 24px rgba(230, 57, 70, 0.35);
+}
+
+.markerActive .markerLabel strong,
+.markerActive .markerLabel span {
+  color: #ffffff; /* Text sa zmení na biely */
+}

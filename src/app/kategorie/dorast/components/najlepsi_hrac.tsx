@@ -15,7 +15,7 @@ export default function TopPlayer() {
   {/* Horná časť: Číslo a Text oddelene */}
   <div className={styles.topSection}>
     <div className={styles.numberBox}>
-      <span className={styles.bigNumber}>76</span>
+      <span className={styles.bigNumber}>98</span>
     </div>
     
     <div className={styles.infoBox}>

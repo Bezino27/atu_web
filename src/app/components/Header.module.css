@@ -1,31 +1,31 @@
+/* --- ZÁKLAD HEADERU --- */
 .header {
   position: sticky;
-  top: 0;
+  /* TopBar má výšku 42px. Keď nastavíme top na -42px, TopBar sa odscrolluje 
+     a MainBar zostane prilepený presne navrchu obrazovky! */
+  top: -42px; 
   z-index: 9999 !important;
   width: 100%;
-  transform: translateY(0);
-  transition: transform 0.05s ease-out;
-  backface-visibility: hidden;
-  will-change: transform;
+  transition: background 0.3s ease;
 }
-.headerShifted {
-  transform: translateY(-50px); /* výška topBar */
+.headerScrolled .mainBar {
+  background: rgba(10, 10, 11, 0.95); /* Menej priehľadné, keď je hore */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
 }
-
+/* --- TOP BAR --- */
 .topBar {
   background: linear-gradient(90deg, #0f0f11 0%, #17181c 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  height: 42px; /* Fixná výška, aby sme vedeli, o koľko to posunúť */
 }
 
-
-
 .topBarInner {
-  min-height: 42px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,16 +57,13 @@
 .topRight a:hover {
   color: #ffffff;
 }
-
 .mainBar {
   background: rgba(10, 10, 11, 0.82);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
-  margin-top: 0;
-  transition: all 0.05s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
-
 
 .mainBarInner {
   min-height: 82px;

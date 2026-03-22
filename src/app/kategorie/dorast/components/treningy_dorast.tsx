@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import styles from './TrainingTable.module.css';
 import { dorastTrainings, locations } from '@/data/treningy_dorast';
 
+// Import mapy dynamicky, aby nerobila problémy pri SSR
 const TrainingMap = dynamic(() => import('./TrainingMap'), {
   ssr: false,
   loading: () => <div className={styles.mapLoading}>Načítavam mapu…</div>,
@@ -20,7 +21,6 @@ const KdeTrenujeme: React.FC = () => {
         
         <div className={styles.tableWrapper}>
           <div className={styles.trainingList}>
-            {/* Hlavička pre vizuálnu orientáciu */}
             <div className={styles.listHeader}>
               <span className={styles.headerLabel}>Čas a Miesto</span>
             </div>
@@ -32,7 +32,6 @@ const KdeTrenujeme: React.FC = () => {
                 onMouseEnter={() => setActiveLocation(t.locationId)}
                 onMouseLeave={() => setActiveLocation(null)}
               >
-                {/* Ľavá strana: Deň a Čas */}
                 <div className={styles.timeBlock}>
                   <div className={styles.dayBadge}>
                     {t.day.substring(0, 2).toUpperCase()}
@@ -43,7 +42,6 @@ const KdeTrenujeme: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Pravá strana: Lokalita s ikonkou/badgom */}
                 <div className={styles.locationBlock}>
                   <div className={styles.locationBadge}>
                     <span className={styles.dot}></span>

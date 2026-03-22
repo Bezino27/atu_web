@@ -1,6 +1,8 @@
 .pageContainer {
   background-color: #ffffff;
   min-height: 100vh;
+  /* Pridáme padding na vrchu, ak nechceme, aby bol banner úplne nalepený */
+
   
 }
 
@@ -8,68 +10,134 @@
 .heroSection {
   width: 100%;
   max-width: 1300px;
-  margin: 20px auto;
-  height: auto;
-  border-radius: 40px; /* Biele zaoblené okraje */
-  overflow: hidden;
+  margin: 40px auto;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 5;
+
+  border-radius: 40px;
+  overflow: hidden; /* 🔥 drží všetko vnútri */
+
+  background: transparent;
 }
 
-
 .bannerContainer {
+  background-color: #0b0e13;
   position: relative;
   width: 100%;
-  height: 550px; /* Poriadne vysoké hero */
+  height: 650;
+  line-height: 0; /* zabráni inline gapu */
   border-radius: 40px;
-  overflow: hidden;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 60px;
+  z-index: 1;
+}
+
+/* JEMNÝ DYMOVÝ GRADIENT */
+.bannerContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Znížili sme opacitu z 1.0 na 0.7 a posunuli začiatok */
+  background: linear-gradient(
+    to top, 
+    rgba(11, 14, 19, 0.7) 0%,    /* Menej agresívna tmavá dole */
+    rgba(11, 14, 19, 0.3) 25%,   /* Rýchlejšie zosvetlenie */
+    transparent 60%              /* Horná polovica fotky je úplne čistá */
+  );
+  z-index: 2; 
+  pointer-events: none;
 }
 
 .heroImg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
+  /* Toto je kľúčové: cover zabezpečí, že fotka vyplní container bez pásov */
+  object-fit: cover; 
+  /* Ak sú nohy príliš odrezané, skús 'bottom' alebo 'center 80%' */
+  object-position: center; 
+  z-index: 0;
+}
+.heroSection:hover {
+  transform: translateY(-3px); /* Pri hoveri sa banner jemne nadvihne */
 }
 
 
-.bannerOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 60px;
-}
+
 
 .heroSubtitle {
-color: #f9f3f3;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 14px;
-  display: block;
-  /* Zmenšíme medzeru pod ním, čím sa vizuálne posunie "vyššie" k hornému okraju */
-  margin-bottom: 10px; 
-  text-align: left;
-  margin-left: -30px;
-  width: 100%; /* Aby zabral šírku a zarovnal sa podľa text-align */
-}
-
-
-.bannerTitle {
-  color: white;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Tieň pod písmenami pre hĺbku */
-  font-size: clamp(4rem, 10vw, 8rem);
+  color: #ffffff; 
   font-weight: 900;
-  line-height: 0.8;
+  position: relative;
+  z-index: 3;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 16px;
+  display: block;
+  
+  /* --- KĽÚČOVÉ ZMENY --- */
+  max-width: 350px;      /* Táto hodnota určí, kde text skončí a zalomí sa */
+  line-height: 1.4;      /* Medzera medzi riadkami, aby to bolo čitateľné */
+  margin-bottom: 25px;   /* Trochu menej, keďže text je teraz vyšší */
+  /* ---------------------- */
+
+  text-align: left;
+  margin-left: -16px;
+  opacity: 0.9;
+  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.92);
+}
+.bannerTitle {
+  position: relative; /* Nutné pre z-index */
+  z-index: 3;
+  color: white;
+  /* Viacvrstvový tieň pre extrémny 3D efekt */
+  text-shadow: 
+    0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15);
+
+  font-size: clamp(4rem, 12vw, 9rem); /* Trošku zväčšené */
+  font-weight: 950; /* Maximálna hrúbka */
+  line-height: 0.55;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: -4px;
-  margin-bottom: -30px;
+  letter-spacing: -6px; /* Písmená sa takmer dotýkajú, typické pre moderný športový dizajn */
+  
+  /* Efekt "vyrezania" - text bude mierne priehľadný, čím prepustí štruktúru pozadia */
+  opacity: 0.98;
+  
   text-align: left;
-  margin-left: -40px;
-  width: 100%; /* Aby zabral šírku a zarovnal sa podľa text-align */
-}  
+  margin-left: -30px;
+  
+  /* Animácia pri načítaní - text "vyskočí" do priestoru */
+  animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes titleEntrance {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(10deg) translateY(20px) translateZ(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) translateY(0) translateZ(0);
+  }
+}
 
 
 
@@ -94,6 +162,8 @@ color: #f9f3f3;
   white-space: nowrap; /* Aby sa text nelámal do dvoch riadkov */;
   border-bottom:1px black solid;
 }
+/* --- BADGE (Najbližší zápas) --- */
+
 
 .liveDot {
   width: 10px;
