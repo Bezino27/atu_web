@@ -10,6 +10,7 @@
   padding: 0 16px;
   position: relative;
   z-index: 5;
+  box-sizing: border-box;
 }
 
 .bannerContainer {
@@ -69,7 +70,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: -20px;
+  margin-left: 0;
 }
 
 .heroSubtitle {
@@ -94,7 +95,7 @@
 .bannerTitle {
   position: relative;
   z-index: 3;
-  color: white;
+  color: #ffffff;
   text-shadow:
     0 8px 24px rgba(0, 0, 0, 0.34),
     0 2px 8px rgba(0, 0, 0, 0.22);
@@ -106,7 +107,6 @@
   letter-spacing: -4px;
   opacity: 0.98;
   text-align: left;
-  margin-left: 0;
   animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
@@ -153,6 +153,50 @@
   font-variant-numeric: tabular-nums;
 }
 
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+@keyframes titleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 0.98;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroSection {
+    margin: 14px auto 26px;
+    padding: 0 14px;
+  }
+
+  .bannerContainer {
+    min-height: 520px;
+    padding: 42px 34px;
+    border-radius: 32px;
+  }
+
+  .bannerTitle {
+    font-size: clamp(3.4rem, 10vw, 6rem);
+    letter-spacing: -3px;
+  }
+}
+
 @media (max-width: 768px) {
   .heroSection {
     margin: 14px auto 18px;
@@ -171,7 +215,7 @@
 
   .heroTextContent {
     max-width: 100%;
-    margin-left: -10px;
+    margin-left: 0;
   }
 
   .heroSubtitle {
@@ -225,17 +269,111 @@
 
 @media (max-width: 640px) {
   .pageContainer {
-    padding-top: 74px;
+    padding-top: 0;
   }
 
   .heroSection {
     margin: 10px auto 18px;
     padding: 0 9px;
   }
+
+  .bannerContainer {
+    min-height: 255px;
+    padding: 16px 14px 20px;
+    border-radius: 22px;
+  }
+
+  .bannerTitle {
+    font-size: clamp(2.5rem, 15vw, 3.8rem);
+  }
+
+  .countdownWrapper {
+    margin-top: -12px;
+    padding: 0 8px;
+  }
+
+  .countdownBar {
+    padding: 10px 12px;
+    gap: 6px;
+  }
 }
 
 @media (max-width: 420px) {
   .pageContainer {
-    padding-top: 70px;
+    padding-top: 0;
+  }
+
+  .heroSection {
+    margin: 8px auto 16px;
+    padding: 0 8px;
+  }
+
+  .bannerContainer {
+    min-height: 245px;
+    padding: 14px 12px 18px;
+    border-radius: 20px;
+  }
+
+  .heroImg {
+    object-position: center 22%;
+  }
+
+  .heroSubtitle {
+    font-size: 0.54rem;
+    letter-spacing: 0.1em;
+    padding: 0 9px;
+    min-height: 26px;
+    margin-bottom: 8px;
+  }
+
+  .bannerTitle {
+    font-size: clamp(2.3rem, 15vw, 3.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .countdownWrapper {
+    margin-top: -10px;
+    padding: 0 6px;
+  }
+
+  .countdownBar {
+    padding: 10px 10px;
+    border-radius: 16px;
+    gap: 6px;
+  }
+
+  .countdownLabel {
+    font-size: 0.7rem;
+  }
+
+  .timer {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .heroSection {
+    padding: 0 6px;
+  }
+
+  .bannerContainer {
+    min-height: 230px;
+    padding: 12px 10px 16px;
+    border-radius: 18px;
+  }
+
+  .heroSubtitle {
+    font-size: 0.5rem;
+    min-height: 24px;
+    padding: 0 8px;
+  }
+
+  .bannerTitle {
+    font-size: clamp(2.1rem, 15vw, 3rem);
+  }
+
+  .countdownBar {
+    padding: 8px 10px;
   }
 }

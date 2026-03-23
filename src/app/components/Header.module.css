@@ -1,72 +1,95 @@
-/* --- ZÁKLAD HEADERU --- */
+/* =========================
+   HEADER WRAPPER
+========================= */
+
 .header {
   position: sticky;
-  top: -42px;
+  top: 0;
   z-index: 9999;
   width: 100%;
-  transition: background 0.3s ease;
-}
-
-.headerScrolled .mainBar {
-  background: rgba(10, 10, 11, 0.95);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: transparent;
 }
 
 .container {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
 }
 
-/* --- TOP BAR --- */
+/* =========================
+   TOP BAR
+========================= */
+
 .topBar {
   background: linear-gradient(90deg, #0f0f11 0%, #17181c 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  height: 42px;
 }
 
 .topBarInner {
-  height: 100%;
+  min-height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
 }
 
+.topLeft {
+  min-width: 0;
+}
+
 .topLeft span {
-  font-size: 0.82rem;
+  display: block;
+  font-size: 0.79rem;
   color: rgba(255, 255, 255, 0.72);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .topRight {
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: flex-end;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
 .topRight a {
-  font-size: 0.84rem;
+  font-size: 0.83rem;
   color: rgba(255, 255, 255, 0.76);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .topRight a:hover {
   color: #ffffff;
 }
 
-/* --- MAIN BAR --- */
+/* =========================
+   MAIN BAR
+========================= */
+
 .mainBar {
-  background: rgba(10, 10, 11, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  background: rgba(10, 10, 11, 0.86);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.headerScrolled .mainBar {
+  background: rgba(10, 10, 11, 0.95);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
 }
 
 .mainBarInner {
@@ -77,17 +100,23 @@
   gap: 22px;
 }
 
+/* =========================
+   LOGO
+========================= */
+
 .logoWrap {
   display: flex;
   align-items: center;
   gap: 14px;
-  text-decoration: none;
+  min-width: 0;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .logoBox {
   width: 58px;
   height: 58px;
+  flex-shrink: 0;
   border-radius: 16px;
   background: linear-gradient(
     135deg,
@@ -112,6 +141,7 @@
 .logoText {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   line-height: 1.05;
 }
 
@@ -120,31 +150,41 @@
   font-size: 1.05rem;
   font-weight: 900;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .logoText span {
   margin-top: 4px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
-/* --- DESKTOP NAV --- */
+/* =========================
+   DESKTOP NAV
+========================= */
+
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 1;
   justify-content: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .navLink {
   position: relative;
-  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 16px;
   border-radius: 12px;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.84);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -155,6 +195,7 @@
     color 0.2s ease,
     background 0.2s ease,
     transform 0.2s ease;
+  white-space: nowrap;
 }
 
 .navLink:hover {
@@ -168,80 +209,10 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* --- ACTIONS --- */
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
-}
+/* =========================
+   DROPDOWN
+========================= */
 
-.ctaButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 13px 18px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #d32f2f 0%, #ff4d4d 100%);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 14px 28px rgba(211, 47, 47, 0.3);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 32px rgba(211, 47, 47, 0.36);
-}
-
-/* --- MENU BUTTON --- */
-.menuButton {
-  width: 56px;
-  height: 56px;
-  border: none;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.menuButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.menuButton span {
-  width: 20px;
-  height: 2px;
-  border-radius: 999px;
-  background: #ffffff;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.menuButtonOpen span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.menuButtonOpen span:nth-child(2) {
-  opacity: 0;
-}
-
-.menuButtonOpen span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* --- DESKTOP DROPDOWN --- */
 .dropdown {
   position: relative;
   display: flex;
@@ -254,12 +225,12 @@
   left: 0;
   right: 0;
   top: 100%;
-  height: 16px;
+  height: 14px;
 }
 
 .dropdownMenu {
   position: absolute;
-  top: calc(100% + 14px);
+  top: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
   min-width: 240px;
@@ -270,7 +241,7 @@
     opacity 0.22s ease,
     transform 0.22s ease,
     visibility 0.22s ease;
-  z-index: 2000;
+  z-index: 100;
 }
 
 .show {
@@ -286,7 +257,7 @@
   gap: 4px;
   padding: 10px;
   border-radius: 18px;
-  background: rgba(20, 20, 24, 0.92);
+  background: rgba(20, 20, 24, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -326,28 +297,106 @@
   transform: translateX(2px);
 }
 
-/* --- MOBILE MENU --- */
-.mobileMenu {
-  max-height: 0;
-  overflow: hidden;
-  background: #0e0f12;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: max-height 0.28s ease;
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
-.mobileMenuOpen {
-  max-height: 650px;
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #d32f2f 0%, #ff4d4d 100%);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 14px 28px rgba(211, 47, 47, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 32px rgba(211, 47, 47, 0.36);
+}
+
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menuButton {
+  width: 54px;
+  height: 54px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menuButton span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.menuButtonOpen span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menuButtonOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuButtonOpen span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobileMenu {
+  display: none;
 }
 
 .mobileNav {
-  padding: 18px 0 22px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .mobileNavLink {
-  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 16px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
@@ -357,7 +406,8 @@
 
 .mobileNavToggle {
   width: 100%;
-  padding: 14px 16px;
+  min-height: 52px;
+  padding: 0 16px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
@@ -393,7 +443,9 @@
   flex-direction: column;
   gap: 8px;
   padding: 0 6px;
-  transition: max-height 0.25s ease, padding 0.25s ease;
+  transition:
+    max-height 0.25s ease,
+    padding 0.25s ease;
 }
 
 .mobileSubmenuOpen {
@@ -403,7 +455,10 @@
 }
 
 .mobileSubmenuLink {
-  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 14px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
   color: rgba(255, 255, 255, 0.92);
@@ -420,7 +475,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 18px;
+  min-height: 52px;
+  padding: 0 18px;
   border-radius: 14px;
   background: linear-gradient(135deg, #d32f2f 0%, #ff4d4d 100%);
   color: #ffffff;
@@ -428,19 +484,38 @@
   font-weight: 800;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 1100px) {
+/* =========================
+   LARGE TABLET
+========================= */
+
+@media (max-width: 1180px) {
+  .container {
+    padding: 0 18px;
+  }
+
   .desktopNav {
     gap: 2px;
   }
 
   .navLink {
-    padding: 12px 12px;
-    font-size: 0.9rem;
+    padding: 0 12px;
+    font-size: 0.91rem;
+  }
+
+  .ctaButton {
+    padding: 0 16px;
   }
 }
 
+/* =========================
+   TABLET
+========================= */
+
 @media (max-width: 960px) {
+  .topRight {
+    gap: 12px;
+  }
+
   .desktopNav,
   .ctaButton {
     display: none;
@@ -451,34 +526,63 @@
   }
 
   .mainBarInner {
-    min-height: 76px;
+    min-height: 78px;
+  }
+
+  .mobileMenu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(14, 15, 18, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+
+  .mobileMenuOpen {
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobileMenu .container {
+    padding-top: 14px;
+    padding-bottom: 18px;
   }
 }
 
-@media (max-width: 640px) {
+/* =========================
+   SMALL TABLET / BIG MOBILE
+========================= */
+
+@media (max-width: 720px) {
   .container {
-    padding: 0 14px;
+    padding: 0 16px;
   }
 
   .topBarInner {
-    min-height: 38px;
+    min-height: 40px;
+    gap: 12px;
   }
 
   .topLeft span {
     font-size: 0.74rem;
   }
 
-  .topRight {
-    gap: 12px;
-  }
-
   .topRight a {
-    font-size: 0.78rem;
+    font-size: 0.77rem;
   }
 
   .logoBox {
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
   }
 
   .logo {
@@ -491,68 +595,161 @@
   }
 
   .logoText span {
-    font-size: 0.74rem;
+    font-size: 0.73rem;
+  }
+
+  .mainBarInner {
+    min-height: 74px;
+    gap: 14px;
+  }
+
+  .menuButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .mobileMenuOpen {
+    max-height: calc(100vh - 74px);
   }
 }
 
-@media (max-width: 520px) {
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 560px) {
   .topBar {
     display: none;
   }
 
+  .container {
+    padding: 0 14px;
+  }
+
   .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2000;
-    background: rgba(15, 15, 18, 0.9);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    background: transparent;
   }
 
   .mainBar {
-    background: rgba(10, 10, 11, 0.9);
+    background: rgba(10, 10, 11, 0.94);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
   }
 
   .mainBarInner {
     min-height: 72px;
+    gap: 12px;
   }
 
   .logoWrap {
     gap: 10px;
+    min-width: 0;
+    max-width: calc(100% - 64px);
+  }
+
+  .logoBox {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logoText strong {
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .logoText span {
     display: none;
   }
 
-  .mobileMenu {
-    background: rgba(14, 15, 18, 0.98);
+  .menuButton {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
   }
-}
-@media (max-width: 960px) {
-  .mobileMenu {
-    max-height: 0;
-    overflow: hidden;
-    background: #0e0f12;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: max-height 0.28s ease;
+
+  .menuButton span {
+    width: 18px;
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 76px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 72px);
+  }
+
+  .mobileMenu .container {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+
+  .mobileNavLink,
+  .mobileNavToggle,
+  .mobileCta {
+    min-height: 50px;
+  }
+
+  .mobileSubmenuLink {
+    min-height: 44px;
   }
 }
-@media (max-width: 520px) {
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media (max-width: 380px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .mainBarInner {
+    min-height: 68px;
+  }
+
+  .logoWrap {
+    gap: 8px;
+    max-width: calc(100% - 58px);
+  }
+
+  .logoBox {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logoText strong {
+    font-size: 0.88rem;
+  }
+
+  .menuButton {
+    width: 42px;
+    height: 42px;
+  }
+
   .mobileMenuOpen {
-    max-height: calc(100vh - 72px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 68px);
+  }
+
+  .mobileNavLink,
+  .mobileNavToggle,
+  .mobileCta {
+    min-height: 48px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .mobileSubmenuLink {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
