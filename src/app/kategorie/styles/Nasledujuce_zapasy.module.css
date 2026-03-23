@@ -281,3 +281,89 @@
   color: #222;     /* Tmavšia verzia */
   font-weight: 500;
 }
+@media (max-width: 768px) {
+  .matchesSection {
+    padding: 18px 0 8px;
+  }
+
+  .matchesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .matchCard {
+    padding: 22px 18px;
+    border-radius: 22px;
+  }
+
+  .title {
+    margin-left: 0;
+    padding-left: 14px;
+    border-left-width: 4px;
+    font-size: 1.85rem;
+    margin-bottom: 24px;
+  }
+
+  .matchLeague {
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+
+  .matchTeamsRow {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .teamLogo {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    padding: 8px;
+  }
+
+  .team {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .vsDivider {
+    font-size: 18px;
+    padding: 0 6px;
+  }
+
+  .matchDateTime {
+    font-size: 15px;
+  }
+
+  .matchPlace {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .matchCard {
+    padding: 18px 14px;
+  }
+
+  .team {
+    font-size: 15px;
+  }
+
+  .teamLogo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .vsDivider {
+    font-size: 16px;
+  }
+
+  .matchDateTime {
+    font-size: 14px;
+  }
+
+  .matchPlace {
+    font-size: 12px;
+  }
+}

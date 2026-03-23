@@ -1,27 +1,28 @@
 /* --- ZÁKLAD HEADERU --- */
 .header {
   position: sticky;
-  /* TopBar má výšku 42px. Keď nastavíme top na -42px, TopBar sa odscrolluje 
-     a MainBar zostane prilepený presne navrchu obrazovky! */
-  top: -42px; 
-  z-index: 9999 !important;
+  top: -42px;
+  z-index: 9999;
   width: 100%;
   transition: background 0.3s ease;
 }
+
 .headerScrolled .mainBar {
-  background: rgba(10, 10, 11, 0.95); /* Menej priehľadné, keď je hore */
+  background: rgba(10, 10, 11, 0.95);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
 }
+
 /* --- TOP BAR --- */
 .topBar {
   background: linear-gradient(90deg, #0f0f11 0%, #17181c 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  height: 42px; /* Fixná výška, aby sme vedeli, o koľko to posunúť */
+  height: 42px;
 }
 
 .topBarInner {
@@ -57,9 +58,12 @@
 .topRight a:hover {
   color: #ffffff;
 }
+
+/* --- MAIN BAR --- */
 .mainBar {
   background: rgba(10, 10, 11, 0.82);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
   transition: background 0.3s ease, box-shadow 0.3s ease;
@@ -71,9 +75,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 22px;
-}
-.mainBarShifted {
-  margin-top: 0;
 }
 
 .logoWrap {
@@ -88,7 +89,11 @@
   width: 58px;
   height: 58px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(211, 47, 47, 0.22), rgba(255, 255, 255, 0.06));
+  background: linear-gradient(
+    135deg,
+    rgba(211, 47, 47, 0.22),
+    rgba(255, 255, 255, 0.06)
+  );
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
@@ -126,6 +131,7 @@
   letter-spacing: 0.08em;
 }
 
+/* --- DESKTOP NAV --- */
 .desktopNav {
   display: flex;
   align-items: center;
@@ -142,6 +148,9 @@
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   transition:
     color 0.2s ease,
     background 0.2s ease,
@@ -154,6 +163,12 @@
   transform: translateY(-1px);
 }
 
+.navLink[aria-expanded="true"] {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- ACTIONS --- */
 .actions {
   display: flex;
   align-items: center;
@@ -184,10 +199,11 @@
   box-shadow: 0 18px 32px rgba(211, 47, 47, 0.36);
 }
 
+/* --- MENU BUTTON --- */
 .menuButton {
   width: 56px;
   height: 56px;
-  border: flex;
+  border: none;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.06);
   display: none;
@@ -225,6 +241,92 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* --- DESKTOP DROPDOWN --- */
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 16px;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 240px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0.22s ease;
+  z-index: 2000;
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(20, 20, 24, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    0 6px 14px rgba(0, 0, 0, 0.16);
+}
+
+.dropdownLabel {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 8px 10px 6px;
+}
+
+.dropdownContent a {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 12px;
+  color: #f4f4f5;
+  text-decoration: none;
+  font-size: 0.96rem;
+  font-weight: 600;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.dropdownContent a:hover {
+  background: rgba(230, 57, 70, 0.14);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* --- MOBILE MENU --- */
 .mobileMenu {
   max-height: 0;
   overflow: hidden;
@@ -234,7 +336,7 @@
 }
 
 .mobileMenuOpen {
-  max-height: 520px;
+  max-height: 650px;
 }
 
 .mobileNav {
@@ -253,6 +355,66 @@
   font-weight: 700;
 }
 
+.mobileNavToggle {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.mobileDropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileChevron {
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform 0.22s ease;
+}
+
+.mobileChevronOpen {
+  transform: rotate(45deg);
+}
+
+.mobileSubmenu {
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 6px;
+  transition: max-height 0.25s ease, padding 0.25s ease;
+}
+
+.mobileSubmenuOpen {
+  max-height: 400px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.mobileSubmenuLink {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.mobileSubmenuLink:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
 .mobileCta {
   margin-top: 8px;
   display: inline-flex;
@@ -266,6 +428,7 @@
   font-weight: 800;
 }
 
+/* --- RESPONSIVE --- */
 @media (max-width: 1100px) {
   .desktopNav {
     gap: 2px;
@@ -337,6 +500,24 @@
     display: none;
   }
 
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    background: rgba(15, 15, 18, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .mainBar {
+    background: rgba(10, 10, 11, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
   .mainBarInner {
     min-height: 72px;
   }
@@ -348,94 +529,30 @@
   .logoText span {
     display: none;
   }
-}
-/* Wrapper */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
 
-/* Button */
-.dropdownTrigger {
-  background: none;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-  padding: 8px 12px;
-  color: #222;
-}
-
-/* MENU BASE */
-.dropdownMenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  transform: translateY(8px);
-
-  background: rgba(10, 10, 11, 0.82);
-  border-radius: 12px;
-  padding: 16px;
-
-  min-width: 220px;
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-
-  /* animation base */
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-
-  transition: all 0.25s ease;
-  z-index: 1000;
-}
-
-/* SHOW STATE */
-.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* CONTENT GRID */
-.dropdownContent {
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-}
-
-
-/* LINKS */
-.dropdownContent a {
-  display: block;
-  padding: 6px 0;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.76);
-  transition: color 0.2s ease;
-}
-
-.dropdownContent a:hover {
-  color: #0070f3;
-}
-
-/* HOVER SUPPORT (desktop) */
-.dropdown:hover .dropdownMenu {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* 📱 MOBILE */
-@media (max-width: 768px) {
-  .dropdownMenu {
-    position: static;
-    transform: none;
-    opacity: 1;
-    box-shadow: none;
-    padding: 10px 0;
-  }
-
-  .dropdownContent {
-    grid-template-columns: 1fr;
+  .mobileMenu {
+    background: rgba(14, 15, 18, 0.98);
   }
 }
+@media (max-width: 960px) {
+  .mobileMenu {
+    max-height: 0;
+    overflow: hidden;
+    background: #0e0f12;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: max-height 0.28s ease;
+  }
 
+  .mobileMenuOpen {
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+@media (max-width: 520px) {
+  .mobileMenuOpen {
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

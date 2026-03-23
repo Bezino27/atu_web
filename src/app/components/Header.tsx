@@ -14,27 +14,61 @@ const navItems = [
   { href: "/kontakt", label: "Kontakt" },
 ];
 
+const categoryItems = [
+  { href: "/kategorie/pripravky", label: "Prípravky" },
+  { href: "/kategorie/mladsi_ziaci", label: "Mladší žiaci" },
+  { href: "/kategorie/starsi_ziaci", label: "Starší žiaci" },
+  { href: "/kategorie/dorast", label: "Dorast" },
+  { href: "/kategorie/juniori", label: "Juniori" },
+  { href: "/kategorie/muzi", label: "Muži" },
+];
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false); // Premenovaná pre lepšiu logiku
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const closeMenu = () => setMenuOpen(false);
-  const handleToggle = () => setIsOpen((prev) => !prev);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setMobileCategoriesOpen(false);
+  };
+
+  const handleCategoriesToggle = () => {
+    setCategoriesOpen((prev) => !prev);
+  };
+
+  const handleMobileCategoriesToggle = () => {
+    setMobileCategoriesOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      // Ak odscrollujeme viac ako 42px (výška topBaru), nastavíme isScrolled na true
-      setIsScrolled(window.scrollY > 42); 
+      setIsScrolled(window.scrollY > 42);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
-    <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ""}`}>
-      
+    <header
+      className={`${styles.header} ${
+        isScrolled ? styles.headerScrolled : ""
+      }`}
+    >
       {/* TOP BAR */}
       <div className={styles.topBar}>
         <div className={styles.container}>
@@ -44,18 +78,21 @@ export default function Header() {
             </div>
             <div className={styles.topRight}>
               <a href="mailto:info@atukosice.sk">info@atukosice.sk</a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+              <a href="https://facebook.com" target="_blank" rel="noreferrer">
+                Facebook
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                Instagram
+              </a>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* MAIN BAR */}
       <div className={styles.mainBar}>
         <div className={styles.container}>
           <div className={styles.mainBarInner}>
-            
             {/* LOGO */}
             <Link href="/" className={styles.logoWrap} onClick={closeMenu}>
               <div className={styles.logoBox}>
@@ -73,28 +110,51 @@ export default function Header() {
               </div>
             </Link>
 
-            {/* DESKTOP NAV - TOTO TI CHÝBALO! */}
+            {/* DESKTOP NAV */}
             <nav className={styles.desktopNav}>
               {navItems.map((item) => {
                 if (item.label === "Kategórie") {
                   return (
-                    <div key={item.href} className={styles.dropdown}>
-                      <button className={styles.navLink} onClick={handleToggle}>
+                    <div
+                      key={item.href}
+                      className={styles.dropdown}
+                      onMouseEnter={() => setCategoriesOpen(true)}
+                      onMouseLeave={() => setCategoriesOpen(false)}
+                    >
+                      <button
+                        type="button"
+                        className={styles.navLink}
+                        onClick={handleCategoriesToggle}
+                        aria-expanded={categoriesOpen}
+                      >
                         {item.label}
                       </button>
-                      <div className={`${styles.dropdownMenu} ${isOpen ? styles.show : ""}`}>
+
+                      <div
+                        className={`${styles.dropdownMenu} ${
+                          categoriesOpen ? styles.show : ""
+                        }`}
+                      >
                         <div className={styles.dropdownContent}>
-                          <Link href="/kategorie/pripravky">Prípravky</Link>
-                          <Link href="/kategorie/mladsi_ziaci">Mladší žiaci</Link>
-                          <Link href="/kategorie/starsi_ziaci">Starší žiaci</Link>
-                          <Link href="/kategorie/dorast">Dorast</Link>
-                          <Link href="/kategorie/juniori">Juniori</Link>
-                          <Link href="/kategorie/muzi">Muži</Link>
+                          <span className={styles.dropdownLabel}>
+                            Výber kategórie
+                          </span>
+
+                          {categoryItems.map((category) => (
+                            <Link
+                              key={category.href}
+                              href={category.href}
+                              onClick={() => setCategoriesOpen(false)}
+                            >
+                              {category.label}
+                            </Link>
+                          ))}
                         </div>
                       </div>
                     </div>
                   );
                 }
+
                 return (
                   <Link key={item.href} href={item.href} className={styles.navLink}>
                     {item.label}
@@ -103,41 +163,90 @@ export default function Header() {
               })}
             </nav>
 
-            {/* AKCIE A MOBILE MENU BUTTON */}
+            {/* ACTIONS */}
             <div className={styles.actions}>
               <Link href="/kontakt" className={styles.ctaButton}>
                 Pridaj sa k nám
               </Link>
+
               <button
                 type="button"
-                className={`${styles.menuButton} ${menuOpen ? styles.menuButtonOpen : ""}`}
+                className={`${styles.menuButton} ${
+                  menuOpen ? styles.menuButtonOpen : ""
+                }`}
                 onClick={() => setMenuOpen((prev) => !prev)}
                 aria-label="Otvoriť menu"
+                aria-expanded={menuOpen}
               >
                 <span />
                 <span />
                 <span />
               </button>
             </div>
-
           </div>
         </div>
       </div>
 
       {/* MOBILE MENU */}
-      <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`}>
+      <div
+        className={`${styles.mobileMenu} ${
+          menuOpen ? styles.mobileMenuOpen : ""
+        }`}
+      >
         <div className={styles.container}>
           <nav className={styles.mobileNav}>
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={styles.mobileNavLink}
-                onClick={closeMenu}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              if (item.label === "Kategórie") {
+                return (
+                  <div key={item.href} className={styles.mobileDropdown}>
+                    <button
+                      type="button"
+                      className={styles.mobileNavToggle}
+                      onClick={handleMobileCategoriesToggle}
+                      aria-expanded={mobileCategoriesOpen}
+                    >
+                      <span>{item.label}</span>
+                      <span
+                        className={`${styles.mobileChevron} ${
+                          mobileCategoriesOpen ? styles.mobileChevronOpen : ""
+                        }`}
+                      >
+                        +
+                      </span>
+                    </button>
+
+                    <div
+                      className={`${styles.mobileSubmenu} ${
+                        mobileCategoriesOpen ? styles.mobileSubmenuOpen : ""
+                      }`}
+                    >
+                      {categoryItems.map((category) => (
+                        <Link
+                          key={category.href}
+                          href={category.href}
+                          className={styles.mobileSubmenuLink}
+                          onClick={closeMenu}
+                        >
+                          {category.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={styles.mobileNavLink}
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
             <Link href="/kontakt" className={styles.mobileCta} onClick={closeMenu}>
               Pridaj sa k nám
             </Link>

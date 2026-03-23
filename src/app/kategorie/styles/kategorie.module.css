@@ -1,169 +1,137 @@
 .pageContainer {
   background-color: #ffffff;
   min-height: 100vh;
-  /* Pridáme padding na vrchu, ak nechceme, aby bol banner úplne nalepený */
-
-  
+  overflow-x: hidden;
 }
 
-/* --- HERO SEKCOA --- */
 .heroSection {
   width: 100%;
   max-width: 1300px;
-  margin: 40px auto;
-  margin-bottom: 30px;
+  margin: 40px auto 30px;
+  padding: 0 16px;
   position: relative;
   z-index: 5;
-
-  border-radius: 40px;
-  overflow: hidden; /* 🔥 drží všetko vnútri */
-
-  background: transparent;
 }
 
 .bannerContainer {
   background-color: #0b0e13;
   position: relative;
   width: 100%;
-  height: 650;
-  line-height: 0; /* zabráni inline gapu */
+  min-height: 650px;
+  line-height: 0;
   border-radius: 40px;
-  overflow: hidden; 
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 60px;
   z-index: 1;
+  box-sizing: border-box;
 }
 
-/* JEMNÝ DYMOVÝ GRADIENT */
 .bannerContainer::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  /* Znížili sme opacitu z 1.0 na 0.7 a posunuli začiatok */
-  background: linear-gradient(
-    to top, 
-    rgba(11, 14, 19, 0.7) 0%,    /* Menej agresívna tmavá dole */
-    rgba(11, 14, 19, 0.3) 25%,   /* Rýchlejšie zosvetlenie */
-    transparent 60%              /* Horná polovica fotky je úplne čistá */
-  );
-  z-index: 2; 
+  z-index: 1;
   pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 10, 18, 0.02) 0%,
+      rgba(6, 10, 18, 0.08) 28%,
+      rgba(6, 10, 18, 0.22) 54%,
+      rgba(6, 10, 18, 0.48) 78%,
+      rgba(6, 10, 18, 0.68) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(6, 10, 18, 0.42) 0%,
+      rgba(6, 10, 18, 0.18) 34%,
+      rgba(6, 10, 18, 0.06) 58%,
+      rgba(6, 10, 18, 0) 100%
+    );
 }
 
 .heroImg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Toto je kľúčové: cover zabezpečí, že fotka vyplní container bez pásov */
-  object-fit: cover; 
-  /* Ak sú nohy príliš odrezané, skús 'bottom' alebo 'center 80%' */
-  object-position: center; 
+  object-fit: cover;
+  object-position: center 35%;
   z-index: 0;
 }
-.heroSection:hover {
-  transform: translateY(-3px); /* Pri hoveri sa banner jemne nadvihne */
+
+.bannerOverlay {
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
-
-
+.heroTextContent {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: -20px;
+}
 
 .heroSubtitle {
-  color: #ffffff; 
-  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  margin: 0 0 18px;
+  border-radius: 999px;
+  background: rgba(230, 57, 70, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.bannerTitle {
   position: relative;
   z-index: 3;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-size: 16px;
-  display: block;
-  
-  /* --- KĽÚČOVÉ ZMENY --- */
-  max-width: 350px;      /* Táto hodnota určí, kde text skončí a zalomí sa */
-  line-height: 1.4;      /* Medzera medzi riadkami, aby to bolo čitateľné */
-  margin-bottom: 25px;   /* Trochu menej, keďže text je teraz vyšší */
-  /* ---------------------- */
-
-  text-align: left;
-  margin-left: -16px;
-  opacity: 0.9;
-  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.92);
-}
-.bannerTitle {
-  position: relative; /* Nutné pre z-index */
-  z-index: 3;
   color: white;
-  /* Viacvrstvový tieň pre extrémny 3D efekt */
-  text-shadow: 
-    0 1px 0 #ccc,
-    0 2px 0 #c9c9c9,
-    0 3px 0 #bbb,
-    0 4px 0 #b9b9b9,
-    0 5px 0 #aaa,
-    0 6px 1px rgba(0,0,0,.1),
-    0 0 5px rgba(0,0,0,.1),
-    0 1px 3px rgba(0,0,0,.3),
-    0 3px 5px rgba(0,0,0,.2),
-    0 5px 10px rgba(0,0,0,.25),
-    0 10px 10px rgba(0,0,0,.2),
-    0 20px 20px rgba(0,0,0,.15);
-
-  font-size: clamp(4rem, 12vw, 9rem); /* Trošku zväčšené */
-  font-weight: 950; /* Maximálna hrúbka */
-  line-height: 0.55;
+  text-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.34),
+    0 2px 8px rgba(0, 0, 0, 0.22);
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 950;
+  line-height: 0.82;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: -6px; /* Písmená sa takmer dotýkajú, typické pre moderný športový dizajn */
-  
-  /* Efekt "vyrezania" - text bude mierne priehľadný, čím prepustí štruktúru pozadia */
+  letter-spacing: -4px;
   opacity: 0.98;
-  
   text-align: left;
-  margin-left: -30px;
-  
-  /* Animácia pri načítaní - text "vyskočí" do priestoru */
+  margin-left: 0;
   animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-@keyframes titleEntrance {
-  0% {
-    opacity: 0;
-    transform: perspective(1000px) rotateX(10deg) translateY(20px) translateZ(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: perspective(1000px) rotateX(0deg) translateY(0) translateZ(0);
-  }
-}
-
-
-
-/* --- COUNTDOWN BAR --- */
 .countdownWrapper {
   display: flex;
   justify-content: center;
-  margin-top: -25px; /* Prekrytie s fotkou */
+  margin-top: -24px;
   position: relative;
   z-index: 10;
 }
 
 .countdownBar {
-  background: rgba(255, 255, 255, 0.92); /* Mierne priesvitná biela pôsobí luxusnejšie */
-  backdrop-filter: blur(10px);           /* "Sklenený" efekt */
-  color: rgb(0, 0, 0);
-  padding: 16px 40px;
-  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  color: #111;
+  padding: 14px 28px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  white-space: nowrap; /* Aby sa text nelámal do dvoch riadkov */;
-  border-bottom:1px black solid;
+  gap: 14px;
+  white-space: nowrap;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
-/* --- BADGE (Najbližší zápas) --- */
-
 
 .liveDot {
   width: 10px;
@@ -171,54 +139,92 @@
   background-color: #e63946;
   border-radius: 50%;
   animation: pulse 1.5s infinite;
+  flex-shrink: 0;
 }
 
 .countdownLabel {
-  font-weight: 9
-00;
-  font-size: 15px;
+  font-weight: 800;
+  font-size: 0.92rem;
   opacity: 0.7;
 }
 
 .timer {
-  font-weight: 800;
-  font-size: 18px;
+  font-weight: 900;
+  font-size: 1.05rem;
   font-variant-numeric: tabular-nums;
 }
 
-@keyframes pulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(230, 57, 70, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
-}
-
-.mainGridContainer {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-/* --- RESPONZIVITA --- */
 @media (max-width: 768px) {
-  .bannerContainer { height: 400px; border-radius: 20px; }
-  .bannerOverlay { padding: 30px; }
-  .countdownBar { padding: 12px 20px; flex-direction: column; gap: 5px; }
-}
-.statsGrid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 20px;
-  padding:0 65px 150px;
-  max-width: 1300px;
-  margin: 0 auto;
-  margin-top: -20px; /* Upravuj toto číslo, kým to nebude sedieť */
-  margin-bottom: 150px; 
-  margin-left: auto;
-  margin-right: auto;
-}
+  .heroSection {
+    margin: 14px auto 18px;
+    padding: 0 9px;
+  }
 
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  .bannerContainer {
+    min-height: 260px;
+    padding: 18px 16px 22px;
+    border-radius: 24px;
+  }
+
+  .heroImg {
+    object-position: center 24%;
+  }
+
+  .heroTextContent {
+    max-width: 100%;
+    margin-left: -10px;
+  }
+
+  .heroSubtitle {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    padding: 0 10px;
+    min-height: 28px;
+    margin-bottom: 10px;
+    border-radius: 999px;
+  }
+
+  .bannerTitle {
+    font-size: clamp(2.8rem, 16vw, 4.2rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+
+  .countdownWrapper {
+    margin-top: -14px;
+    padding: 0 10px;
+  }
+
+  .countdownBar {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+    white-space: normal;
+    min-height: auto;
+  }
+
+  .liveDot {
+    width: 9px;
+    height: 9px;
+  }
+
+  .countdownLabel {
+    font-size: 0.74rem;
+    line-height: 1.2;
+  }
+
+  .timer {
+    font-size: 0.86rem;
+    line-height: 1.2;
+  }
+}
+@media (max-width: 768px) {
+  .pageContainer {
+    padding-top: 84px;
+  }
 }
