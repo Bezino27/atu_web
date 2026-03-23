@@ -1,147 +1,171 @@
-
-.container {
+.novinkySection {
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 30px 0 80px;
+  background-color: #ffffff;
+  box-sizing: border-box;
 }
 
-.mainTitle {
-  font-family: var(--font-geist-sans);
-  font-weight: 850; /* Ešte o niečo hrubšie pre športový vzhľad */
-  font-size: clamp(2rem, 4vw, 3rem); /* Mierne zväčšené */
-  color:black;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  text-transform: none;
-  text-align: left;
-  
-  /* Zarovnanie a medzery */
-  margin-top: 0;
-  margin-bottom: 40px; /* Väčšia medzera od karty pre "dýchanie" */
-  position: relative;
-  
-  /* Červená linka */
-  padding-left: 25px; 
-  border-left: 6px solid #e63946;
-  
-  /* Fix pre zarovnanie: ak chceš, aby TEXT lícoval s fotkou, 
-     musíš nadpis posunúť o šírku linky a paddingu doľava */
-  margin-left: -31px; /* (6px linka + 25px padding) */
+.container {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
 }
-@media (max-width: 768px) {
-  .mainTitle {
-    margin-left: 0; /* Na mobile vrátime späť, aby to neutieklo z displeja */
-    padding-left: 15px;
-    border-left-width: 4px;
-    font-size: 1.8rem;
-  }
+
+.sectionHeading {
+  margin: 0 0 28px 0;
 }
+
 .preTitle {
   display: block;
+  margin: 0 0 8px 18px;
   color: #e63946;
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-.novinkySection {
-  max-width: 1300px;
-  width: 100%;
-  padding: 30px 0 80px 0; /* 30px hore, 0 po bokoch, 80px dole */
-  background-color: #ffffff;
+  text-transform: uppercase;
 }
 
-/* --- SPOLOČNÉ NASTAVENIA PRE VŠETKY KARTY --- */
-.heroCard, .card {
+.sectionTitle {
+  font-family: var(--font-geist-sans);
+  font-weight: 850;
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  color: #111;
+  line-height: 1.08;
+  letter-spacing: -1.4px;
+  text-align: left;
+  margin: 0 0 24px;
+  padding-left: 12px;
+  border-left: 6px solid #e63946;
+}
+
+/* --- SPOLOČNÉ KARTY --- */
+.heroCard,
+.card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   background-color: #000;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.heroCard:hover, .card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.heroCard:hover,
+.card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
 }
 
-/* Efekt pre obrázok (zoom) - platí pre všetky */
 .img {
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .imageWrapper {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.heroCard:hover .img, 
+
+.heroCard:hover .img,
 .card:hover .img {
-  transform: scale(1.08); /* Jemné priblíženie pri hoveri */
+  transform: scale(1.06);
 }
 
-/* Spoločný posun obsahu nahor */
-.heroOverlay, .cardOverlay {
-  transition: background 0.4s ease;
+.heroOverlay,
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
-.heroTitle, .heroDescription, .metaRow,
-.cardTitle, .cardDescription, .metaRowSmall {
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-.heroDescription {
-  color: rgba(255, 255, 255, 0.9); /* Biela s 90% viditeľnosťou */
-  font-size: 18px;
-  line-height: 1.5;
-  max-width: 800px;
-  margin-top: 10px;
+.metaRow,
+.metaRowSmall {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* Reakcia na hover - posun textových prvkov */
-.heroCard:hover .heroTitle,
-.heroCard:hover .heroDescription,
-.heroCard:hover .metaRow,
-.card:hover .cardTitle,
-.card:hover .cardDescription,
-.card:hover .metaRowSmall {
-  transform: translateY(-8px);
-}
-.cardDescription {
-  color: rgba(255, 255, 255, 0.85); /* Trochu jemnejšia biela pre menšie karty */
-  font-size: 14px;
-  line-height: 1.4;
-  margin-top: 5px;
-}
-.heroCard:hover .heroDescription,
-.card:hover .cardDescription {
-  color: #ffffff; /* Úplne čistá biela pri hoveri */
-}
-/* --- ŠPECIFICKÉ ÚPRAVY PRE HERO --- */
+/* --- HERO --- */
 .heroCard {
-  margin-top: 10px; /* Priblížime kartu k nadpisu */
-  /* Pridáme jemný vnútorný tieň navrchu, aby lepšie sedela */
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.05), 0 20px 40px rgba(0,0,0,0.2);
+  margin-top: 10px;
   height: 600px;
   border-radius: 40px;
   margin-bottom: 24px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05), 0 20px 40px rgba(0, 0, 0, 0.18);
 }
 
 .heroOverlay {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 50px;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    transparent 100%
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.72) 28%,
+    rgba(0, 0, 0, 0.32) 58%,
+    rgba(0, 0, 0, 0.08) 100%
   );
-  z-index: 2;
 }
 
-/* --- ŠPECIFICKÉ ÚPRAVY PRE GRID --- */
+.badge,
+.badgeSmall {
+  background: #e63946;
+  color: white;
+  font-weight: 800;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 4px 12px;
+  line-height: 1.1;
+}
+
+.dateText,
+.dateTextSmall {
+  color: #fff;
+  opacity: 0.9;
+  font-size: 14px;
+}
+
+.heroTitle {
+  color: white;
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  font-weight: 850;
+  line-height: 0.98;
+  letter-spacing: -2px;
+  margin: 14px 0 12px;
+  max-width: 880px;
+  text-wrap: balance;
+}
+
+.heroDescription {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.5;
+  max-width: 780px;
+  margin: 0;
+}
+
+.heroTitle,
+.heroDescription,
+.metaRow,
+.cardTitle,
+.cardDescription,
+.metaRowSmall {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.heroCard:hover .heroTitle,
+.heroCard:hover .heroDescription,
+.heroCard:hover .metaRow,
+.card:hover .cardTitle,
+.card:hover .cardDescription,
+.card:hover .metaRowSmall {
+  transform: translateY(-6px);
+}
+
+/* --- GRID --- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -154,8 +178,6 @@
 }
 
 .cardOverlay {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -163,39 +185,215 @@
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.95) 5%,
-    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.46) 48%,
     transparent 100%
   );
-  z-index: 2;
-}
-
-/* --- TEXTY A BADGE --- */
-.badge, .badgeSmall {
-  background: #e63946;
-  color: white;
-  font-weight: 800;
-  border-radius: 10px;
-  text-transform: uppercase;
-  font-size: 12px;
-  padding: 4px 12px;
-}
-
-.dateText, .dateTextSmall {
-  color: #fff;
-  opacity: 0.8;
-  font-size: 14px;
-}
-
-.heroTitle {
-  color: white;
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 10px 0;
 }
 
 .cardTitle {
   color: white;
   font-size: 22px;
   font-weight: 700;
-  margin: 8px 0;
+  line-height: 1.12;
+  margin: 10px 0 6px;
+  text-wrap: balance;
+}
+
+.cardDescription {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 14px;
+  line-height: 1.45;
+  margin-top: 0;
+}
+
+.heroCard:hover .heroDescription,
+.card:hover .cardDescription {
+  color: #ffffff;
+}
+
+/* --- TABLET --- */
+@media (max-width: 1024px) {
+  .novinkySection {
+    padding: 24px 0 72px;
+  }
+
+  .heroCard {
+    height: 520px;
+    border-radius: 32px;
+  }
+
+  .heroOverlay {
+    padding: 36px;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    max-width: 720px;
+  }
+
+  .heroDescription {
+    max-width: 620px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+  .novinkySection {
+    padding: 22px 16px 56px;
+  }
+
+  .sectionHeading {
+    margin-bottom: 22px;
+  }
+
+  .preTitle {
+    margin: 0 0 8px 14px;
+    font-size: 12px;
+    letter-spacing: 1.8px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    line-height: 1.03;
+    letter-spacing: -1.8px;
+    padding-left: 10px;
+    border-left-width: 4px;
+    margin: 0 0 18px;
+  }
+
+  .heroCard {
+    height: 560px;
+    border-radius: 26px;
+    margin-bottom: 18px;
+  }
+
+  .heroOverlay {
+    padding: 22px 20px 20px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.82) 34%,
+      rgba(0, 0, 0, 0.42) 68%,
+      rgba(0, 0, 0, 0.12) 100%
+    );
+  }
+
+  .metaRow {
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+
+  .dateText {
+    font-size: 12px;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 11vw, 3rem);
+    line-height: 0.98;
+    letter-spacing: -1.6px;
+    margin: 12px 0 10px;
+    max-width: 100%;
+    text-wrap: balance;
+  }
+
+  .heroDescription {
+    font-size: 15px;
+    line-height: 1.45;
+    max-width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    height: 230px;
+    border-radius: 22px;
+  }
+
+  .cardOverlay {
+    padding: 18px;
+  }
+
+  .badgeSmall {
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 8px;
+  }
+
+  .dateTextSmall {
+    font-size: 12px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    margin: 8px 0 4px;
+  }
+
+  .cardDescription {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+/* --- MALÉ MOBILY --- */
+@media (max-width: 480px) {
+  .novinkySection {
+    padding: 20px 14px 48px;
+  }
+
+  .preTitle {
+    margin-left: 12px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.9rem, 10vw, 2.35rem);
+    padding-left: 9px;
+    border-left-width: 4px;
+    letter-spacing: -1.6px;
+  }
+
+  .heroCard {
+    height: 540px;
+    border-radius: 20px;
+  }
+
+  .heroOverlay {
+    padding: 18px 16px 16px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.8rem, 10.6vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -1.4px;
+    margin: 10px 0 8px;
+  }
+
+  .heroDescription {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .card {
+    height: 210px;
+    border-radius: 18px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+  }
+
+  .cardDescription {
+    font-size: 12.5px;
+  }
 }

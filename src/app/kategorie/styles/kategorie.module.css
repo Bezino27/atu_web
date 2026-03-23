@@ -1,13 +1,12 @@
 .pageContainer {
   background-color: #ffffff;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 .heroSection {
   width: 100%;
   max-width: 1300px;
-  margin: 40px auto 30px;
+  margin: 16px auto 30px;
   padding: 0 16px;
   position: relative;
   z-index: 5;
@@ -223,8 +222,20 @@
     line-height: 1.2;
   }
 }
-@media (max-width: 768px) {
+
+@media (max-width: 640px) {
   .pageContainer {
-    padding-top: 84px;
+    padding-top: 74px;
+  }
+
+  .heroSection {
+    margin: 10px auto 18px;
+    padding: 0 9px;
+  }
+}
+
+@media (max-width: 420px) {
+  .pageContainer {
+    padding-top: 70px;
   }
 }

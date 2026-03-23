@@ -1,198 +1,107 @@
-.upcomingMatchesSection {
-  max-width: 1440px;
-  margin: 60px auto;
-  padding: 40px;
-  background: #f4f4f6;
-  border-radius: 20px;
-  border: 1px solid #e1e1e6;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+.matchesSection {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 10px 0 0;
 }
-.upcomingMatchesSection h2 {
-  font-family: var(--font-geist-sans);
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  color: #111;
-  font-weight: 800;
-  margin-bottom: 24px;
-  text-align: left; /* nadpis tiež doľava */
-}
-
 
 .title {
   font-family: var(--font-geist-sans);
-  font-weight: 850; /* Ešte o niečo hrubšie pre športový vzhľad */
-  font-size: clamp(2rem, 4vw, 3rem); /* Mierne zväčšené */
-  color:black;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  text-transform: none;
+  font-weight: 850;
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  color: #111;
+  line-height: 1.08;
+  letter-spacing: -1.4px;
   text-align: left;
-  
-  /* Zarovnanie a medzery */
-  margin-top: 0;
-  margin-bottom: 40px; /* Väčšia medzera od karty pre "dýchanie" */
-  position: relative;
-  
-  /* Červená linka */
-  padding-left: 25px; 
+  margin: 0 0 24px;
+  padding-left: 12px;
   border-left: 6px solid #e63946;
-  
-  /* Fix pre zarovnanie: ak chceš, aby TEXT lícoval s fotkou, 
-     musíš nadpis posunúť o šírku linky a paddingu doľava */
-  margin-left: -31px; /* (6px linka + 25px padding) */
 }
+
 @media (max-width: 768px) {
   .title {
-    margin-left: 0; /* Na mobile vrátime späť, aby to neutieklo z displeja */
-    padding-left: 15px;
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    line-height: 1.03;
+    letter-spacing: -1.8px;
+    padding-left: 10px;
     border-left-width: 4px;
-    font-size: 1.8rem;
+    margin: 0 0 18px;
   }
 }
 
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.item {
-  background: #c4c4c465;
-  border-radius: 18px;
-  padding: 16px 24px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-}
-
-.matchHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.league {
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #d32f2f;
-}
-.dateTime {
-  font-style: italic;
-  color: #000000;
-  font-weight: 600;
-  margin-left: 10px; /* malý posun doprava pre oddelenie od ligy */
-}
-.matchBody {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* aby boli všetky vertikálne zarovnané */
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.team {
-  font-weight: 800;
-  font-size: 18px; /* Zväčšené zo 14px */
-  color: #000;     /* Čierna farba */
-  margin-top: 10px;
-  text-align: center;
-  line-height: 1.2;
-}
-
-
-.location {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #2f2e2e;
-  opacity: 0.85;
-  text-align: right;
-  flex: 0 0 auto; /* nebude sa roztahovať */
-  margin-left: 20px; /* posunie miesto mierne doprava */
-}
-
-.none {
-  text-align: center;
-  font-style: italic;
-  color: #999;
-}
-/* Sekcia zápasov */
-.matchesSection {
-  padding: 40px 0;
+@media (max-width: 480px) {
+  .title {
+    font-size: clamp(1.9rem, 10vw, 2.35rem);
+    padding-left: 9px;
+    border-left-width: 4px;
+    letter-spacing: -1.6px;
+  }
 }
 
 .matchesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
 }
 
-/* Samotná karta zápasu */
+/* KARTA */
 .matchCard {
   position: relative;
-  background: rgb(245, 245, 245); 
+  background: rgb(245, 245, 245);
   border-radius: 28px;
   padding: 30px;
-  overflow: hidden; 
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid transparent; /* Skryté orámovanie */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
-/* --- ANIMOVANÝ POHYBLIVÝ OKRAJ --- */
 .matchCard::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150%; /* Musí byť väčšie ako karta kvôli rotácii */
+  width: 150%;
   height: 150%;
   background: conic-gradient(
-    transparent,  
-    #e63946 30%, /* TOTO PREDĹŽI HADA: teraz zaberá polovicu obvodu (50%) */
+    transparent,
+    #e63946 30%,
     transparent 40%
   );
   transform-origin: center;
-  /* Animácia beží stále, alebo ju môžeš aktivovať len pri hoveri */
   animation: rotate 4s linear infinite;
   z-index: -2;
-  /* Skryjeme ho defaultne, ukážeme až pri hoveri (voliteľné) */
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Vnútorná vrstva, ktorá prekryje stred rotujúceho gradientu */
 .matchCard::after {
-  content: '';
+  content: "";
   position: absolute;
-  inset: 3px; /* Hrúbka okraja (čím menšie číslo, tým hrubší okraj) */
-  background: #f8f9fa; /* Musí byť rovnaké ako pozadie karty */
+  inset: 3px;
+  background: #f8f9fa;
   border-radius: 25px;
   z-index: -1;
 }
 
 .matchCard:hover {
-  transform: translateY(-8px);
-  background: #ffffff;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.1);
 }
 
-/* Pri hoveri aktivujeme svietiaci okraj */
 .matchCard:hover::before {
   opacity: 1;
 }
 
-/* Pri hoveri zmeníme aj pozadie vnútra na biele */
 .matchCard:hover::after {
   background: #ffffff;
 }
 
-/* --- DEFINÍCIA ROTÁCIE --- */
 @keyframes rotate {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
@@ -201,21 +110,22 @@
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+
 .matchLeague {
   font-size: 12px;
   font-weight: 900;
   color: #d32f2f;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 20px
+  margin-bottom: 22px;
 }
 
-/* Rozloženie tímov */
 .matchTeamsRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 25px;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 
 .teamInfo {
@@ -225,71 +135,115 @@
   flex: 1;
 }
 
-
 .teamLogo {
-  width: 70px;
-  height: 70px;
+  width: 74px;
+  height: 74px;
   background: #ffffff;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.515);
-  border: 1px solid #eee;
-  overflow: hidden; /* Dôležité: oreže obrázok podľa border-radius */
-  padding: 10px;    /* Pridá medzeru medzi okrajom boxu a logom */
+  margin-bottom: 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  border: 1px solid #ececec;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .teamLogo img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Zabezpečí, že logo sa nedeformuje a celé sa zmestí */
+  object-fit: contain;
 }
 
+.opponentPlaceholder {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #d32f2f;
+  line-height: 1;
+}
 
-.teamName {
-  font-weight: 700;
-  font-size: 14px;
+.team {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #111;
   text-align: center;
+  line-height: 1.3;
+  word-break: break-word;
 }
 
 .vsDivider {
+  flex: 0 0 auto;
   font-weight: 900;
-  font-size: 22px;
-  color: #d32f2f; /* Klubová červená */
-  opacity: 1;     /* Plná sýtosť */
-  padding: 0 15px;
+  font-size: 1.3rem;
+  color: #d32f2f;
+  padding: 0 6px;
 }
 
-/* Spodná časť karty */
 .matchFooter {
-  border-top: 1px solid #f5f5f5;
-  padding-top: 15px;
+  border-top: 1px solid #ececec;
+  padding-top: 16px;
   text-align: center;
 }
 
 .matchDateTime {
-  font-size: 16px; /* Zväčšené zo 14px */
-  color: #000;     /* Zmenené z #333 */
+  font-size: 1rem;
+  color: #000;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .matchPlace {
-  font-size: 14px; /* Zväčšené z 12px */
-  color: #222;     /* Tmavšia verzia */
+  font-size: 0.95rem;
+  color: #222;
   font-weight: 500;
+  line-height: 1.45;
 }
-@media (max-width: 768px) {
+
+/* EMPTY STATE */
+.emptyState {
+  background: linear-gradient(180deg, #f7f7f8 0%, #f1f1f3 100%);
+  border: 1px solid #e4e4e8;
+  border-radius: 28px;
+  padding: 38px 26px;
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  margin-bottom: 14px;
+}
+
+.emptyTitle {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 800;
+  color: #111;
+}
+
+.emptyText {
+  margin: 0 auto;
+  max-width: 540px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #555;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
   .matchesSection {
-    padding: 18px 0 8px;
+    padding: 6px 18px 0;
   }
+
+  .headerRow {
+    margin-bottom: 18px;
+  }
+
 
   .matchesGrid {
     grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 16px;
+    gap: 18px;
   }
 
   .matchCard {
@@ -297,17 +251,10 @@
     border-radius: 22px;
   }
 
-  .title {
-    margin-left: 0;
-    padding-left: 14px;
-    border-left-width: 4px;
-    font-size: 1.85rem;
-    margin-bottom: 24px;
-  }
-
   .matchLeague {
     font-size: 11px;
     margin-bottom: 16px;
+    text-align: center;
   }
 
   .matchTeamsRow {
@@ -316,54 +263,178 @@
   }
 
   .teamLogo {
-    width: 58px;
-    height: 58px;
+    width: 60px;
+    height: 60px;
     border-radius: 16px;
-    padding: 8px;
+    padding: 7px;
+    margin-bottom: 10px;
   }
 
   .team {
-    font-size: 16px;
-    margin-top: 8px;
+    font-size: 0.98rem;
+    line-height: 1.25;
   }
 
   .vsDivider {
-    font-size: 18px;
-    padding: 0 6px;
+    font-size: 1rem;
+    padding: 0 4px;
+  }
+
+  .matchFooter {
+    padding-top: 12px;
   }
 
   .matchDateTime {
-    font-size: 15px;
+    font-size: 0.95rem;
   }
 
   .matchPlace {
-    font-size: 13px;
+    font-size: 0.84rem;
   }
 }
 
-@media (max-width: 480px) {
-  .matchCard {
-    padding: 18px 14px;
+@media (max-width: 768px) {
+  .matchesSection {
+    padding: 0 16px;
   }
 
-  .team {
-    font-size: 15px;
+  .headerRow {
+    margin-bottom: 14px;
+  }
+
+
+
+  .matchesGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .matchCard {
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+
+  .matchLeague {
+    font-size: 10px;
+    margin-bottom: 14px;
+    text-align: center;
+    letter-spacing: 1.4px;
+  }
+
+  .matchTeamsRow {
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
   .teamLogo {
     width: 52px;
     height: 52px;
+    border-radius: 14px;
+    padding: 6px;
+    margin-bottom: 8px;
   }
 
+  .team {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  
   .vsDivider {
-    font-size: 16px;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    padding: 0 2px;
+  }
+
+  .matchFooter {
+    padding-top: 12px;
   }
 
   .matchDateTime {
-    font-size: 14px;
+    font-size: 0.92rem;
+    line-height: 1.35;
   }
 
   .matchPlace {
-    font-size: 12px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .emptyState {
+    padding: 22px 16px;
+    border-radius: 20px;
+  }
+
+  .emptyIcon {
+    font-size: 1.9rem;
+  }
+
+  .emptyTitle {
+    font-size: 1.05rem;
+  }
+
+  .emptyText {
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+}
+
+/* EXTRA SMALL MOBILE */
+@media (max-width: 480px) {
+  .matchesSection {
+    padding: 0 14px;
+  }
+
+
+  .matchCard {
+    padding: 16px 12px;
+    border-radius: 18px;
+  }
+
+  .matchLeague {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+
+  .matchTeamsRow {
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .teamLogo {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 6px;
+  }
+
+  .team {
+    font-size: 0.88rem;
+  }
+
+  .vsDivider {
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  .matchDateTime {
+    font-size: 0.88rem;
+  }
+
+  .matchPlace {
+    font-size: 0.76rem;
+  }
+
+  .emptyState {
+    padding: 18px 12px;
+    border-radius: 18px;
+  }
+
+  .emptyTitle {
+    font-size: 1rem;
+  }
+
+  .emptyText {
+    font-size: 0.82rem;
   }
 }

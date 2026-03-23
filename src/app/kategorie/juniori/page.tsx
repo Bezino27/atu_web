@@ -1,6 +1,6 @@
-'use client'; // Dôležité, ak používaš Next.js (kvôli useEffect a useState)
+'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from "../styles/kategorie.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -21,7 +21,7 @@ const matches = [
     location: "Ostrovského, Košice",
   },
   {
-    league: "EXTRALIGA juniorov",
+    league: "EXTRALIGA JUNIOROV",
     homeTeam: "ATU Košice",
     awayTeam: "Slovan Bratislava",
     date: "28.03.2026",
@@ -31,14 +31,16 @@ const matches = [
 ];
 
 const JunioriPage = () => {
-  // 1. Nastavenie cieľového dátumu
-  const targetDate = new Date("2026-03-25T18:30:00").getTime();
+  const targetDate = useMemo(() => new Date("2026-03-25T18:30:00").getTime(), []);
 
-  // 2. React stavy
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const [isLive, setIsLive] = useState(false);
 
-  // 3. Efekt pre odpočítavanie
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -62,24 +64,24 @@ const JunioriPage = () => {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  // Pomocná funkcia pre pekné formátovanie čísel (01, 02...)
   const formatTime = (time: number) => (time < 10 ? `0${time}` : time);
 
   return (
     <div className={styles.pageContainer}>
       <Header />
-      
+
       <main className={styles.content}>
-        {/* HERO SEKCIA */}
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/juniori_kader.png"
-              alt="ATU Košice Muži"
+              src="/images/kategorie/juniori_kader.jpg"
+              alt="ATU Košice Juniori"
               fill
               priority
+              sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroImg}
             />
+
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
                 <span className={styles.heroSubtitle}>Slovenská Juniorská Florbalová Extraliga</span>
@@ -88,23 +90,20 @@ const JunioriPage = () => {
             </div>
           </div>
 
-          {/* DYNAMICKÝ ODPOČET */}
           <div className={styles.countdownWrapper}>
             <div className={styles.countdownBar}>
-              {/* Bodka, ktorá pri LIVE svieti inak */}
-              <span 
-                className={styles.liveDot} 
-                style={isLive ? { backgroundColor: '#ff0000', boxShadow: '0 0 15px #ff0000' } : {}}
+              <span
+                className={styles.liveDot}
+                style={isLive ? { backgroundColor: "#ff0000", boxShadow: "0 0 15px #ff0000" } : {}}
               />
-              
               <span className={styles.timer}>
                 {isLive ? (
-                  <span style={{ color: '#d32f2f', fontWeight: '900' }}>
+                  <span style={{ color: "#d32f2f", fontWeight: "900" }}>
                     SLEDUJTE LIVE ⚡
                   </span>
                 ) : (
                   <>
-                    <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O: </span>
+                    <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{" "}
                     {timeLeft.days}d : {formatTime(timeLeft.hours)}h : {formatTime(timeLeft.minutes)}m : {formatTime(timeLeft.seconds)}s
                   </>
                 )}
@@ -113,18 +112,18 @@ const JunioriPage = () => {
           </div>
         </section>
 
-       {/* ZÁPASY A NOVINKY */}
         <div className={styles.mainGridContainer}>
           <NasledujuceZapasy matches={matches} />
           <Novinky />
         </div>
-         <div className={styles.statsGrid}>
-           <StandingsTable />
+
+        <div className={styles.statsGrid}>
+          <StandingsTable />
           <div className={styles.rightColumn}>
-           <RecentMatches />
-           <TopPlayer />
-         </div>
-        </div> 
+            <RecentMatches />
+            <TopPlayer />
+          </div>
+        </div>
       </main>
 
       <Footer />
