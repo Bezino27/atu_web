@@ -1,0 +1,168 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(211, 47, 47, 0.08), transparent 25%),
+    linear-gradient(180deg, #0b0e13 0px, #141923 460px, #f7f8fb 460px, #f7f8fb 100%);
+}
+
+.hero {
+  padding: 56px 20px 50px;
+  color: #fff;
+}
+
+.heroInner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.95rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(211, 47, 47, 0.18);
+  color: #ff6b6b;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.heroInner h1 {
+  margin: 0 0 18px;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -1.3px;
+}
+
+.excerpt {
+  max-width: 840px;
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.articleSection {
+  padding: 0 20px 90px;
+}
+
+.articleCard {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(10, 16, 26, 0.08);
+}
+
+.heroImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  background: #eaeaea;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.articleContent {
+  padding: 42px 42px 48px;
+  color: #161616;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.articleContent :global(h1),
+.articleContent :global(h2),
+.articleContent :global(h3),
+.articleContent :global(h4) {
+  margin-top: 2.2em;
+  margin-bottom: 0.7em;
+  line-height: 1.25;
+  color: #111;
+}
+
+.articleContent :global(h1:first-child),
+.articleContent :global(h2:first-child),
+.articleContent :global(h3:first-child) {
+  margin-top: 0;
+}
+
+.articleContent :global(p) {
+  margin: 0 0 1.2em;
+}
+
+.articleContent :global(a) {
+  color: #d32f2f;
+  text-decoration: underline;
+}
+
+.articleContent :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  margin: 18px 0 28px;
+}
+
+.articleContent :global(ul),
+.articleContent :global(ol) {
+  margin: 0 0 1.2em 1.4em;
+}
+
+.articleContent :global(blockquote) {
+  margin: 1.8em 0;
+  padding: 16px 20px;
+  border-left: 4px solid #d32f2f;
+  background: #faf7f7;
+  color: #333;
+  border-radius: 0 14px 14px 0;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 42px 16px 40px;
+  }
+
+  .articleSection {
+    padding: 0 16px 70px;
+  }
+
+  .articleContent {
+    padding: 24px 18px 30px;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .heroInner h1 {
+    letter-spacing: -0.8px;
+  }
+}

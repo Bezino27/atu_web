@@ -1,10 +1,11 @@
- import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "./lib/posts";
+import { getImageUrl } from "./lib/api";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
@@ -98,26 +99,11 @@ function formatDate(dateString?: string) {
   });
 }
 
-function getImageUrl(image?: string | null) {
-  if (!image) return "/images/news1.jpg";
-
-  if (image.startsWith("http://") || image.startsWith("https://")) {
-    return image;
-  }
-
-  const apiUrl = process.env.API_URL || "http://178.104.54.84:8000/api";
-  const backendBase = apiUrl.replace("/api", "");
-
-  return `${backendBase}${image}`;
-}
-
 export default async function HomePage() {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
 
   const heroArticle: Post | undefined = posts[0];
   const sideArticles: Post[] = posts.slice(1, 3);
-
-  // spodná sekcia bude zobrazovať všetko od 6. článku ďalej
   const latestPosts: Post[] = posts.slice(3);
 
   return (
@@ -144,9 +130,9 @@ export default async function HomePage() {
                     src={getImageUrl(heroArticle.featured_image)}
                     alt={heroArticle.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                     className={styles.cardImage}
                     priority
-                    unoptimized
                   />
                   <div className={styles.imageOverlay} />
                 </div>
@@ -176,8 +162,8 @@ export default async function HomePage() {
                           src={getImageUrl(article.featured_image)}
                           alt={article.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className={styles.cardImage}
-                          unoptimized
                         />
                         <div className={styles.imageOverlay} />
                       </div>
@@ -195,7 +181,6 @@ export default async function HomePage() {
                   ))}
                 </div>
               )}
-
             </div>
           )}
         </section>
@@ -299,8 +284,8 @@ export default async function HomePage() {
                           src={getImageUrl(post.featured_image)}
                           alt={post.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className={styles.cardImage}
-                          unoptimized
                         />
                       </div>
                       <div className={styles.postContent}>
