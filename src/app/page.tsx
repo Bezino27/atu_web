@@ -83,7 +83,7 @@ const sponsors = [
   "Hlavný partner",
 ];
 
-function formatDate(dateString?: string) {
+function formatDate(dateString?: string | null){
   if (!dateString) return "";
 
   const date = new Date(dateString);

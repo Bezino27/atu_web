@@ -10,10 +10,13 @@ export type Post = {
   id: number;
   title: string;
   slug: string;
-  excerpt?: string;
-  content?: string;
+  excerpt?: string | null;
+  content?: string | null;
   featured_image?: string | null;
-  published_at?: string;
+  published_at?: string | null;
+  author_username?: string | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
   category?: PostCategory | null;
 };
 
@@ -28,7 +31,6 @@ export async function getHomepagePosts(clubSlug: string): Promise<Post[]> {
 
   return res.json();
 }
-
 
 export async function getPostDetail(clubSlug: string, slug: string): Promise<Post> {
   const res = await fetch(`${API_URL}/public/posts/${clubSlug}/${slug}/`, {
