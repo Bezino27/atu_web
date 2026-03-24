@@ -194,7 +194,7 @@ export default function Header() {
         <div className={styles.container}>
           <nav className={styles.mobileNav}>
             {navItems.map((item) => {
-              if (item.label === "Kategórie") {
+              if (item.label === "Mládež") {
                 return (
                   <div key={item.href} className={styles.mobileDropdown}>
                     <button

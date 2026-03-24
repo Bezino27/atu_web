@@ -51,10 +51,38 @@ function formatTime(timeString?: string | null) {
   return timeString.slice(0, 5);
 }
 
+function getStandingsRowClass(
+  position: number,
+  teamName: string,
+  ownTeamName: string
+) {
+  const classNames = [];
+
+  if (position <= 8) classNames.push(styles.playoffRow);
+  if (position === 10 || position === 11) classNames.push(styles.playoutRow);
+  if (position === 12) classNames.push(styles.relegationRow);
+  if (teamName === ownTeamName) classNames.push(styles.highlightRow);
+
+  return classNames.join(" ");
+}
+
+function getPlacementLabel(position: number) {
+  if (position <= 8) return "Playoff";
+  if (position === 10 || position === 11) return "Baráž";
+  if (position === 12) return "Zostup";
+  return null;
+}
+
+function renderMatchTitle(match: SzfbMatch, ownTeamName: string) {
+  if (match.is_home === false) {
+    return `${match.opponent} vs ${ownTeamName}`;
+  }
+
+  return `${ownTeamName} vs ${match.opponent}`;
+}
+
 export default async function HomePage() {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
-
-  // tu daj ID tvojho watch záznamu z DB/adminu
   const szfbDashboard = await getSzfbDashboard(1);
 
   const heroArticle: Post | undefined = posts[0];
@@ -65,8 +93,8 @@ export default async function HomePage() {
   const nextMatches: SzfbMatch[] = szfbDashboard?.upcoming ?? [];
   const results: SzfbMatch[] = szfbDashboard?.results ?? [];
 
-  const showUpcoming = nextMatches.length > 0;
-  const sideMatches = showUpcoming ? nextMatches.slice(0, 3) : results.slice(0, 3);
+  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+  const competitionName = szfbDashboard?.watch?.competition_name || "SZFB súťaž";
 
   return (
     <>
@@ -151,8 +179,16 @@ export default async function HomePage() {
           <div className={styles.dashboardGrid}>
             <div className={styles.panel}>
               <div className={styles.panelHeader}>
-                <span className={styles.sectionEyebrow}>Liga</span>
-                <h3>Aktuálna tabuľka</h3>
+                <div>
+                  <span className={styles.sectionEyebrow}>Liga</span>
+                  <h3>Aktuálna tabuľka</h3>
+                </div>
+
+                <div className={styles.legend}>
+                  <span className={`${styles.legendItem} ${styles.legendPlayoff}`}>Playoff</span>
+                  <span className={`${styles.legendItem} ${styles.legendBarage}`}>Baráž</span>
+                  <span className={`${styles.legendItem} ${styles.legendDrop}`}>Zostup</span>
+                </div>
               </div>
 
               <div className={styles.tableWrap}>
@@ -167,17 +203,44 @@ export default async function HomePage() {
                   </thead>
                   <tbody>
                     {standings.length > 0 ? (
-                      standings.map((team) => (
-                        <tr
-                          key={team.position}
-                          className={team.team_name === "FaBK ATU Košice" ? styles.highlightRow : ""}
-                        >
-                          <td>{team.position}</td>
-                          <td>{team.team_name}</td>
-                          <td>{team.played}</td>
-                          <td>{team.points}</td>
-                        </tr>
-                      ))
+                      standings.map((team) => {
+                        const label = getPlacementLabel(team.position);
+
+                        return (
+                          <tr
+                            key={team.position}
+                            className={getStandingsRowClass(
+                              team.position,
+                              team.team_name,
+                              ownTeamName
+                            )}
+                          >
+                            <td>
+                              <span className={styles.positionBadge}>{team.position}</span>
+                            </td>
+                            <td>
+                              <div className={styles.teamCell}>
+                                <span className={styles.teamName}>{team.team_name}</span>
+                                {label && (
+                                  <span
+                                    className={
+                                      label === "Playoff"
+                                        ? styles.rowTag
+                                        : label === "Baráž"
+                                        ? styles.rowTagWarning
+                                        : styles.rowTagDanger
+                                    }
+                                  >
+                                    {label}
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                            <td>{team.played}</td>
+                            <td className={styles.pointsCell}>{team.points}</td>
+                          </tr>
+                        );
+                      })
                     ) : (
                       <tr>
                         <td colSpan={4}>Tabuľka zatiaľ nie je dostupná.</td>
@@ -191,36 +254,34 @@ export default async function HomePage() {
             <div className={styles.sideStack}>
               <div className={styles.panel}>
                 <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>
-                    {showUpcoming ? "Program" : "Výsledky"}
-                  </span>
-                  <h3>
-                    {showUpcoming ? "Najbližšie zápasy" : "Posledné výsledky"}
-                  </h3>
+                  <span className={styles.sectionEyebrow}>Program</span>
+                  <h3>Najbližšie zápasy</h3>
                 </div>
 
                 <div className={styles.matchList}>
-                  {sideMatches.length > 0 ? (
-                    sideMatches.map((match) => (
+                  {nextMatches.length > 0 ? (
+                    nextMatches.slice(0, 3).map((match) => (
                       <div key={match.id} className={styles.matchCard}>
                         <div className={styles.matchDate}>
                           <strong>{formatDate(match.match_date)}</strong>
-                          {showUpcoming ? (
-                            <span>{formatTime(match.match_time)}</span>
-                          ) : (
-                            <span>{match.result}</span>
-                          )}
+                          <span>{formatTime(match.match_time)}</span>
                         </div>
+
                         <div className={styles.matchInfo}>
-                          <h4>FaBK ATU Košice vs {match.opponent}</h4>
-                          <p>{szfbDashboard?.watch?.competition_name || "SZFB súťaž"}</p>
+                          <h4>{renderMatchTitle(match, ownTeamName)}</h4>
+                          <p>{competitionName}</p>
                           <span>{match.venue || "Miesto zatiaľ nie je uvedené"}</span>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className={styles.emptyPosts}>
-                      Zatiaľ nie sú dostupné zápasy.
+                    <div className={styles.noUpcomingCard}>
+                      <div className={styles.noUpcomingIcon}>🏑</div>
+                      <h4>Momentálne nie sú naplánované ďalšie zápasy</h4>
+                      <p>
+                        Sleduj klubové novinky a výsledky. Ďalší program doplníme hneď,
+                        ako bude oficiálne zverejnený.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -298,10 +359,14 @@ export default async function HomePage() {
                   {results.length > 0 ? (
                     results.slice(0, 5).map((result) => (
                       <div key={result.id} className={styles.resultCard}>
-                        <div>
-                          <strong>FaBK ATU Košice</strong>
+                        <div className={styles.resultTeams}>
+                          <strong>
+                            {result.is_home === false ? result.opponent : ownTeamName}
+                          </strong>
                           <span>vs</span>
-                          <strong>{result.opponent}</strong>
+                          <strong>
+                            {result.is_home === false ? ownTeamName : result.opponent}
+                          </strong>
                         </div>
                         <div className={styles.resultScore}>{result.result}</div>
                         <small>{formatDate(result.match_date)}</small>

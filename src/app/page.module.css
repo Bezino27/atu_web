@@ -251,6 +251,10 @@
 
 .panelHeader {
   margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
 }
 
 .panelHeader h3 {
@@ -260,34 +264,154 @@
   color: #111;
 }
 
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+
+.legendPlayoff {
+  background: rgba(46, 125, 50, 0.12);
+  color: #1b5e20;
+  border-color: rgba(46, 125, 50, 0.2);
+}
+
+.legendBarage {
+  background: rgba(245, 124, 0, 0.12);
+  color: #c25e00;
+  border-color: rgba(245, 124, 0, 0.2);
+}
+
+.legendDrop {
+  background: rgba(211, 47, 47, 0.12);
+  color: #b71c1c;
+  border-color: rgba(211, 47, 47, 0.2);
+}
+
 .tableWrap {
   overflow-x: auto;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.table th,
-.table td {
+.table thead th {
   text-align: left;
-  padding: 14px 10px;
+  padding: 13px 10px 14px;
+  border-bottom: 1px solid #ececf1;
+  font-size: 0.82rem;
+  color: #6d727a;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.table tbody td {
+  text-align: left;
+  padding: 15px 10px;
   border-bottom: 1px solid #ececf1;
   font-size: 0.98rem;
+  vertical-align: middle;
 }
 
-.table th {
-  color: #666;
+.positionBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  background: #f3f4f6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #222;
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.teamName {
   font-weight: 700;
+  color: #111;
+}
+
+.pointsCell {
+  font-weight: 900;
+  color: #111;
+}
+
+.rowTag,
+.rowTagWarning,
+.rowTagDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.rowTag {
+  background: rgba(46, 125, 50, 0.12);
+  color: #1b5e20;
+}
+
+.rowTagWarning {
+  background: rgba(245, 124, 0, 0.14);
+  color: #c25e00;
+}
+
+.rowTagDanger {
+  background: rgba(211, 47, 47, 0.12);
+  color: #b71c1c;
+}
+
+.playoffRow td:first-child {
+  border-left: 4px solid #2e7d32;
+}
+
+.playoutRow td:first-child {
+  border-left: 4px solid #f57c00;
+}
+
+.relegationRow td:first-child {
+  border-left: 4px solid #d32f2f;
 }
 
 .highlightRow {
-  background: rgba(211, 47, 47, 0.06);
+  background: linear-gradient(90deg, rgba(211, 47, 47, 0.08), rgba(211, 47, 47, 0.03));
 }
 
-.highlightRow td {
-  font-weight: 700;
+.highlightRow .positionBadge {
+  background: linear-gradient(135deg, #d32f2f, #ef5350);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(211, 47, 47, 0.22);
+}
+
+.highlightRow .teamName,
+.highlightRow .pointsCell {
+  font-weight: 900;
 }
 
 .matchList,
@@ -332,6 +456,39 @@
 .matchInfo span {
   color: #666;
   font-size: 0.95rem;
+}
+
+.noUpcomingCard {
+  padding: 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+  border: 1px solid #ececf1;
+  text-align: left;
+}
+
+.noUpcomingIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(211, 47, 47, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  margin-bottom: 14px;
+}
+
+.noUpcomingCard h4 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.noUpcomingCard p {
+  margin: 0;
+  color: #666;
+  line-height: 1.65;
+  font-size: 0.96rem;
 }
 
 .playerPanel {
@@ -440,7 +597,7 @@
   border: 1px solid #ececf1;
 }
 
-.resultCard > div:first-child {
+.resultTeams {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -532,9 +689,14 @@
     grid-template-columns: 1fr;
   }
 
-  .sectionHeader {
+  .sectionHeader,
+  .panelHeader {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .legend {
+    justify-content: flex-start;
   }
 
   .matchCard {
@@ -574,6 +736,26 @@
     padding-right: 16px;
   }
 
+  .table th,
+  .table td {
+    padding: 12px 8px;
+    font-size: 0.92rem;
+  }
+
+  .positionBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+  }
+
+  .rowTag,
+  .rowTagWarning,
+  .rowTagDanger {
+    font-size: 0.68rem;
+    padding: 5px 8px;
+  }
+
   .sponsorsGrid {
     grid-template-columns: 1fr;
   }
@@ -586,5 +768,15 @@
     width: 72px;
     height: 72px;
     font-size: 1.5rem;
+  }
+
+  .noUpcomingCard {
+    padding: 18px;
+  }
+
+  .noUpcomingIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
   }
 }
