@@ -6,66 +6,13 @@ import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "./lib/posts";
 import { getImageUrl } from "./lib/api";
+import { getSzfbDashboard, type SzfbMatch, type SzfbStandingRow } from "./lib/szfb";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:
     "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
 };
-
-const standings = [
-  { pos: 1, team: "ATU Košice", matches: 18, points: 42, score: "98:51" },
-  { pos: 2, team: "FK Florko", matches: 18, points: 39, score: "93:57" },
-  { pos: 3, team: "Grasshoppers Žilina", matches: 18, points: 34, score: "87:63" },
-  { pos: 4, team: "Capitals Bratislava", matches: 18, points: 29, score: "75:68" },
-  { pos: 5, team: "Tsunami Záhorská", matches: 18, points: 25, score: "69:72" },
-  { pos: 6, team: "Lido Bratislava", matches: 18, points: 20, score: "61:80" },
-];
-
-const nextMatches = [
-  {
-    date: "24. 3. 2026",
-    time: "18:30",
-    opponent: "FK Florko",
-    venue: "Mestská športová hala Košice",
-    competition: "Extraliga mužov",
-  },
-  {
-    date: "30. 3. 2026",
-    time: "17:00",
-    opponent: "Grasshoppers Žilina",
-    venue: "Domáca hala ATU",
-    competition: "Extraliga mužov",
-  },
-  {
-    date: "5. 4. 2026",
-    time: "14:00",
-    opponent: "Capitals Bratislava",
-    venue: "ŠH Bratislava",
-    competition: "Extraliga mužov",
-  },
-];
-
-const results = [
-  {
-    home: "ATU Košice",
-    away: "Lido Bratislava",
-    score: "7:4",
-    date: "17. 3. 2026",
-  },
-  {
-    home: "Tsunami Záhorská",
-    away: "ATU Košice",
-    score: "3:5",
-    date: "9. 3. 2026",
-  },
-  {
-    home: "ATU Košice",
-    away: "Capitals Bratislava",
-    score: "6:6",
-    date: "1. 3. 2026",
-  },
-];
 
 const categories = [
   "A-tím",
@@ -83,7 +30,7 @@ const sponsors = [
   "Hlavný partner",
 ];
 
-function formatDate(dateString?: string | null){
+function formatDate(dateString?: string | null) {
   if (!dateString) return "";
 
   const date = new Date(dateString);
@@ -99,12 +46,27 @@ function formatDate(dateString?: string | null){
   });
 }
 
+function formatTime(timeString?: string | null) {
+  if (!timeString) return "";
+  return timeString.slice(0, 5);
+}
+
 export default async function HomePage() {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
+
+  // tu daj ID tvojho watch záznamu z DB/adminu
+  const szfbDashboard = await getSzfbDashboard(1);
 
   const heroArticle: Post | undefined = posts[0];
   const sideArticles: Post[] = posts.slice(1, 3);
   const latestPosts: Post[] = posts.slice(3);
+
+  const standings: SzfbStandingRow[] = szfbDashboard?.standings ?? [];
+  const nextMatches: SzfbMatch[] = szfbDashboard?.upcoming ?? [];
+  const results: SzfbMatch[] = szfbDashboard?.results ?? [];
+
+  const showUpcoming = nextMatches.length > 0;
+  const sideMatches = showUpcoming ? nextMatches.slice(0, 3) : results.slice(0, 3);
 
   return (
     <>
@@ -200,23 +162,27 @@ export default async function HomePage() {
                       <th>#</th>
                       <th>Tím</th>
                       <th>Z</th>
-                      <th>Skóre</th>
                       <th>B</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {standings.map((team) => (
-                      <tr
-                        key={team.pos}
-                        className={team.team === "ATU Košice" ? styles.highlightRow : ""}
-                      >
-                        <td>{team.pos}</td>
-                        <td>{team.team}</td>
-                        <td>{team.matches}</td>
-                        <td>{team.score}</td>
-                        <td>{team.points}</td>
+                    {standings.length > 0 ? (
+                      standings.map((team) => (
+                        <tr
+                          key={team.position}
+                          className={team.team_name === "FaBK ATU Košice" ? styles.highlightRow : ""}
+                        >
+                          <td>{team.position}</td>
+                          <td>{team.team_name}</td>
+                          <td>{team.played}</td>
+                          <td>{team.points}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={4}>Tabuľka zatiaľ nie je dostupná.</td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -225,24 +191,38 @@ export default async function HomePage() {
             <div className={styles.sideStack}>
               <div className={styles.panel}>
                 <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Program</span>
-                  <h3>Najbližšie zápasy</h3>
+                  <span className={styles.sectionEyebrow}>
+                    {showUpcoming ? "Program" : "Výsledky"}
+                  </span>
+                  <h3>
+                    {showUpcoming ? "Najbližšie zápasy" : "Posledné výsledky"}
+                  </h3>
                 </div>
 
                 <div className={styles.matchList}>
-                  {nextMatches.map((match, index) => (
-                    <div key={index} className={styles.matchCard}>
-                      <div className={styles.matchDate}>
-                        <strong>{match.date}</strong>
-                        <span>{match.time}</span>
+                  {sideMatches.length > 0 ? (
+                    sideMatches.map((match) => (
+                      <div key={match.id} className={styles.matchCard}>
+                        <div className={styles.matchDate}>
+                          <strong>{formatDate(match.match_date)}</strong>
+                          {showUpcoming ? (
+                            <span>{formatTime(match.match_time)}</span>
+                          ) : (
+                            <span>{match.result}</span>
+                          )}
+                        </div>
+                        <div className={styles.matchInfo}>
+                          <h4>FaBK ATU Košice vs {match.opponent}</h4>
+                          <p>{szfbDashboard?.watch?.competition_name || "SZFB súťaž"}</p>
+                          <span>{match.venue || "Miesto zatiaľ nie je uvedené"}</span>
+                        </div>
                       </div>
-                      <div className={styles.matchInfo}>
-                        <h4>ATU Košice vs {match.opponent}</h4>
-                        <p>{match.competition}</p>
-                        <span>{match.venue}</span>
-                      </div>
+                    ))
+                  ) : (
+                    <div className={styles.emptyPosts}>
+                      Zatiaľ nie sú dostupné zápasy.
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
 
@@ -315,17 +295,23 @@ export default async function HomePage() {
                 </div>
 
                 <div className={styles.resultsList}>
-                  {results.map((result, index) => (
-                    <div key={index} className={styles.resultCard}>
-                      <div>
-                        <strong>{result.home}</strong>
-                        <span>vs</span>
-                        <strong>{result.away}</strong>
+                  {results.length > 0 ? (
+                    results.slice(0, 5).map((result) => (
+                      <div key={result.id} className={styles.resultCard}>
+                        <div>
+                          <strong>FaBK ATU Košice</strong>
+                          <span>vs</span>
+                          <strong>{result.opponent}</strong>
+                        </div>
+                        <div className={styles.resultScore}>{result.result}</div>
+                        <small>{formatDate(result.match_date)}</small>
                       </div>
-                      <div className={styles.resultScore}>{result.score}</div>
-                      <small>{result.date}</small>
+                    ))
+                  ) : (
+                    <div className={styles.emptyPosts}>
+                      Zatiaľ nie sú dostupné výsledky.
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
 

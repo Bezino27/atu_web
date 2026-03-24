@@ -8,9 +8,8 @@ import styles from "./Header.module.css";
 const navItems = [
   { href: "/", label: "Domov" },
   { href: "/klub", label: "O klube" },
-  { href: "/zapas", label: "Zápasy" },
-  { href: "/tabulka", label: "Tabuľka" },
-  { href: "/kategorie", label: "Kategórie" },
+  { href: "/kategorie/muzi", label: "A tím" },
+  { href: "/kategorie", label: "Mládež" },
   { href: "/kontakt", label: "Kontakt" },
 ];
 
@@ -20,7 +19,6 @@ const categoryItems = [
   { href: "/kategorie/starsi_ziaci", label: "Starší žiaci" },
   { href: "/kategorie/dorast", label: "Dorast" },
   { href: "/kategorie/juniori", label: "Juniori" },
-  { href: "/kategorie/muzi", label: "Muži" },
 ];
 
 export default function Header() {
@@ -113,7 +111,7 @@ export default function Header() {
             {/* DESKTOP NAV */}
             <nav className={styles.desktopNav}>
               {navItems.map((item) => {
-                if (item.label === "Kategórie") {
+                if (item.label === "Mládež") {
                   return (
                     <div
                       key={item.href}
