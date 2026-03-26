@@ -1,3 +1,4 @@
+import categoryStyles from "../../styles/kategorie.module.css";
 import styles from "../../styles/novinky.module.css";
 import Image from "next/image";
 
@@ -46,8 +47,8 @@ export default function Novinky() {
     <section className={styles.novinkySection}>
       <div className={styles.container}>
           <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-            <h2 className={styles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
+            <span className={categoryStyles.preTitle}>AKTUÁLNE DIANIE</span>
+            <h2 className={categoryStyles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
           </div>
 
         {heroNews && (

@@ -64,7 +64,7 @@ export default function Header() {
   return (
     <header
       className={`${styles.header} ${
-        isScrolled ? styles.headerScrolled : ""
+        isScrolled ? styles.headerShifted : ""
       }`}
     >
       {/* TOP BAR */}

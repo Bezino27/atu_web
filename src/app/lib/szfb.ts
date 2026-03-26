@@ -1,3 +1,4 @@
+import "server-only";
 import { API_URL } from "./api";
 
 export type SzfbStandingRow = {
@@ -35,19 +36,18 @@ export async function getSzfbDashboard(
   watchId: number
 ): Promise<SzfbDashboardResponse | null> {
   try {
-    const response = await fetch(
-      `${API_URL}/public/szfb/watch/${watchId}/dashboard/`,
-      {
-        next: { revalidate: 300 },
-      }
-    );
+    const url = `${API_URL.replace(/\/$/, "")}/public/szfb/watch/${watchId}/dashboard/`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 300 },
+    });
 
     if (!response.ok) {
-      console.error("SZFB dashboard fetch failed:", response.status);
+      console.error("SZFB dashboard fetch failed:", response.status, url);
       return null;
     }
 
-    return response.json();
+    return await response.json();
   } catch (error) {
     console.error("SZFB dashboard fetch error:", error);
     return null;

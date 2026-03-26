@@ -1,59 +1,137 @@
 import styles from "../../styles/posledne_zapasy.module.css";
 
-type Result = "W" | "L" | "D";
-
 type Match = {
-  home: string;
-  away: string;
-  scoreHome: number;
-  scoreAway: number;
+  id: number;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
   date: string;
-  result: Result;
 };
 
-const OWN = "ATU Košice";
-
 const matches: Match[] = [
-  { home: "ATU Košice",     away: "MFK Ružomberok", scoreHome: 3, scoreAway: 1, date: "15.3.2026", result: "W" },
-  { home: "Slovan BA",      away: "ATU Košice",     scoreHome: 2, scoreAway: 2, date: "8.3.2026",  result: "D" },
-  { home: "ATU Košice",     away: "DAC D. Streda",  scoreHome: 1, scoreAway: 0, date: "1.3.2026",  result: "W" },
-  { home: "Spartak Trnava", away: "ATU Košice",     scoreHome: 3, scoreAway: 0, date: "22.2.2026", result: "L" },
-  { home: "ATU Košice",     away: "FK Senica",      scoreHome: 4, scoreAway: 1, date: "15.2.2026", result: "W" },
+  {
+    id: 1,
+    homeTeam: "FBC Grasshoppers AC UNIZA Žilina",
+    awayTeam: "FaBK ATU Košice",
+    homeScore: 6,
+    awayScore: 4,
+    date: "15. marca 2026",
+  },
+  {
+    id: 2,
+    homeTeam: "FBC Grasshoppers AC UNIZA Žilina",
+    awayTeam: "FaBK ATU Košice",
+    homeScore: 12,
+    awayScore: 2,
+    date: "14. marca 2026",
+  },
+  {
+    id: 3,
+    homeTeam: "FaBK ATU Košice",
+    awayTeam: "FBC Grasshoppers AC UNIZA Žilina",
+    homeScore: 5,
+    awayScore: 8,
+    date: "8. marca 2026",
+  },
+  {
+    id: 4,
+    homeTeam: "FaBK ATU Košice",
+    awayTeam: "FBC Grasshoppers AC UNIZA Žilina",
+    homeScore: 3,
+    awayScore: 2,
+    date: "7. marca 2026",
+  },
+  {
+    id: 5,
+    homeTeam: "Snipers Bratislava",
+    awayTeam: "FaBK ATU Košice",
+    homeScore: 6,
+    awayScore: 7,
+    date: "28. februára 2026",
+  },
 ];
+
+function isAtuTeam(team: string) {
+  return team.toLowerCase().includes("atu košice");
+}
+
+function getMatchOutcome(match: Match) {
+  const atuIsHome = isAtuTeam(match.homeTeam);
+  const atuScore = atuIsHome ? match.homeScore : match.awayScore;
+  const opponentScore = atuIsHome ? match.awayScore : match.homeScore;
+
+  if (atuScore > opponentScore) {
+    return {
+      label: "Výhra",
+      className: styles.winBadge,
+      scoreClassName: styles.winScore,
+    };
+  }
+
+  return {
+    label: "Prehra",
+    className: styles.lossBadge,
+    scoreClassName: styles.lossScore,
+  };
+}
 
 export default function RecentMatches() {
   return (
-    <div className={styles.card}>
-      <div className={styles.cardLabel}>
-        <div className={styles.cardLabelBar} />
-        <span className={styles.cardLabelText}>Posledné zápasy</span>
+    <section className={styles.card}>
+      <div className={styles.header}>
+        <div>
+          <span className={styles.eyebrow}>VÝSLEDKY</span>
+          <h2 className={styles.title}>Posledné zápasy</h2>
+        </div>
       </div>
 
-      <div className={styles.list}>
-        {matches.map((m, i) => (
-          <div key={i} className={styles.row}>
+      <div className={styles.matchesList}>
+        {matches.slice(0, 4).map((match) => {
+          const outcome = getMatchOutcome(match);
 
-            <div className={styles.matchup}>
-              <span className={`${styles.teamName} ${m.home === OWN ? styles.teamNameOwn : ""}`}>
-                {m.home}
-              </span>
-              <span className={styles.vs}>VS</span>
-              <span className={`${styles.teamName} ${m.away === OWN ? styles.teamNameOwn : ""}`}>
-                {m.away}
-              </span>
-            </div>
+          return (
+            <article key={match.id} className={styles.matchCard}>
+              <div className={styles.matchTop}>
+                <span className={`${styles.resultBadge} ${outcome.className}`}>
+                  {outcome.label}
+                </span>
+                <span className={styles.matchDate}>{match.date}</span>
+              </div>
 
-            <div className={styles.right}>
-              <span className={styles.score}>{m.scoreHome} – {m.scoreAway}</span>
-              <span className={styles.date}>{m.date}</span>
-              <span className={`${styles.badge} ${styles[`badge${m.result}`]}`}>
-                {m.result}
-              </span>
-            </div>
+              <div className={styles.teams}>
+                <div className={styles.teamRow}>
+                  <span
+                    className={`${styles.teamName} ${
+                      isAtuTeam(match.homeTeam) ? styles.atuTeam : ""
+                    }`}
+                  >
+                    {match.homeTeam}
+                  </span>
+                </div>
 
-          </div>
-        ))}
+                <div className={styles.vsRow}>vs</div>
+
+                <div className={styles.teamRow}>
+                  <span
+                    className={`${styles.teamName} ${
+                      isAtuTeam(match.awayTeam) ? styles.atuTeam : ""
+                    }`}
+                  >
+                    {match.awayTeam}
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles.scoreRow}>
+                <span className={`${styles.score} ${outcome.scoreClassName}`}>
+                  {match.homeScore}:{match.awayScore}
+                </span>
+              </div>
+            </article>
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 }

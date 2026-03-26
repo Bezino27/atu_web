@@ -7,9 +7,10 @@ import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
 import Image from "next/image";
 import Novinky from "./components/novinky";
-import StandingsTable from './components/tabulka';
 import TopPlayer from './components/najlepsi_hrac';
 import RecentMatches from './components/posledne_zapasy';
+import Tabulka from "./components/tabulka";
+import { type SzfbStandingRow } from "@/app/lib/szfb";
 
 const matches = [
   {
@@ -40,6 +41,30 @@ const MuziPage = () => {
     seconds: 0,
   });
   const [isLive, setIsLive] = useState(false);
+
+  const [standings, setStandings] = useState<SzfbStandingRow[]>([]);
+
+ useEffect(() => {
+  const loadStandings = async () => {
+    try {
+      const response = await fetch("/api/szfb/watch/1/dashboard");
+
+      if (!response.ok) {
+        console.error("Failed to load standings:", response.status);
+        setStandings([]);
+        return;
+      }
+
+      const data = await response.json();
+      setStandings(data?.standings ?? []);
+    } catch (error) {
+      console.error("Failed to fetch standings:", error);
+      setStandings([]);
+    }
+  };
+
+  loadStandings();
+}, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -112,17 +137,25 @@ const MuziPage = () => {
           </div>
         </section>
 
-        <div className={styles.mainGridContainer}>
-          <NasledujuceZapasy matches={matches} />
-          <Novinky />
-        </div>
-
-        <div className={styles.statsGrid}>
-          <StandingsTable />
-          <div className={styles.rightColumn}>
-            <RecentMatches />
-            <TopPlayer />
+        <section>
+          <div className={styles.mainGridContainer}>
+            <NasledujuceZapasy matches={matches} />
+            <Novinky />
           </div>
+
+          <div className={styles.overviewGrid}>
+            <div className={styles.tableColumn}>
+              <Tabulka standings={standings} ownTeamName="FaBK ATU Košice" />
+            </div>
+
+            <div className={styles.matchesColumn}>
+              <RecentMatches />
+            </div>
+          </div>
+        </section>
+
+        <div className={styles.bottomSection}>
+          <TopPlayer />
         </div>
       </main>
 

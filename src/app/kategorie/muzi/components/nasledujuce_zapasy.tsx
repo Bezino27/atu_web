@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../styles/Nasledujuce_zapasy.module.css";
+import categoryStyles from "../../styles/kategorie.module.css";
 
 export interface Match {
   league: string;
@@ -20,7 +21,7 @@ const NasledujuceZapasy: React.FC<NasledujuceZapasyProps> = ({ matches }) => {
   return (
     <section className={styles.matchesSection}>
       <div className={styles.sectionHeading}>
-        <h2 className={styles.title}>Najbližšie zápasy</h2>
+        <h2 className={categoryStyles.sectionTitle}>Najbližšie zápasy</h2>
       </div>
 
       {!hasMatches ? (

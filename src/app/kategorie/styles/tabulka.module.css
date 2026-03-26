@@ -1,135 +1,495 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap');
-
-.card {
-  background:#f4f4f6;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
+.panel {
+  width: 100%;
+  min-width: 0;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 30px;
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.05),
+    0 3px 12px rgba(15, 23, 42, 0.025);
+  padding: 22px;
+  box-sizing: border-box;
 }
 
-.cardLabel {
+.panelHeader {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 28px 28px 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
-
-
-.cardLabelText {
+.sectionEyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #b77667;
   font-family: var(--font-geist-sans);
-  font-weight: 850; /* Ešte o niečo hrubšie pre športový vzhľad */
-  font-size: clamp(2rem, 4vw, 3rem); /* Mierne zväčšené */
-  color:black;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  text-transform: none;
-  text-align: left;
-  
-  /* Zarovnanie a medzery */
-  margin-top: 0;
-  margin-bottom: 5px; /* Väčšia medzera od karty pre "dýchanie" */
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panelHeader h3 {
+  margin: 0;
+  color: #111827;
+  font-family: var(--font-geist-sans);
+  font-size: clamp(1.42rem, 1.9vw, 1.95rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.legendItem {
   position: relative;
-  
-  /* Červená linka */
-  padding-left: 25px; 
-  border-left: 6px solid #e63946;
-  
-  /* Fix pre zarovnanie: ak chceš, aby TEXT lícoval s fotkou, 
-     musíš nadpis posunúť o šírku linky a paddingu doľava */
-  margin-left: -15px; /* (6px linka + 25px padding) */
+  display: inline-flex;
+  align-items: center;
+  min-height: auto;
+  padding: 0 0 0 18px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-geist-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #64748b;
+}
+
+.legendItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.legendPlayoff::before {
+  background: #5a8f68;
+}
+
+.legendBarage::before {
+  background: #cf8f48;
+}
+
+.legendDrop::before {
+  background: #c86d6d;
+}
+
+.legendPlayoff {
+  background: rgba(77, 124, 89, 0.1);
+  color: #355b40;
+  border-color: rgba(77, 124, 89, 0.16);
+}
+
+.legendBarage {
+  background: rgba(198, 134, 66, 0.1);
+  color: #a8641f;
+  border-color: rgba(198, 134, 66, 0.16);
+}
+
+.legendDrop {
+  background: rgba(180, 98, 98, 0.1);
+  color: #a24545;
+  border-color: rgba(180, 98, 98, 0.16);
+}
+
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tableWrap::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrap::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.2);
+  border-radius: 999px;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  min-width: 620px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-geist-sans);
 }
 
 .table thead th {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  color: #373737;   
+  padding: 12px 10px 13px;
+  border-bottom: 1px solid #e9edf2;
+  color: #7a8391;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0 12px 12px;
   text-align: center;
+  background: #f8fafc;
+  white-space: nowrap;
 }
 
 .table thead th:first-child {
+  width: 60px;
+}
+
+.table thead th:nth-child(2) {
   text-align: left;
-  padding-left: 20px;
-  width: 40%;
-}
-
-.table tbody tr {
-  transition: background 0.15s;
-  cursor: default;
-}
-
-.table tbody tr:hover {
-  background: #f9f9f9;
-}
-
-.highlighted {
-  background: rgba(230, 57, 70, 0.04) !important;
+  min-width: 250px;
 }
 
 .table tbody td {
-  padding: 11px 12px;
-  font-size: 16px;
+  padding: 14px 10px;
+  border-bottom: 1px solid #eef2f6;
+  vertical-align: middle;
+  background: #fff;
+  color: #111827;
+  font-size: 0.92rem;
   font-weight: 600;
-  color: #373737;
+  line-height: 1.4;
   text-align: center;
+  transition: background 0.18s ease;
 }
 
 .table tbody td:first-child {
-  padding-left: 20px;
+  width: 60px;
+}
+
+.table tbody td:nth-child(2) {
   text-align: left;
 }
 
-.table tbody tr + tr td {
-  border-top: 1px solid #f3f4f6;
+.table tbody tr:last-child td {
+  border-bottom: none;
 }
 
-.rank {
-  font-size: 16px;
-  font-weight: 700;
-  color: #373737;
-  width: 20px;
-  display: inline-block;
-  text-align: right;
-  margin-right: 10px;
+.table tbody tr:hover td {
+  background: #fbfcfe;
 }
 
-.rankTop {
-  color: #e63946;
+.positionBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 31px;
+  border-radius: 10px;
+  background: #f3f5f8;
+  color: #475569;
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .teamName {
-  font-size: 17px;
+  color: #111827;
+  font-size: 0.94rem;
   font-weight: 700;
-  color: #373737;
+  line-height: 1.32;
 }
 
-.points {
-  font-size: 19px;
+.pointsCell {
+  font-size: 0.98rem;
   font-weight: 900;
-  color: #373737;
-  letter-spacing: -0.3px;
+  color: #0f172a;
 }
 
-.formDots {
+.rowTag,
+.rowTagWarning,
+.rowTagDanger {
   display: inline-flex;
-  gap: 3px;
   align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border: 1px solid transparent;
 }
 
-.formDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+.rowTag {
+  background: rgba(90, 143, 104, 0.08);
+  color: #456c51;
+  border-color: rgba(90, 143, 104, 0.14);
 }
 
-.formDotW { background: #16a34a; }
-.formDotD { background: #d1d5db; }
-.formDotL { background: #e63946; }
+.rowTagWarning {
+  background: rgba(207, 143, 72, 0.08);
+  color: #9f692f;
+  border-color: rgba(207, 143, 72, 0.14);
+}
+
+.rowTagDanger {
+  background: rgba(200, 109, 109, 0.08);
+  color: #9b5252;
+  border-color: rgba(200, 109, 109, 0.14);
+}
+
+.playoffRow td:first-child {
+  box-shadow: inset 4px 0 0 #5a8f68;
+}
+
+.playoutRow td:first-child {
+  box-shadow: inset 4px 0 0 #cf8f48;
+}
+
+.relegationRow td:first-child {
+  box-shadow: inset 4px 0 0 #c86d6d;
+}
+
+.highlightRow td {
+  background: linear-gradient(
+    90deg,
+    rgba(17, 24, 39, 0.022),
+    rgba(17, 24, 39, 0.008)
+  );
+}
+
+.highlightRow .positionBadge {
+  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(31, 41, 55, 0.12);
+}
+
+.highlightRow .teamName,
+.highlightRow .pointsCell {
+  color: #0f172a;
+}
+
+.table tbody td[colspan] {
+  text-align: center !important;
+  padding: 24px 16px;
+  color: #6b7280;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .panel {
+    border-radius: 24px;
+    padding: 18px;
+  }
+
+  .panelHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .panelHeader h3 {
+    font-size: clamp(1.28rem, 2.6vw, 1.7rem);
+  }
+
+  .legend {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .legendItem {
+    font-size: 0.72rem;
+    padding-left: 16px;
+  }
+
+  .table {
+    min-width: 580px;
+  }
+
+  .table thead th {
+    font-size: 0.7rem;
+    padding: 11px 8px;
+  }
+
+  .table tbody td {
+    padding: 13px 8px;
+    font-size: 0.88rem;
+  }
+
+  .positionBadge {
+    width: 29px;
+    height: 29px;
+    font-size: 0.82rem;
+  }
+
+  .teamName {
+    font-size: 0.9rem;
+  }
+
+  .pointsCell {
+    font-size: 0.94rem;
+  }
+
+  .rowTag,
+  .rowTagWarning,
+  .rowTagDanger {
+    min-height: 21px;
+    padding: 0 7px;
+    font-size: 0.62rem;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .panel {
+    border-radius: 22px;
+    padding: 16px 14px;
+  }
+
+  .sectionEyebrow {
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.12em;
+  }
+
+  .panelHeader h3 {
+    font-size: clamp(1.12rem, 5vw, 1.45rem);
+    line-height: 1.15;
+  }
+
+  .legend {
+    gap: 6px;
+  }
+
+  .legendItem {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.7rem;
+  }
+
+  .tableWrap {
+    border-radius: 18px;
+  }
+
+  .table {
+    min-width: 540px;
+  }
+
+  .table thead th {
+    padding: 11px 8px 12px;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  .table thead th:first-child,
+  .table tbody td:first-child {
+    width: 52px;
+  }
+
+  .table thead th:nth-child(2) {
+    min-width: 210px;
+  }
+
+  .table tbody td {
+    padding: 12px 8px;
+    font-size: 0.84rem;
+  }
+
+  .positionBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    font-size: 0.8rem;
+  }
+
+  .teamCell {
+    gap: 8px;
+  }
+
+  .teamName {
+    font-size: 0.84rem;
+    line-height: 1.3;
+  }
+
+  .pointsCell {
+    font-size: 0.88rem;
+  }
+
+  .rowTag,
+  .rowTagWarning,
+  .rowTagDanger {
+    min-height: 24px;
+    padding: 0 8px;
+    font-size: 0.68rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .panel {
+    border-radius: 20px;
+    padding: 14px 12px;
+  }
+
+  .panelHeader {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .panelHeader h3 {
+    font-size: clamp(0.98rem, 5vw, 1.22rem);
+  }
+
+  .legend {
+    gap: 7px;
+  }
+
+  .legendItem {
+    font-size: 0.64rem;
+    padding-left: 14px;
+  }
+
+  .table {
+    min-width: 500px;
+  }
+
+  .table thead th {
+    padding: 10px 7px 11px;
+    font-size: 0.64rem;
+  }
+
+  .table tbody td {
+    padding: 11px 7px;
+    font-size: 0.76rem;
+  }
+
+  .positionBadge {
+    width: 25px;
+    height: 25px;
+    font-size: 0.72rem;
+    border-radius: 8px;
+  }
+
+  .teamName {
+    font-size: 0.78rem;
+  }
+
+  .pointsCell {
+    font-size: 0.8rem;
+  }
+}

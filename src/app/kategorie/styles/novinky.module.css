@@ -17,28 +17,6 @@
   margin: 0 0 28px 0;
 }
 
-.preTitle {
-  display: block;
-  margin: 0 0 8px 18px;
-  color: #e63946;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.sectionTitle {
-  font-family: var(--font-geist-sans);
-  font-weight: 850;
-  font-size: clamp(2rem, 3.8vw, 2.8rem);
-  color: #111;
-  line-height: 1.08;
-  letter-spacing: -1.4px;
-  text-align: left;
-  margin: 0 0 24px;
-  padding-left: 12px;
-  border-left: 6px solid #e63946;
-}
 
 /* --- SPOLOČNÉ KARTY --- */
 .heroCard,
@@ -256,14 +234,6 @@
     letter-spacing: 1.8px;
   }
 
-  .sectionTitle {
-    font-size: clamp(2rem, 8vw, 2.5rem);
-    line-height: 1.03;
-    letter-spacing: -1.8px;
-    padding-left: 10px;
-    border-left-width: 4px;
-    margin: 0 0 18px;
-  }
 
   .heroCard {
     height: 560px;
@@ -356,12 +326,8 @@
     margin-left: 12px;
   }
 
-  .sectionTitle {
-    font-size: clamp(1.9rem, 10vw, 2.35rem);
-    padding-left: 9px;
-    border-left-width: 4px;
-    letter-spacing: -1.6px;
-  }
+ 
+
 
   .heroCard {
     height: 540px;

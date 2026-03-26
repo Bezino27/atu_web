@@ -8,6 +8,9 @@
   z-index: 9999;
   width: 100%;
   background: transparent;
+  transform: translateY(0);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 
 .container {
@@ -16,6 +19,11 @@
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
+}
+@media (min-width: 961px) {
+  .headerShifted {
+    transform: translateY(-45px);
+  }
 }
 
 /* =========================
@@ -87,7 +95,7 @@
     border-color 0.3s ease;
 }
 
-.headerScrolled .mainBar {
+.headerShifted .mainBar {
   background: rgba(10, 10, 11, 0.95);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
 }
