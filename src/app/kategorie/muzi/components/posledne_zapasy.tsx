@@ -1,5 +1,5 @@
 import styles from "../../styles/posledne_zapasy.module.css";
-
+import categoriesStyles from "../../styles/kategorie.module.css";
 type Match = {
   id: number;
   homeTeam: string;
@@ -81,7 +81,7 @@ export default function RecentMatches() {
     <section className={styles.card}>
       <div className={styles.header}>
         <div>
-          <span className={styles.eyebrow}>VÝSLEDKY</span>
+          <span className={categoriesStyles.preTitle}>VÝSLEDKY</span>
           <h2 className={styles.title}>Posledné zápasy</h2>
         </div>
       </div>

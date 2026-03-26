@@ -142,14 +142,7 @@ export default function NextMatchCountdown({
         </span>
       </div>
 
-      <div className={styles.nextMatchMeta}>
-        <strong>{matchupTitle}</strong>
-        <span>
-          {targetDate.toLocaleDateString('sk-SK')} •{' '}
-          {matchTime?.slice(0, 5) || 'čas bude doplnený'}
-        </span>
-        <span>{venue || 'Miesto zatiaľ nie je uvedené'}</span>
-      </div>
+      
     </div>
   );
 }

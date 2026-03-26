@@ -1,104 +1,903 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&display=swap');
+.wrapper {
+  width: 100%;
+}
 
-.mvpCard {
-  /* Gradient cez celú kartu: z jemnej béžovo-šedej do čistej bielej */
-  background: linear-gradient(135deg, #838483 0%, #c7c5c5 40%, #e7e6e6 100%);
-  border-radius: 24px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+.sectionHeader {
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #b77667;
+  font-family: var(--font-geist-sans);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: #111827;
+  font-family: var(--font-geist-sans);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mainCard,
+.smallCard,
+.penaltyCard {
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.05),
+    0 3px 10px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.mainCard:hover,
+.smallCard:hover,
+.penaltyCard:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 22px 44px rgba(15, 23, 42, 0.08),
+    0 8px 18px rgba(15, 23, 42, 0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+}
+
+.mainCard {
   position: relative;
   overflow: hidden;
-  font-family: 'Barlow Condensed', sans-serif;
-  max-width: 450px;
-  border: 1px solid rgba(255, 255, 255, 0.446); /* Jemný lesk na hrane */
+  border-radius: 30px;
+  padding: 24px;
+  min-height: 310px;
 }
 
-/* Horná sekcia je teraz priehľadná, aby vynikol gradient pozadia */
-.topSection {
-  display: flex;
-  align-items: center;
-  padding: 35px 30px;
-  gap: 20px;
+.mainCard::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -70px;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  pointer-events: none;
 }
 
-.numberBox {
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(211, 47, 47, 0.08);
+  color: #c62828;
+  border: 1px solid rgba(211, 47, 47, 0.14);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.mainTop {
   display: flex;
   align-items: center;
+  gap: 22px;
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 1;
+}
+
+.numberBlock {
+  flex: 0 0 128px;
+  display: flex;
   justify-content: center;
-  min-width: 100px;
+  align-items: center;
+}
+
+.numberPlate {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  min-width: 110px;
+  min-height: 110px;
+  padding: 14px 16px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  border: 1px solid #e5ebf2;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.numberHash {
+  margin-top: 10px;
+  color: #d32f2f;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .bigNumber {
-  font-size: 110px;
+  font-size: clamp(4rem, 8vw, 5.8rem);
   font-weight: 900;
-  color: #111;
-  line-height: 0.8;
-  opacity: 0.4; /* Číslo je v pozadí gradientu */
+  line-height: 0.9;
+  color: #111827;
+  letter-spacing: -0.08em;
 }
 
-.infoBox {
-  display: flex;
-  flex-direction: column;
+.playerInfo {
+  min-width: 0;
 }
 
-.mvpTitle {
-  font-size: 22px; /* Väčšie MVP */
-  font-weight: 900;
-  color: #e63946;
-  letter-spacing: 5px;
+.playerTag {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  line-height: 1;
-  margin-bottom: 2px;
 }
 
 .playerName {
-  font-size: 42px;
-  font-weight: 900;
-  color: #111;
-  line-height: 0.9;
-  text-transform: uppercase;
   margin: 0;
+  color: #111827;
+  font-size: clamp(1.8rem, 3.3vw, 2.8rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
 }
 
 .playerPosition {
-  font-size: 15px;
-  font-weight: 900;
-  color: #292727;
-  letter-spacing: 2.5px;
+  margin: 10px 0 0;
+  color: #4b5563;
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-top: 6px;
 }
 
-/* Štatistiky na bielom podklade, aby na gradiente vynikli */
-.statsGrid {
+.mainStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.statItem {
   display: flex;
-  padding: 0 25px 30px;
-  gap: 12px;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 96px;
+  padding: 16px 14px;
+  border-radius: 22px;
+  background: #f8fafc;
+  border: 1px solid #e9eef5;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
-.statBox {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.8); /* Polopriehľadná biela */
-  backdrop-filter: blur(5px); /* Jemný efekt skla nad gradientom */
-  padding: 18px 5px;
-  border-radius: 18px;
-  text-align: center;
-  border: 1px solid white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+.statItem:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: rgba(211, 47, 47, 0.16);
+  box-shadow:
+    0 14px 24px rgba(15, 23, 42, 0.06),
+    0 3px 10px rgba(15, 23, 42, 0.03);
 }
 
 .statValue {
-  font-size: 32px;
+  color: #111827;
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
   font-weight: 900;
-  color: #111;
-  display: block;
   line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .statLabel {
-  font-size: 13px;
-  font-weight: 700;
-  color: #2d2c2c;
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-top: 6px;
+}
+
+.smallCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.smallCard {
+  border-radius: 24px;
+  padding: 20px;
+  min-height: 210px;
+}
+
+.smallHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.smallRank {
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  min-width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+}
+
+.smallTag {
+  color: #c62828;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.smallNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  height: 34px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: rgba(211, 47, 47, 0.08);
+  border: 1px solid rgba(211, 47, 47, 0.14);
+  color: #d32f2f;
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.smallNumber span {
+  display: none;
+}
+
+.smallName {
+  margin: 0;
+  color: #111827;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.smallPosition {
+  margin: 8px 0 18px;
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.smallStats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.smallStats > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 72px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #ebeff5;
+  text-align: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.smallStats > div:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: rgba(211, 47, 47, 0.16);
+  box-shadow:
+    0 12px 22px rgba(15, 23, 42, 0.05),
+    0 3px 8px rgba(15, 23, 42, 0.025);
+}
+
+.smallStatValue {
+  color: #111827;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.smallStatLabel {
+  margin-top: 5px;
+  color: #6b7280;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.penaltyCard {
+  border-radius: 30px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.penaltyHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.penaltyEyebrow {
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.penaltyBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.05);
+  color: #111827;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.penaltyNumber {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 34px;
+  padding: 0 12px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: rgba(211, 47, 47, 0.08);
+  border: 1px solid rgba(211, 47, 47, 0.14);
+  color: #d32f2f;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.penaltyName {
+  margin: 0;
+  color: #111827;
+  font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  max-width: 11ch;
+}
+
+.penaltyPosition {
+  margin: 12px 0 0;
+  color: #6b7280;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 22px;
+}
+
+.penaltyPosition::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: 1px;
+  margin-top: 18px;
+  background: linear-gradient(
+    90deg,
+    rgba(211, 47, 47, 0.18),
+    rgba(15, 23, 42, 0.06),
+    transparent
+  );
+}
+
+.penaltyStats {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.penaltyStatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 94px;
+  border-radius: 20px;
+  background: #f8fafc;
+  border: 1px solid #e9eef5;
+  padding: 16px 14px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.penaltyStatBox:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: rgba(211, 47, 47, 0.16);
+  box-shadow:
+    0 14px 24px rgba(15, 23, 42, 0.06),
+    0 3px 10px rgba(15, 23, 42, 0.03);
+}
+
+.penaltyStatValue {
+  color: #111827;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.penaltyStatLabel {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .penaltyCard {
+    min-height: auto;
+  }
+
+  .mainCard {
+    min-height: auto;
+  }
+
+  .playerName {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .sectionHeader {
+    margin-bottom: 14px;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+  }
+
+  .title {
+    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    line-height: 1.12;
+  }
+
+  .mainCard,
+  .smallCard,
+  .penaltyCard {
+    border-radius: 22px;
+  }
+
+  .mainCard,
+  .penaltyCard {
+    padding: 18px 16px;
+  }
+ .penaltyCard {
+    padding: 18px 16px;
+    border-radius: 22px;
+  }
+
+  .penaltyHeader {
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+
+  .penaltyEyebrow {
+    font-size: 0.68rem;
+  }
+
+  .penaltyBadge {
+    min-height: 30px;
+    padding: 0 12px;
+    font-size: 0.66rem;
+  }
+
+  .penaltyNumber {
+    min-height: 30px;
+    padding: 0 10px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: 0.76rem;
+  }
+
+  .penaltyName {
+    font-size: 1.18rem;
+    line-height: 1.03;
+    max-width: none;
+  }
+
+  .penaltyPosition {
+    font-size: 0.7rem;
+    padding-bottom: 18px;
+  }
+
+  .penaltyPosition::after {
+    margin-top: 14px;
+    max-width: 150px;
+  }
+
+  .penaltyStats {
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .penaltyStatBox {
+    min-height: 82px;
+    padding: 14px 12px;
+  }
+
+  .penaltyStatValue {
+    font-size: 1.5rem;
+  }
+
+  .penaltyStatLabel {
+    font-size: 0.62rem;
+  }
+
+  .smallCard {
+    padding: 16px;
+  }
+
+  .mainTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .numberBlock {
+    flex: unset;
+  }
+
+  .numberPlate {
+    min-width: 92px;
+    min-height: 92px;
+    padding: 12px 14px;
+    border-radius: 22px;
+  }
+
+  .numberHash {
+    margin-top: 8px;
+    font-size: 0.95rem;
+  }
+
+  .bigNumber {
+    font-size: 3.6rem;
+  }
+
+  .playerTag {
+    font-size: 0.72rem;
+  }
+
+  .playerName {
+    font-size: 1.45rem;
+    line-height: 1;
+  }
+
+  .playerPosition {
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+  }
+
+  .mainStats {
+    grid-template-columns: 1fr;
+  }
+
+  .statItem {
+    min-height: 84px;
+    padding: 14px 12px;
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+  }
+
+  .statLabel {
+    font-size: 0.66rem;
+  }
+
+  .smallCards {
+    grid-template-columns: 1fr;
+  }
+
+  .smallRank {
+    font-size: 0.74rem;
+  }
+
+  .smallTag {
+    font-size: 0.68rem;
+  }
+
+  .smallNumber {
+    font-size: 1rem;
+  }
+
+  .smallName {
+    font-size: 1.02rem;
+    line-height: 1.05;
+  }
+
+  .smallPosition {
+    font-size: 0.72rem;
+    margin: 6px 0 14px;
+  }
+
+  .smallStats > div {
+    min-height: 64px;
+  }
+
+  .smallStatValue {
+    font-size: 1rem;
+  }
+
+  .smallStatLabel {
+    font-size: 0.58rem;
+  }
+
+  .penaltyEyebrow {
+    font-size: 0.68rem;
+  }
+
+  .penaltyBadge {
+    font-size: 0.68rem;
+  }
+
+  .penaltyNumber {
+    font-size: 0.96rem;
+  }
+
+  .penaltyName {
+    font-size: 1.18rem;
+    line-height: 1.04;
+  }
+
+  .penaltyPosition {
+    font-size: 0.72rem;
+    margin: 8px 0 18px;
+  }
+
+  .penaltyStatBox {
+    min-height: 82px;
+    padding: 14px 12px;
+  }
+
+  .penaltyStatValue {
+    font-size: 1.55rem;
+  }
+
+  .penaltyStatLabel {
+    font-size: 0.64rem;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .sectionHeader {
+    margin-bottom: 12px;
+  }
+
+  .eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .mainCard,
+  .smallCard,
+  .penaltyCard {
+    border-radius: 20px;
+  }
+
+  .mainCard,
+  .penaltyCard {
+    padding: 16px 14px;
+  }
+
+  .smallCard {
+    padding: 14px;
+  }
+
+  .rankBadge,
+  .penaltyBadge {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.62rem;
+  }
+
+  .numberPlate {
+    min-width: 82px;
+    min-height: 82px;
+    padding: 10px 12px;
+    border-radius: 20px;
+  }
+
+  .bigNumber {
+    font-size: 3rem;
+  }
+
+  .numberHash {
+    font-size: 0.84rem;
+    margin-top: 7px;
+  }
+
+  .playerTag {
+    font-size: 0.64rem;
+  }
+
+  .playerName {
+    font-size: 1.2rem;
+  }
+
+  .playerPosition {
+    font-size: 0.68rem;
+  }
+
+  .statItem {
+    min-height: 76px;
+    padding: 12px 10px;
+    border-radius: 18px;
+  }
+
+  .statValue {
+    font-size: 1.3rem;
+  }
+
+  .statLabel {
+    font-size: 0.6rem;
+  }
+
+  .smallHeader {
+    margin-bottom: 12px;
+  }
+
+  .smallRank {
+    min-width: 34px;
+    height: 28px;
+    font-size: 0.66rem;
+  }
+
+  .smallTag {
+    font-size: 0.62rem;
+  }
+
+  .smallNumber {
+    font-size: 0.9rem;
+  }
+
+  .smallName {
+    font-size: 0.94rem;
+  }
+
+  .smallPosition {
+    font-size: 0.66rem;
+  }
+
+  .smallStats {
+    gap: 8px;
+  }
+
+  .smallStats > div {
+    min-height: 58px;
+    border-radius: 14px;
+  }
+
+  .smallStatValue {
+    font-size: 0.9rem;
+  }
+
+  .smallStatLabel {
+    font-size: 0.54rem;
+  }
+
+  .penaltyEyebrow {
+    font-size: 0.62rem;
+  }
+
+  .penaltyNumber {
+    font-size: 0.88rem;
+  }
+
+  .penaltyName {
+    font-size: 1.02rem;
+  }
+
+  .penaltyPosition {
+    font-size: 0.66rem;
+  }
+
+  .penaltyStatBox {
+    min-height: 74px;
+    padding: 12px 10px;
+    border-radius: 18px;
+  }
+
+  .penaltyStatValue {
+    font-size: 1.3rem;
+  }
+
+  .penaltyStatLabel {
+    font-size: 0.58rem;
+  }
 }

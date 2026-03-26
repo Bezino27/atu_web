@@ -88,7 +88,7 @@
   .overviewGrid {
     padding: 0 12px;
     gap: 18px;
-    margin: 0 auto 18px;
+    margin: 0 auto 30px;
   }
 
   .bottomSection {
@@ -290,7 +290,7 @@
 
 @media (max-width: 1024px) {
   .heroSection {
-    margin: 14px auto 26px;
+    margin: 14px auto 30px;
     padding: 0 14px;
   }
 
@@ -308,7 +308,7 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    margin: 14px auto 18px;
+    margin: 14px auto 30px;
     padding: 0 9px;
   }
 
@@ -413,7 +413,7 @@
   }
 
   .heroSection {
-    margin: 8px auto 16px;
+    margin: 8px auto 30px;
     padding: 0 8px;
   }
 
@@ -484,5 +484,39 @@
 
   .countdownBar {
     padding: 8px 10px;
+  }
+}
+@media (max-width: 768px) {
+  .preTitle {
+    margin: 0 0 6px 12px;
+    font-size: 12px;
+    letter-spacing: 1.4px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    margin: 0 0 18px;
+    padding-left: 10px;
+    border-left: 4px solid #e63946;
+  }
+}
+
+/* mobil */
+@media (max-width: 480px) {
+  .preTitle {
+    margin: 0 0 5px 10px;
+    font-size: 11px;
+    letter-spacing: 1.1px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.2rem, 6vw, 1.55rem);
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    margin: 0 0 14px;
+    padding-left: 8px;
+    border-left: 3px solid #e63946;
   }
 }
