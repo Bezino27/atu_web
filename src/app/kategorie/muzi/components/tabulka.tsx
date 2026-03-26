@@ -1,11 +1,9 @@
-import styles from "@/app/kategorie/styles/tabulka.module.css";
-import { type SzfbStandingRow } from "@/app/lib/szfb";
+import styles from "../page.module.css";
+import type { SzfbStandingRow } from "@/app/lib/szfb";
 
 type TabulkaProps = {
   standings: SzfbStandingRow[];
   ownTeamName: string;
-  title?: string;
-  eyebrow?: string;
 };
 
 function getStandingsRowClass(
@@ -33,15 +31,13 @@ function getPlacementLabel(position: number) {
 export default function Tabulka({
   standings,
   ownTeamName,
-  title = "Aktuálna tabuľka",
-  eyebrow = "Liga",
 }: TabulkaProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
         <div>
-          <span className={styles.sectionEyebrow}>{eyebrow}</span>
-          <h3>{title}</h3>
+          <span className={styles.sectionEyebrow}>Liga</span>
+          <h3>Aktuálna tabuľka</h3>
         </div>
 
         <div className={styles.legend}>
@@ -74,7 +70,7 @@ export default function Tabulka({
 
                 return (
                   <tr
-                    key={`${team.position}-${team.team_name}`}
+                    key={team.position}
                     className={getStandingsRowClass(
                       team.position,
                       team.team_name,
@@ -82,11 +78,16 @@ export default function Tabulka({
                     )}
                   >
                     <td>
-                      <span className={styles.positionBadge}>{team.position}</span>
+                      <span className={styles.positionBadge}>
+                        {team.position}
+                      </span>
                     </td>
                     <td>
                       <div className={styles.teamCell}>
-                        <span className={styles.teamName}>{team.team_name}</span>
+                        <span className={styles.teamName}>
+                          {team.team_name}
+                        </span>
+
                         {label && (
                           <span
                             className={
@@ -109,9 +110,7 @@ export default function Tabulka({
               })
             ) : (
               <tr>
-                <td colSpan={4} className={styles.emptyCell}>
-                  Tabuľka zatiaľ nie je dostupná.
-                </td>
+                <td colSpan={4}>Tabuľka zatiaľ nie je dostupná.</td>
               </tr>
             )}
           </tbody>
