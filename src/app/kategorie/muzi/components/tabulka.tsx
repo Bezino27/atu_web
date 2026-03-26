@@ -1,4 +1,4 @@
-import styles from "../page.module.css";
+import styles from "../../styles/tabulka.module.css";
 import type { SzfbStandingRow } from "@/app/lib/szfb";
 
 type TabulkaProps = {
@@ -28,10 +28,7 @@ function getPlacementLabel(position: number) {
   return null;
 }
 
-export default function Tabulka({
-  standings,
-  ownTeamName,
-}: TabulkaProps) {
+export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
@@ -78,15 +75,11 @@ export default function Tabulka({
                     )}
                   >
                     <td>
-                      <span className={styles.positionBadge}>
-                        {team.position}
-                      </span>
+                      <span className={styles.positionBadge}>{team.position}</span>
                     </td>
                     <td>
                       <div className={styles.teamCell}>
-                        <span className={styles.teamName}>
-                          {team.team_name}
-                        </span>
+                        <span className={styles.teamName}>{team.team_name}</span>
 
                         {label && (
                           <span

@@ -53,6 +53,30 @@
   padding-left: 12px;
   border-left: 6px solid #e63946;
 }
+
+
+.nextMatchMeta {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 16px;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.nextMatchMeta strong {
+  font-weight: 800;
+}
+
+.nextMatchMeta span {
+  opacity: 0.92;
+}
+
+
 /*responsive styles*/
 @media (max-width: 1100px) {
   .overviewGrid {
@@ -194,14 +218,16 @@
 }
 
 .countdownWrapper {
-  display: flex;
-  justify-content: center;
+  width: 100%;
   margin-top: -24px;
   position: relative;
   z-index: 10;
+  display: grid;
+  place-items: center;
 }
 
 .countdownBar {
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
   color: #111;
