@@ -4,11 +4,11 @@ const topScorers = [
   {
     id: 1,
     number: 77,
-    name: "Ondrej Duda",
+    name:"Kamil Navrátil ",
     position: "Útočník",
-    goals: 12,
-    assists: 7,
-    points: 19,
+    goals: 114,
+    assists: 0,
+    points: 114,
   },
   {
     id: 2,
