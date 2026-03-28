@@ -1,73 +1,149 @@
 import React from "react";
 import styles from "../../styles/Nasledujuce_zapasy.module.css";
 import categoryStyles from "../../styles/kategorie.module.css";
+import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
+import { getTeamLogo } from "@/app/lib/teamLogos";
 
-export interface Match {
-  league: string;
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  location: string;
+function formatDate(dateString?: string | null) {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toLocaleDateString("sk-SK", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
 }
 
-interface NasledujuceZapasyProps {
-  matches: Match[];
+function formatTime(timeString?: string | null) {
+  if (!timeString) return "";
+  return timeString.slice(0, 5);
 }
 
-const NasledujuceZapasy: React.FC<NasledujuceZapasyProps> = ({ matches }) => {
-  const hasMatches = matches && matches.length > 0;
+function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
+  if (match.is_home === false) {
+    return {
+      homeTeam: match.opponent,
+      awayTeam: ownTeamName,
+    };
+  }
+
+  return {
+    homeTeam: ownTeamName,
+    awayTeam: match.opponent,
+  };
+}
+
+export default async function NasledujuceZapasy() {
+  const szfbDashboard = await getSzfbDashboard(1);
+
+  const upcomingMatches = szfbDashboard?.upcoming ?? [];
+  const resultMatches = szfbDashboard?.results ?? [];
+  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+  const competitionName = szfbDashboard?.watch?.competition_name || "EXTRALIGA MUŽOV";
+
+  const nextMatch = upcomingMatches[0];
+  const lastResult = resultMatches[0];
+
+  const hasAnyMatch = nextMatch || lastResult;
 
   return (
     <section className={styles.matchesSection}>
       <div className={styles.sectionHeading}>
-        <h2 className={categoryStyles.sectionTitle}>Najbližšie zápasy</h2>
+        <h2 className={categoryStyles.sectionTitle}>Featured zápasy</h2>
       </div>
 
-      {!hasMatches ? (
+      {!hasAnyMatch ? (
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>📅</div>
-          <h3 className={styles.emptyTitle}>Momentálne nie sú naplánované žiadne zápasy</h3>
+          <h3 className={styles.emptyTitle}>Momentálne nie sú dostupné žiadne zápasy</h3>
           <p className={styles.emptyText}>
             Sleduj túto sekciu neskôr, program doplníme hneď po zverejnení ďalších stretnutí.
           </p>
         </div>
       ) : (
         <div className={styles.matchesGrid}>
-          {matches.map((match, index) => (
-            <article key={index} className={styles.matchCard}>
-              <div className={styles.matchLeague}>{match.league}</div>
+          {nextMatch && (() => {
+            const { homeTeam, awayTeam } = getMatchTeams(nextMatch, ownTeamName);
 
-              <div className={styles.matchTeamsRow}>
-                <div className={styles.teamInfo}>
-                  <div className={styles.teamLogo}>
-                    <img src="/logo/znak_atu_black.svg" alt="ATU Košice" />
+            return (
+              <article className={styles.matchCard}>
+                <div className={styles.matchLeague}>{competitionName}</div>
+
+                <div className={styles.matchTeamsRow}>
+                  <div className={styles.teamInfo}>
+                    <div className={styles.teamLogo}>
+                      <img src="/logo/znak_atu_black.svg" alt="ATU Košice" />
+                    </div>
+                    <span className={styles.team}>{homeTeam}</span>
                   </div>
-                  <span className={styles.team}>{match.homeTeam}</span>
-                </div>
 
-                <div className={styles.vsDivider}>VS</div>
+                  <div className={styles.vsDivider}>VS</div>
 
-                <div className={styles.teamInfo}>
-                  <div className={styles.teamLogo}>
-                    <span className={styles.opponentPlaceholder}>?</span>
+                  <div className={styles.teamInfo}>
+                    <div className={styles.teamLogo}>
+                      <span className={styles.opponentPlaceholder}>?</span>
+                    </div>
+                    <span className={styles.team}>{awayTeam}</span>
                   </div>
-                  <span className={styles.team}>{match.awayTeam}</span>
                 </div>
-              </div>
 
-              <div className={styles.matchFooter}>
-                <div className={styles.matchDateTime}>
-                  <strong>{match.date}</strong> • {match.time}
+                <div className={styles.matchFooter}>
+                  <div className={styles.matchDateTime}>
+                    <strong>{formatDate(nextMatch.match_date)}</strong> •{" "}
+                    {formatTime(nextMatch.match_time)}
+                  </div>
+                  <div className={styles.matchPlace}>
+                    {nextMatch.venue || "Miesto zatiaľ nie je uvedené"}
+                  </div>
                 </div>
-                <div className={styles.matchPlace}>{match.location}</div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })()}
+
+          {lastResult && (() => {
+            const { homeTeam, awayTeam } = getMatchTeams(lastResult, ownTeamName);
+
+            return (
+              <article className={styles.matchCard}>
+                <div className={styles.matchLeague}>{competitionName}</div>
+
+                <div className={styles.matchTeamsRow}>
+                  <div className={styles.teamInfo}>
+                    <div className={styles.teamLogo}>
+                      <img src={getTeamLogo(homeTeam)} alt={homeTeam} />
+                    </div>
+                    <span className={styles.team}>{homeTeam}</span>
+                  </div>
+
+                  <div className={styles.vsDivider}>
+                    {lastResult.result || "VS"}
+                  </div>
+
+                  <div className={styles.teamInfo}>
+                    <div className={styles.teamLogo}>
+                      <img src={getTeamLogo(awayTeam)} alt={awayTeam} />
+                    </div>
+                    <span className={styles.team}>{awayTeam}</span>
+                  </div>
+                </div>
+
+                <div className={styles.matchFooter}>
+                  <div className={styles.matchDateTime}>
+                    <strong>{formatDate(lastResult.match_date)}</strong>
+                  </div>
+                  <div className={styles.matchPlace}>Posledný odohraný zápas</div>
+                </div>
+              </article>
+            );
+          })()}
         </div>
       )}
     </section>
   );
-};
-
-export default NasledujuceZapasy;
+}

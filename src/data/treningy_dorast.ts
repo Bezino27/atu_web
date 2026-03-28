@@ -27,7 +27,7 @@ export const locations: Record<string, Location> = {
 };
  
 export const dorastTrainings: TrainingSlot[] = [
-  { day: 'Pondelok', time: '16:30', locationId: 'jedlikova' },
   { day: 'Utorok',   time: '18:30', locationId: 'ostrovského' },
   { day: 'Streda',   time: '18:30', locationId: 'ostrovského' },
+  { day: 'Štvrtok', time: '16:30', locationId: 'jedlikova' },
 ];

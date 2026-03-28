@@ -29,6 +29,36 @@
 /* =========================
    TOP BAR
 ========================= */
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: all 0.25s ease;
+}
+
+.socialLink svg {
+  width: 17px;
+  height: 17px;
+}
+
+.socialLink:hover {
+  transform: translateY(-1px);
+  background: #2a2a2a;
+  border-color: #1e1e1e;
+}
+
 
 .topBar {
   background: linear-gradient(90deg, #0f0f11 0%, #17181c 100%);
@@ -491,7 +521,41 @@
   text-decoration: none;
   font-weight: 800;
 }
+.mobileSocialRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0px 0 0px;
+}
 
+.mobileSocialIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.mobileSocialIcon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.mobileSocialIcon:hover {
+  transform: translateY(-1px);
+  
+}
+
+.mobileSocialIcon:active {
+  transform: scale(0.96);
+}
 /* =========================
    LARGE TABLET
 ========================= */
@@ -759,5 +823,24 @@
   .mobileSubmenuLink {
     padding-left: 12px;
     padding-right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileSocials {
+    gap: 10px;
+    margin: 8px 0 16px;
+  }
+
+  .mobileSocialLink {
+    min-height: 50px;
+    padding: 0 12px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+  }
+
+  .mobileSocialLink svg {
+    width: 16px;
+    height: 16px;
   }
 }

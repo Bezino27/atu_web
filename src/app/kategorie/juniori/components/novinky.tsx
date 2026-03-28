@@ -1,3 +1,4 @@
+import categoryStyles from "../../styles/kategorie.module.css";
 import styles from "../../styles/novinky.module.css";
 import Image from "next/image";
 
@@ -6,7 +7,8 @@ const novinky = [
     id: 1,
     category: "Hlavná udalosť",
     title: "ATU Košice mieri do play-off. Klub žije florbalom a čaká nás veľký záver sezóny",
-    description: "A-tím zvládol dôležitú časť sezóny, mládež pokračuje vo výborných výkonoch a fanúšikov čakajú rozhodujúce zápasy.",
+    description:
+      "A-tím zvládol dôležitú časť sezóny, mládež pokračuje vo výborných výkonoch a fanúšikov čakajú rozhodujúce zápasy.",
     image: "/images/news_hero.jpg",
     date: "20. marec 2026",
     isHero: true,
@@ -38,39 +40,30 @@ const novinky = [
 ];
 
 export default function Novinky() {
-  const heroNews = novinky.find(n => n.isHero);
-  const otherNews = novinky.filter(n => !n.isHero);
+  const heroNews = novinky.find((n) => n.isHero);
+  const otherNews = novinky.filter((n) => !n.isHero);
 
   return (
     <section className={styles.novinkySection}>
-
-        <div className={styles.titleWrapper}>
-        <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-         <h2 className={styles.mainTitle}>Najnovšie a najdôležitejšie články</h2>
-        </div>
-        {/* HERO CARD */}
-        {heroNews && (
-          <div className={styles.heroCard}>
-            <div className={styles.imageWrapper}>
-              <Image src={heroNews.image} alt={heroNews.title} fill className={styles.img} priority />
-              <div className={styles.heroOverlay}>
-                <div className={styles.metaRow}>
-                  <span className={styles.badge}>{heroNews.category}</span>
-                  <span className={styles.dateText}>{heroNews.date}</span>
-                </div>
-                <h1 className={styles.heroTitle}>{heroNews.title}</h1>
-                <p className={styles.heroDescription}>{heroNews.description}</p>
-              </div>
-            </div>
+      <div className={styles.container}>
+          <div className={styles.sectionHeading}>
+            <span className={categoryStyles.preTitle}>AKTUÁLNE DIANIE</span>
+            <h2 className={categoryStyles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
           </div>
-        )}
 
-        {/* GRID CARDS */}
+       
+
         <div className={styles.grid}>
           {otherNews.map((item) => (
             <div key={item.id} className={styles.card}>
               <div className={styles.imageWrapper}>
-                <Image src={item.image} alt={item.title} fill className={styles.img} />
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className={styles.img}
+                />
                 <div className={styles.cardOverlay}>
                   <div className={styles.metaRowSmall}>
                     <span className={styles.badgeSmall}>{item.category}</span>
@@ -83,6 +76,7 @@ export default function Novinky() {
             </div>
           ))}
         </div>
+      </div>
     </section>
   );
 }

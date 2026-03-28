@@ -44,7 +44,7 @@ export default function TopPlayer() {
   return (
     <section className={styles.wrapper}>
       <div className={styles.sectionHeader}>
-        <span className={styles.eyebrow}>Štatistiky tímu</span>
+        <span className={categoriesStyles.preTitle}>Štatistiky tímu</span>
         <h2 className={categoriesStyles.sectionTitle}>Lídri sezóny</h2>
       </div>
 
