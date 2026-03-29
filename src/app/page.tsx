@@ -114,7 +114,10 @@ export default async function HomePage() {
 
           {heroArticle && (
             <div className={styles.topNewsGrid}>
-              <Link href={`/clanky/${heroArticle.slug}`} className={styles.topNewsMain}>
+              <Link
+                href={`/clanky/${heroArticle.slug}`}
+                className={styles.topNewsMain}
+              >
                 <div className={styles.topNewsMainImageWrap}>
                   <Image
                     src={getImageUrl(heroArticle.featured_image)}
@@ -183,12 +186,6 @@ export default async function HomePage() {
                   <span className={styles.sectionEyebrow}>Liga</span>
                   <h3>Aktuálna tabuľka</h3>
                 </div>
-
-                <div className={styles.legend}>
-                  <span className={`${styles.legendItem} ${styles.legendPlayoff}`}>Playoff</span>
-                  <span className={`${styles.legendItem} ${styles.legendBarage}`}>Baráž</span>
-                  <span className={`${styles.legendItem} ${styles.legendDrop}`}>Zostup</span>
-                </div>
               </div>
 
               <div className={styles.tableWrap}>
@@ -216,24 +213,15 @@ export default async function HomePage() {
                             )}
                           >
                             <td>
-                              <span className={styles.positionBadge}>{team.position}</span>
+                              <span className={styles.positionBadge}>
+                                {team.position}
+                              </span>
                             </td>
                             <td>
                               <div className={styles.teamCell}>
-                                <span className={styles.teamName}>{team.team_name}</span>
-                                {label && (
-                                  <span
-                                    className={
-                                      label === "Playoff"
-                                        ? styles.rowTag
-                                        : label === "Baráž"
-                                        ? styles.rowTagWarning
-                                        : styles.rowTagDanger
-                                    }
-                                  >
-                                    {label}
-                                  </span>
-                                )}
+                                <span className={styles.teamName}>
+                                  {team.team_name}
+                                </span>
                               </div>
                             </td>
                             <td>{team.played}</td>
@@ -270,7 +258,9 @@ export default async function HomePage() {
                         <div className={styles.matchInfo}>
                           <h4>{renderMatchTitle(match, ownTeamName)}</h4>
                           <p>{competitionName}</p>
-                          <span>{match.venue || "Miesto zatiaľ nie je uvedené"}</span>
+                          <span>
+                            {match.venue || "Miesto zatiaľ nie je uvedené"}
+                          </span>
                         </div>
                       </div>
                     ))
@@ -279,30 +269,52 @@ export default async function HomePage() {
                       <div className={styles.noUpcomingIcon}>🏑</div>
                       <h4>Momentálne nie sú naplánované ďalšie zápasy</h4>
                       <p>
-                        Sleduj klubové novinky a výsledky. Ďalší program doplníme hneď,
-                        ako bude oficiálne zverejnený.
+                        Sleduj klubové novinky a výsledky. Ďalší program
+                        doplníme hneď, ako bude oficiálne zverejnený.
                       </p>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className={`${styles.panel} ${styles.playerPanel}`}>
-                <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Klubová anketa</span>
-                  <h3>Hráč mesiaca</h3>
+            <div className={`${styles.panel} ${styles.playerPanel}`}>
+              <div className={styles.playerPanelTop}>
+                <div className={styles.playerNumberBadge}>
+                  <span className={styles.playerNumberValue}>19</span>
                 </div>
 
-                <div className={styles.playerOfMonth}>
-                  <div className={styles.playerAvatar}>19</div>
-                  <div>
-                    <h4>Martin Novák</h4>
-                    <p>Útočník • A-tím</p>
-                    <span>6 gólov • 4 asistencie • líder tímu v marci</span>
-                  </div>
+                <div className={styles.playerMainInfo}>
+                  <span className={styles.playerPanelLabel}>Klubová anketa</span>
+                  <h3 className={styles.playerMainName}>Martin Novák</h3>
                 </div>
               </div>
+
+              <div className={styles.playerStatsGrid}>
+                <div className={styles.playerStatCard}>
+                  <strong>10</strong>
+                  <span>Body</span>
+                </div>
+
+                <div className={styles.playerStatCard}>
+                  <strong>6</strong>
+                  <span>Góly</span>
+                </div>
+
+                <div className={styles.playerStatCard}>
+                  <strong>4</strong>
+                  <span>Asistencie</span>
+                </div>
+              </div>
+
+              <div className={styles.playerVoteBar}>
+                <span className={styles.playerVoteLabel}>Výsledok ankety</span>
+                <div className={styles.playerVoteTrack}>
+                  <div className={styles.playerVoteFill} style={{ width: "74%" }} />
+                </div>
+                <span className={styles.playerVoteValue}>438 hlasov</span>
+              </div>
             </div>
+           </div>
           </div>
         </section>
 
@@ -319,7 +331,11 @@ export default async function HomePage() {
               {latestPosts.length > 0 ? (
                 <div className={styles.postsGrid}>
                   {latestPosts.map((post: Post) => (
-                    <Link key={post.id} href={`/clanky/${post.slug}`} className={styles.postCard}>
+                    <Link
+                      key={post.id}
+                      href={`/clanky/${post.slug}`}
+                      className={styles.postCard}
+                    >
                       <div className={styles.postImageWrap}>
                         <Image
                           src={getImageUrl(post.featured_image)}
@@ -361,14 +377,20 @@ export default async function HomePage() {
                       <div key={result.id} className={styles.resultCard}>
                         <div className={styles.resultTeams}>
                           <strong>
-                            {result.is_home === false ? result.opponent : ownTeamName}
+                            {result.is_home === false
+                              ? result.opponent
+                              : ownTeamName}
                           </strong>
                           <span>vs</span>
                           <strong>
-                            {result.is_home === false ? ownTeamName : result.opponent}
+                            {result.is_home === false
+                              ? ownTeamName
+                              : result.opponent}
                           </strong>
                         </div>
-                        <div className={styles.resultScore}>{result.result}</div>
+                        <div className={styles.resultScore}>
+                          {result.result}
+                        </div>
                         <small>{formatDate(result.match_date)}</small>
                       </div>
                     ))
@@ -388,7 +410,11 @@ export default async function HomePage() {
 
                 <div className={styles.categoryList}>
                   {categories.map((category) => (
-                    <Link key={category} href="/timy" className={styles.categoryPill}>
+                    <Link
+                      key={category}
+                      href="/timy"
+                      className={styles.categoryPill}
+                    >
                       {category}
                     </Link>
                   ))}

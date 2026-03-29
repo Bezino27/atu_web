@@ -10,6 +10,7 @@ import RecentMatches from './components/posledne_zapasy';
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
+import { getHomepagePosts, type Post } from "@/app/lib/posts";
 
 const matches = [
   {
@@ -35,7 +36,13 @@ const [szfbDashboard, nextMatchResponse] = await Promise.all([
   getSzfbDashboard(1),
   getSzfbNextMatch(1),
 ]);
+const posts: Post[] = await getHomepagePosts("atu-kosice");
 
+const junioriPosts = posts.filter((post) => {
+  const categoryName = post.category?.name?.toLowerCase().trim();
+
+  return ["juniori", "mládež", "mladez"].includes(categoryName || "");
+});
 const standings = szfbDashboard?.standings ?? [];
 const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
 const nextMatch = nextMatchResponse?.next_match ?? null;
@@ -77,7 +84,7 @@ const nextMatch = nextMatchResponse?.next_match ?? null;
         <section>
           <div className={styles.mainGridContainer}>
             <NasledujuceZapasy />
-            <Novinky />
+            <Novinky posts={junioriPosts} />
           </div>
 
           <div className={styles.overviewGrid}>

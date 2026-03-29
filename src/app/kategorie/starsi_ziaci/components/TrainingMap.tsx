@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_dorast";
+import { Location } from "@/data/treningy_starsi_ziaci";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
@@ -77,7 +77,7 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         zoomControl={false}
       >
         <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution="&copy; Esri"
           maxZoom={19}
         />

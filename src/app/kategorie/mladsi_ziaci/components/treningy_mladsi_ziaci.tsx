@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import styles from './TrainingTable.module.css';
-import { dorastTrainings, locations } from '@/data/treningy_dorast';
+import { dorastTrainings, locations } from '@/data/treningy_mz';
 import categoriesStyles from "../../styles/kategorie.module.css";// Import mapy dynamicky, aby nerobila problémy pri SSR
 const TrainingMap = dynamic(() => import('./TrainingMap'), {
   ssr: false,

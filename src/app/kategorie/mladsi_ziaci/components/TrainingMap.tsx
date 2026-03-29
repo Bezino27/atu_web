@@ -5,18 +5,18 @@ import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_dorast";
+import { Location } from "@/data/treningy_mz";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
   activeLocation: string | null;
 }
 
-const MAP_CENTER: [number, number] = [48.70186, 21.2441];
+const MAP_CENTER: [number, number] = [48.69814880000001,21.233903793254041];
 
 const getInitialZoom = () => {
-  if (typeof window === "undefined") return 13;
-  return window.innerWidth <= 640 ? 13 : 15;
+  if (typeof window === "undefined") return 15;
+  return window.innerWidth <= 640 ? 15 : 16;
 };
 
 const TrainingMap: React.FC<TrainingMapProps> = ({
@@ -77,7 +77,7 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         zoomControl={false}
       >
         <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution="&copy; Esri"
           maxZoom={19}
         />

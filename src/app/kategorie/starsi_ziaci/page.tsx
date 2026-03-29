@@ -5,7 +5,7 @@ import Footer from "@/app/components/Footer";
 import Image from "next/image";
 import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
-import KdeTrenujeme from "./components/treningy_mladsi_ziaci";
+import KdeTrenujeme from "./components/treningy_starsi_ziaci";
 import Nabor from "./components/nabor";
 
 const DorastPage = async () => {
@@ -22,15 +22,15 @@ const DorastPage = async () => {
 const szfbLinks = [
   {
     title: "Detail tímu",
-    href: "https://www.szfb.sk/sk/stats/teams/1178/liga-mladsich-ziakov-vychod/team/669483/fabk-atu-kosice",
+    href: "https://www.szfb.sk/sk/stats/teams/1179/liga-starsich-ziakov-vychod/team/669500/fabk-atu-kosice",
   },
   {
     title: "Tabuľka",
-    href: "https://www.szfb.sk/sk/stats/standings/1178/liga-mladsich-ziakov-vychod",
+    href: "https://www.szfb.sk/sk/stats/standings/1179/liga-starsich-ziakov-vychod?StatsType=overall&TournamentPartID=4528",
   },
   {
     title: "Výsledky a program",
-    href: "https://www.szfb.sk/sk/stats/results-date/1178",
+    href: "https://www.szfb.sk/sk/stats/results-date/1179/1-liga-starsich-ziakov-vychod",
   },
 ];
   return (
@@ -40,15 +40,15 @@ const szfbLinks = [
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/mladsi_ziaci.jpg"
-              alt="ATU Košice Mladší žiaci"
+              src="/images/kategorie/starsi_ziaci.jpg"
+              alt="ATU Košice Starší žiaci"
               fill
               priority
               className={styles.heroImg}
             />
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>Mladší žiaci</h1>
+                <h1 className={styles.bannerTitleziaci}>Starší žiaci</h1>
               </div>
             </div>
           </div>
