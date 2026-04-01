@@ -8,41 +8,28 @@
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
     0 2px 8px rgba(15, 23, 42, 0.03);
-  padding: 22px 22px 22px;
+  padding: 22px;
   box-sizing: border-box;
-  margin: 0 ;
+  margin: 0;
   overflow: hidden;
 }
 
 .panelHeader {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 22px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #e8edf3;
+  margin-bottom: 18px;
 }
 
-.sectionEyebrow {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: #ef4444;
-  font-family: var(--font-geist-sans);
-  font-size: 0.9rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.panelHeader h3 {
+.panelTitle {
   margin: 0;
   color: #0f172a;
   font-family: var(--font-geist-sans);
-  font-size: clamp(1.5rem, 2vw, 2.05rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .tableWrap {
@@ -207,7 +194,6 @@
   font-weight: 600;
 }
 
-/* TABLET */
 @media (max-width: 1024px) {
   .panel {
     min-height: 700px;
@@ -216,12 +202,11 @@
   }
 
   .panelHeader {
-    margin-bottom: 18px;
-    padding-bottom: 12px;
+    margin-bottom: 16px;
   }
 
-  .panelHeader h3 {
-    font-size: clamp(1.3rem, 2.8vw, 1.72rem);
+  .panelTitle {
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
   }
 
   .table {
@@ -253,7 +238,6 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .panel {
     min-height: auto;
@@ -263,17 +247,10 @@
 
   .panelHeader {
     margin-bottom: 14px;
-    padding-bottom: 10px;
   }
 
-  .sectionEyebrow {
-    margin-bottom: 6px;
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-  }
-
-  .panelHeader h3 {
-    font-size: clamp(1.08rem, 4.8vw, 1.42rem);
+  .panelTitle {
+    font-size: clamp(1rem, 4.3vw, 1.25rem);
     line-height: 1.14;
   }
 
@@ -321,15 +298,14 @@
   }
 }
 
-/* SMALL MOBILE */
 @media (max-width: 480px) {
   .panel {
     padding: 14px 12px;
     border-radius: 20px;
   }
 
-  .panelHeader h3 {
-    font-size: clamp(0.98rem, 5vw, 1.22rem);
+  .panelTitle {
+    font-size: clamp(0.95rem, 5vw, 1.12rem);
   }
 
   .table {

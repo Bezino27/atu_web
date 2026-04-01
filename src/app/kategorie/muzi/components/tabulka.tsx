@@ -1,6 +1,5 @@
 import styles from "../../styles/tabulka.module.css";
 import type { SzfbStandingRow } from "@/app/lib/szfb";
-import categoriesStyles from "../../styles/kategorie.module.css";
 
 type TabulkaProps = {
   standings: SzfbStandingRow[];
@@ -26,10 +25,7 @@ export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
-        <div>
-          <span className={categoriesStyles.preTitle}>Liga</span>
-          <h3>Aktuálna tabuľka</h3>
-        </div>
+        <h3 className={styles.panelTitle}>Aktuálna tabuľka</h3>
       </div>
 
       <div className={styles.tableWrap}>

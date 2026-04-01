@@ -1,9 +1,5 @@
 import styles from "../../styles/posledne_zapasy.module.css";
-import categoriesStyles from "../../styles/kategorie.module.css";
-import {
-  getSzfbDashboard,
-  type SzfbMatch,
-} from "@/app/lib/szfb";
+import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
@@ -85,10 +81,7 @@ export default async function RecentMatches() {
   return (
     <section className={styles.card}>
       <div className={styles.header}>
-        <div>
-          <span className={categoriesStyles.preTitle}>VÝSLEDKY</span>
-          <h2 className={styles.title}>Posledné zápasy</h2>
-        </div>
+        <h3 className={styles.panelTitle}>Posledné zápasy</h3>
       </div>
 
       <div className={styles.matchesList}>

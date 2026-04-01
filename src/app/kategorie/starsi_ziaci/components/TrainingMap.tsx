@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_starsi_ziaci";
+import { Location } from "@/data/treningy_dorast";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
@@ -76,11 +76,12 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         scrollWheelZoom={false}
         zoomControl={false}
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution="&copy; Esri"
-          maxZoom={19}
-        />
+      <TileLayer
+        attribution='&copy; OpenStreetMap contributors &copy; CARTO'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        subdomains={["a", "b", "c", "d"]}
+        maxZoom={20}
+      />
 
         <ZoomControl position="topleft" />
 

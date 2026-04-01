@@ -124,7 +124,7 @@ export default function Header() {
               </div>
               <div className={styles.logoText}>
                 <strong>FaBK ATU Košice</strong>
-                <span>Extraliga mužov</span>
+
               </div>
             </Link>
 

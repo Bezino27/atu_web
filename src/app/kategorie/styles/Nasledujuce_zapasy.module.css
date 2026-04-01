@@ -1,8 +1,9 @@
 .matchesSection {
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 10px 0 0;
+}
+
+.sectionHeading {
+  margin-bottom: 24px;
 }
 
 .matchesGrid {
@@ -12,79 +13,122 @@
   width: 100%;
 }
 
-/* KARTA */
 .matchCard {
   position: relative;
-  background: rgb(245, 245, 245);
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   border-radius: 28px;
-  padding: 30px;
+  padding: 24px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid transparent;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+  isolation: isolate;
+}
+.matchCard > * {
+  position: relative;
   z-index: 1;
 }
-
 .matchCard::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  height: 150%;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
   background: conic-gradient(
-    transparent,
-    #e63946 30%,
-    transparent 40%
+    from 220deg,
+    transparent 0deg,
+    transparent 250deg,
+    rgba(230, 57, 70, 0.00) 262deg,
+    rgba(230, 57, 70, 0.08) 274deg,
+    rgba(230, 57, 70, 0.20) 288deg,
+    rgba(230, 57, 70, 0.42) 304deg,
+    rgba(230, 57, 70, 0.78) 320deg,
+    rgba(230, 57, 70, 1.00) 332deg,
+    rgba(230, 57, 70, 0.62) 344deg,
+    rgba(230, 57, 70, 0.22) 352deg,
+    rgba(230, 57, 70, 0.00) 360deg
   );
-  transform-origin: center;
-  animation: rotate 4s linear infinite;
-  z-index: -2;
   opacity: 0;
   transition: opacity 0.3s ease;
+  animation: rotateBorder 8s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
 .matchCard::after {
   content: "";
   position: absolute;
-  inset: 3px;
-  background: #f8f9fa;
-  border-radius: 25px;
-  z-index: -1;
+  inset: 2px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  z-index: 0;
 }
 
 .matchCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 38px rgba(15, 23, 42, 0.08),
+    0 8px 18px rgba(211, 47, 47, 0.06);
+  border-color: rgba(211, 47, 47, 0.1);
 }
 
 .matchCard:hover::before {
   opacity: 1;
 }
 
-.matchCard:hover::after {
-  background: #ffffff;
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
 }
 
-@keyframes rotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+.matchBadge,
+.resultBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.matchBadge {
+  background: rgba(211, 47, 47, 0.08);
+  color: #d32f2f;
+  border: 1px solid rgba(211, 47, 47, 0.14);
+}
+
+.resultBadge {
+  background: rgba(15, 23, 42, 0.05);
+  color: #111827;
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .matchLeague {
-  font-size: 12px;
-  font-weight: 900;
-  color: #d32f2f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #6b7280;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 22px;
+  letter-spacing: 0.12em;
 }
 
 .matchTeamsRow {
@@ -92,7 +136,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .teamInfo {
@@ -114,7 +158,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   border: 1px solid #ececec;
   overflow: hidden;
   padding: 10px;
@@ -125,13 +169,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
-
-.opponentPlaceholder {
-  font-size: 1.5rem;
-  font-weight: 900;
-  color: #d32f2f;
-  line-height: 1;
 }
 
 .team {
@@ -151,13 +188,18 @@
   overflow-wrap: anywhere;
 }
 
-.vsDivider {
+.vsDivider,
+.scoreDivider {
   flex: 0 0 auto;
   align-self: center;
   font-weight: 900;
-  font-size: 1.3rem;
-  color: #000000;
+  font-size: 1.25rem;
+  color: #111827;
   padding: 0 6px;
+}
+
+.scoreDivider {
+  color: #d32f2f;
 }
 
 .matchFooter {
@@ -168,19 +210,18 @@
 
 .matchDateTime {
   font-size: 1rem;
-  color: #000;
+  color: #111;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
 .matchPlace {
   font-size: 0.95rem;
-  color: #222;
+  color: #4b5563;
   font-weight: 500;
   line-height: 1.45;
 }
 
-/* EMPTY STATE */
 .emptyState {
   background: linear-gradient(180deg, #f7f7f8 0%, #f1f1f3 100%);
   border: 1px solid #e4e4e8;
@@ -209,17 +250,15 @@
   line-height: 1.65;
   color: #555;
 }
-
-/* TABLET */
+@keyframes rotateBorder {
+  from {
+    transform: translate(-50%, -50%) rotate(18deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(378deg);
+  }
+}
 @media (max-width: 900px) {
-  .matchesSection {
-    padding: 6px 18px 0;
-  }
-
-  .headerRow {
-    margin-bottom: 18px;
-  }
-
   .matchesGrid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -230,14 +269,11 @@
     border-radius: 22px;
   }
 
-  .matchLeague {
-    font-size: 11px;
-    margin-bottom: 16px;
-    text-align: center;
+  .sectionHeading {
+    margin-bottom: 20px;
   }
 
-  .matchTeamsRow {
-    gap: 10px;
+  .cardTop {
     margin-bottom: 18px;
   }
 
@@ -256,13 +292,10 @@
     line-height: 1.25;
   }
 
-  .vsDivider {
+  .vsDivider,
+  .scoreDivider {
     font-size: 1rem;
     padding: 0 4px;
-  }
-
-  .matchFooter {
-    padding-top: 12px;
   }
 
   .matchDateTime {
@@ -275,16 +308,11 @@
 }
 
 @media (max-width: 768px) {
-  .matchesSection {
-    padding: 0 16px;
-  }
-
-  .headerRow {
-    margin-bottom: 14px;
+  .sectionHeading {
+    margin-bottom: 18px;
   }
 
   .matchesGrid {
-    grid-template-columns: 1fr;
     gap: 14px;
   }
 
@@ -293,11 +321,20 @@
     border-radius: 20px;
   }
 
+  .cardTop {
+    margin-bottom: 16px;
+  }
+
+  .matchBadge,
+  .resultBadge {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.65rem;
+  }
+
   .matchLeague {
-    font-size: 10px;
-    margin-bottom: 14px;
-    text-align: center;
-    letter-spacing: 1.4px;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 
   .matchTeamsRow {
@@ -319,15 +356,12 @@
     font-size: 0.95rem;
     line-height: 1.2;
   }
-  
-  .vsDivider {
+
+  .vsDivider,
+  .scoreDivider {
     font-size: 0.95rem;
     margin-top: 10px;
     padding: 0 2px;
-  }
-
-  .matchFooter {
-    padding-top: 12px;
   }
 
   .matchDateTime {
@@ -359,10 +393,9 @@
   }
 }
 
-/* EXTRA SMALL MOBILE */
 @media (max-width: 480px) {
-  .matchesSection {
-    padding: 0 14px;
+  .sectionHeading {
+    margin-bottom: 14px;
   }
 
   .matchCard {
@@ -370,13 +403,8 @@
     border-radius: 18px;
   }
 
-  .matchLeague {
-    font-size: 9px;
-    margin-bottom: 12px;
-  }
-
-  .matchTeamsRow {
-    gap: 6px;
+  .cardTop {
+    gap: 8px;
     margin-bottom: 14px;
   }
 
@@ -394,9 +422,9 @@
     font-size: 0.88rem;
   }
 
-  .vsDivider {
+  .vsDivider,
+  .scoreDivider {
     font-size: 0.9rem;
-    margin-top: 10px;
   }
 
   .matchDateTime {

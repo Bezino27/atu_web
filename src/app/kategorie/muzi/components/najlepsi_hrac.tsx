@@ -1,10 +1,10 @@
 import styles from "../../styles/najlepsi_hrac.module.css";
-import categoriesStyles from "../../styles/kategorie.module.css";
+
 const topScorers = [
   {
     id: 1,
     number: 77,
-    name:"Kamil Navrátil ",
+    name: "Kamil Navrátil",
     position: "Útočník",
     goals: 114,
     assists: 0,
@@ -32,7 +32,7 @@ const topScorers = [
 
 const mostPenalized = {
   number: 11,
-  name: "Jozef lovas",
+  name: "Jozef Lovas",
   position: "Obranca",
   penaltyMinutes: 42,
   penalties: 22,
@@ -43,16 +43,9 @@ export default function TopPlayer() {
 
   return (
     <section className={styles.wrapper}>
-      <div className={styles.sectionHeader}>
-        <span className={categoriesStyles.preTitle}>Štatistiky tímu</span>
-        <h2 className={categoriesStyles.sectionTitle}>Lídri sezóny</h2>
-      </div>
-
       <div className={styles.layout}>
         <div className={styles.leftColumn}>
           <article className={styles.mainCard}>
-
-
             <div className={styles.mainTop}>
               <div className={styles.numberBlock}>
                 <span className={styles.bigNumber}>{leader.number}</span>
@@ -70,10 +63,12 @@ export default function TopPlayer() {
                 <span className={styles.statValue}>{leader.points}</span>
                 <span className={styles.statLabel}>Body</span>
               </div>
+
               <div className={styles.statItem}>
                 <span className={styles.statValue}>{leader.goals}</span>
                 <span className={styles.statLabel}>Góly</span>
               </div>
+
               <div className={styles.statItem}>
                 <span className={styles.statValue}>{leader.assists}</span>
                 <span className={styles.statLabel}>Asistencie</span>
@@ -82,12 +77,8 @@ export default function TopPlayer() {
           </article>
 
           <div className={styles.smallCards}>
-            {[second, third].map((player, ) => (
+            {[second, third].map((player) => (
               <article key={player.id} className={styles.smallCard}>
-                <div className={styles.smallHeader}>
-             
-                </div>
-
                 <div className={styles.smallNumber}>{player.number}</div>
                 <h3 className={styles.smallName}>{player.name}</h3>
                 <p className={styles.smallPosition}>{player.position}</p>

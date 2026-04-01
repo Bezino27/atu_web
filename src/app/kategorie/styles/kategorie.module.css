@@ -1,18 +1,44 @@
 .pageContainer {
-  background: #ffffff;
   min-height: 100vh;
+  background: #ffffff;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-bottom: 56px;
 }
 
 /* =========================
-   LAYOUT
+   GLOBAL SECTION LAYOUT
+========================= */
+
+.sectionContainer,
+.bottomSection,
+.overviewSection {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+
+.bottomSection {
+  margin-bottom: 0;
+}
+
+.resultsHeader {
+  margin-bottom: 24px;
+}
+
+/* =========================
+   RESULTS GRID
 ========================= */
 
 .overviewGrid {
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto 24px;
-  padding: 0;
-  box-sizing: border-box;
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.85fr);
   gap: 22px;
@@ -30,14 +56,6 @@
   gap: 20px;
 }
 
-.bottomSection {
-  width: 100%;
-  max-width: 1300px;
-  margin: 0 auto 48px;
-  padding: 0 16px;
-  box-sizing: border-box;
-}
-
 /* =========================
    SECTION TITLES
 ========================= */
@@ -47,13 +65,13 @@
   margin: 0 0 8px 18px;
   color: #e63946;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 16px;
+  letter-spacing: 0.75px;
   text-transform: uppercase;
 }
 
 .sectionTitle {
-  margin: 0 0 24px;
+  margin: 0;
   padding-left: 12px;
   border-left: 6px solid #e63946;
   color: #111;
@@ -72,7 +90,7 @@
 .heroSection {
   width: 100%;
   max-width: 1300px;
-  margin: 16px auto 30px;
+  margin: 16px auto 0;
   padding: 0 16px;
   position: relative;
   z-index: 5;
@@ -175,7 +193,6 @@
   animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-/* klasický single-word title */
 .bannerTitle {
   font-size: clamp(4rem, 11vw, 7.4rem);
   font-weight: 950;
@@ -183,7 +200,6 @@
   letter-spacing: -4px;
 }
 
-/* špeciálne pre Starší žiaci */
 .bannerTitleziaci {
   font-size: clamp(3.4rem, 8.4vw, 6.6rem);
   font-weight: 950;
@@ -264,98 +280,6 @@
 }
 
 /* =========================
-   SZFB CARDS
-========================= */
-
-.szfbSection {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 32px 20px 0;
-}
-
-.szfbGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.szfbCard {
-  display: flex;
-  flex-direction: column;
-  min-height: 160px;
-  padding: 22px;
-  border-radius: 24px;
-  text-decoration: none;
-  color: inherit;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
-  border: 1px solid rgba(17, 24, 39, 0.07);
-  box-shadow:
-    0 14px 30px rgba(15, 23, 42, 0.06),
-    0 4px 12px rgba(15, 23, 42, 0.03);
-  transition:
-    transform 0.24s ease,
-    box-shadow 0.24s ease,
-    border-color 0.24s ease;
-}
-
-.szfbCard:hover {
-  transform: translateY(-4px);
-  border-color: rgba(211, 47, 47, 0.22);
-  box-shadow:
-    0 18px 38px rgba(15, 23, 42, 0.08),
-    0 8px 18px rgba(211, 47, 47, 0.06);
-}
-
-.szfbCardTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.szfbBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 28px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(211, 47, 47, 0.08);
-  color: #d32f2f;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.szfbArrow {
-  font-size: 1.1rem;
-  font-weight: 900;
-  color: #111;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.szfbCard:hover .szfbArrow {
-  transform: translate(2px, -2px);
-  color: #d32f2f;
-}
-
-.szfbCardTitle {
-  margin: 0 0 20px;
-  font-size: 1.18rem;
-  line-height: 1.2;
-  font-weight: 850;
-  color: #111;
-}
-
-.szfbCardLink {
-  margin-top: auto;
-  color: rgba(17, 17, 17, 0.55);
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-/* =========================
    ANIMATIONS
 ========================= */
 
@@ -390,8 +314,13 @@
 ========================= */
 
 @media (max-width: 1024px) {
+  .content {
+    gap: 48px;
+    padding-bottom: 48px;
+  }
+
   .heroSection {
-    margin: 14px auto 28px;
+    margin: 14px auto 0;
     padding: 0 14px;
   }
 
@@ -410,21 +339,34 @@
     font-size: clamp(2.9rem, 8.6vw, 5.3rem);
     letter-spacing: -2px;
   }
+  .bottomSection,
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 14px;
+  }
 }
 
-@media (max-width: 1000px) {
-  .szfbGrid {
+@media (max-width: 900px) {
+  .overviewGrid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
 
-  .szfbCard {
-    min-height: unset;
+  .tableColumn,
+  .matchesColumn {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 768px) {
+  .content {
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
   .heroSection {
-    margin: 14px auto 24px;
+    margin: 14px auto 0;
     padding: 0 10px;
   }
 
@@ -496,6 +438,15 @@
     line-height: 1.2;
   }
 
+
+  .bottomSection,
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 10px;
+  }
+
+
+
   .preTitle {
     margin: 0 0 6px 12px;
     font-size: 12px;
@@ -503,22 +454,21 @@
   }
 
   .sectionTitle {
-    margin: 0 0 18px;
     padding-left: 10px;
     border-left: 4px solid #e63946;
     font-size: clamp(1.5rem, 5vw, 2rem);
     line-height: 1.15;
     letter-spacing: -0.8px;
   }
+
+  .resultsHeader {
+    margin-bottom: 18px;
+  }
 }
 
 @media (max-width: 640px) {
-  .pageContainer {
-    padding-top: 0;
-  }
-
   .heroSection {
-    margin: 10px auto 18px;
+    margin: 10px auto 0;
     padding: 0 8px;
   }
 
@@ -546,47 +496,23 @@
     padding: 10px 12px;
     gap: 6px;
   }
-
-  .szfbSection {
-    padding: 20px 16px 0;
-  }
-
-  .szfbGrid {
-    gap: 12px;
-  }
-
-  .szfbCard {
-    min-height: 112px;
-    padding: 15px 14px;
-    border-radius: 18px;
-  }
-
-  .szfbCardTop {
-    margin-bottom: 12px;
-  }
-
-  .szfbBadge {
-    min-height: 24px;
-    padding: 0 10px;
-    font-size: 0.66rem;
-  }
-
-  .szfbArrow {
-    font-size: 1rem;
-  }
-
-  .szfbCardTitle {
-    margin-bottom: 12px;
-    font-size: 0.98rem;
-    line-height: 1.18;
-  }
-
-  .szfbCardLink {
-    font-size: 0.82rem;
-  }
 }
 
 @media (max-width: 480px) {
+  .content {
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+
+  .bottomSection,
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 8px;
+  }
+
+
+
   .preTitle {
     margin: 0 0 5px 10px;
     font-size: 11px;
@@ -594,22 +520,14 @@
   }
 
   .sectionTitle {
-    margin: 0 0 14px;
     padding-left: 8px;
     border-left: 3px solid #e63946;
     font-size: clamp(1.2rem, 6vw, 1.55rem);
     line-height: 1.2;
     letter-spacing: -0.4px;
   }
-}
-
-@media (max-width: 420px) {
-  .pageContainer {
-    padding-top: 0;
-  }
 
   .heroSection {
-    margin: 8px auto 18px;
     padding: 0 8px;
   }
 
@@ -661,22 +579,8 @@
     font-size: 0.82rem;
   }
 
-  .szfbSection {
-    padding: 18px 14px 0;
-  }
-
-  .szfbCard {
-    min-height: 104px;
-    padding: 14px 13px;
-    border-radius: 16px;
-  }
-
-  .szfbCardTitle {
-    font-size: 0.92rem;
-  }
-
-  .szfbCardLink {
-    font-size: 0.78rem;
+  .resultsHeader {
+    margin-bottom: 14px;
   }
 }
 
@@ -707,33 +611,5 @@
 
   .countdownBar {
     padding: 8px 10px;
-  }
-}
-@media (max-width: 900px) {
-  .overviewGrid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 0 10px;
-  }
-
-  .tableColumn,
-  .matchesColumn {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .overviewGrid {
-    margin: 0 auto 20px;
-    padding: 0 10px;
-    gap: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .overviewGrid {
-    padding: 0 8px;
-    gap: 14px;
   }
 }

@@ -2,31 +2,6 @@
   width: 100%;
 }
 
-.sectionHeader {
-  margin-bottom: 18px;
-}
-
-.eyebrow {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: #b77667;
-  font-family: var(--font-geist-sans);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.title {
-  margin: 0;
-  color: #111827;
-  font-family: var(--font-geist-sans);
-  font-size: clamp(1.45rem, 2vw, 2rem);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-}
-
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
@@ -85,22 +60,6 @@
   pointer-events: none;
 }
 
-.rankBadge {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: rgba(211, 47, 47, 0.08);
-  color: #c62828;
-  border: 1px solid rgba(211, 47, 47, 0.14);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
 .mainTop {
   display: flex;
   align-items: center;
@@ -115,30 +74,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.numberPlate {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 4px;
-  min-width: 110px;
-  min-height: 110px;
-  padding: 14px 16px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
-  border: 1px solid #e5ebf2;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    0 10px 24px rgba(15, 23, 42, 0.05);
-}
-
-.numberHash {
-  margin-top: 10px;
-  color: #d32f2f;
-  font-size: 1.2rem;
-  font-weight: 900;
-  line-height: 1;
 }
 
 .bigNumber {
@@ -244,35 +179,6 @@
   min-height: 210px;
 }
 
-.smallHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.smallRank {
-  color: #64748b;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: transparent;
-  min-width: auto;
-  height: auto;
-  padding: 0;
-  border-radius: 0;
-}
-
-.smallTag {
-  color: #c62828;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .smallNumber {
   display: inline-flex;
   align-items: center;
@@ -289,10 +195,6 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.02em;
-}
-
-.smallNumber span {
-  display: none;
 }
 
 .smallName {
@@ -378,14 +280,6 @@
   align-items: flex-start;
   gap: 12px;
   margin-bottom: 26px;
-}
-
-.penaltyEyebrow {
-  color: #64748b;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .penaltyBadge {
@@ -506,16 +400,12 @@
   text-transform: uppercase;
 }
 
-/* TABLET */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 1fr;
   }
 
-  .penaltyCard {
-    min-height: auto;
-  }
-
+  .penaltyCard,
   .mainCard {
     min-height: auto;
   }
@@ -525,22 +415,7 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
-  .sectionHeader {
-    margin-bottom: 14px;
-  }
-
-  .eyebrow {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-  }
-
-  .title {
-    font-size: clamp(1.1rem, 5vw, 1.45rem);
-    line-height: 1.12;
-  }
-
   .mainCard,
   .smallCard,
   .penaltyCard {
@@ -551,18 +426,14 @@
   .penaltyCard {
     padding: 18px 16px;
   }
- .penaltyCard {
-    padding: 18px 16px;
-    border-radius: 22px;
+
+  .smallCard {
+    padding: 16px;
   }
 
   .penaltyHeader {
     margin-bottom: 20px;
     gap: 10px;
-  }
-
-  .penaltyEyebrow {
-    font-size: 0.68rem;
   }
 
   .penaltyBadge {
@@ -613,10 +484,6 @@
     font-size: 0.62rem;
   }
 
-  .smallCard {
-    padding: 16px;
-  }
-
   .mainTop {
     flex-direction: column;
     align-items: flex-start;
@@ -626,18 +493,6 @@
 
   .numberBlock {
     flex: unset;
-  }
-
-  .numberPlate {
-    min-width: 92px;
-    min-height: 92px;
-    padding: 12px 14px;
-    border-radius: 22px;
-  }
-
-  .numberHash {
-    margin-top: 8px;
-    font-size: 0.95rem;
   }
 
   .bigNumber {
@@ -679,18 +534,6 @@
     grid-template-columns: 1fr;
   }
 
-  .smallRank {
-    font-size: 0.74rem;
-  }
-
-  .smallTag {
-    font-size: 0.68rem;
-  }
-
-  .smallNumber {
-    font-size: 1rem;
-  }
-
   .smallName {
     font-size: 1.02rem;
     line-height: 1.05;
@@ -712,58 +555,9 @@
   .smallStatLabel {
     font-size: 0.58rem;
   }
-
-  .penaltyEyebrow {
-    font-size: 0.68rem;
-  }
-
-  .penaltyBadge {
-    font-size: 0.68rem;
-  }
-
-  .penaltyNumber {
-    font-size: 0.96rem;
-  }
-
-  .penaltyName {
-    font-size: 1.18rem;
-    line-height: 1.04;
-  }
-
-  .penaltyPosition {
-    font-size: 0.72rem;
-    margin: 8px 0 18px;
-  }
-
-  .penaltyStatBox {
-    min-height: 82px;
-    padding: 14px 12px;
-  }
-
-  .penaltyStatValue {
-    font-size: 1.55rem;
-  }
-
-  .penaltyStatLabel {
-    font-size: 0.64rem;
-  }
 }
 
-/* SMALL MOBILE */
 @media (max-width: 480px) {
-  .sectionHeader {
-    margin-bottom: 12px;
-  }
-
-  .eyebrow {
-    font-size: 0.62rem;
-    margin-bottom: 6px;
-  }
-
-  .title {
-    font-size: 1rem;
-  }
-
   .mainCard,
   .smallCard,
   .penaltyCard {
@@ -779,27 +573,8 @@
     padding: 14px;
   }
 
-  .rankBadge,
-  .penaltyBadge {
-    min-height: 28px;
-    padding: 0 10px;
-    font-size: 0.62rem;
-  }
-
-  .numberPlate {
-    min-width: 82px;
-    min-height: 82px;
-    padding: 10px 12px;
-    border-radius: 20px;
-  }
-
   .bigNumber {
     font-size: 3rem;
-  }
-
-  .numberHash {
-    font-size: 0.84rem;
-    margin-top: 7px;
   }
 
   .playerTag {
@@ -828,24 +603,6 @@
     font-size: 0.6rem;
   }
 
-  .smallHeader {
-    margin-bottom: 12px;
-  }
-
-  .smallRank {
-    min-width: 34px;
-    height: 28px;
-    font-size: 0.66rem;
-  }
-
-  .smallTag {
-    font-size: 0.62rem;
-  }
-
-  .smallNumber {
-    font-size: 0.9rem;
-  }
-
   .smallName {
     font-size: 0.94rem;
   }
@@ -869,10 +626,6 @@
 
   .smallStatLabel {
     font-size: 0.54rem;
-  }
-
-  .penaltyEyebrow {
-    font-size: 0.62rem;
   }
 
   .penaltyNumber {

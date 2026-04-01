@@ -1,26 +1,16 @@
-/* =========================================================
-   SEKCIa TRÉNINGOV
-   - širší layout (1300px)
-   - lepší spacing
-   - čistejšia responzivita
-   ========================================================= */
-
 .section {
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 88px 24px;
-  box-sizing: border-box;
 }
 
-/* Hlavný nadpis sekcie */
+.sectionHeader {
+  margin-bottom: 24px;
+}
 
-
-/* 2-stĺpcový layout: vľavo tabuľka/zoznam, vpravo mapa */
+/* 2-stĺpcový layout */
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.35fr);
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+  gap: 28px;
   align-items: stretch;
 }
 
@@ -29,31 +19,30 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-
-  padding: 30px;
-  border-radius: 32px;
-  background: rgba(255, 255, 255, 0.82);
+  padding: 26px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow:
-    0 20px 40px rgba(15, 23, 42, 0.08),
+    0 18px 36px rgba(15, 23, 42, 0.07),
     0 6px 16px rgba(15, 23, 42, 0.04);
   backdrop-filter: blur(8px);
 }
 
 /* Header zoznamu */
 .listHeader {
-  padding: 0 10px 12px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  padding: 0 8px 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .headerLabel {
   font-family: var(--font-geist-sans);
-  font-size: 18px;
+  font-size: 0.95rem;
   font-weight: 900;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.95);
+  color: rgba(0, 0, 0, 0.92);
 }
 
 /* Samotný zoznam */
@@ -69,13 +58,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-
-  padding: 18px 22px;
+  padding: 18px 20px;
   border-radius: 20px;
   background: #f8f9fa;
   border: 1px solid transparent;
   cursor: pointer;
-
   transition:
     transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
@@ -91,36 +78,32 @@
 .rowActive {
   background: #ffffff;
   border-color: rgba(230, 57, 70, 0.24);
-  transform: translateX(10px);
-  box-shadow: 0 14px 30px rgba(230, 57, 70, 0.10);
+  transform: translateX(8px);
+  box-shadow: 0 14px 30px rgba(230, 57, 70, 0.1);
 }
 
 /* Blok s dňom a časom */
 .timeBlock {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   min-width: 0;
   flex: 1;
 }
 
-/* Malý badge s poradím / skratkou dňa */
 .dayBadge {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 14px;
   background: #111;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
@@ -129,7 +112,6 @@
   transform: scale(1.04);
 }
 
-/* Textové info o tréningu */
 .timeInfo {
   display: flex;
   flex-direction: column;
@@ -137,7 +119,7 @@
 }
 
 .dayName {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 750;
   color: #111;
   line-height: 1.2;
@@ -151,23 +133,25 @@
   line-height: 1.35;
 }
 
-/* Miesto tréningu */
+.locationBlock {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .locationBadge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-
   padding: 9px 16px;
   border-radius: 999px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
-
   font-size: 14px;
   font-weight: 700;
   color: #333;
   white-space: nowrap;
-
   transition:
     background 0.25s ease,
     color 0.25s ease,
@@ -195,14 +179,12 @@
   overflow: hidden;
   min-height: 550px;
   height: 100%;
-
-  border-radius: 32px;
+  border-radius: 28px;
   box-shadow:
-    0 20px 40px rgba(15, 23, 42, 0.10),
+    0 20px 40px rgba(15, 23, 42, 0.1),
     0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
-/* Leaflet controls */
 .mapWrapper :global(.leaflet-container) {
   width: 100%;
   height: 100%;
@@ -231,15 +213,12 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-
   background-color: #fff !important;
   color: #111 !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
-
   font-size: 18px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
-
   transition:
     transform 0.25s ease,
     background-color 0.25s ease,
@@ -268,18 +247,16 @@
   cursor: default !important;
 }
 
-/* Loading placeholder pred mountnutím mapy */
+/* Loading */
 .mapLoading {
   width: 100%;
   min-height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #fffefe;
   border-radius: 24px;
   color: rgba(0, 0, 0, 0.28);
-
   font-size: 13px;
   font-family: var(--font-geist-sans);
   letter-spacing: 1px;
@@ -288,10 +265,7 @@
   box-sizing: border-box;
 }
 
-/* =========================================================
-   CUSTOM MARKER
-   ========================================================= */
-
+/* MARKER */
 .customMarker {
   display: flex;
   align-items: center;
@@ -312,12 +286,10 @@
   display: flex;
   flex-direction: column;
   padding: 8px 14px;
-
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 14px;
   backdrop-filter: blur(8px);
-
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   transform-origin: left center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -341,7 +313,6 @@
   transition: color 0.3s ease;
 }
 
-/* Aktívny marker */
 .markerActive {
   z-index: 1000 !important;
 }
@@ -358,27 +329,20 @@
   color: #fff;
 }
 
-/* =========================================================
-   TABLET
-   ========================================================= */
-
+/* TABLET */
 @media (max-width: 1100px) {
-  .section {
-    padding: 72px 20px;
-  }
-
-  .sectionTitle {
-    margin-bottom: 32px;
-    font-size: clamp(1.9rem, 5vw, 2.6rem);
+  .sectionHeader {
+    margin-bottom: 18px;
   }
 
   .layout {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 22px;
   }
 
   .tableWrapper {
-    padding: 26px 22px;
+    padding: 22px 18px;
+    border-radius: 24px;
   }
 
   .mapWrapper,
@@ -391,54 +355,44 @@
   }
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
+/* MOBILE */
 @media (max-width: 700px) {
-  .section {
-    padding: 44px 16px;
-  }
-
-  .sectionTitle {
-    font-size: clamp(1.7rem, 8vw, 2.1rem);
-    line-height: 1.1;
-    margin-bottom: 22px;
-    padding-left: 18px;
-    border-left-width: 5px;
-    margin-left: -23px;
+  .sectionHeader {
+    margin-bottom: 12px;
   }
 
   .tableWrapper {
-    padding: 16px 14px;
-    border-radius: 22px;
+    padding: 14px 12px;
+    border-radius: 20px;
   }
 
   .listHeader {
-    padding: 0 4px 10px;
-    margin-bottom: 10px;
+    padding: 0 2px 8px;
+    margin-bottom: 8px;
   }
 
   .headerLabel {
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.08em;
   }
 
   .trainingList {
-    gap: 10px;
+    gap: 8px;
   }
+
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 13px !important;
   }
+
   .trainingRow {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 14px;
-    border-radius: 16px;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 15px;
   }
 
   .trainingRow:hover {
@@ -450,98 +404,8 @@
   }
 
   .timeBlock {
-    gap: 12px;
+    gap: 10px;
     align-items: center;
-  }
-
-  .dayBadge {
-    width: 42px;
-    height: 42px;
-    font-size: 12px;
-    border-radius: 12px;
-  }
-
-  .dayName {
-    font-size: 14px;
-    line-height: 1.15;
-  }
-
-  .timeValue {
-    font-size: 12px;
-    margin-top: 1px;
-  }
-
-  .locationBadge {
-    width: fit-content;
-    max-width: 100%;
-    font-size: 12px;
-    padding: 7px 12px;
-    white-space: normal;
-    line-height: 1.25;
-    border-radius: 999px;
-  }
-
-  .dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .mapWrapper,
-  .mapWrapper :global(.leaflet-container) {
-    min-height: 280px;
-    border-radius: 22px;
-  }
-
-  .mapLoading {
-    min-height: 280px;
-    border-radius: 18px;
-    font-size: 12px;
-  }
-
-  .markerLabel {
-    padding: 6px 10px;
-  }
-
-  .markerLabel strong {
-    font-size: 11px;
-  }
-
-  .markerLabel span {
-    font-size: 9px;
-  }
-
-  .markerDot {
-    width: 14px;
-    height: 14px;
-  }
-}
-/* =========================================================
-   EXTRA SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 420px) {
-  .section {
-    padding: 38px 14px;
-  }
-
-  .tableWrapper {
-    padding: 14px 12px;
-    border-radius: 20px;
-  }
- .mapWrapper :global(.leaflet-control-zoom-in),
-  .mapWrapper :global(.leaflet-control-zoom-out) {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 13px !important;
-  }
-  .trainingRow {
-    padding: 12px;
-    gap: 10px;
-    border-radius: 15px;
-  }
-
-  .timeBlock {
-    gap: 10px;
   }
 
   .dayBadge {
@@ -553,23 +417,108 @@
 
   .dayName {
     font-size: 13px;
+    line-height: 1.1;
   }
 
   .timeValue {
     font-size: 11px;
+    margin-top: 1px;
   }
 
   .locationBadge {
+    width: fit-content;
+    max-width: 100%;
     font-size: 11px;
     padding: 6px 10px;
+    white-space: normal;
+    line-height: 1.2;
+    border-radius: 999px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
   }
 
   .mapWrapper,
   .mapWrapper :global(.leaflet-container) {
-    min-height: 250px;
+    min-height: 240px;
+    border-radius: 20px;
   }
 
   .mapLoading {
-    min-height: 250px;
+    min-height: 240px;
+    border-radius: 16px;
+    font-size: 11px;
+  }
+
+  .markerLabel {
+    padding: 5px 8px;
+  }
+
+  .markerLabel strong {
+    font-size: 10px;
+  }
+
+  .markerLabel span {
+    font-size: 8px;
+  }
+
+  .markerDot {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .tableWrapper {
+    padding: 12px 10px;
+    border-radius: 18px;
+  }
+
+  .mapWrapper :global(.leaflet-control-zoom-in),
+  .mapWrapper :global(.leaflet-control-zoom-out) {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 12px !important;
+  }
+
+  .trainingRow {
+    padding: 10px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+
+  .timeBlock {
+    gap: 9px;
+  }
+
+  .dayBadge {
+    width: 34px;
+    height: 34px;
+    font-size: 10px;
+    border-radius: 10px;
+  }
+
+  .dayName {
+    font-size: 12px;
+  }
+
+  .timeValue {
+    font-size: 10px;
+  }
+
+  .locationBadge {
+    font-size: 10px;
+    padding: 5px 9px;
+  }
+
+  .mapWrapper,
+  .mapWrapper :global(.leaflet-container) {
+    min-height: 220px;
+  }
+
+  .mapLoading {
+    min-height: 220px;
   }
 }

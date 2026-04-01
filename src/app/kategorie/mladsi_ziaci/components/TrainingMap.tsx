@@ -5,18 +5,18 @@ import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_mz";
+import { Location } from "@/data/treningy_dorast";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
   activeLocation: string | null;
 }
 
-const MAP_CENTER: [number, number] = [48.69814880000001,21.233903793254041];
+const MAP_CENTER: [number, number] = [48.70186, 21.2441];
 
 const getInitialZoom = () => {
-  if (typeof window === "undefined") return 15;
-  return window.innerWidth <= 640 ? 15 : 16;
+  if (typeof window === "undefined") return 13;
+  return window.innerWidth <= 640 ? 13 : 15;
 };
 
 const TrainingMap: React.FC<TrainingMapProps> = ({
@@ -76,11 +76,12 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         scrollWheelZoom={false}
         zoomControl={false}
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution="&copy; Esri"
-          maxZoom={19}
-        />
+      <TileLayer
+        attribution='&copy; OpenStreetMap contributors &copy; CARTO'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        subdomains={["a", "b", "c", "d"]}
+        maxZoom={20}
+      />
 
         <ZoomControl position="topleft" />
 

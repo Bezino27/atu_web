@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_dorast";
+import { Location } from "@/data/treningy_pripravka";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
