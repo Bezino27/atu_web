@@ -709,3 +709,31 @@
     padding: 8px 10px;
   }
 }
+@media (max-width: 900px) {
+  .overviewGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 10px;
+  }
+
+  .tableColumn,
+  .matchesColumn {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .overviewGrid {
+    margin: 0 auto 20px;
+    padding: 0 10px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overviewGrid {
+    padding: 0 8px;
+    gap: 14px;
+  }
+}

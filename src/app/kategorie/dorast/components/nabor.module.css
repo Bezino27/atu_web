@@ -2,69 +2,86 @@
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 28px 20px 0;
+  padding: 0px 18px 0;
   box-sizing: border-box;
 }
 
 .card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 32px;
-  background:
-    radial-gradient(circle at top right, rgba(230, 57, 70, 0.05), transparent 24%),
-    linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+  width: 100%;
+  border-radius: 22px;
+  background: #ffffff;
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.07),
-    0 6px 16px rgba(15, 23, 42, 0.04);
+    0 14px 30px rgba(15, 23, 42, 0.05),
+    0 4px 12px rgba(15, 23, 42, 0.025);
 }
 
-.content {
-  position: relative;
-  z-index: 1;
-  padding: 36px 38px 34px;
-  color: #111;
+.main {
+  display: grid;
+  grid-template-columns: minmax(360px, 1.1fr) auto;
+  gap: 22px;
+  align-items: center;
+  padding: 22px 24px;
+}
+
+.head {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .eyebrow {
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #d32f2f;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
 .title {
-  margin: 0 0 24px;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
-  line-height: 1.06;
+  margin: 0;
+  font-size: clamp(1.45rem, 2.2vw, 2.2rem);
+  line-height: 1.02;
   font-weight: 900;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
   color: #111;
-  max-width: 760px;
+  max-width: 460px;
+}
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 
 .infoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .infoItem {
-  padding: 18px 18px 16px;
-  border-radius: 22px;
-  background: #f7f7f8;
-  border: 1px solid rgba(17, 24, 39, 0.07);
+  min-height: 78px;
+  min-width: 190px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #f8f8f9;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .infoLabel {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 4px;
   color: #6b7280;
-  font-size: 0.78rem;
+  font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -73,123 +90,140 @@
 .infoValue {
   display: block;
   color: #111;
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.24;
+  word-break: break-word;
 }
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  align-items: center;
 }
 
 .primaryButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0 20px;
+  min-height: 42px;
+  padding: 0 18px;
   border-radius: 999px;
   text-decoration: none;
   background: #111;
   color: #fff;
-  font-size: 0.94rem;
-  font-weight: 800;
+  font-size: 0.84rem;
+  font-weight: 900;
+  white-space: nowrap;
   transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
-  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.12);
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 8px 14px rgba(17, 24, 39, 0.1);
 }
 
 .primaryButton:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   background: #1f2937;
+  box-shadow: 0 12px 18px rgba(17, 24, 39, 0.14);
 }
 
-@media (max-width: 900px) {
-  .content {
-    padding: 30px 24px 28px;
-  }
-
-  .title {
-    margin-bottom: 20px;
-  }
-
-  .infoGrid {
+@media (max-width: 1180px) {
+  .main {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .section {
-    padding: 22px 16px 0;
-  }
-
-  .card {
-    border-radius: 24px;
-  }
-
-  .content {
-    padding: 24px 18px 22px;
-  }
-
-  .eyebrow {
-    margin-bottom: 10px;
-    font-size: 0.74rem;
+    gap: 16px;
+    align-items: start;
   }
 
   .title {
-    margin-bottom: 18px;
-    font-size: 1.75rem;
-    line-height: 1.08;
+    max-width: 100%;
+  }
+
+  .side {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .infoGrid {
-    gap: 10px;
-    margin-bottom: 18px;
+    width: 100%;
   }
 
   .infoItem {
-    padding: 14px 14px 13px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .section {
+    padding: 16px 14px 0;
+  }
+
+  .card {
     border-radius: 18px;
   }
 
+  .main {
+    padding: 18px 14px;
+    gap: 14px;
+  }
+
+  .eyebrow {
+    margin-bottom: 6px;
+    font-size: 0.64rem;
+  }
+
+  .title {
+    font-size: 1.42rem;
+    line-height: 1.04;
+  }
+
+  .infoGrid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+  }
+
+  .infoItem {
+    min-height: 54px;
+    min-width: 0;
+    padding: 10px 11px 9px;
+    border-radius: 12px;
+  }
+
   .infoLabel {
-    margin-bottom: 5px;
-    font-size: 0.72rem;
+    font-size: 0.6rem;
+    margin-bottom: 2px;
   }
 
   .infoValue {
-    font-size: 0.92rem;
+    font-size: 0.82rem;
   }
 
   .primaryButton {
     width: 100%;
-    min-height: 42px;
-    font-size: 0.88rem;
+    min-height: 38px;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 420px) {
   .section {
-    padding: 20px 14px 0;
+    padding: 14px 12px 0;
   }
 
-  .content {
-    padding: 22px 16px 20px;
+  .main {
+    padding: 16px 12px;
   }
 
   .title {
-    font-size: 1.58rem;
-  }
-
-  .infoItem {
-    padding: 13px 13px 12px;
+    font-size: 1.28rem;
   }
 
   .infoValue {
-    font-size: 0.88rem;
+    font-size: 0.78rem;
   }
 }
