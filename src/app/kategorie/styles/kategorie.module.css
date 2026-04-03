@@ -63,7 +63,7 @@
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
-  color: #e63946;
+  color: #84101A;
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.75px;
@@ -73,7 +73,7 @@
 .sectionTitle {
   margin: 0;
   padding-left: 12px;
-  border-left: 6px solid #e63946;
+  border-left: 6px solid #84101A;
   color: #111;
   font-family: var(--font-geist-sans);
   font-weight: 850;
@@ -239,7 +239,7 @@
 .liveDot {
   width: 10px;
   height: 10px;
-  background-color: #e63946;
+  background-color: #84101A;
   border-radius: 50%;
   animation: pulse 1.5s infinite;
   flex-shrink: 0;
@@ -455,7 +455,7 @@
 
   .sectionTitle {
     padding-left: 10px;
-    border-left: 4px solid #e63946;
+    border-left: 4px solid #84101A;
     font-size: clamp(1.5rem, 5vw, 2rem);
     line-height: 1.15;
     letter-spacing: -0.8px;
@@ -521,7 +521,7 @@
 
   .sectionTitle {
     padding-left: 8px;
-    border-left: 3px solid #e63946;
+    border-left: 3px solid #84101A;
     font-size: clamp(1.2rem, 6vw, 1.55rem);
     line-height: 1.2;
     letter-spacing: -0.4px;

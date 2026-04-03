@@ -24,10 +24,6 @@ const PripravkyPage = async () => {
       href: "https://www.szfb.sk/sk/stats/teams/1178/liga-mladsich-ziakov-vychod/team/669483/fabk-atu-kosice",
     },
     {
-      title: "Tabuľka",
-      href: "https://www.szfb.sk/sk/stats/standings/1178/liga-mladsich-ziakov-vychod",
-    },
-    {
       title: "Výsledky a program",
       href: "https://www.szfb.sk/sk/stats/results-date/1178",
     },

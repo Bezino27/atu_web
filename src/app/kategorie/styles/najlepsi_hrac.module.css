@@ -180,23 +180,21 @@
 }
 
 .smallNumber {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 52px;
-  height: 34px;
-  padding: 0 12px;
-  margin-bottom: 12px;
+  color: #84101a;
+  letter-spacing: .04em;
+  background: #d32f2f14;
+  border: 1px solid #d32f2f24;
   border-radius: 12px;
-  background: rgba(211, 47, 47, 0.08);
-  border: 1px solid rgba(211, 47, 47, 0.14);
-  color: #d32f2f;
-  font-size: 0.92rem;
+  align-self: flex-start;
+  align-items: center;
+  min-height: 34px;
+  margin-bottom: 14px;
+  padding: 0 12px;
+  font-size: .9rem;
   font-weight: 900;
   line-height: 1;
-  letter-spacing: 0.02em;
+  display: inline-flex;
 }
-
 .smallName {
   margin: 0;
   color: #111827;
@@ -307,7 +305,7 @@
   border-radius: 12px;
   background: rgba(211, 47, 47, 0.08);
   border: 1px solid rgba(211, 47, 47, 0.14);
-  color: #d32f2f;
+  color: #84101A;
   font-size: 0.9rem;
   font-weight: 900;
   letter-spacing: 0.04em;

@@ -186,7 +186,7 @@ export default function Header() {
             </nav>
 
             <div className={styles.actions}>
-              <Link href="/pridaj-sa" className={styles.ctaButton}>
+              <Link href="/pridaj_sa" className={styles.ctaButton}>
                 Pridaj sa k nám
               </Link>
 

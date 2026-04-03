@@ -83,7 +83,7 @@
 
 .lossBadge {
   background: rgba(239, 68, 68, 0.1);
-  color: #c62828;
+  color: #84101A;
   border: 1px solid rgba(239, 68, 68, 0.16);
 }
 
@@ -147,7 +147,7 @@
 }
 
 .lossScore {
-  color: #e53935;
+  color: #84101A;
 }
 
 @media (max-width: 1024px) {
