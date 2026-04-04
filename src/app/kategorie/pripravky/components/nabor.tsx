@@ -26,7 +26,7 @@ const Nabor = () => {
             </div>
 
             <div className={styles.actions}>
-              <Link href="/pridajsa" className={styles.primaryButton}>
+              <Link href="/pridaj_sa" className={styles.primaryButton}>
                 Získať viac informácií
               </Link>
             </div>

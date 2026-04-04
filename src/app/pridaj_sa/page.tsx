@@ -1,31 +1,37 @@
 import Link from "next/link";
-import BenefitsCarouselSection from "./BenefitsCarouselSection";
+import BenefitsCarouselSection from "./BenefitsCarousel";
 import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 
 const benefits = [
   {
+    id: 1,
     title: "Osobný prístup",
     text: "Každé dieťa vnímame individuálne.",
   },
   {
+    id: 2,
     title: "Mladí tréneri",
     text: "Aktívni, hrajúci a blízki dnešnej hre.",
   },
   {
+    id: 3,
     title: "Dobrá partia",
     text: "Deti sa u nás cítia prirodzene a bezpečne.",
   },
   {
+    id: 4,
     title: "Rozvoj",
     text: "Pohyb, technika, disciplína aj návyky.",
   },
   {
+    id: 5,
     title: "Klubové prostredie",
     text: "Poriadok, systém a kvalitné fungovanie.",
   },
   {
+    id: 6,
     title: "Prvý tréning zdarma",
     text: "Najprv skúsiť, potom sa rozhodnúť.",
   },
@@ -52,26 +58,26 @@ const steps = [
 const categories = [
   {
     title: "Prípravka",
-    age: "Začíname hravo",
-    text: "Pohyb, koordinácia a prvé návyky.",
+    meta: "ročníky 2017 – 2019",
+    text: "Pre deti, ktoré sa chcú hýbať, zabaviť a získať prvé športové návyky.",
     href: "/kategorie/pripravky",
   },
   {
     title: "Mladší žiaci",
-    age: "Základy hry",
-    text: "Technika, tímovosť a športový rast.",
+    meta: "ročníky 2014 – 2016",
+    text: "Rozvoj techniky, pohybu a vzťahu k hre v tímovom prostredí.",
     href: "/kategorie/mladsi_ziaci",
   },
   {
     title: "Starší žiaci",
-    age: "Vyššie tempo",
-    text: "Viac zodpovednosti, hry a rozvoja.",
+    meta: "ročníky 2011 – 2013",
+    text: "Viac tempa, viac zodpovednosti a ďalší športový rast.",
     href: "/kategorie/starsi_ziaci",
   },
   {
     title: "Dorast",
-    age: "Výkon aj partia",
-    text: "Súťaž, progres a silné klubové prostredie.",
+    meta: "ročníky 2009 – 2010",
+    text: "Súťažné prostredie, intenzívnejší tréning a príprava na vyšší level.",
     href: "/kategorie/dorast",
   },
 ];
@@ -182,7 +188,7 @@ export default function PridajSaPage() {
     <section className={styles.sectionContainer}>
       <BenefitsCarouselSection
         title="Prečo ATU"
-        benefits={benefits}
+        items={benefits}
       />
     </section>
         <section className={styles.sectionContainer}>
@@ -210,18 +216,22 @@ export default function PridajSaPage() {
 
           <div className={styles.categoriesGrid}>
             {categories.map((category) => (
-              <article key={category.title} className={styles.categoryCard}>
+              <Link
+                key={category.title}
+                href={category.href}
+                className={styles.categoryCard}
+              >
                 <div className={styles.categoryTop}>
-                  <span className={styles.categoryBadge}>{category.age}</span>
-                  <h3>{category.title}</h3>
+                  <h3 className={styles.categoryTitle}>{category.title}</h3>
+                  <span className={styles.categoryMeta}>{category.meta}</span>
                 </div>
 
-                <p>{category.text}</p>
+                <p className={styles.categoryText}>{category.text}</p>
 
-                <Link href={category.href} className={styles.inlineLink}>
-                  Prejsť na kategóriu
-                </Link>
-              </article>
+                <div className={styles.categoryArrow}>
+                  <span>→</span>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -301,15 +311,20 @@ export default function PridajSaPage() {
             <span className={styles.preTitle}>FAQ</span>
             <h2 className={styles.sectionTitle}>Časté otázky</h2>
           </div>
-
           <div className={styles.faqList}>
-            {faqItems.map((item) => (
-              <article key={item.question} className={styles.faqItem}>
-                <h3>{item.question}</h3>
+          {faqItems.map((item) => (
+            <details key={item.question} className={styles.faqItem}>
+              <summary className={styles.faqQuestion}>
+                <span className={styles.faqQuestionText}>{item.question}</span>
+                <span className={styles.faqChevron}>+</span>
+              </summary>
+
+              <div className={styles.faqAnswer}>
                 <p>{item.answer}</p>
-              </article>
-            ))}
-          </div>
+              </div>
+            </details>
+          ))}
+        </div>
         </section>
 
         <section id="kontakt" className={styles.sectionContainer}>

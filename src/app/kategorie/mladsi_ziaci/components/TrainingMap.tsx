@@ -12,7 +12,7 @@ interface TrainingMapProps {
   activeLocation: string | null;
 }
 
-const MAP_CENTER: [number, number] = [48.70186, 21.2441];
+const MAP_CENTER: [number, number] = [48.698133, 21.234022];
 
 const getInitialZoom = () => {
   if (typeof window === "undefined") return 13;
