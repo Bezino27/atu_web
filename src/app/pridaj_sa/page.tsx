@@ -58,19 +58,19 @@ const steps = [
 const categories = [
   {
     title: "Prípravka",
-    meta: "ročníky 2017 – 2019",
+    meta: "ročníky 2015 – 2021",
     text: "Pre deti, ktoré sa chcú hýbať, zabaviť a získať prvé športové návyky.",
     href: "/kategorie/pripravky",
   },
   {
     title: "Mladší žiaci",
-    meta: "ročníky 2014 – 2016",
+    meta: "ročníky 2013 – 2014",
     text: "Rozvoj techniky, pohybu a vzťahu k hre v tímovom prostredí.",
     href: "/kategorie/mladsi_ziaci",
   },
   {
     title: "Starší žiaci",
-    meta: "ročníky 2011 – 2013",
+    meta: "ročníky 2011 – 2012",
     text: "Viac tempa, viac zodpovednosti a ďalší športový rast.",
     href: "/kategorie/starsi_ziaci",
   },
