@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import styles from "./BenefitsCarousel.module.css";
+import stylePridajSa from "./pridaj_sa.module.css"; 
 
 type WhyAtuItem = {
   id: number;
@@ -91,40 +92,35 @@ export default function WhyAtuCarousel({
   if (!items?.length) return null;
 
   return (
-    <div className={styles.section}>
-      <div className={styles.headerRow}>
-        <div className={styles.headingWrap}>
-          {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
-          <h2 className={styles.title}>{title}</h2>
+      <div className={styles.section}>
+        <div className={styles.headerRow}>
+          <div className={styles.controls}>
+            <button
+              type="button"
+              className={styles.arrowButton}
+              onClick={goPrev}
+              aria-label="Predchádzajúca karta"
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+
+            <button
+              type="button"
+              className={styles.arrowButton}
+              onClick={goNext}
+              aria-label="Ďalšia karta"
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
         </div>
 
-        <div className={styles.controls}>
-          <button
-            type="button"
-            className={styles.arrowButton}
-            onClick={goPrev}
-            aria-label="Predchádzajúca karta"
-          >
-            <span aria-hidden="true">←</span>
-          </button>
-
-          <button
-            type="button"
-            className={styles.arrowButton}
-            onClick={goNext}
-            aria-label="Ďalšia karta"
-          >
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-      </div>
-
-      <div
-        className={styles.carousel}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        aria-label="Carousel Prečo ATU"
-      >
+        <div
+          className={styles.carousel}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          aria-label="Carousel Prečo ATU"
+        >
         <div className={styles.stage}>
           {mappedItems.map((item) => {
             const hidden = item.absOffset > 2;

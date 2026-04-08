@@ -128,19 +128,27 @@ export default function PridajSaPage() {
       <div className={styles.content}>
         <section className={styles.heroSection}>
           <div className={styles.heroCard}>
-            <div className={styles.heroMain}>
-              <div className={styles.heroTop}>
-                <p className={styles.heroEyebrow}>ATU KOŠICE / MLÁDEŽ</p>
+            <img
+              src="/images/nabor-hero.jpg"
+              alt="Deti na tréningu ATU Košice"
+              className={styles.heroBackgroundImage}
+            />
 
+            <div className={styles.heroOverlay} />
+
+            <div className={styles.heroInner}>
+              <div className={styles.heroGlassBadge}>
+                <span>ATU KOŠICE / MLÁDEŽ</span>
+              </div>
+
+              <div className={styles.heroContent}>
                 <h1 className={styles.heroTitle}>Poď hrať florbal</h1>
 
                 <p className={styles.heroText}>
-                  Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom
-                  klubovom prostredí s osobným prístupom.
+                  Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom klubovom
+                  prostredí s osobným prístupom.
                 </p>
-              </div>
 
-              <div className={styles.heroBottom}>
                 <div className={styles.heroActions}>
                   <a href="#kontakt" className={styles.primaryButton}>
                     Chcem skúsiť tréning
@@ -149,64 +157,35 @@ export default function PridajSaPage() {
                     Pozrieť kategórie
                   </a>
                 </div>
-
-                <div className={styles.heroMiniInfo}>
-                  <div className={styles.heroMiniCard}>
-                    <strong>Tréningy</strong>
-                    <span>1. mesiac bez poplatku</span>
-                  </div>
-
-                  <div className={styles.heroMiniCard}>
-                    <strong>Členské</strong>
-                    <span>150 € / polrok</span>
-                  </div>
-
-                  <div className={styles.heroMiniCard}>
-                    <strong>Pre koho</strong>
-                    <span>2009 a starší</span>
-                  </div>
-                </div>
               </div>
-            </div>
 
-            <div className={styles.heroVisual}>
-              <div className={styles.heroVisualCard}>
-                <img
-                  src="/images/nabor-hero.jpg"
-                  alt="Deti na tréningu ATU Košice"
-                  className={styles.heroVisualImage}
-                />
-                <div className={styles.heroVisualOverlay} />
+              <div className={styles.heroMiniInfo}>
+                <div className={styles.heroMiniCard}>
+                  <strong>Skúsiť bez záväzku</strong>
+                  <span>1. mesiac bez poplatku</span>
+                </div>
 
-                <div className={styles.heroVisualTopBadge}>
-                  <span>ATU Košice</span>
+                <div className={styles.heroMiniCard}>
+                  <strong>Správna kategória</strong>
+                  <span>Pomôžeme zaradiť dieťa</span>
+                </div>
+
+                <div className={styles.heroMiniCard}>
+                  <strong>Pre ročníky</strong>
+                  <span>2009 a mladší</span>
                 </div>
               </div>
             </div>
           </div>
         </section>
     <section className={styles.sectionContainer}>
+      <h2 className={styles.sectionTitle}>Prečo ATU</h2>
       <BenefitsCarouselSection
-        title="Prečo ATU"
+        title=""
         items={benefits}
       />
     </section>
-        <section className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>JEDNODUCHO</span>
-            <h2 className={styles.sectionTitle}>Ako to funguje</h2>
-          </div>
 
-          <div className={styles.stepsRow}>
-            {steps.map((item) => (
-              <article key={item.step} className={styles.stepCard}>
-                <div className={styles.stepNumber}>{item.step}</div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section id="kategorie" className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
@@ -273,38 +252,6 @@ export default function PridajSaPage() {
           </div>
         </section>
 
-        <section className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>PRAKTICKY</span>
-            <h2 className={styles.sectionTitle}>Čo potrebujete vedieť</h2>
-          </div>
-
-          <div className={styles.infoLayout}>
-            <div className={styles.infoColumn}>
-              <article className={styles.infoCard}>
-                <h3>Prvý tréning</h3>
-                <p>Prvý tréning je zadarmo. Najprv skúsite, potom sa rozhodnete.</p>
-              </article>
-
-              <article className={styles.infoCard}>
-                <h3>Členstvo</h3>
-                <p>Členský poplatok je 150 € na pol roka.</p>
-              </article>
-            </div>
-
-            <div className={styles.infoColumn}>
-              <article className={styles.infoCardHighlight}>
-                <h3>Čo si priniesť</h3>
-                <p>Športové oblečenie, halové tenisky a fľašu s vodou.</p>
-              </article>
-
-              <article className={styles.infoCard}>
-                <h3>Neistá kategória?</h3>
-                <p>Napíšte nám a pomôžeme vás nasmerovať správne.</p>
-              </article>
-            </div>
-          </div>
-        </section>
 
         <section className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>

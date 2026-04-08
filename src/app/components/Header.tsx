@@ -269,7 +269,7 @@ export default function Header() {
             })}
             
             <Link
-              href="/kontakt"
+              href="/pridaj_sa"
               className={styles.mobileCta}
               onClick={closeMenu}
             >
