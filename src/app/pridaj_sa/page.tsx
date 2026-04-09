@@ -3,6 +3,7 @@ import BenefitsCarouselSection from "./BenefitsCarousel";
 import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import RecruitmentForm from "./RecruitmentForm";
 
 const benefits = [
   {
@@ -37,23 +38,7 @@ const benefits = [
   },
 ];
 
-const steps = [
-  {
-    step: "01",
-    title: "Napíšete nám",
-    text: "Krátko sa ozvete a poradíme.",
-  },
-  {
-    step: "02",
-    title: "Prídete skúsiť tréning",
-    text: "Dieťa si všetko pozrie priamo v hale.",
-  },
-  {
-    step: "03",
-    title: "Zaradíme ho správne",
-    text: "Pomôžeme vybrať vhodnú kategóriu.",
-  },
-];
+
 
 const categories = [
   {
@@ -82,11 +67,6 @@ const categories = [
   },
 ];
 
-const trustPoints = [
-  "Dlhodobá práca s deťmi a mládežou",
-  "Tréneri, ktorí florbal reálne hrajú",
-  "Dôraz na atmosféru aj progres",
-];
 
 const faqItems = [
   {
@@ -215,43 +195,7 @@ export default function PridajSaPage() {
           </div>
         </section>
 
-        <section className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>PRÍSTUP KLUBU</span>
-            <h2 className={styles.sectionTitle}>Na čom si dávame záležať</h2>
-          </div>
-
-          <div className={styles.trustLayout}>
-            <div className={styles.trustMain}>
-              <p className={styles.trustLead}>
-                Chceme, aby sa dieťa zlepšovalo, cítilo sa dobre v kolektíve a
-                malo okolo seba ľudí, ktorí mu pomôžu rásť.
-              </p>
-
-              <div className={styles.trustList}>
-                {trustPoints.map((point) => (
-                  <div key={point} className={styles.trustListItem}>
-                    <span className={styles.trustDot} />
-                    <p>{point}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.trustSide}>
-              <div className={styles.trustPanel}>
-                <h3>Zábava aj systém</h3>
-                <p>Tréning má energiu, ale aj poriadok a jasný cieľ.</p>
-              </div>
-
-              <div className={styles.trustPanel}>
-                <h3>Klubové prostredie</h3>
-                <p>Nejde len o tréning. Dôležité je aj to, ako klub funguje.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        
 
         <section className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
@@ -274,40 +218,14 @@ export default function PridajSaPage() {
         </div>
         </section>
 
-        <section id="kontakt" className={styles.sectionContainer}>
-          <div className={styles.ctaCard}>
-            <div className={styles.ctaText}>
-              <span className={styles.preTitle}>KONTAKT</span>
-              <h2 className={styles.sectionTitle}>Príďte si vyskúšať tréning</h2>
-              <p>
-                Stačí poslať meno a email. Ozveme sa vám a poradíme, ako začať.
-              </p>
+       <section id="kontakt" className={styles.sectionContainer}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.preTitle}>KONTAKT</span>
+          <h2 className={styles.sectionTitle}>Príďte si vyskúšať tréning</h2>
+        </div>
 
-              <div className={styles.contactBox}>
-                <div>
-                  <strong>Meno trénera</strong>
-                  <span>kontakt@email.sk</span>
-                </div>
-              </div>
-            </div>
-
-            <form className={styles.ctaForm}>
-              <div className={styles.formField}>
-                <label htmlFor="name">Meno</label>
-                <input id="name" type="text" placeholder="Vaše meno" />
-              </div>
-
-              <div className={styles.formField}>
-                <label htmlFor="email">Email</label>
-                <input id="email" type="email" placeholder="vas@email.sk" />
-              </div>
-
-              <button type="button" className={styles.primaryButton}>
-                Chcem skúsiť tréning
-              </button>
-            </form>
-          </div>
-        </section>
+        <RecruitmentForm />
+      </section>
       </div>
 
       <Footer />

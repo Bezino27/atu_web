@@ -1,4 +1,5 @@
-export const API_URL = process.env.API_URL || "http://178.104.54.84:8000/api";
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export const BACKEND_URL = API_URL.endsWith("/api")
   ? API_URL.slice(0, -4)

@@ -1,0 +1,210 @@
+/* =========================
+   RECRUITMENT FORM
+========================= */
+
+.formWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formPanel {
+  width: 100%;
+  max-width: 760px;
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(17, 24, 39, 0.07);
+  background: #ffffff;
+  box-shadow:
+    0 18px 36px rgba(15, 23, 42, 0.05),
+    0 3px 12px rgba(15, 23, 42, 0.025);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.formField,
+.formFieldFull {
+  display: flex;
+  flex-direction: column;
+}
+
+.formFieldFull {
+  grid-column: 1 / -1;
+}
+
+.formField label,
+.formFieldFull label {
+  margin-bottom: 8px;
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.formField input,
+.formFieldFull input,
+.formField textarea,
+.formFieldFull textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 18px;
+  background: #fff;
+  padding: 15px 16px;
+  font-size: 1rem;
+  color: #111827;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.formField input::placeholder,
+.formFieldFull input::placeholder,
+.formField textarea::placeholder,
+.formFieldFull textarea::placeholder {
+  color: #94a3b8;
+}
+
+.formField input:focus,
+.formFieldFull input:focus,
+.formField textarea:focus,
+.formFieldFull textarea:focus {
+  border-color: rgba(230, 57, 70, 0.45);
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+.formField textarea,
+.formFieldFull textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+.fieldError {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #c1121f;
+}
+
+.submitError,
+.successMessage {
+  margin: 18px 0 0;
+  padding: 13px 15px;
+  border-radius: 16px;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.submitError {
+  color: #991b1b;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.14);
+}
+
+.successMessage {
+  color: #166534;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.14);
+}
+
+.submitButton {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 17px 22px;
+  font-size: 1rem;
+  font-weight: 850;
+  color: #ffffff;
+  cursor: pointer;
+  background: linear-gradient(90deg, #de2b2b 0%, #ff4747 100%);
+  box-shadow:
+    0 16px 30px rgba(230, 57, 70, 0.2),
+    0 8px 16px rgba(230, 57, 70, 0.12);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 20px 34px rgba(230, 57, 70, 0.22),
+    0 10px 18px rgba(230, 57, 70, 0.14);
+}
+
+.submitButton:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+/* =========================
+   1024px
+========================= */
+
+@media (max-width: 1024px) {
+  .formPanel {
+    max-width: 100%;
+    padding: 22px;
+    border-radius: 24px;
+  }
+}
+
+/* =========================
+   768px
+========================= */
+
+@media (max-width: 768px) {
+  .formPanel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .formFieldFull {
+    grid-column: auto;
+  }
+
+  .submitButton {
+    padding: 16px 20px;
+  }
+}
+
+/* =========================
+   480px
+========================= */
+
+@media (max-width: 480px) {
+  .formPanel {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .formField label,
+  .formFieldFull label {
+    font-size: 0.92rem;
+  }
+
+  .formField input,
+  .formFieldFull input,
+  .formField textarea,
+  .formFieldFull textarea {
+    padding: 14px;
+    font-size: 0.96rem;
+    border-radius: 16px;
+  }
+
+  .submitButton {
+    font-size: 0.96rem;
+    padding: 15px 18px;
+  }
+}
