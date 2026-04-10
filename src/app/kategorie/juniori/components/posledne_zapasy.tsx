@@ -84,10 +84,9 @@ export default async function RecentMatches() {
 
   return (
     <section className={styles.card}>
-      <div className={styles.header}>
+      <div className={styles.panelHeader}>
         <div>
-          <span className={categoriesStyles.preTitle}>VÝSLEDKY</span>
-          <h2 className={styles.title}>Posledné zápasy</h2>
+          <h2 className={styles.panelTitle}>Posledné zápasy</h2>
         </div>
       </div>
 
