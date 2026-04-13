@@ -1,4 +1,4 @@
-import styles from "../../styles/posledne_zapasy.module.css";
+import styles from "../../styles/unified.module.css";
 import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
 
 function formatDate(dateString?: string | null) {
@@ -79,12 +79,12 @@ export default async function RecentMatches() {
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
 
   return (
-    <section className={styles.card}>
-      <div className={styles.header}>
+    <section className={styles.recentMatchesCard}>
+      <div className={styles.panelHeader}>
         <h3 className={styles.panelTitle}>Posledné zápasy</h3>
       </div>
 
-      <div className={styles.matchesList}>
+      <div className={styles.recentMatchesList}>
         {results.length > 0 ? (
           results.slice(0, 4).map((match) => {
             const outcome = getMatchOutcome(match, ownTeamName);
@@ -92,20 +92,20 @@ export default async function RecentMatches() {
             const { homeScore, awayScore } = getScore(match);
 
             return (
-              <article key={match.id} className={styles.matchCard}>
-                <div className={styles.matchTop}>
-                  <span className={`${styles.resultBadge} ${outcome.className}`}>
+              <article key={match.id} className={styles.recentMatchCard}>
+                <div className={styles.recentMatchTop}>
+                  <span className={`${styles.recentResultBadge} ${outcome.className}`}>
                     {outcome.label}
                   </span>
-                  <span className={styles.matchDate}>
+                  <span className={styles.recentMatchDate}>
                     {formatDate(match.match_date)}
                   </span>
                 </div>
 
-                <div className={styles.teams}>
-                  <div className={styles.teamRow}>
+                <div className={styles.recentTeams}>
+                  <div className={styles.recentTeamRow}>
                     <span
-                      className={`${styles.teamName} ${
+                      className={`${styles.recentTeamName} ${
                         isAtuTeam(homeTeam) ? styles.atuTeam : ""
                       }`}
                     >
@@ -113,11 +113,11 @@ export default async function RecentMatches() {
                     </span>
                   </div>
 
-                  <div className={styles.vsRow}>vs</div>
+                  <div className={styles.recentVsRow}>vs</div>
 
-                  <div className={styles.teamRow}>
+                  <div className={styles.recentTeamRow}>
                     <span
-                      className={`${styles.teamName} ${
+                      className={`${styles.recentTeamName} ${
                         isAtuTeam(awayTeam) ? styles.atuTeam : ""
                       }`}
                     >
@@ -126,8 +126,8 @@ export default async function RecentMatches() {
                   </div>
                 </div>
 
-                <div className={styles.scoreRow}>
-                  <span className={`${styles.score} ${outcome.scoreClassName}`}>
+                <div className={styles.recentScoreRow}>
+                  <span className={`${styles.recentScore} ${outcome.scoreClassName}`}>
                     {homeScore}:{awayScore}
                   </span>
                 </div>
@@ -135,16 +135,16 @@ export default async function RecentMatches() {
             );
           })
         ) : (
-          <article className={styles.matchCard}>
-            <div className={styles.matchTop}>
-              <span className={`${styles.resultBadge} ${styles.lossBadge}`}>
+          <article className={styles.recentMatchCard}>
+            <div className={styles.recentMatchTop}>
+              <span className={`${styles.recentResultBadge} ${styles.lossBadge}`}>
                 Zatiaľ nič
               </span>
             </div>
 
-            <div className={styles.teams}>
-              <div className={styles.teamRow}>
-                <span className={styles.teamName}>
+            <div className={styles.recentTeams}>
+              <div className={styles.recentTeamRow}>
+                <span className={styles.recentTeamName}>
                   Zatiaľ nie sú dostupné posledné výsledky.
                 </span>
               </div>

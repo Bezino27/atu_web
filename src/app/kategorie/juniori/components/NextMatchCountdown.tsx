@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import styles from '../../styles/kategorie.module.css';
+import styles from '../../styles/unified.module.css';
 
 type NextMatchCountdownProps = {
   matchDate: string | null;
@@ -141,8 +141,6 @@ export default function NextMatchCountdown({
           )}
         </span>
       </div>
-
-      
     </div>
   );
 }

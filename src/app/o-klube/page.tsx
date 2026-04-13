@@ -1,20 +1,9 @@
+import Image from "next/image";
 import styles from "./o-klube.module.css";
 import ClubHero from "./ClubHero";
+import AchievementsSection from "./AchievementsSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-const menAchievements = [
-  { label: "Majster Slovenska", value: "1× zlato" },
-  { label: "Vicemajster", value: "2× striebro" },
-  { label: "Bronzové umiestnenie", value: "6× bronz" },
-];
-
-const youthAchievements = [
-  { label: "Juniori", value: "4× zlato" },
-  { label: "Mládež", value: "strieborné aj bronzové úspechy" },
-  { label: "Prague Games", value: "1. miesto" },
-  { label: "Hummel Open Game Brno", value: "2. miesto" },
-];
 
 const alumni = [
   {
@@ -33,7 +22,7 @@ const alumni = [
       "Patrí medzi odchovancov, ktorí sa výrazne presadili aj v zahraničí a otvorili cestu ďalším hráčom.",
   },
   {
-    name: "Filip Čonka-Skyba",
+    name: "Ronald Gašparík",
     description:
       "Odchovanec klubu, ktorý nadviazal na kvalitnú mládežnícku prípravu a uplatnil sa aj mimo Slovenska.",
   },
@@ -63,36 +52,50 @@ export default function OKlubePage() {
           <div className={styles.textSectionCard}>
             <div className={styles.textColumns}>
               <p className={styles.bodyText}>
-                Florbalová história klubu Akademik TU Košice sa začala písať v roku
-                2000, keď sa skupina hokejbalistov zapojila do prvých florbalových
-                aktivít pod vedením Mgr. Juraja Dudoviča. Dôležitým impulzom bola aj
-                Vysokoškolská liga v Košiciach, ktorá pomohla rozšíriť florbalové
-                dianie a vytvorila priestor pre nových hráčov, z ktorých sa postupne
-                formovalo pevné jadro tímu.
+                Príbeh ATU Košice sa začal písať v roku 2000, keď sa partia
+                hokejbalistov dostala k prvým florbalovým aktivitám pod vedením
+                Mgr. Juraja Dudoviča. Veľký impulz priniesla aj Vysokoškolská
+                liga v Košiciach, ktorá rozbehla florbalové dianie naplno a
+                zároveň ukázala, že tento šport má v meste obrovský potenciál.
+                Práve tam sa začalo formovať jadro budúceho tímu a postupne
+                vznikali základy klubu, ktorý sa mal neskôr zaradiť medzi
+                najvýraznejšie mená slovenského florbalu.
               </p>
 
               <p className={styles.bodyText}>
-                Sezóna 2002/2003 znamenala vstup ATU Košice medzi plnohodnotných
-                členov najvyššej domácej súťaže. Už v úvodných rokoch sa klub zaradil
-                medzi silné florbalové mená na Slovensku, keď prišli prvé medailové
-                úspechy a vytvorili sa základy klubovej identity postavenej na
-                bojovnosti, kvalite a dlhodobom raste.
+                Keď ATU Košice vstúpilo v sezóne 2002/2003 medzi plnohodnotných
+                členov najvyššej domácej súťaže, bolo jasné, že nejde len o
+                krátkodobý projekt. Klub sa veľmi rýchlo usadil medzi
+                slovenskou elitou, začal zbierať prvé medailové úspechy a
+                budoval si rešpekt na palubovkách po celom Slovensku. Prišli
+                silné sezóny, veľké zápasy aj momenty, ktoré klub posúvali
+                ďalej. Jedným z prvých veľkých vrcholov bola sezóna 2003/2004,
+                keď bolo mužstvo veľmi blízko k titulu a napokon si odnieslo
+                strieborné medaily.
               </p>
 
               <p className={styles.bodyText}>
-                V nasledujúcich sezónach prešiel klub viacerými etapami – od
-                medailových ročníkov cez generačnú obmenu až po návrat na úplný vrchol.
-                Historickým momentom sa stala sezóna 2015/2016, počas ktorej ATU
-                Košice získalo svoj premiérový titul majstra Slovenska. Toto obdobie
-                zároveň potvrdilo silu klubu aj v mládežníckych kategóriách.
+                ATU si počas rokov prešlo viacerými obdobiami. Boli sezóny
+                medailové, boli aj roky, keď tím prechádzal generačnou obmenou a
+                musel si znovu budovať svoju silu. O to cennejší bol návrat na
+                vrchol v sezóne 2015/2016, keď klub získal svoj premiérový titul
+                majstra Slovenska. Tento úspech neprišiel náhodou. Bol výsledkom
+                dlhodobej práce, trpezlivosti a systému, ktorý sa v klube
+                budoval roky. Navyše, v tom istom období sa potvrdilo, že ATU
+                nerobí kvalitnú robotu len pri mužoch, ale aj v mládežníckych
+                kategóriách.
               </p>
 
               <p className={styles.bodyText}>
-                ATU Košice dnes stojí na pevných základoch vybudovaných počas rokov
-                práce, oddanosti a klubovej súdržnosti. Popri mužskom tíme klub
-                dlhodobo rozvíja aj mládež, vychováva reprezentantov a buduje
-                prostredie, ktoré právom nesie charakter jednej veľkej florbalovej
-                rodiny.
+                Práve práca s mládežou je jednou z najväčších devíz klubu.
+                Juniori a dorastenci patria dlhodobo medzi slovenskú špičku a aj
+                najmladšie kategórie pravidelne dosahujú výborné výsledky doma aj
+                v zahraničí. ATU Košice dnes stojí na pevných základoch, ktoré
+                vznikali rokmi poctivej práce, oddanosti a klubovej súdržnosti.
+                Popri športových úspechoch sa tu buduje aj prostredie, ktoré má
+                silnú identitu, zdravé ambície a zároveň rodinnú atmosféru. Aj
+                preto ATU Košice nepôsobí len ako úspešný florbalový klub, ale
+                ako jedna veľká florbalová rodina.
               </p>
             </div>
           </div>
@@ -100,50 +103,48 @@ export default function OKlubePage() {
 
         <section className={styles.section}>
           <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>Úspechy</span>
-            <h2 className={styles.sectionTitle}>Muži</h2>
+            <h2 className={styles.sectionTitle}>Klubové úspechy</h2>
           </div>
 
-          <div className={styles.achievementGrid}>
-            {menAchievements.map((item) => (
-              <article key={item.label} className={styles.achievementCard}>
-                <span className={styles.achievementLabel}>{item.label}</span>
-                <strong className={styles.achievementValue}>{item.value}</strong>
-              </article>
-            ))}
-          </div>
+          <AchievementsSection />
         </section>
 
         <section className={styles.section}>
           <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>Úspechy</span>
-            <h2 className={styles.sectionTitle}>Mládež</h2>
+            <h2 className={styles.sectionTitle}>
+              Hráči, na ktorých je klub hrdý
+            </h2>
           </div>
 
-          <div className={styles.achievementGrid}>
-            {youthAchievements.map((item) => (
-              <article key={item.label} className={styles.achievementCard}>
-                <span className={styles.achievementLabel}>{item.label}</span>
-                <strong className={styles.achievementValue}>{item.value}</strong>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>Odchovanci</span>
-            <h2 className={styles.sectionTitle}>Hráči, na ktorých je klub hrdý</h2>
+          <div className={styles.alumniSectionIntro}>
+            Odchovanci ATU Košice dlhodobo potvrdzujú, že kvalitná klubová práca
+            dokáže vychovať hráčov pripravených presadiť sa doma aj v zahraničí.
           </div>
 
           <div className={styles.alumniGrid}>
-            {alumni.map((player) => (
+            {alumni.map((player, index) => (
               <article key={player.name} className={styles.alumniCard}>
-                <div className={styles.alumniTop}>
-                  <span className={styles.alumniAccent} />
-                  <h3 className={styles.alumniName}>{player.name}</h3>
+
+                <div className={styles.alumniCardHeader}>
+                  <div className={styles.alumniBadge}>
+                    <Image
+                      src="/logo/znak_atu_black.svg"
+                      alt="ATU Košice logo"
+                      width={34}
+                      height={34}
+                      className={styles.alumniBadgeLogo}
+                    />
+                  </div>
+
+                  <div className={styles.alumniMeta}>
+
+                    <h3 className={styles.alumniName}>{player.name}</h3>
+                  </div>
                 </div>
-                <p className={styles.alumniText}>{player.description}</p>
+
+                <div className={styles.alumniDescriptionWrap}>
+                  <p className={styles.alumniText}>{player.description}</p>
+                </div>
               </article>
             ))}
           </div>

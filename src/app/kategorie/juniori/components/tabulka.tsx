@@ -1,4 +1,4 @@
-import styles from "../../styles/tabulka.module.css";
+import styles from "../../styles/unified.module.css";
 import type { SzfbStandingRow } from "@/app/lib/szfb";
 
 type TabulkaProps = {
@@ -23,7 +23,7 @@ function getStandingsRowClass(
 
 export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
   return (
-    <div className={styles.panel}>
+    <div className={styles.tablePanel}>
       <div className={styles.panelHeader}>
         <h3 className={styles.panelTitle}>Aktuálna tabuľka</h3>
       </div>
@@ -54,7 +54,7 @@ export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
                   </td>
                   <td>
                     <div className={styles.teamCell}>
-                      <span className={styles.teamName}>{team.team_name}</span>
+                      <span className={styles.tableTeamName}>{team.team_name}</span>
                     </div>
                   </td>
                   <td>{team.played}</td>

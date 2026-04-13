@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/kategorie.module.css";
+import styles from "../styles/unified.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
