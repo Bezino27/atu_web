@@ -2,7 +2,6 @@
 
 import { useMemo, useRef, useState } from "react";
 import styles from "./BenefitsCarousel.module.css";
-import stylePridajSa from "./pridaj_sa.module.css"; 
 
 type WhyAtuItem = {
   id: number;

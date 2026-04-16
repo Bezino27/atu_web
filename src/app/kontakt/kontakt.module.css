@@ -6,14 +6,13 @@
   min-height: 100vh;
   background: #f7f7f5;
   color: #111;
-  padding-bottom: 64px;
 }
 
 .section {
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 36px 20px 0;
+  padding: 30px 0 48px;
   box-sizing: border-box;
 }
 
@@ -23,7 +22,7 @@
 
 .preTitle {
   display: block;
-  margin: 0 0 10px 18px;
+  margin: 0 0 8px 18px;
   color: #84101a;
   font-weight: 700;
   font-size: 16px;
@@ -36,9 +35,12 @@
   padding-left: 12px;
   border-left: 6px solid #84101a;
   color: #111;
-  font-size: 52px;
-  line-height: 1.02;
-  font-weight: 800;
+  font-family: var(--font-geist-sans);
+  font-weight: 850;
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -1.4px;
+  text-align: left;
 }
 
 /* =========================
@@ -49,7 +51,7 @@
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* =========================
@@ -57,16 +59,38 @@
 ========================= */
 
 .infoCard {
-  background: #fff;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 26px;
-  padding: 28px;
-  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06);
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(250, 250, 249, 0.98) 100%
+  );
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow:
+    0 20px 44px rgba(17, 17, 17, 0.06),
+    0 6px 18px rgba(17, 17, 17, 0.03);
+  overflow: hidden;
+}
+
+.infoCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at top right,
+    rgba(132, 16, 26, 0.05),
+    transparent 32%
+  );
 }
 
 .infoBlock {
-  padding: 16px 0;
+  position: relative;
+  padding: 18px 0 20px;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  transition: transform 0.22s ease;
 }
 
 .infoBlock:first-child {
@@ -78,35 +102,41 @@
   padding-bottom: 0;
 }
 
+.infoBlock:hover {
+  transform: translateX(4px);
+}
+
 .infoLabel {
   display: block;
-  margin-bottom: 6px;
-  color: #84101a;
+  margin-bottom: 10px;
+  color: #8f1420;
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.infoText {
+.infoText,
+.infoLink {
+  display: block;
   margin: 0;
-  color: #1a1a1a;
-  font-size: 18px;
-  line-height: 1.6;
-  font-weight: 500;
+  color: #171717;
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
 }
 
 .infoLink {
-  color: #1a1a1a;
-  font-size: 18px;
-  line-height: 1.6;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .infoLink:hover {
-  color: #84101a;
+  color: #8f1420;
+  opacity: 0.92;
 }
 
 /* =========================
@@ -114,15 +144,35 @@
 ========================= */
 
 .mapCard {
-  background: #fff;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 26px;
-  padding: 22px;
-  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06);
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(250, 250, 249, 0.98) 100%
+  );
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 30px;
+  padding: 24px;
+  box-shadow:
+    0 20px 44px rgba(17, 17, 17, 0.06),
+    0 6px 18px rgba(17, 17, 17, 0.03);
+  overflow: hidden;
+}
+
+.mapCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at top right,
+    rgba(132, 16, 26, 0.04),
+    transparent 34%
+  );
 }
 
 .mapHeader {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .mapTitle {
@@ -141,80 +191,112 @@
 }
 
 .mapWrap {
+  position: relative;
   width: 100%;
+  height: 100%;
   min-height: 420px;
   overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(17, 17, 17, 0.05);
+  background: linear-gradient(180deg, #ffffff 0%, #f8f8f7 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 8px 20px rgba(17, 17, 17, 0.04);
 }
 
 .leafletMap {
   width: 100%;
-  height: 420px;
+  height: 100%;
+  min-height: 420px;
 }
 
 /* =========================
    MAP MARKER
 ========================= */
 
-.mapLoading {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666;
-  font-size: 15px;
-  border-radius: 22px;
-  background: #fff;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-}
-
 .customMarker {
-  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
+  width: max-content;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .markerDot {
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 4px solid #84101a;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+  border-radius: 50%;
+  background: #e63946;
+  border: 4px solid #ffffff;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.18),
+    0 0 0 5px rgba(230, 57, 70, 0.08);
+  transition: all 0.3s ease;
 }
 
 .markerLabel {
-  min-width: 180px;
-  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.12);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transform-origin: left center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .markerLabel strong {
-  display: block;
-  margin-bottom: 2px;
-  color: #111;
-  font-size: 14px;
+  font-family: var(--font-geist-sans);
+  font-size: 13px;
+  font-weight: 850;
   line-height: 1.2;
-  font-weight: 800;
+  color: #111;
+  transition: color 0.3s ease;
 }
 
 .markerLabel span {
-  display: block;
-  color: #555;
-  font-size: 12px;
-  line-height: 1.4;
+  margin-top: 2px;
+  font-family: var(--font-geist-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  transition: color 0.3s ease;
 }
 
+.customMarker:hover {
+  z-index: 1000;
+}
+
+.markerActive {
+  z-index: 1000 !important;
+}
+
+.customMarker:hover .markerLabel,
 .markerActive .markerLabel {
-  border-color: rgba(132, 16, 26, 0.18);
+  background: #e63946;
+  border-color: #e63946;
+  transform: scale(1.08) translateX(4px);
+  box-shadow: 0 12px 24px rgba(230, 57, 70, 0.35);
+}
+
+.customMarker:hover .markerLabel strong,
+.customMarker:hover .markerLabel span,
+.markerActive .markerLabel strong,
+.markerActive .markerLabel span {
+  color: #fff;
+}
+
+.customMarker:hover .markerDot,
+.markerActive .markerDot {
+  background: #ffffff;
+  border: 4px solid #e63946;
+  transform: scale(1.08);
+  box-shadow:
+    0 10px 20px rgba(230, 57, 70, 0.22),
+    0 0 0 6px rgba(230, 57, 70, 0.14);
 }
 
 /* =========================
@@ -224,29 +306,80 @@
 .mapWrap :global(.leaflet-container) {
   width: 100%;
   height: 100%;
-  background: #f3f3f1;
-  font-family: inherit;
+  min-height: 420px;
+}
+
+.mapWrap :global(.leaflet-control-container) {
+  z-index: 5 !important;
+}
+
+.mapWrap :global(.leaflet-control-attribution) {
+  display: none !important;
 }
 
 .mapWrap :global(.leaflet-control-zoom) {
+  z-index: 10 !important;
+  margin: 14px !important;
   border: none !important;
-  box-shadow: 0 10px 22px rgba(17, 17, 17, 0.12) !important;
-  overflow: hidden;
-  border-radius: 14px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom a) {
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
-  color: #111;
-  background: rgba(255, 255, 255, 0.96);
-  border: none !important;
+.mapWrap :global(.leaflet-control-zoom-in),
+.mapWrap :global(.leaflet-control-zoom-out) {
+  width: 34px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #fff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom a:hover) {
-  background: #fff;
-  color: #84101a;
+.mapWrap :global(.leaflet-control-zoom-in) {
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.mapWrap :global(.leaflet-control-zoom-out) {
+  border-radius: 0 0 10px 10px !important;
+  border-top: none !important;
+}
+
+.mapWrap :global(.leaflet-control-zoom-in:hover),
+.mapWrap :global(.leaflet-control-zoom-out:hover) {
+  background-color: #fcfcfc !important;
+  color: #e63946 !important;
+  transform: scale(1.04);
+}
+
+.mapWrap :global(.leaflet-disabled) {
+  background-color: #f5f5f5 !important;
+  color: #ccc !important;
+  cursor: default !important;
+}
+
+.mapLoading {
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffefe;
+  border-radius: 24px;
+  color: rgba(0, 0, 0, 0.28);
+  font-size: 13px;
+  font-family: var(--font-geist-sans);
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* =========================
@@ -255,7 +388,7 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 30px 18px 0;
+    padding: 30px 18px 24px;
   }
 
   .sectionTitle {
@@ -268,14 +401,26 @@
 
   .infoCard,
   .mapCard {
-    border-radius: 24px;
+    border-radius: 26px;
   }
 
   .mapWrap,
   .leafletMap,
-  .mapLoading {
-    min-height: 380px;
+  .mapLoading,
+  .mapWrap :global(.leaflet-container) {
     height: 380px;
+    min-height: 380px;
+  }
+
+  .mapWrap :global(.leaflet-control-zoom) {
+    margin: 12px !important;
+  }
+
+  .mapWrap :global(.leaflet-control-zoom-in),
+  .mapWrap :global(.leaflet-control-zoom-out) {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 15px !important;
   }
 }
 
@@ -285,7 +430,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 24px 16px 0;
+    padding: 24px 16px 48px;
   }
 
   .sectionHeading {
@@ -306,6 +451,7 @@
   .infoCard,
   .mapCard {
     padding: 22px;
+    border-radius: 24px;
   }
 
   .mapTitle {
@@ -324,9 +470,22 @@
 
   .mapWrap,
   .leafletMap,
-  .mapLoading {
-    min-height: 300px;
+  .mapLoading,
+  .mapWrap :global(.leaflet-container) {
     height: 300px;
+    min-height: 300px;
+    border-radius: 20px;
+  }
+
+  .mapWrap :global(.leaflet-control-zoom) {
+    margin: 10px !important;
+  }
+
+  .mapWrap :global(.leaflet-control-zoom-in),
+  .mapWrap :global(.leaflet-control-zoom-out) {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
   }
 }
 
@@ -336,7 +495,7 @@
 
 @media (max-width: 480px) {
   .section {
-    padding: 18px 12px 0;
+    padding: 18px 12px 24px;
   }
 
   .preTitle {
@@ -381,29 +540,62 @@
 
   .mapWrap,
   .leafletMap,
-  .mapLoading {
-    min-height: 240px;
+  .mapLoading,
+  .mapWrap :global(.leaflet-container) {
     height: 240px;
+    min-height: 240px;
     border-radius: 16px;
   }
 
-  .markerLabel {
-    min-width: 126px;
-    max-width: 150px;
-    padding: 7px 9px;
+  .mapWrap :global(.leaflet-control-zoom) {
+    margin: 8px !important;
   }
 
-  .markerLabel strong {
-    font-size: 12px;
+  .mapWrap :global(.leaflet-control-zoom-in),
+  .mapWrap :global(.leaflet-control-zoom-out) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 13px !important;
   }
 
-  .markerLabel span {
-    font-size: 11px;
-  }
 
-  .markerDot {
-    width: 15px;
-    height: 15px;
-    border-width: 3px;
-  }
+.customMarker {
+  gap: 7px;
+}
+
+.markerDot {
+  width: 15px;
+  height: 15px;
+  border-width: 2px;
+}
+
+.markerLabel {
+  min-width: unset;
+  width: max-content;
+  max-width: 96px;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+
+.markerLabel strong {
+  font-size: 10px;
+  line-height: 1.12;
+}
+
+.markerLabel span {
+  margin-top: 1px;
+  font-size: 8px;
+  line-height: 1.18;
+}
+
+.customMarker:hover .markerLabel,
+.markerActive .markerLabel {
+  transform: scale(1.03) translateX(1px);
+}
+
+.customMarker:hover .markerDot,
+.markerActive .markerDot {
+  border-width: 2px;
+  transform: scale(1.03);
+}
 }

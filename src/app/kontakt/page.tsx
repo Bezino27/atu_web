@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import ContactMap from "./ContactMap";
 import styles from "./kontakt.module.css";
 
@@ -55,11 +56,6 @@ export default function KontaktPage() {
           </div>
 
           <div className={styles.mapCard}>
-            <div className={styles.mapHeader}>
-              <h2 className={styles.mapTitle}>Tréningová hala</h2>
-              <p className={styles.mapAddress}>Jedlíkova 7, Košice</p>
-            </div>
-
             <ContactMap
               locations={contactLocations}
               activeLocation="jedlikova"
@@ -67,6 +63,7 @@ export default function KontaktPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
