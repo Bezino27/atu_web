@@ -25,50 +25,26 @@ interface ContactMapProps {
 
 const DEFAULT_CENTER: [number, number] = [48.69814880000001, 21.23390379325404];
 
-const getInitialZoom = () => {
-  if (typeof window === "undefined") return 13;
-  return window.innerWidth <= 640 ? 13 : 15;
+const DEFAULT_LOCATION: Location = {
+  name: "Jedlíkova",
+  address: "Jedlíkova 7, 040 11 Košice",
+  lat: DEFAULT_CENTER[0],
+  lng: DEFAULT_CENTER[1],
 };
 
-function MapAutoCenter({
-  locations,
-  activeLocation,
-}: {
-  locations: Record<string, Location>;
-  activeLocation: string | null;
-}) {
+const getInitialZoom = () => {
+  if (typeof window === "undefined") return 16;
+  return window.innerWidth <= 640 ? 15 : 17;
+};
+
+function MapAutoCenter() {
   const map = useMap();
 
   useEffect(() => {
-    const values = Object.values(locations);
-
-    if (values.length === 0) return;
-
-    const activeLoc =
-      activeLocation && locations[activeLocation]
-        ? locations[activeLocation]
-        : null;
-
-    if (activeLoc) {
-      map.setView([activeLoc.lat, activeLoc.lng], map.getZoom(), {
-        animate: true,
-      });
-      return;
-    }
-
-    if (values.length === 1) {
-      map.setView([values[0].lat, values[0].lng], map.getZoom(), {
-        animate: true,
-      });
-      return;
-    }
-
-    const bounds = L.latLngBounds(values.map((loc) => [loc.lat, loc.lng]));
-    map.fitBounds(bounds, {
-      padding: [40, 40],
+    map.setView([DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng], map.getZoom(), {
       animate: true,
     });
-  }, [map, locations, activeLocation]);
+  }, [map]);
 
   return null;
 }
@@ -77,34 +53,39 @@ export default function ContactMap({
   locations,
   activeLocation,
 }: ContactMapProps) {
-  const [zoom, setZoom] = useState(13);
+  const [zoom, setZoom] = useState(16);
 
   useEffect(() => {
     setZoom(getInitialZoom());
   }, []);
 
   const markerEntries = useMemo(() => {
-    return Object.entries(locations).map(([id, loc]) => {
-      const isActive = activeLocation === id;
+    const isActive = true;
 
-      const icon = L.divIcon({
-        html: `
-          <div class="${styles.customMarker} ${isActive ? styles.markerActive : ""}">
-            <div class="${styles.markerDot}"></div>
-            <div class="${styles.markerLabel}">
-              <strong>${loc.name}</strong>
-              <span>${loc.address}</span>
-            </div>
+    const icon = L.divIcon({
+      html: `
+        <div class="${styles.customMarker} ${isActive ? styles.markerActive : ""}">
+          <div class="${styles.markerDot}"></div>
+          <div class="${styles.markerLabel}">
+            <strong>${DEFAULT_LOCATION.name}</strong>
+            <span>${DEFAULT_LOCATION.address}</span>
           </div>
-        `,
-        className: "",
-        iconSize: [0, 0],
-        iconAnchor: [9, 9],
-      });
-
-      return { id, loc, icon, isActive };
+        </div>
+      `,
+      className: "",
+      iconSize: [0, 0],
+      iconAnchor: [9, 9],
     });
-  }, [locations, activeLocation]);
+
+    return [
+      {
+        id: "default",
+        loc: DEFAULT_LOCATION,
+        icon,
+        isActive,
+      },
+    ];
+  }, []);
 
   return (
     <div className={styles.mapWrap}>
@@ -115,7 +96,7 @@ export default function ContactMap({
         scrollWheelZoom={false}
         zoomControl={false}
       >
-        <MapAutoCenter locations={locations} activeLocation={activeLocation} />
+        <MapAutoCenter />
 
         <TileLayer
           attribution='&copy; OpenStreetMap contributors &copy; CARTO'

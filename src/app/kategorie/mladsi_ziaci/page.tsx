@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/kategorie.module.css";
+import styles from "../styles/unified.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -14,7 +14,6 @@ const MladsiZiaciPage = async () => {
 
   const mladezPosts = posts.filter((post) => {
     const categoryName = post.category?.name?.toLowerCase().trim();
-
     return categoryName === "mládež" || categoryName === "mladez";
   });
 
@@ -48,6 +47,7 @@ const MladsiZiaciPage = async () => {
               sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroImg}
             />
+
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
                 <h1 className={styles.bannerTitleziaci}>Mladší žiaci</h1>
@@ -91,10 +91,18 @@ const MladsiZiaciPage = async () => {
         </section>
 
         <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <span className={styles.preTitle}>NÁBOR</span>
+            <h2 className={styles.sectionTitle}>Chceš hrať florbal?</h2>
+          </div>
           <Nabor />
         </section>
 
         <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
+            <h2 className={styles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
+          </div>
           <Novinky posts={mladezPosts} />
         </section>
       </main>

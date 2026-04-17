@@ -1,34 +1,81 @@
 import React from "react";
 import Link from "next/link";
-import styles from "./nabor.module.css";
+import styles from "@/app/kategorie/styles/unified.module.css";
+import { API_URL } from "@/app/lib/api";
 
-const Nabor = () => {
+type CategoryBirthYears = {
+  id: number;
+  name: string;
+  slug: string;
+  season: string;
+  birth_year_from: number;
+  birth_year_to: number;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
+};
+
+async function getCategoryBirthYears(): Promise<CategoryBirthYears | null> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/atu-kosice/pripravka/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+const Nabor = async () => {
+  const category = await getCategoryBirthYears();
+
+  const birthYearsText = category
+    ? `${Math.min(category.birth_year_from, category.birth_year_to)} – ${Math.max(
+        category.birth_year_from,
+        category.birth_year_to
+      )}`
+    : "2015 – 2021";
+
   return (
-    <section className={styles.section}>
-      <div className={styles.card}>
-        <div className={styles.main}>
-          <div className={styles.head}>
-            <span className={styles.eyebrow}>Prípravka ATU Košice</span>
-            <h2 className={styles.title}>Chceš vyskúšať florbal?</h2>
-          </div>
-
-          <div className={styles.side}>
-            <div className={styles.infoGrid}>
-              <div className={styles.infoItem}>
-                <span className={styles.infoLabel}>Ročník</span>
-                <span className={styles.infoValue}>2015 – 2021</span>
-              </div>
-
-              <div className={styles.infoItem}>
-                <span className={styles.infoLabel}>Kontakt na trénera</span>
-                <span className={styles.infoValue}>martin38.gulas@gmail.com</span>
-              </div>
+    <section className={styles.naborSection}>
+      <div className={styles.naborCard}>
+        <div className={styles.naborContent}>
+          <div className={styles.naborTopRow}>
+            <div className={styles.naborTextWrap}>
+              <p className={styles.naborDescription}>
+                Pridaj sa k ATU Košice.
+              </p>
             </div>
 
-            <div className={styles.actions}>
-              <Link href="/pridaj_sa" className={styles.primaryButton}>
-                Získať viac informácií
-              </Link>
+            <Link href="/pridaj_sa" className={styles.naborPrimaryButton}>
+              Získať viac informácií
+            </Link>
+          </div>
+
+          <div className={styles.naborInfoGrid}>
+            <div className={styles.naborInfoItem}>
+              <div className={styles.naborInfoLabel}>Ročník</div>
+              <div className={styles.naborInfoValue}>{birthYearsText}</div>
+            </div>
+
+            <div className={styles.naborInfoItem}>
+              <div className={styles.naborInfoLabel}>Kontakt na trénera</div>
+              <div className={styles.naborInfoValue}>
+                {category?.coach_name || "Tréner"}
+                <br />
+                {category?.coach_email || "martin38.gulas@gmail.com"}
+                {category?.coach_phone ? (
+                  <>
+                    <br />
+                    {category.coach_phone}
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>

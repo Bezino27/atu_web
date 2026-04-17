@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import styles from "./TrainingTable.module.css";
-import { Location } from "@/data/treningy_dorast";
+import styles from "../../styles/TrainingTable.module.css";
+import { Location } from "@/data/treningy_mz";
 
 interface TrainingMapProps {
   locations: Record<string, Location>;
@@ -76,12 +76,12 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         scrollWheelZoom={false}
         zoomControl={false}
       >
-      <TileLayer
-        attribution='&copy; OpenStreetMap contributors &copy; CARTO'
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        subdomains={["a", "b", "c", "d"]}
-        maxZoom={20}
-      />
+        <TileLayer
+          attribution='&copy; OpenStreetMap contributors &copy; CARTO'
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          subdomains={["a", "b", "c", "d"]}
+          maxZoom={20}
+        />
 
         <ZoomControl position="topleft" />
 

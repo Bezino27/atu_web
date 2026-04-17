@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import styles from "./TrainingTable.module.css";
+import styles from "../../styles/TrainingTable.module.css";
+import unifiedStyles from "../../styles/unified.module.css";
 import { dorastTrainings, locations } from "@/data/treningy_dorast";
-import categoryStyles from "../../styles/kategorie.module.css";
 
 const TrainingMap = dynamic(() => import("./TrainingMap"), {
   ssr: false,
@@ -16,9 +16,9 @@ const KdeTrenujeme: React.FC = () => {
 
   return (
     <div className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <span className={categoryStyles.preTitle}>TRÉNINGY</span>
-        <h2 className={categoryStyles.sectionTitle}>Kde trénujeme</h2>
+      <div className={unifiedStyles.resultsHeader}>
+        <span className={unifiedStyles.preTitle}>TRÉNINGY</span>
+        <h2 className={unifiedStyles.sectionTitle}>Kde trénujeme</h2>
       </div>
 
       <div className={styles.layout}>

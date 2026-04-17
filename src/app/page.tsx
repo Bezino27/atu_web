@@ -8,6 +8,7 @@ import { getHomepagePosts, type Post } from "./lib/posts";
 import { getImageUrl } from "./lib/api";
 import { getSzfbDashboard, type SzfbMatch, type SzfbStandingRow } from "./lib/szfb";
 
+
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:

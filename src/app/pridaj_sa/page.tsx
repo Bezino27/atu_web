@@ -4,6 +4,7 @@ import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
+import { API_URL } from "@/app/lib/api";
 
 const benefits = [
   {
@@ -38,34 +39,57 @@ const benefits = [
   },
 ];
 
+type BackendCategory = {
+  id: number;
+  name: string;
+  slug: string;
+  season: string;
+  birth_year_from: number;
+  birth_year_to: number;
+  is_active: boolean;
+};
 
-
-const categories = [
-  {
-    title: "Prípravka",
-    meta: "ročníky 2015 – 2021",
+const CATEGORY_CONTENT: Record<
+  string,
+  { text: string; href: string }
+> = {
+  pripravka: {
     text: "Pre deti, ktoré sa chcú hýbať, zabaviť a získať prvé športové návyky.",
     href: "/kategorie/pripravky",
   },
-  {
-    title: "Mladší žiaci",
-    meta: "ročníky 2013 – 2014",
+  "mladsi-ziaci": {
     text: "Rozvoj techniky, pohybu a vzťahu k hre v tímovom prostredí.",
     href: "/kategorie/mladsi_ziaci",
   },
-  {
-    title: "Starší žiaci",
-    meta: "ročníky 2011 – 2012",
+  "starsi-ziaci": {
     text: "Viac tempa, viac zodpovednosti a ďalší športový rast.",
     href: "/kategorie/starsi_ziaci",
   },
-  {
-    title: "Dorast",
-    meta: "ročníky 2009 – 2010",
+  dorast: {
     text: "Súťažné prostredie, intenzívnejší tréning a príprava na vyšší level.",
     href: "/kategorie/dorast",
   },
-];
+  juniori: {
+    text: "Vyššie tempo, kvalitná príprava a posun k seniorskému florbalu.",
+    href: "/kategorie/juniori",
+  },
+};
+
+async function getCategories(): Promise<BackendCategory[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/atu-kosice/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch {
+    return [];
+  }
+}
 
 
 const faqItems = [
@@ -100,7 +124,8 @@ const faqItems = [
   },
 ];
 
-export default function PridajSaPage() {
+export default async function PridajSaPage() {
+  const categories = await getCategories();
   return (
     <main className={styles.pageContainer}>
       <Header />
@@ -169,30 +194,37 @@ export default function PridajSaPage() {
 
         <section id="kategorie" className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>KATEGÓRIE</span>
-            <h2 className={styles.sectionTitle}>Kam môže dieťa patriť</h2>
+            <h2 className={styles.sectionTitle}>Kategórie</h2>
           </div>
+        <div className={styles.categoriesGrid}>
+          {categories.map((category) => {
+            const content = CATEGORY_CONTENT[category.slug];
 
-          <div className={styles.categoriesGrid}>
-            {categories.map((category) => (
+            return (
               <Link
-                key={category.title}
-                href={category.href}
+                key={category.id}
+                href={content?.href || "/kategorie"}
                 className={styles.categoryCard}
               >
                 <div className={styles.categoryTop}>
-                  <h3 className={styles.categoryTitle}>{category.title}</h3>
-                  <span className={styles.categoryMeta}>{category.meta}</span>
+                  <h3 className={styles.categoryTitle}>{category.name}</h3>
+                  <span className={styles.categoryMeta}>
+                    ročníky {Math.min(category.birth_year_from, category.birth_year_to)} –{" "}
+                    {Math.max(category.birth_year_from, category.birth_year_to)}
+                  </span>
                 </div>
 
-                <p className={styles.categoryText}>{category.text}</p>
+                <p className={styles.categoryText}>
+                  {content?.text || "Viac informácií o kategórii nájdeš po rozkliknutí."}
+                </p>
 
                 <div className={styles.categoryArrow}>
                   <span>→</span>
                 </div>
               </Link>
-            ))}
-          </div>
+            );
+          })}
+        </div>
         </section>
 
         

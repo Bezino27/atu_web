@@ -1,33 +1,81 @@
 import React from "react";
 import Link from "next/link";
-import styles from "./nabor.module.css";
+import styles from "@/app/kategorie/styles/unified.module.css";
+import { API_URL } from "@/app/lib/api";
 
-const Nabor = () => {
+type CategoryBirthYears = {
+  id: number;
+  name: string;
+  slug: string;
+  season: string;
+  birth_year_from: number;
+  birth_year_to: number;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
+};
+
+async function getCategoryBirthYears(): Promise<CategoryBirthYears | null> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/atu-kosice/dorast/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+const Nabor = async () => {
+  const category = await getCategoryBirthYears();
+
+  const birthYearsText = category
+    ? `${Math.min(category.birth_year_from, category.birth_year_to)} – ${Math.max(
+        category.birth_year_from,
+        category.birth_year_to
+      )}`
+    : "2009 – 2010";
+
   return (
-    <section className={styles.section}>
-      <div className={styles.card}>
-        <div className={styles.content}>
-          <div className={styles.topRow}>
-            <div className={styles.textWrap}>
-              <p className={styles.description}>
+    <section className={styles.naborSection}>
+      <div className={styles.naborCard}>
+        <div className={styles.naborContent}>
+          <div className={styles.naborTopRow}>
+            <div className={styles.naborTextWrap}>
+              <p className={styles.naborDescription}>
                 Pridaj sa k dorastu ATU Košice.
               </p>
             </div>
 
-            <Link href="/pridaj_sa" className={styles.primaryButton}>
+            <Link href="/pridaj_sa" className={styles.naborPrimaryButton}>
               Získať viac informácií
             </Link>
           </div>
 
-          <div className={styles.infoGrid}>
-            <div className={styles.infoItem}>
-              <div className={styles.infoLabel}>Ročník</div>
-              <div className={styles.infoValue}>2009 – 2010</div>
+          <div className={styles.naborInfoGrid}>
+            <div className={styles.naborInfoItem}>
+              <div className={styles.naborInfoLabel}>Ročník</div>
+              <div className={styles.naborInfoValue}>{birthYearsText}</div>
             </div>
 
-            <div className={styles.infoItem}>
-              <div className={styles.infoLabel}>Kontakt na trénera</div>
-              <div className={styles.infoValue}>petobeziboss@6767.sk</div>
+            <div className={styles.naborInfoItem}>
+              <div className={styles.naborInfoLabel}>Kontakt na trénera</div>
+              <div className={styles.naborInfoValue}>
+                {category?.coach_name || "Tréner"}
+                <br />
+                {category?.coach_email || "petobeziboss@6767.sk"}
+                {category?.coach_phone ? (
+                  <>
+                    <br />
+                    {category.coach_phone}
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
