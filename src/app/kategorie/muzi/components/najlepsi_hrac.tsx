@@ -7,19 +7,17 @@ type PlayerStat = {
 
 type Player = {
   id: number;
-  rank?: 1 | 2 | 3;
+  rank: 1 | 2 | 3;
   number: string;
   name: string;
   stats: PlayerStat[];
 };
 
-type PenalizedPlayer = {
+type GoalieLeader = {
   id: number;
   number: string;
   name: string;
-  penaltyMinutes: number;
-  matches: number;
-  stats?: PlayerStat[];
+  stats: PlayerStat[];
 };
 
 const topPlayers: Player[] = [
@@ -61,25 +59,24 @@ const topPlayers: Player[] = [
   },
 ];
 
-const mostPenalizedPlayer: PenalizedPlayer = {
+const goalieLeader: GoalieLeader = {
   id: 4,
-  number: "27",
-  name: "Tomáš Varga",
-  penaltyMinutes: 34,
-  matches: 18,
+  number: "30",
+  name: "Lukáš Holko",
   stats: [
-    { label: "Trestné min.", value: 34 },
-    { label: "Zápasy", value: 18 },
-    { label: "Priemer", value: "1.9 / zápas" },
+    { label: "Zápasy", value: 27 },
+    { label: "Priemer inkasovaných gólov", value: "2,6" },
+    { label: "Úspešnosť zákrokov", value: "92.1 %" },
   ],
 };
 
 function PlayerCard({ player }: { player: Player }) {
-  const isMain = player.rank === 1;
+  const sizeClass =
+    player.rank === 1 ? styles.playerCardMain : styles.playerCardSide;
 
   return (
     <article
-      className={`${styles.playerCard} ${isMain ? styles.playerCardMain : styles.playerCardSmall}`}
+      className={`${styles.playerCard} ${styles[`playerCardRank${player.rank}`]} ${sizeClass}`}
     >
       <div className={styles.playerCardTop}>
         <div className={styles.rankBadge}>#{player.rank}</div>
@@ -88,6 +85,7 @@ function PlayerCard({ player }: { player: Player }) {
 
       <div className={styles.playerContent}>
         <h3 className={styles.playerName}>{player.name}</h3>
+
         <div className={styles.statsGrid}>
           {player.stats.map((stat) => (
             <div key={stat.label} className={styles.statItem}>
@@ -101,28 +99,23 @@ function PlayerCard({ player }: { player: Player }) {
   );
 }
 
-function PenalizedCard({ player }: { player: PenalizedPlayer }) {
+function GoalieCard({ goalie }: { goalie: GoalieLeader }) {
   return (
-    <article className={styles.penaltyCard}>
-      <div className={styles.penaltyHeader}>
-        <div>
-          <span className={styles.penaltyEyebrow}>Najvylučovanejší hráč</span>
-          <h3 className={styles.penaltyName}>
-            #{player.number} {player.name}
-          </h3>
+    <article className={styles.goalieCard}>
+      <div className={styles.goalieHeader}>
+        <div className={styles.goalieHeaderText}>
+          <span className={styles.goalieEyebrow}>Líder medzi brankármi</span>
+          <h3 className={styles.goalieName}>{goalie.name}</h3>
         </div>
 
-        <div className={styles.penaltyHighlight}>
-          <span className={styles.penaltyHighlightValue}>{player.penaltyMinutes}</span>
-          <span className={styles.penaltyHighlightLabel}>trestných minút</span>
-        </div>
+        <div className={styles.goalieNumber}>{goalie.number}</div>
       </div>
 
-      <div className={styles.penaltyStats}>
-        {(player.stats ?? []).map((stat) => (
-          <div key={stat.label} className={styles.penaltyStatItem}>
-            <span className={styles.penaltyStatValue}>{stat.value}</span>
-            <span className={styles.penaltyStatLabel}>{stat.label}</span>
+      <div className={styles.goalieStats}>
+        {goalie.stats.map((stat) => (
+          <div key={stat.label} className={styles.goalieStatItem}>
+            <span className={styles.goalieStatValue}>{stat.value}</span>
+            <span className={styles.goalieStatLabel}>{stat.label}</span>
           </div>
         ))}
       </div>
@@ -131,23 +124,21 @@ function PenalizedCard({ player }: { player: PenalizedPlayer }) {
 }
 
 export default function SeasonLeadersSection() {
-  const [firstPlayer, secondPlayer, thirdPlayer] = topPlayers;
-
   return (
     <section className={styles.leadersSection}>
       <div className={styles.leadersContentGrid}>
-        <div className={styles.topPlayersLayout}>
-          <div className={styles.mainPlayerWrap}>
-            <PlayerCard player={firstPlayer} />
-          </div>
-
-          <div className={styles.sidePlayersWrap}>
-            <PlayerCard player={secondPlayer} />
-            <PlayerCard player={thirdPlayer} />
-          </div>
+        <div className={styles.topPlayersPodium}>
+          {topPlayers.map((player) => (
+            <div
+              key={player.id}
+              className={styles[`playerRank${player.rank}Wrap`]}
+            >
+              <PlayerCard player={player} />
+            </div>
+          ))}
         </div>
 
-        <PenalizedCard player={mostPenalizedPlayer} />
+        <GoalieCard goalie={goalieLeader} />
       </div>
     </section>
   );

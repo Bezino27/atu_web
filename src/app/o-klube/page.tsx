@@ -10,21 +10,30 @@ const alumni = [
     name: "Michal Dudovič",
     description:
       "Jeden z najvýraznejších odchovancov klubu, ktorý sa presadil aj na vysokej medzinárodnej úrovni.",
+    logo: "/logo/teams/vaxjou.png",
+    logoAlt: "Växjö logo",
   },
   {
     name: "Michal Pazák",
     description:
       "Odchovanec ATU Košice spojený s klubovou kvalitou, reprezentáciou a dlhodobou florbalovou výkonnosťou.",
+    logo: "/logo/teams/vitkovice.png",
+    logoAlt: "Vítkovice logo",
   },
   {
     name: "Lukáš Řezanina",
     description:
       "Patrí medzi odchovancov, ktorí sa výrazne presadili aj v zahraničí a otvorili cestu ďalším hráčom.",
+    logo: "/logo/teams/default.svg",
+    logoAlt: "ATU Košice logo",
+    largeLogo: true,
   },
   {
     name: "Ronald Gašparík",
     description:
       "Odchovanec klubu, ktorý nadviazal na kvalitnú mládežnícku prípravu a uplatnil sa aj mimo Slovenska.",
+    logo: "/logo/teams/wiler.png",
+    logoAlt: "Wiler logo",
   },
 ];
 
@@ -122,22 +131,22 @@ export default function OKlubePage() {
           </div>
 
           <div className={styles.alumniGrid}>
-            {alumni.map((player, index) => (
+            {alumni.map((player) => (
               <article key={player.name} className={styles.alumniCard}>
-
                 <div className={styles.alumniCardHeader}>
                   <div className={styles.alumniBadge}>
-                    <Image
-                      src="/logo/znak_atu_black.svg"
-                      alt="ATU Košice logo"
-                      width={34}
-                      height={34}
-                      className={styles.alumniBadgeLogo}
-                    />
+                  <Image
+                    src={player.logo}
+                    alt={player.logoAlt}
+                    width={34}
+                    height={34}
+                    className={`${styles.alumniBadgeLogo} ${
+                      player.largeLogo ? styles.logoLargeSingle : ""
+                    }`}
+                  />
                   </div>
 
                   <div className={styles.alumniMeta}>
-
                     <h3 className={styles.alumniName}>{player.name}</h3>
                   </div>
                 </div>

@@ -1,4 +1,27 @@
 .pageContainer {
+  --font-section-eyebrow: 16px;
+  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
+  --font-panel-title: clamp(1.25rem, 1.8vw, 1.7rem);
+
+  --font-card-title: 20px;
+  --font-card-title-sm: 18px;
+  --font-player-name: clamp(1.55rem, 2vw, 2rem);
+  --font-goalie-name: clamp(1.4rem, 2vw, 1.9rem);
+  --font-team-name: 1.05rem;
+  --font-table-team-name: 0.98rem;
+  --font-featured-date: 1rem;
+  --font-featured-place: 0.95rem;
+  --font-body: 1rem;
+  --font-body-sm: 0.95rem;
+  --font-meta: 0.88rem;
+  --font-meta-sm: 0.84rem;
+  --font-badge: 0.72rem;
+  --font-badge-sm: 11px;
+  --font-stat-value: 1.18rem;
+  --font-stat-label: 0.84rem;
+  --font-number-display: clamp(4.1rem, 6vw, 6.2rem);
+  --font-score: 2.1rem;
+
   min-height: 100vh;
   background: #ffffff;
 }
@@ -55,7 +78,7 @@
   margin: 0 0 8px 18px;
   color: #84101A;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-section-eyebrow);
   letter-spacing: 0.75px;
   text-transform: uppercase;
 }
@@ -67,12 +90,19 @@
   color: #111;
   font-family: var(--font-geist-sans);
   font-weight: 850;
-  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  font-size: var(--font-section-title);
   line-height: 1.08;
   letter-spacing: -1.4px;
   text-align: left;
 }
 
+
+
+
+
+
+
+/* # HERO */
 /* # HERO */
 .heroSection {
   width: 100%;
@@ -87,13 +117,13 @@
 .bannerContainer {
   position: relative;
   width: 100%;
-  min-height: 650px;
+  min-height: 580px;
   border-radius: 30px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 52px;
+  padding: 42px;
   background: #0b0e13;
   box-sizing: border-box;
   line-height: 0;
@@ -108,8 +138,21 @@
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(6, 10, 18, 0.02) 0%, rgba(6, 10, 18, 0.08) 20%, rgba(6, 10, 18, 0.16) 40%, rgba(6, 10, 18, 0.44) 72%, rgba(6, 10, 18, 0.72) 100%),
-    linear-gradient(90deg, rgba(6, 10, 18, 0.34) 0%, rgba(6, 10, 18, 0.18) 26%, rgba(6, 10, 18, 0.08) 54%, rgba(6, 10, 18, 0) 100%);
+    linear-gradient(
+      180deg,
+      rgba(6, 10, 18, 0.02) 0%,
+      rgba(6, 10, 18, 0.08) 20%,
+      rgba(6, 10, 18, 0.16) 40%,
+      rgba(6, 10, 18, 0.44) 72%,
+      rgba(6, 10, 18, 0.72) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(6, 10, 18, 0.34) 0%,
+      rgba(6, 10, 18, 0.18) 26%,
+      rgba(6, 10, 18, 0.08) 54%,
+      rgba(6, 10, 18, 0) 100%
+    );
 }
 
 .heroImg {
@@ -120,9 +163,14 @@
 }
 
 .bannerOverlay {
-  position: relative;
+  position: static;
   z-index: 2;
   width: 100%;
+  min-height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .heroTextContent {
@@ -131,21 +179,25 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+  padding-right: 20px;
 }
 
 .heroSubtitle {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
+  min-height: 35px;
   padding: 0 14px;
-  margin: 0;
   border-radius: 999px;
   background: rgba(230, 57, 70, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   color: #ffffff;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   line-height: 1;
@@ -156,29 +208,109 @@
 .bannerTitleziaci {
   position: relative;
   z-index: 3;
-  margin: 0;
+  margin: 52px 0 -20px;
   color: #ffffff;
   text-transform: uppercase;
   text-align: left;
   opacity: 0.99;
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.22);
   animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  font-family: var(--font-bebas), sans-serif;
+  text-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.38),
+    0 3px 10px rgba(0, 0, 0, 0.22);
 }
 
 .bannerTitle {
-  font-size: clamp(4rem, 11vw, 7.4rem);
-  font-weight: 950;
-  line-height: 0.86;
-  letter-spacing: -4px;
+  font-size: clamp(5.4rem, 13.5vw, 9.6rem);
+  line-height: 0.88;
+  letter-spacing: 0.025em;
 }
 
 .bannerTitleziaci {
-  font-size: clamp(3.4rem, 8.4vw, 6.6rem);
-  font-weight: 950;
+  font-size: clamp(4.2rem, 10vw, 7.2rem);
   line-height: 0.9;
-  letter-spacing: -3px;
+  letter-spacing: 0.02em;
+  white-space: normal;
+}
+
+.heroDescription {
+  margin: 0;
+  max-width: 680px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.heroQuickNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+  align-items: stretch;
+}
+
+.heroQuickLink,
+.heroMiniInfo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 128px;
+  min-height: 35px;
+  padding: 0 18px;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.heroQuickLink {
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.heroQuickLink:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.heroMiniInfo {
+  gap: 8px;
   white-space: nowrap;
 }
+
+.heroMiniLabel {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.heroMiniValue {
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+:global(html) {
+  scroll-behavior: smooth;
+}
+
+
+
+
 
 /* # COUNTDOWN */
 .countdownWrapper {
@@ -236,7 +368,7 @@
   align-items: center;
   text-align: center;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: var(--font-body-sm);
   font-weight: 600;
 }
 
@@ -324,7 +456,7 @@
   background: #84101A;
   color: #ffffff;
   font-weight: 800;
-  font-size: 11px;
+  font-size: var(--font-badge-sm);
   line-height: 1;
   text-transform: uppercase;
   border-radius: 999px;
@@ -340,7 +472,7 @@
 .novinkyCardTitle {
   margin: 0 0 8px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: var(--font-card-title);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -375,7 +507,7 @@
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   color: #4b5563;
   text-align: center;
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 700;
   line-height: 1.6;
   box-sizing: border-box;
@@ -468,7 +600,7 @@
   min-height: 30px;
   padding: 0 12px;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: var(--font-badge);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -543,7 +675,7 @@
   min-height: 54px;
   margin: 0 auto;
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: var(--font-team-name);
   color: #111;
   text-align: center;
   line-height: 1.3;
@@ -572,14 +704,14 @@
 }
 
 .featuredMatchDateTime {
-  font-size: 1rem;
+  font-size: var(--font-featured-date);
   color: #111;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
 .featuredMatchPlace {
-  font-size: 0.95rem;
+  font-size: var(--font-featured-place);
   color: #4b5563;
   font-weight: 500;
   line-height: 1.45;
@@ -609,7 +741,7 @@
 .featuredMatchesEmptyText {
   margin: 0 auto;
   max-width: 540px;
-  font-size: 1rem;
+  font-size: var(--font-body);
   line-height: 1.65;
   color: #555;
 }
@@ -641,7 +773,7 @@
   margin: 0;
   color: #0f172a;
   font-family: var(--font-geist-sans);
-  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  font-size: var(--font-panel-title);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -679,7 +811,7 @@
   border-bottom: 1px solid #e8edf3;
   background: #f8fafc;
   color: #6b7280;
-  font-size: 0.72rem;
+  font-size: var(--font-badge);
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -735,7 +867,7 @@
   background: #f3f6f9;
   border: 1px solid #e2e8f0;
   color: #475569;
-  font-size: 0.88rem;
+  font-size: var(--font-meta);
   font-weight: 900;
   line-height: 1;
 }
@@ -748,7 +880,7 @@
 
 .tableTeamName {
   color: #0f172a;
-  font-size: 0.98rem;
+  font-size: var(--font-table-team-name);
   font-weight: 800;
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -874,7 +1006,7 @@
 .recentMatchDate {
   color: #6b7280;
   font-family: var(--font-geist-sans);
-  font-size: 0.88rem;
+  font-size: var(--font-meta);
   font-weight: 600;
   text-align: right;
 }
@@ -893,7 +1025,7 @@
 .recentTeamName {
   color: #111;
   font-family: var(--font-geist-sans);
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 700;
   line-height: 1.35;
 }
@@ -906,7 +1038,7 @@
 .recentVsRow {
   color: #7c8594;
   font-family: var(--font-geist-sans);
-  font-size: 0.88rem;
+  font-size: var(--font-meta);
   font-weight: 700;
   text-transform: lowercase;
 }
@@ -920,7 +1052,7 @@
 
 .recentScore {
   font-family: var(--font-geist-sans);
-  font-size: 2.1rem;
+  font-size: var(--font-score);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -941,81 +1073,111 @@
 
 .leadersContentGrid {
   display: grid;
-  gap: 24px;
+  gap: 28px;
 }
 
-.topPlayersLayout {
+.topPlayersPodium {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
-  gap: 24px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 1.08fr) minmax(0, 1fr);
+  grid-template-areas: "left center right";
+  gap: 22px;
+  align-items: end;
 }
 
-.mainPlayerWrap,
-.sidePlayersWrap {
+.playerRank1Wrap,
+.playerRank2Wrap,
+.playerRank3Wrap {
   min-width: 0;
 }
 
-.sidePlayersWrap {
-  display: grid;
-  gap: 24px;
+.playerRank1Wrap {
+  grid-area: center;
+}
+
+.playerRank2Wrap {
+  grid-area: left;
+}
+
+.playerRank3Wrap {
+  grid-area: right;
 }
 
 .playerCard {
   position: relative;
-  height: 100%;
+  min-height: 100%;
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 248, 248, 0.98) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
   border: 1px solid rgba(17, 17, 17, 0.06);
   box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.03);
   overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
 }
 
 .playerCard:hover {
-  transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.08), 0 4px 12px rgba(17, 17, 17, 0.05);
   border-color: rgba(132, 16, 26, 0.14);
 }
 
 .playerCardMain {
-  min-height: 390px;
   padding: 28px 28px 26px;
 }
 
-.playerCardSmall {
-  min-height: 183px;
-  padding: 22px 22px 20px;
+.playerCardSide {
+  padding: 24px 24px 22px;
+}
+
+.playerCardRank1 {
+  transform: translateY(0);
+}
+
+.playerCardRank2,
+.playerCardRank3 {
+  transform: translateY(18px);
+}
+
+.playerCardRank1:hover {
+  transform: translateY(-4px);
+}
+
+.playerCardRank2:hover,
+.playerCardRank3:hover {
+  transform: translateY(14px);
 }
 
 .playerCardTop {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 14px;
+  margin-top: 6px;
+  margin-bottom: -25px;
 }
 
 .rankBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 58px;
-  height: 34px;
+  min-width: 56px;
+  height: 32px;
   padding: 0 14px;
   border-radius: 999px;
   background: rgba(132, 16, 26, 0.08);
   color: #84101a;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 800;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.04em;
 }
 
-.playerNumber {
+.playerNumber,
+.goalieNumber {
   color: rgba(17, 17, 17, 0.08);
-  font-size: clamp(3.1rem, 5vw, 5.6rem);
+  font-size: var(--font-number-display);
   font-weight: 900;
-  line-height: 0.9;
+  line-height: 0.86;
   letter-spacing: -2px;
 }
 
@@ -1028,129 +1190,102 @@
 .playerName {
   margin: 0;
   color: #111;
-  font-size: clamp(1.35rem, 2vw, 2rem);
+  font-size: var(--font-player-name);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
-.statsGrid {
+.statsGrid,
+.goalieStats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
-.statItem {
+.goalieStats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.statItem,
+.goalieStatItem {
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding: 14px 14px 12px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(17, 17, 17, 0.06);
+  background: #f8fafc;
+  border: 1px solid #e7edf4;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
-.statValue {
+.statItem:hover,
+.goalieStatItem:hover {
+  transform: translateY(-2px);
+  background: #fbfcfe;
+  border-color: rgba(132, 16, 26, 0.12);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+}
+
+.statValue,
+.goalieStatValue {
   color: #111;
-  font-size: 1.28rem;
+  font-size: var(--font-stat-value);
   font-weight: 800;
   line-height: 1;
 }
 
-.statLabel {
+.statLabel,
+.goalieStatLabel {
   color: #666;
-  font-size: 0.88rem;
+  font-size: var(--font-stat-label);
   font-weight: 600;
   line-height: 1.3;
 }
 
-.penaltyCard {
+.goalieCard {
   display: grid;
   gap: 20px;
   padding: 24px 24px 22px;
+  margin-top: 8px;
   border-radius: 28px;
-  background: linear-gradient(180deg, #111 0%, #1a1a1a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 18px 38px rgba(17, 17, 17, 0.12), 0 4px 12px rgba(17, 17, 17, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.03);
 }
 
-.penaltyHeader {
+.goalieHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
 }
 
-.penaltyEyebrow {
+.goalieHeaderText {
+  min-width: 0;
+}
+
+.goalieEyebrow {
   display: inline-block;
   margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.66);
+  color: #84101a;
   font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.penaltyName {
+.goalieName {
   margin: 0;
-  color: #fff;
-  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  color: #111;
+  font-size: var(--font-goalie-name);
   font-weight: 800;
   line-height: 1.15;
 }
-
-.penaltyHighlight {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.penaltyHighlightValue {
-  color: #fff;
-  font-size: clamp(2rem, 3vw, 2.6rem);
-  font-weight: 900;
-  line-height: 0.95;
-}
-
-.penaltyHighlightLabel {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 0.82rem;
-  font-weight: 600;
-  text-align: right;
-}
-
-.penaltyStats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.penaltyStatItem {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 14px 14px 12px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.penaltyStatValue {
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.penaltyStatLabel {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-
 
 /* # NABOR */
 .naborSection {
@@ -1170,7 +1305,6 @@
     transform 0.22s ease,
     box-shadow 0.22s ease,
     border-color 0.22s ease;
-  
 }
 
 .naborCard:hover {
@@ -1203,7 +1337,7 @@
 .naborDescription {
   margin: 0;
   color: #475569;
-  font-size: 1rem;
+  font-size: var(--font-body);
   line-height: 1.65;
   font-weight: 600;
   max-width: 680px;
@@ -1219,7 +1353,7 @@
   text-decoration: none;
   background: #111;
   color: #fff;
-  font-size: 0.88rem;
+  font-size: var(--font-meta);
   font-weight: 900;
   white-space: nowrap;
   transition:
@@ -1263,7 +1397,7 @@
 }
 
 .naborInfoLabel {
-  font-size: 0.72rem;
+  font-size: var(--font-badge);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1272,7 +1406,7 @@
 }
 
 .naborInfoValue {
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 800;
   color: #111;
   line-height: 1.35;
@@ -1312,51 +1446,128 @@
   }
 
   .novinkyCardTitle {
-    font-size: 19px;
+    font-size: var(--font-card-title-sm);
   }
 }
 
+/* # 1024 */
 @media (max-width: 1024px) {
+  .pageContainer {
+    --font-section-eyebrow: 15px;
+    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
+    --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
+    --font-card-title: 19px;
+    --font-player-name: clamp(1.4rem, 1.8vw, 1.7rem);
+    --font-goalie-name: clamp(1.3rem, 1.7vw, 1.65rem);
+    --font-team-name: 1rem;
+    --font-table-team-name: 0.91rem;
+    --font-featured-date: 0.96rem;
+    --font-featured-place: 0.88rem;
+    --font-body: 0.96rem;
+    --font-body-sm: 0.92rem;
+    --font-meta: 0.84rem;
+    --font-meta-sm: 0.82rem;
+    --font-badge: 0.69rem;
+    --font-stat-value: 1.1rem;
+    --font-stat-label: 0.8rem;
+    --font-number-display: clamp(3.8rem, 6vw, 5.4rem);
+    --font-score: 1.95rem;
+  }
+
   .content {
     gap: 48px;
     padding-bottom: 48px;
   }
 
+  /* # HERO */
   .heroSection {
     margin: 14px auto 0;
     padding: 0 14px;
   }
 
   .bannerContainer {
-    min-height: 540px;
-    padding: 40px 32px;
+    min-height: 500px;
+    padding: 32px 28px 30px;
     border-radius: 28px;
   }
 
+  .bannerOverlay {
+    gap: 14px;
+  }
+
+  .heroTextContent {
+    max-width: 680px;
+    gap: 12px;
+    padding-right: 0;
+  }
+
+  .heroSubtitle {
+    top: 22px;
+    left: 22px;
+    min-height: 33px;
+    padding: 0 13px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+  }
+
   .bannerTitle {
-    font-size: clamp(3.4rem, 10vw, 6rem);
+    margin: 44px 0 0;
+    font-size: clamp(3.4rem, 9vw, 5.8rem);
+    line-height: 0.9;
     letter-spacing: -3px;
   }
 
   .bannerTitleziaci {
-    font-size: clamp(2.9rem, 8.6vw, 5.3rem);
+    margin: 44px 0 0;
+    font-size: clamp(2.7rem, 7vw, 4.8rem);
+    line-height: 0.92;
     letter-spacing: -2px;
+    white-space: normal;
   }
 
+  .heroDescription {
+    max-width: 620px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .heroQuickNav {
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .heroQuickLink,
+  .heroMiniInfo {
+    min-width: 118px;
+    min-height: 36px;
+    padding: 0 16px;
+    font-size: 0.8rem;
+  }
+
+  .heroMiniLabel {
+    font-size: 0.72rem;
+  }
+
+  .heroMiniValue {
+    font-size: 0.8rem;
+  }
+
+  .heroImg {
+    object-position: center 30%;
+  }
+
+  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
     padding: 0 14px;
   }
 
+  /* # TABLE */
   .tablePanel {
     min-height: 700px;
     padding: 20px;
     border-radius: 26px;
-  }
-
-  .panelTitle {
-    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
   }
 
   .table {
@@ -1365,7 +1576,6 @@
 
   .table thead th {
     padding: 13px 10px;
-    font-size: 0.69rem;
   }
 
   .table tbody td {
@@ -1379,14 +1589,11 @@
     font-size: 0.8rem;
   }
 
-  .tableTeamName {
-    font-size: 0.91rem;
-  }
-
   .pointsCell {
     font-size: 0.96rem;
   }
 
+  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: 24px;
     padding: 20px 18px 18px;
@@ -1397,41 +1604,47 @@
     padding: 16px;
   }
 
-  .recentTeamName {
-    font-size: 0.96rem;
-  }
-
   .recentScore {
     font-size: 1.95rem;
   }
 
-  .topPlayersLayout {
-    grid-template-columns: 1fr;
+  /* # LEADERS */
+  .topPlayersPodium {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 1.02fr) minmax(0, 1fr);
+    gap: 18px;
   }
 
   .playerCardMain {
-    min-height: 340px;
-    padding: 24px;
+    padding: 26px 24px 24px;
   }
 
-  .playerCardSmall {
-    min-height: 170px;
-    padding: 20px;
+  .playerCardSide {
+    padding: 22px 20px 20px;
   }
 
-  .sidePlayersWrap {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .playerCardRank2,
+  .playerCardRank3 {
+    transform: translateY(12px);
   }
 
-  .penaltyCard {
+  .playerCardRank1:hover {
+    transform: translateY(-4px);
+  }
+
+  .playerCardRank2:hover,
+  .playerCardRank3:hover {
+    transform: translateY(8px);
+  }
+
+  .goalieCard {
     padding: 22px;
+    margin-top: 6px;
   }
 
-
+  /* # NABOR */
   .naborContent {
     padding: 20px;
   }
-
 }
 
 @media (max-width: 1000px) {
@@ -1476,73 +1689,123 @@
     margin-bottom: 10px;
   }
 
-  .featuredMatchTeam {
-    max-width: 190px;
-    min-height: 48px;
-    font-size: 0.98rem;
-    line-height: 1.25;
-  }
-
   .featuredMatchVsDivider,
   .featuredMatchScoreDivider {
     font-size: 1rem;
     padding: 0 4px;
   }
-
-  .featuredMatchDateTime {
-    font-size: 0.95rem;
-  }
-
-  .featuredMatchPlace {
-    font-size: 0.84rem;
-  }
 }
 
 /* # 768 */
+/* # 768 */
 @media (max-width: 768px) {
+  .pageContainer {
+    --font-section-eyebrow: 12px;
+    --font-section-title: clamp(1.5rem, 5vw, 2rem);
+    --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
+    --font-card-title: 18px;
+    --font-player-name: 1.6rem;
+    --font-goalie-name: 1.45rem;
+    --font-team-name: 0.82rem;
+    --font-table-team-name: 0.84rem;
+    --font-featured-date: 0.82rem;
+    --font-featured-place: 0.74rem;
+    --font-body: 0.92rem;
+    --font-body-sm: 0.86rem;
+    --font-meta: 0.8rem;
+    --font-meta-sm: 0.76rem;
+    --font-badge: 0.62rem;
+    --font-badge-sm: 10px;
+    --font-stat-value: 1.04rem;
+    --font-stat-label: 0.78rem;
+    --font-number-display: clamp(3.5rem, 14vw, 5.2rem);
+  }
+
   .content {
     gap: 40px;
     padding-bottom: 40px;
   }
 
+  /* # HERO */
   .heroSection {
-    margin: 14px auto 0;
+    margin: 12px auto 0;
     padding: 0 10px;
   }
 
   .bannerContainer {
-    min-height: 300px;
-    padding: 20px 18px 24px;
+    min-height: 360px;
+    padding: 22px 18px 20px;
     border-radius: 24px;
   }
 
+  .bannerOverlay {
+    min-height: auto;
+    gap: 12px;
+  }
+
   .heroImg {
-    object-position: center 24%;
+    object-position: center 26%;
   }
 
   .heroTextContent {
     max-width: 100%;
     gap: 10px;
+    padding-right: 0;
   }
 
   .heroSubtitle {
-    min-height: 30px;
-    padding: 0 11px;
-    font-size: 0.6rem;
+    top: 14px;
+    left: 14px;
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.56rem;
     letter-spacing: 0.12em;
   }
 
   .bannerTitle {
-    font-size: clamp(2.8rem, 16vw, 4.2rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
+    margin: 32px 0 0;
+    font-size: clamp(2.7rem, 12vw, 4.4rem);
+    line-height: 0.95;
+    letter-spacing: 0.015em;
   }
 
   .bannerTitleziaci {
-    font-size: clamp(2rem, 9.4vw, 3.7rem);
-    line-height: 0.96;
-    letter-spacing: -1px;
+    margin: 32px 0 0;
+    font-size: clamp(2rem, 8.8vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: 0.015em;
+    white-space: normal;
+  }
+
+  .heroDescription {
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  .heroQuickNav {
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .heroQuickLink,
+  .heroMiniInfo {
+    min-width: unset;
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .heroMiniInfo {
+    gap: 6px;
     white-space: nowrap;
+  }
+
+  .heroMiniLabel {
+    font-size: 0.64rem;
+  }
+
+  .heroMiniValue {
+    font-size: 0.72rem;
   }
 
   .countdownWrapper {
@@ -1586,14 +1849,12 @@
 
   .preTitle {
     margin: 0 0 6px 12px;
-    font-size: 12px;
     letter-spacing: 1.4px;
   }
 
   .sectionTitle {
     padding-left: 10px;
     border-left: 4px solid #84101A;
-    font-size: clamp(1.5rem, 5vw, 2rem);
     line-height: 1.15;
     letter-spacing: -0.8px;
   }
@@ -1623,17 +1884,11 @@
   }
 
   .novinkyBadge {
-    font-size: 10px;
     padding: 5px 9px;
   }
 
   .novinkyDate {
     font-size: 12px;
-  }
-
-  .novinkyCardTitle {
-    font-size: 18px;
-    margin-bottom: 6px;
   }
 
   .novinkyCardDescription {
@@ -1671,7 +1926,6 @@
   .featuredResultBadge {
     min-height: 24px;
     padding: 0 8px;
-    font-size: 0.58rem;
     letter-spacing: 0.07em;
   }
 
@@ -1698,7 +1952,6 @@
   .featuredMatchTeam {
     max-width: 108px;
     min-height: 32px;
-    font-size: 0.74rem;
     line-height: 1.15;
   }
 
@@ -1713,17 +1966,6 @@
     padding-top: 12px;
   }
 
-  .featuredMatchDateTime {
-    font-size: 0.8rem;
-    line-height: 1.3;
-    margin-bottom: 4px;
-  }
-
-  .featuredMatchPlace {
-    font-size: 0.7rem;
-    line-height: 1.35;
-  }
-
   .featuredMatchesEmptyState {
     padding: 22px 16px;
     border-radius: 20px;
@@ -1733,12 +1975,7 @@
     font-size: 1.9rem;
   }
 
-  .featuredMatchesEmptyTitle {
-    font-size: 1.05rem;
-  }
-
   .featuredMatchesEmptyText {
-    font-size: 0.86rem;
     line-height: 1.5;
   }
 
@@ -1752,11 +1989,6 @@
     margin-bottom: 14px;
   }
 
-  .panelTitle {
-    font-size: clamp(1rem, 4.3vw, 1.25rem);
-    line-height: 1.14;
-  }
-
   .tableWrap {
     border-radius: 18px;
   }
@@ -1767,7 +1999,6 @@
 
   .table thead th {
     padding: 11px 8px;
-    font-size: 0.67rem;
     letter-spacing: 0.06em;
   }
 
@@ -1790,10 +2021,6 @@
     height: 28px;
     border-radius: 10px;
     font-size: 0.76rem;
-  }
-
-  .tableTeamName {
-    font-size: 0.84rem;
   }
 
   .pointsCell {
@@ -1824,19 +2051,6 @@
     font-size: 0.72rem;
   }
 
-  .recentMatchDate {
-    font-size: 0.8rem;
-  }
-
-  .recentTeamName {
-    font-size: 0.9rem;
-    line-height: 1.3;
-  }
-
-  .recentVsRow {
-    font-size: 0.8rem;
-  }
-
   .recentScore {
     font-size: 1.75rem;
   }
@@ -1845,54 +2059,53 @@
     gap: 18px;
   }
 
-  .topPlayersLayout,
-  .sidePlayersWrap {
-    gap: 18px;
-  }
-
-  .sidePlayersWrap {
+  .topPlayersPodium {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "center"
+      "left"
+      "right";
+    gap: 18px;
   }
 
   .playerCardMain,
-  .playerCardSmall {
+  .playerCardSide,
+  .playerCardRank1,
+  .playerCardRank2,
+  .playerCardRank3 {
     min-height: auto;
     padding: 22px 20px;
     border-radius: 24px;
+    transform: none;
+  }
+
+  .playerCard:hover,
+  .playerCardRank1:hover,
+  .playerCardRank2:hover,
+  .playerCardRank3:hover {
+    transform: translateY(-4px);
   }
 
   .playerCardTop {
-    margin-bottom: 22px;
+    margin-top: 4px;
+    margin-bottom: -10px;
   }
 
-  .statsGrid {
-    gap: 12px;
-  }
-
-  .penaltyCard {
+  .goalieCard {
     gap: 18px;
     padding: 20px;
+    margin-top: 2px;
     border-radius: 24px;
   }
 
-  .penaltyHeader {
-    flex-direction: column;
+  .goalieHeader {
     align-items: flex-start;
   }
 
-  .penaltyHighlight {
-    align-items: flex-start;
-  }
-
-  .penaltyHighlightLabel {
-    text-align: left;
-  }
-
-  .penaltyStats {
+  .goalieStats {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
 
   .naborContent {
     padding: 16px;
@@ -1900,13 +2113,11 @@
   }
 
   .naborDescription {
-    font-size: 0.94rem;
     line-height: 1.55;
   }
 
   .naborPrimaryButton {
     min-height: 42px;
-    font-size: 0.82rem;
     padding: 0 16px;
   }
 
@@ -1914,15 +2125,6 @@
     padding: 14px 16px;
     border-radius: 16px;
   }
-
-  .naborInfoLabel {
-    font-size: 0.66rem;
-  }
-
-  .naborInfoValue {
-    font-size: 0.92rem;
-  }
-
 }
 
 /* # 640 */
@@ -1959,7 +2161,30 @@
 }
 
 /* # 480 */
+/* # 480 */
 @media (max-width: 480px) {
+  .pageContainer {
+    --font-section-eyebrow: 11px;
+    --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
+    --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
+    --font-card-title: 16px;
+    --font-player-name: 1.45rem;
+    --font-goalie-name: 1.4rem;
+    --font-team-name: 0.85rem;
+    --font-table-team-name: 0.8rem;
+    --font-featured-date: 0.8rem;
+    --font-featured-place: 0.75rem;
+    --font-body: 0.86rem;
+    --font-body-sm: 0.82rem;
+    --font-meta: 0.74rem;
+    --font-meta-sm: 0.7rem;
+    --font-badge: 0.58rem;
+    --font-badge-sm: 9px;
+    --font-stat-value: 1rem;
+    --font-stat-label: 0.76rem;
+    --font-number-display: clamp(3.2rem, 16vw, 4.8rem);
+  }
+
   .content {
     gap: 32px;
     padding-bottom: 32px;
@@ -1973,49 +2198,94 @@
 
   .preTitle {
     margin: 0 0 5px 10px;
-    font-size: 11px;
     letter-spacing: 1.1px;
   }
 
   .sectionTitle {
     padding-left: 8px;
     border-left: 3px solid #84101A;
-    font-size: clamp(1.2rem, 6vw, 1.55rem);
     line-height: 1.2;
     letter-spacing: -0.4px;
   }
 
+  /* # HERO */
   .heroSection {
+    margin: 10px auto 0;
     padding: 0 8px;
   }
 
   .bannerContainer {
-    min-height: 250px;
-    padding: 14px 12px 18px;
+    min-height: 300px;
+    padding: 16px 12px 16px;
     border-radius: 20px;
   }
 
+  .bannerOverlay {
+    min-height: auto;
+    gap: 10px;
+  }
+
   .heroImg {
-    object-position: center 22%;
+    object-position: center 24%;
+  }
+
+  .heroTextContent {
+    gap: 8px;
+    padding-right: 0;
   }
 
   .heroSubtitle {
-    min-height: 26px;
-    padding: 0 9px;
-    font-size: 0.54rem;
+    top: 12px;
+    left: 12px;
+    min-height: 24px;
+    padding: 0 8px;
+    font-size: 0.5rem;
     letter-spacing: 0.1em;
   }
 
   .bannerTitle {
-    font-size: clamp(2.3rem, 15vw, 3.4rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
+    margin: 26px 0 -10px;
+    font-size: clamp(4.5rem, 13vw, 3rem);
+    line-height: 0.98;
+    letter-spacing: 0.01em;
   }
 
   .bannerTitleziaci {
-    font-size: clamp(1.5rem, 8.8vw, 2.35rem);
-    line-height: 1;
-    letter-spacing: 0;
+    margin: 26px 0 0;
+    font-size: clamp(1.45rem, 8.4vw, 2.25rem);
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+    white-space: normal;
+  }
+
+  .heroDescription {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
+  .heroQuickNav {
+    gap: 6px;
+  }
+
+  .heroQuickLink,
+  .heroMiniInfo {
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 0.64rem;
+  }
+
+  .heroMiniInfo {
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .heroMiniLabel {
+    font-size: 0.56rem;
+  }
+
+  .heroMiniValue {
+    font-size: 0.64rem;
   }
 
   .countdownWrapper {
@@ -2061,18 +2331,11 @@
   }
 
   .novinkyBadge {
-    font-size: 9px;
     padding: 4px 8px;
   }
 
   .novinkyDate {
     font-size: 10px;
-  }
-
-  .novinkyCardTitle {
-    font-size: 16px;
-    line-height: 1.08;
-    margin-bottom: 5px;
   }
 
   .novinkyCardDescription {
@@ -2130,7 +2393,6 @@
   .featuredMatchTeam {
     max-width: 90px;
     min-height: 28px;
-    font-size: 0.67rem;
     line-height: 1.1;
   }
 
@@ -2145,23 +2407,9 @@
     padding-top: 10px;
   }
 
-  .featuredMatchDateTime {
-    font-size: 0.74rem;
-    margin-bottom: 3px;
-  }
-
-  .featuredMatchPlace {
-    font-size: 0.66rem;
-    line-height: 1.3;
-  }
-
   .featuredMatchesEmptyState {
     padding: 18px 12px;
     border-radius: 18px;
-  }
-
-  .featuredMatchesEmptyTitle {
-    font-size: 1rem;
   }
 
   .featuredMatchesEmptyText {
@@ -2173,17 +2421,12 @@
     border-radius: 20px;
   }
 
-  .panelTitle {
-    font-size: clamp(0.95rem, 5vw, 1.12rem);
-  }
-
   .table {
     min-width: 490px;
   }
 
   .table thead th {
     padding: 10px 7px;
-    font-size: 0.62rem;
   }
 
   .table tbody td {
@@ -2196,10 +2439,6 @@
     height: 25px;
     border-radius: 8px;
     font-size: 0.7rem;
-  }
-
-  .tableTeamName {
-    font-size: 0.78rem;
   }
 
   .pointsCell {
@@ -2226,27 +2465,34 @@
     text-align: left;
   }
 
-  .recentTeamName {
-    font-size: 0.84rem;
-  }
-
   .recentScore {
     font-size: 1.55rem;
   }
 
   .leadersContentGrid,
-  .topPlayersLayout,
-  .sidePlayersWrap {
+  .topPlayersPodium {
     gap: 16px;
   }
 
   .playerCardMain,
-  .playerCardSmall {
+  .playerCardSide,
+  .playerCardRank1,
+  .playerCardRank2,
+  .playerCardRank3 {
     padding: 18px;
     border-radius: 20px;
+    transform: none;
+  }
+
+  .playerCard:hover,
+  .playerCardRank1:hover,
+  .playerCardRank2:hover,
+  .playerCardRank3:hover {
+    transform: translateY(-3px);
   }
 
   .playerCardTop {
+    margin-top: 2px;
     margin-bottom: 18px;
   }
 
@@ -2255,10 +2501,6 @@
     height: 31px;
     padding: 0 12px;
     font-size: 0.8rem;
-  }
-
-  .playerName {
-    font-size: 1.2rem;
   }
 
   .statsGrid {
@@ -2271,40 +2513,16 @@
     border-radius: 16px;
   }
 
-  .statValue {
-    font-size: 1.08rem;
-  }
-
-  .statLabel {
-    font-size: 0.78rem;
-  }
-
-  .penaltyCard {
+  .goalieCard {
     padding: 18px;
+    margin-top: 0;
     border-radius: 20px;
   }
 
-  .penaltyName {
-    font-size: 1.18rem;
-  }
-
-  .penaltyHighlightValue {
-    font-size: 1.9rem;
-  }
-
-  .penaltyStatItem {
+  .goalieStatItem {
     padding: 12px;
     border-radius: 16px;
   }
-
-  .penaltyStatValue {
-    font-size: 1rem;
-  }
-
-  .penaltyStatLabel {
-    font-size: 0.78rem;
-  }
-
 
   .naborContent {
     padding: 14px;
@@ -2322,36 +2540,55 @@
     padding: 12px 14px;
     border-radius: 14px;
   }
-
-  .naborInfoValue {
-    font-size: 0.86rem;
-  }
-
 }
 
-@media (max-width: 360px) {
+ @media (max-width: 360px) {
   .heroSection {
     padding: 0 6px;
   }
 
   .bannerContainer {
-    min-height: 230px;
-    padding: 12px 10px 16px;
+    min-height: 270px;
+    padding: 12px 10px 14px;
     border-radius: 18px;
   }
 
   .heroSubtitle {
-    min-height: 24px;
-    padding: 0 8px;
-    font-size: 0.5rem;
+    top: 10px;
+    left: 10px;
+    min-height: 22px;
+    padding: 0 7px;
+    font-size: 0.46rem;
   }
 
   .bannerTitle {
-    font-size: clamp(2.1rem, 15vw, 3rem);
+    margin-top: 22px;
+    font-size: clamp(1.8rem, 14vw, 2.7rem);
   }
 
   .bannerTitleziaci {
-    font-size: clamp(1.35rem, 8.4vw, 2rem);
+    margin-top: 22px;
+    font-size: clamp(1.2rem, 8vw, 1.9rem);
+  }
+
+  .heroDescription {
+    font-size: 0.72rem;
+    line-height: 1.32;
+  }
+
+  .heroQuickLink,
+  .heroMiniInfo {
+    min-height: 26px;
+    padding: 0 8px;
+    font-size: 0.58rem;
+  }
+
+  .heroMiniLabel {
+    font-size: 0.52rem;
+  }
+
+  .heroMiniValue {
+    font-size: 0.58rem;
   }
 
   .countdownBar {

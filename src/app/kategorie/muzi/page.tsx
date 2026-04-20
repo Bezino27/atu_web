@@ -11,11 +11,13 @@ import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getClubSeason } from "@/app/lib/season";
 
 export default async function MuziPage() {
-  const [szfbDashboard, nextMatchResponse] = await Promise.all([
+  const [szfbDashboard, nextMatchResponse, clubSeason] = await Promise.all([
     getSzfbDashboard(1),
     getSzfbNextMatch(1),
+    getClubSeason("atu-kosice"),
   ]);
 
   const posts: Post[] = await getHomepagePosts("atu-kosice");
@@ -34,6 +36,7 @@ export default async function MuziPage() {
   const standings = szfbDashboard?.standings ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const nextMatch = nextMatchResponse?.next_match ?? null;
+  const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -54,9 +57,27 @@ export default async function MuziPage() {
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
                 <span className={styles.heroSubtitle}>
-                  Slovenská Florbalová Extraliga
+                  Slovenská florbalová extraliga
                 </span>
+
                 <h1 className={styles.bannerTitle}>Muži</h1>
+
+                <div className={styles.heroQuickNav}>
+                  <a href="#novinky" className={styles.heroQuickLink}>
+                    Novinky
+                  </a>
+                  <a href="#tabulka" className={styles.heroQuickLink}>
+                    Tabuľka
+                  </a>
+                  <a href="#hraci" className={styles.heroQuickLink}>
+                    Hráči
+                  </a>
+                </div>
+              </div>
+
+              <div className={styles.heroMiniInfo}>
+                <span className={styles.heroMiniLabel}>Sezóna</span>
+                <span className={styles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>
@@ -71,20 +92,22 @@ export default async function MuziPage() {
           />
         </section>
 
-        <section className={styles.sectionContainer}>
-
+        <section id="zapasy" className={styles.sectionContainer}>
           <NasledujuceZapasy />
         </section>
 
-        <section className={styles.sectionContainer}>
-        <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-          <h2 className={styles.sectionTitle}>
-          Najnovšie a najdôležitejšie články
-        </h2>
+        <section id="novinky" className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
+            <h2 className={styles.sectionTitle}>
+              Najnovšie a najdôležitejšie články
+            </h2>
+          </div>
+
           <Novinky posts={muziPosts} />
         </section>
 
-        <section className={styles.overviewSection}>
+        <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Liga</span>
             <h2 className={styles.sectionTitle}>Výsledky</h2>
@@ -101,7 +124,7 @@ export default async function MuziPage() {
           </div>
         </section>
 
-        <section className={styles.bottomSection}>
+        <section id="hraci" className={styles.bottomSection}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Štatistiky tímu</span>
             <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
