@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Bebas_Neue } from "next/font/google";
+import { Manrope, Geist_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas",
+const anton = Anton({
+  variable: "--font-anton",
   subsets: ["latin"],
   weight: "400",
 });
@@ -33,9 +33,9 @@ export default function RootLayout({
     <html
       lang="sk"
       className={`
-        ${geistSans.variable}
+        ${manrope.variable}
         ${geistMono.variable}
-        ${bebasNeue.variable}
+        ${anton.variable}
         h-full antialiased
       `}
     >

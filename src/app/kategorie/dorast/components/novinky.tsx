@@ -29,10 +29,7 @@ export default function Novinky({ posts }: NovinkyProps) {
 
   return (
     <section className={styles.novinkySection}>
-      <div className={styles.resultsHeader}>
-        <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-        <h2 className={styles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
-      </div>
+
 
       {visiblePosts.length > 0 ? (
         <div className={styles.novinkyGrid}>

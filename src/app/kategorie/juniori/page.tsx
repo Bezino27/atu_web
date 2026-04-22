@@ -51,6 +51,18 @@ export default async function JunioriPage() {
                   Slovenská Florbalová Juniorská Extraliga
                 </span>
                 <h1 className={styles.bannerTitle}>Juniori</h1>
+
+                <div className={styles.heroQuickNav}>
+                  <a href="#zapasy" className={styles.heroQuickLink}>
+                    Zápasy
+                  </a>
+                  <a href="#tabulka" className={styles.heroQuickLink}>
+                    Tabuľka
+                  </a>
+                  <a href="#hraci" className={styles.heroQuickLink}>
+                    Hráči
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -65,7 +77,7 @@ export default async function JunioriPage() {
           />
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="zapasy" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Zápasy</span>
             <h2 className={styles.sectionTitle}>Featured zápasy</h2>
@@ -74,16 +86,18 @@ export default async function JunioriPage() {
           <NasledujuceZapasy />
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="novinky" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-            <h2 className={styles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
+            <h2 className={styles.sectionTitle}>
+              Najnovšie a najdôležitejšie články
+            </h2>
           </div>
 
           <Novinky posts={junioriPosts} />
         </section>
 
-        <section className={styles.overviewSection}>
+        <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Liga</span>
             <h2 className={styles.sectionTitle}>Výsledky</h2>
@@ -100,7 +114,7 @@ export default async function JunioriPage() {
           </div>
         </section>
 
-        <section className={styles.bottomSection}>
+        <section id="hraci" className={styles.bottomSection}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Štatistiky tímu</span>
             <h2 className={styles.sectionTitle}>Lídri sezóny</h2>

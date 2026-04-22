@@ -1,31 +1,44 @@
-/* =========================
-   PAGE / LAYOUT
-========================= */
+.pageContainer {
+  --font-section-eyebrow: 16px;
+  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
+  --font-panel-title: clamp(1.25rem, 1.8vw, 1.7rem);
+  --font-body: 1rem;
+  --font-body-sm: 0.95rem;
+  --font-meta: 0.88rem;
+  --font-meta-sm: 0.84rem;
+  --font-badge: 0.72rem;
 
-.page {
   min-height: 100vh;
-  background: #f7f7f5;
-  color: #111;
+  background: #ffffff;
 }
 
-.section {
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-bottom: 56px;
+}
+
+/* # GLOBAL SECTION LAYOUT */
+.sectionContainer {
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 30px 0 48px;
+  padding: 30px 16px 0;
   box-sizing: border-box;
 }
 
-.sectionHeading {
-  margin-bottom: 28px;
+.resultsHeader {
+  margin-bottom: 18px;
 }
 
+/* # SHARED SECTION TITLES */
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
-  color: #84101a;
+  color: #84101A;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-section-eyebrow);
   letter-spacing: 0.75px;
   text-transform: uppercase;
 }
@@ -33,175 +46,143 @@
 .sectionTitle {
   margin: 0;
   padding-left: 12px;
-  border-left: 6px solid #84101a;
+  border-left: 6px solid #84101A;
   color: #111;
   font-family: var(--font-geist-sans);
   font-weight: 850;
-  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  font-size: var(--font-section-title);
   line-height: 1.08;
   letter-spacing: -1.4px;
   text-align: left;
 }
 
-/* =========================
-   CONTACT GRID
-========================= */
-
+/* # CONTACT GRID */
 .contactGrid {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 22px;
   align-items: stretch;
 }
 
-/* =========================
-   INFO CARD
-========================= */
-
-.infoCard {
+/* # CONTACT INFO */
+.contactInfoCard,
+.contactMapCard {
   position: relative;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(250, 250, 249, 0.98) 100%
-  );
-  border: 1px solid rgba(17, 17, 17, 0.06);
-  border-radius: 30px;
-  padding: 30px;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: 28px;
   box-shadow:
-    0 20px 44px rgba(17, 17, 17, 0.06),
-    0 6px 18px rgba(17, 17, 17, 0.03);
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-.infoCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at top right,
-    rgba(132, 16, 26, 0.05),
-    transparent 32%
-  );
+.contactInfoCard {
+  padding: 22px;
 }
 
-.infoBlock {
+.contactInfoList {
+  position: relative;
+  display: grid;
+}
+
+.contactInfoItem {
   position: relative;
   padding: 18px 0 20px;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
   transition: transform 0.22s ease;
 }
 
-.infoBlock:first-child {
+.contactInfoItem:first-child {
   padding-top: 0;
 }
 
-.infoBlock:last-child {
+.contactInfoItem:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.infoBlock:hover {
+.contactInfoItem:hover {
   transform: translateX(4px);
 }
 
-.infoLabel {
+.contactInfoLabel {
   display: block;
-  margin-bottom: 10px;
-  color: #8f1420;
-  font-size: 13px;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: var(--font-badge);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  line-height: 1.2;
 }
 
-.infoText,
-.infoLink {
+.contactInfoText,
+.contactInfoLink {
   display: block;
   margin: 0;
-  color: #171717;
-  font-size: 19px;
+  color: #111;
+  font-size: 1.04rem;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
   text-decoration: none;
+  word-break: break-word;
 }
 
-.infoLink {
+.contactInfoLink {
   transition:
     color 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.infoLink:hover {
-  color: #8f1420;
-  opacity: 0.92;
+.contactInfoLink:hover {
+  color: #84101A;
+  opacity: 0.96;
 }
 
-/* =========================
-   MAP CARD
-========================= */
+/* # CONTACT MAP */
+.contactMapCard {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
 
-.mapCard {
+.contactMapHeader {
   position: relative;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(250, 250, 249, 0.98) 100%
-  );
-  border: 1px solid rgba(17, 17, 17, 0.06);
-  border-radius: 30px;
-  padding: 24px;
-  box-shadow:
-    0 20px 44px rgba(17, 17, 17, 0.06),
-    0 6px 18px rgba(17, 17, 17, 0.03);
-  overflow: hidden;
+  margin-bottom: 18px;
 }
 
-.mapCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at top right,
-    rgba(132, 16, 26, 0.04),
-    transparent 34%
-  );
-}
-
-.mapHeader {
-  margin-bottom: 14px;
-}
-
-.mapTitle {
+.contactMapTitle {
   margin: 0 0 6px;
   color: #111;
-  font-size: 30px;
-  line-height: 1.1;
+  font-size: var(--font-panel-title);
   font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
-.mapAddress {
+.contactMapAddress {
   margin: 0;
-  color: #666;
-  font-size: 15px;
+  color: #6b7280;
+  font-size: var(--font-body-sm);
   line-height: 1.5;
+  font-weight: 500;
 }
 
-.mapWrap {
+.contactMapWrap {
   position: relative;
   width: 100%;
-  height: 100%;
   min-height: 420px;
+  height: 100%;
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid rgba(17, 17, 17, 0.05);
-  background: linear-gradient(180deg, #ffffff 0%, #f8f8f7 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 8px 20px rgba(17, 17, 17, 0.04);
+  border: 1px solid #e7edf4;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
 }
 
 .leafletMap {
@@ -210,10 +191,7 @@
   min-height: 420px;
 }
 
-/* =========================
-   MAP MARKER
-========================= */
-
+/* # MAP MARKER */
 .customMarker {
   display: flex;
   align-items: center;
@@ -299,33 +277,30 @@
     0 0 0 6px rgba(230, 57, 70, 0.14);
 }
 
-/* =========================
-   LEAFLET FIXES
-========================= */
-
-.mapWrap :global(.leaflet-container) {
+/* # LEAFLET FIXES */
+.contactMapWrap :global(.leaflet-container) {
   width: 100%;
   height: 100%;
   min-height: 420px;
 }
 
-.mapWrap :global(.leaflet-control-container) {
+.contactMapWrap :global(.leaflet-control-container) {
   z-index: 5 !important;
 }
 
-.mapWrap :global(.leaflet-control-attribution) {
+.contactMapWrap :global(.leaflet-control-attribution) {
   display: none !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom) {
+.contactMapWrap :global(.leaflet-control-zoom) {
   z-index: 10 !important;
   margin: 14px !important;
   border: none !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom-in),
-.mapWrap :global(.leaflet-control-zoom-out) {
+.contactMapWrap :global(.leaflet-control-zoom-in),
+.contactMapWrap :global(.leaflet-control-zoom-out) {
   width: 34px !important;
   height: 34px !important;
   display: flex !important;
@@ -343,23 +318,23 @@
     color 0.25s ease !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom-in) {
+.contactMapWrap :global(.leaflet-control-zoom-in) {
   border-radius: 10px 10px 0 0 !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom-out) {
+.contactMapWrap :global(.leaflet-control-zoom-out) {
   border-radius: 0 0 10px 10px !important;
   border-top: none !important;
 }
 
-.mapWrap :global(.leaflet-control-zoom-in:hover),
-.mapWrap :global(.leaflet-control-zoom-out:hover) {
+.contactMapWrap :global(.leaflet-control-zoom-in:hover),
+.contactMapWrap :global(.leaflet-control-zoom-out:hover) {
   background-color: #fcfcfc !important;
   color: #e63946 !important;
   transform: scale(1.04);
 }
 
-.mapWrap :global(.leaflet-disabled) {
+.contactMapWrap :global(.leaflet-disabled) {
   background-color: #f5f5f5 !important;
   color: #ccc !important;
   cursor: default !important;
@@ -371,7 +346,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fffefe;
+  background: #ffffff;
   border-radius: 24px;
   color: rgba(0, 0, 0, 0.28);
   font-size: 13px;
@@ -382,85 +357,126 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   1024px
-========================= */
-
+/* # 1024 */
 @media (max-width: 1024px) {
-  .section {
-    padding: 30px 18px 24px;
+  .pageContainer {
+    --font-section-eyebrow: 15px;
+    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
+    --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
+    --font-body: 0.96rem;
+    --font-body-sm: 0.92rem;
+    --font-meta: 0.84rem;
+    --font-meta-sm: 0.82rem;
+    --font-badge: 0.69rem;
   }
 
-  .sectionTitle {
-    font-size: 44px;
+  .content {
+    gap: 48px;
+    padding-bottom: 48px;
+  }
+
+  .sectionContainer {
+    padding: 30px 14px 0;
   }
 
   .contactGrid {
     grid-template-columns: 1fr;
   }
 
-  .infoCard,
-  .mapCard {
+  .contactInfoCard,
+  .contactMapCard {
+    padding: 20px;
     border-radius: 26px;
   }
 
-  .mapWrap,
+  .contactMapWrap,
   .leafletMap,
   .mapLoading,
-  .mapWrap :global(.leaflet-container) {
+  .contactMapWrap :global(.leaflet-container) {
     height: 380px;
     min-height: 380px;
   }
 
-  .mapWrap :global(.leaflet-control-zoom) {
+  .contactMapWrap :global(.leaflet-control-zoom) {
     margin: 12px !important;
   }
 
-  .mapWrap :global(.leaflet-control-zoom-in),
-  .mapWrap :global(.leaflet-control-zoom-out) {
+  .contactMapWrap :global(.leaflet-control-zoom-in),
+  .contactMapWrap :global(.leaflet-control-zoom-out) {
     width: 32px !important;
     height: 32px !important;
     font-size: 15px !important;
   }
 }
 
-/* =========================
-   768px
-========================= */
-
+/* # 768 */
 @media (max-width: 768px) {
-  .section {
-    padding: 24px 16px 48px;
+  .pageContainer {
+    --font-section-eyebrow: 12px;
+    --font-section-title: clamp(1.5rem, 5vw, 2rem);
+    --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
+    --font-body: 0.92rem;
+    --font-body-sm: 0.86rem;
+    --font-meta: 0.8rem;
+    --font-meta-sm: 0.76rem;
+    --font-badge: 0.62rem;
   }
 
-  .sectionHeading {
-    margin-bottom: 24px;
+  .content {
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  .sectionContainer {
+    padding: 24px 10px 0;
   }
 
   .preTitle {
-    margin-left: 14px;
-    font-size: 14px;
+    margin: 0 0 6px 12px;
+    letter-spacing: 1.4px;
   }
 
   .sectionTitle {
-    font-size: 36px;
     padding-left: 10px;
-    border-left-width: 5px;
+    border-left: 4px solid #84101A;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
   }
 
-  .infoCard,
-  .mapCard {
-    padding: 22px;
+  .resultsHeader {
+    margin-bottom: 18px;
+  }
+
+  .contactGrid {
+    gap: 18px;
+  }
+
+  .contactInfoCard,
+  .contactMapCard {
+    padding: 16px;
     border-radius: 24px;
   }
 
-  .mapTitle {
-    font-size: 25px;
+  .contactInfoItem {
+    padding: 15px 0 16px;
   }
 
-  .infoText,
-  .infoLink {
-    font-size: 17px;
+  .contactInfoText,
+  .contactInfoLink {
+    font-size: 0.98rem;
+  }
+
+  .contactMapHeader {
+    margin-bottom: 14px;
+  }
+
+  .contactMapWrap,
+  .leafletMap,
+  .mapLoading,
+  .contactMapWrap :global(.leaflet-container) {
+    height: 300px;
+    min-height: 300px;
+    border-radius: 20px;
   }
 
   .markerLabel {
@@ -468,134 +484,133 @@
     padding: 8px 10px;
   }
 
-  .mapWrap,
-  .leafletMap,
-  .mapLoading,
-  .mapWrap :global(.leaflet-container) {
-    height: 300px;
-    min-height: 300px;
-    border-radius: 20px;
-  }
-
-  .mapWrap :global(.leaflet-control-zoom) {
+  .contactMapWrap :global(.leaflet-control-zoom) {
     margin: 10px !important;
   }
 
-  .mapWrap :global(.leaflet-control-zoom-in),
-  .mapWrap :global(.leaflet-control-zoom-out) {
+  .contactMapWrap :global(.leaflet-control-zoom-in),
+  .contactMapWrap :global(.leaflet-control-zoom-out) {
     width: 30px !important;
     height: 30px !important;
     font-size: 14px !important;
   }
 }
 
-/* =========================
-   480px
-========================= */
-
+/* # 480 */
 @media (max-width: 480px) {
-  .section {
-    padding: 18px 12px 24px;
+  .pageContainer {
+    --font-section-eyebrow: 11px;
+    --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
+    --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
+    --font-body: 0.86rem;
+    --font-body-sm: 0.82rem;
+    --font-meta: 0.74rem;
+    --font-meta-sm: 0.7rem;
+    --font-badge: 0.58rem;
+  }
+
+  .content {
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .sectionContainer {
+    padding: 18px 8px 0;
   }
 
   .preTitle {
-    margin-left: 12px;
-    margin-bottom: 8px;
-    font-size: 13px;
+    margin: 0 0 5px 10px;
+    letter-spacing: 1.1px;
   }
 
   .sectionTitle {
-    font-size: 29px;
-    padding-left: 9px;
-    border-left-width: 4px;
+    padding-left: 8px;
+    border-left: 3px solid #84101A;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+  }
+
+  .resultsHeader {
+    margin-bottom: 14px;
   }
 
   .contactGrid {
     gap: 16px;
   }
 
-  .infoCard,
-  .mapCard {
-    padding: 18px;
+  .contactInfoCard,
+  .contactMapCard {
+    padding: 14px;
     border-radius: 20px;
   }
 
-  .infoLabel {
-    font-size: 12px;
+  .contactInfoItem {
+    padding: 12px 0 14px;
   }
 
-  .infoText,
-  .infoLink {
-    font-size: 15px;
+  .contactInfoText,
+  .contactInfoLink {
+    font-size: 0.92rem;
     line-height: 1.55;
   }
 
-  .mapTitle {
-    font-size: 22px;
-  }
-
-  .mapAddress {
-    font-size: 14px;
-  }
-
-  .mapWrap,
+  .contactMapWrap,
   .leafletMap,
   .mapLoading,
-  .mapWrap :global(.leaflet-container) {
+  .contactMapWrap :global(.leaflet-container) {
     height: 240px;
     min-height: 240px;
     border-radius: 16px;
   }
 
-  .mapWrap :global(.leaflet-control-zoom) {
+  .contactMapWrap :global(.leaflet-control-zoom) {
     margin: 8px !important;
   }
 
-  .mapWrap :global(.leaflet-control-zoom-in),
-  .mapWrap :global(.leaflet-control-zoom-out) {
+  .contactMapWrap :global(.leaflet-control-zoom-in),
+  .contactMapWrap :global(.leaflet-control-zoom-out) {
     width: 28px !important;
     height: 28px !important;
     font-size: 13px !important;
   }
 
+  .customMarker {
+    gap: 7px;
+  }
 
-.customMarker {
-  gap: 7px;
-}
+  .markerDot {
+    width: 15px;
+    height: 15px;
+    border-width: 2px;
+  }
 
-.markerDot {
-  width: 15px;
-  height: 15px;
-  border-width: 2px;
-}
+  .markerLabel {
+    min-width: unset;
+    width: max-content;
+    max-width: 96px;
+    padding: 6px 8px;
+    border-radius: 10px;
+  }
 
-.markerLabel {
-  min-width: unset;
-  width: max-content;
-  max-width: 96px;
-  padding: 6px 8px;
-  border-radius: 10px;
-}
+  .markerLabel strong {
+    font-size: 10px;
+    line-height: 1.12;
+  }
 
-.markerLabel strong {
-  font-size: 10px;
-  line-height: 1.12;
-}
+  .markerLabel span {
+    margin-top: 1px;
+    font-size: 8px;
+    line-height: 1.18;
+  }
 
-.markerLabel span {
-  margin-top: 1px;
-  font-size: 8px;
-  line-height: 1.18;
-}
+  .customMarker:hover .markerLabel,
+  .markerActive .markerLabel {
+    transform: scale(1.03) translateX(1px);
+  }
 
-.customMarker:hover .markerLabel,
-.markerActive .markerLabel {
-  transform: scale(1.03) translateX(1px);
-}
-
-.customMarker:hover .markerDot,
-.markerActive .markerDot {
-  border-width: 2px;
-  transform: scale(1.03);
-}
+  .customMarker:hover .markerDot,
+  .markerActive .markerDot {
+    border-width: 2px;
+    transform: scale(1.03);
+  }
 }

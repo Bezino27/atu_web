@@ -49,7 +49,7 @@
 }
 
 .resultsHeader {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 /* # OVERVIEW GRID */
@@ -126,7 +126,7 @@
   padding: 42px;
   background: #0b0e13;
   box-sizing: border-box;
-  line-height: 0;
+  line-height: 1;
   isolation: isolate;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
 }
@@ -178,7 +178,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
+  gap: 18px;
   padding-right: 20px;
 }
 
@@ -208,30 +208,54 @@
 .bannerTitleziaci {
   position: relative;
   z-index: 3;
-  margin: 52px 0 -20px;
+  margin: 0 0 8px;
   color: #ffffff;
   text-transform: uppercase;
   text-align: left;
   opacity: 0.99;
-  animation: titleEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  font-family: var(--font-bebas), sans-serif;
+  animation: titleEntrance 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  font-family: var(--font-banner), sans-serif;
   text-shadow:
     0 10px 30px rgba(0, 0, 0, 0.38),
     0 3px 10px rgba(0, 0, 0, 0.22);
+
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .bannerTitle {
   font-size: clamp(5.4rem, 13.5vw, 9.6rem);
-  line-height: 0.88;
-  letter-spacing: 0.025em;
+  line-height: 0.82;
+  letter-spacing: 0.015em;
 }
 
 .bannerTitleziaci {
   font-size: clamp(4.2rem, 10vw, 7.2rem);
-  line-height: 0.9;
-  letter-spacing: 0.02em;
+  line-height: 0.88;
+  letter-spacing: 0.015em;
   white-space: normal;
 }
+
+
+.heroQuickNav {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+  align-items: stretch;
+}
+
+.heroQuickLink,
+.heroMiniInfo {
+  position: relative;
+  z-index: 7;
+}
+
 
 .heroDescription {
   margin: 0;
@@ -246,7 +270,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: 2px;
   align-items: stretch;
 }
 
@@ -1108,7 +1132,9 @@
   border-radius: 28px;
   background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
   border: 1px solid rgba(17, 17, 17, 0.06);
-  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.03);
+  box-shadow:
+    0 14px 34px rgba(17, 17, 17, 0.06),
+    0 2px 10px rgba(17, 17, 17, 0.03);
   overflow: hidden;
   transition:
     transform 0.22s ease,
@@ -1118,8 +1144,9 @@
 }
 
 .playerCard:hover {
-  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.08), 0 4px 12px rgba(17, 17, 17, 0.05);
-  border-color: rgba(132, 16, 26, 0.14);
+  box-shadow:
+    0 18px 40px rgba(17, 17, 17, 0.08),
+    0 4px 12px rgba(17, 17, 17, 0.05);
 }
 
 .playerCardMain {
@@ -1130,22 +1157,35 @@
   padding: 24px 24px 22px;
 }
 
+/* # PODIUM HEIGHTS */
 .playerCardRank1 {
   transform: translateY(0);
 }
 
-.playerCardRank2,
-.playerCardRank3 {
-  transform: translateY(18px);
+.playerCardRank2 {
+  transform: translateY(22px);
 }
+
+.playerCardRank3 {
+  transform: translateY(42px);
+}
+
+/* # PODIUM BORDERS */
+
 
 .playerCardRank1:hover {
   transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.9);
 }
 
-.playerCardRank2:hover,
+.playerCardRank2:hover {
+  transform: translateY(18px);
+  border-color: rgba(192, 192, 192, 0.95);
+}
+
 .playerCardRank3:hover {
-  transform: translateY(14px);
+  transform: translateY(38px);
+  border-color: rgba(205, 127, 50, 0.92);
 }
 
 .playerCardTop {
@@ -1172,8 +1212,7 @@
   letter-spacing: 0.04em;
 }
 
-.playerNumber,
-.goalieNumber {
+.playerNumber {
   color: rgba(17, 17, 17, 0.08);
   font-size: var(--font-number-display);
   font-weight: 900;
@@ -1196,19 +1235,13 @@
   letter-spacing: -0.02em;
 }
 
-.statsGrid,
-.goalieStats {
+.statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
-.goalieStats {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.statItem,
-.goalieStatItem {
+.statItem {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -1223,68 +1256,25 @@
     background 0.2s ease;
 }
 
-.statItem:hover,
-.goalieStatItem:hover {
+.statItem:hover {
   transform: translateY(-2px);
   background: #fbfcfe;
   border-color: rgba(132, 16, 26, 0.12);
   box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
 }
 
-.statValue,
-.goalieStatValue {
+.statValue {
   color: #111;
   font-size: var(--font-stat-value);
   font-weight: 800;
   line-height: 1;
 }
 
-.statLabel,
-.goalieStatLabel {
+.statLabel {
   color: #666;
   font-size: var(--font-stat-label);
   font-weight: 600;
   line-height: 1.3;
-}
-
-.goalieCard {
-  display: grid;
-  gap: 20px;
-  padding: 24px 24px 22px;
-  margin-top: 8px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
-  border: 1px solid rgba(17, 17, 17, 0.06);
-  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.06), 0 2px 10px rgba(17, 17, 17, 0.03);
-}
-
-.goalieHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.goalieHeaderText {
-  min-width: 0;
-}
-
-.goalieEyebrow {
-  display: inline-block;
-  margin-bottom: 10px;
-  color: #84101a;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.goalieName {
-  margin: 0;
-  color: #111;
-  font-size: var(--font-goalie-name);
-  font-weight: 800;
-  line-height: 1.15;
 }
 
 /* # NABOR */
@@ -1452,6 +1442,7 @@
 
 /* # 1024 */
 @media (max-width: 1024px) {
+  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 15px;
     --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
@@ -1511,7 +1502,7 @@
   }
 
   .bannerTitle {
-    margin: 44px 0 0;
+    margin: 0 0 0;
     font-size: clamp(3.4rem, 9vw, 5.8rem);
     line-height: 0.9;
     letter-spacing: -3px;
@@ -1636,6 +1627,7 @@
     transform: translateY(8px);
   }
 
+  /* # GOALIE */
   .goalieCard {
     padding: 22px;
     margin-top: 6px;
@@ -1644,21 +1636,39 @@
   /* # NABOR */
   .naborContent {
     padding: 20px;
+    gap: 16px;
+  }
+
+  .naborTopRow {
+    gap: 14px;
+  }
+
+  .naborDescription {
+    max-width: 100%;
+  }
+
+  .naborInfoGrid {
+    gap: 10px;
   }
 }
 
+/* # 1000 */
 @media (max-width: 1000px) {
+  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
   }
 }
 
+/* # 900 */
 @media (max-width: 900px) {
+  /* # OVERVIEW */
   .overviewGrid {
     grid-template-columns: 1fr;
     gap: 18px;
   }
 
+  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -1697,8 +1707,8 @@
 }
 
 /* # 768 */
-/* # 768 */
 @media (max-width: 768px) {
+  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 12px;
     --font-section-title: clamp(1.5rem, 5vw, 2rem);
@@ -1808,6 +1818,7 @@
     font-size: 0.72rem;
   }
 
+  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -14px;
     padding: 0 10px;
@@ -1841,6 +1852,7 @@
     line-height: 1.2;
   }
 
+  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
@@ -1864,6 +1876,7 @@
     margin-bottom: 18px;
   }
 
+  /* # NOVINKY */
   .novinkyGrid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1903,6 +1916,7 @@
     font-size: 0.95rem;
   }
 
+  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     gap: 12px;
   }
@@ -1979,6 +1993,7 @@
     line-height: 1.5;
   }
 
+  /* # TABLE */
   .tablePanel {
     min-height: auto;
     padding: 16px 14px;
@@ -2027,6 +2042,7 @@
     font-size: 0.88rem;
   }
 
+  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: 22px;
     padding: 18px 14px 16px;
@@ -2055,6 +2071,7 @@
     font-size: 1.75rem;
   }
 
+  /* # LEADERS */
   .leadersContentGrid {
     gap: 18px;
   }
@@ -2091,6 +2108,7 @@
     margin-bottom: -10px;
   }
 
+  /* # GOALIE */
   .goalieCard {
     gap: 18px;
     padding: 20px;
@@ -2107,13 +2125,23 @@
     gap: 12px;
   }
 
+  /* # NABOR */
   .naborContent {
     padding: 16px;
     gap: 14px;
   }
 
+  .naborTopRow {
+    gap: 12px;
+  }
+
+  .naborTextWrap {
+    flex: 1 1 100%;
+  }
+
   .naborDescription {
     line-height: 1.55;
+    max-width: 100%;
   }
 
   .naborPrimaryButton {
@@ -2121,14 +2149,20 @@
     padding: 0 16px;
   }
 
+  .naborInfoGrid {
+    gap: 10px;
+  }
+
   .naborInfoItem {
     padding: 14px 16px;
     border-radius: 16px;
+    flex: 1 1 calc(50% - 10px);
   }
 }
 
 /* # 640 */
 @media (max-width: 640px) {
+  /* # HERO */
   .heroSection {
     margin: 10px auto 0;
     padding: 0 8px;
@@ -2149,6 +2183,7 @@
     letter-spacing: -0.5px;
   }
 
+  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -12px;
     padding: 0 8px;
@@ -2158,11 +2193,16 @@
     padding: 10px 12px;
     gap: 6px;
   }
+
+  /* # NABOR */
+  .naborInfoItem {
+    flex: 1 1 100%;
+  }
 }
 
 /* # 480 */
-/* # 480 */
 @media (max-width: 480px) {
+  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 11px;
     --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
@@ -2190,6 +2230,7 @@
     padding-bottom: 32px;
   }
 
+  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
@@ -2288,6 +2329,7 @@
     font-size: 0.64rem;
   }
 
+  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -10px;
     padding: 0 6px;
@@ -2312,6 +2354,7 @@
     margin-bottom: 14px;
   }
 
+  /* # NOVINKY */
   .novinkyGrid {
     gap: 14px;
   }
@@ -2350,6 +2393,7 @@
     font-size: 0.9rem;
   }
 
+  /* # FEATURED MATCHES */
   .featuredMatchCard {
     padding: 12px 10px;
     border-radius: 16px;
@@ -2416,6 +2460,7 @@
     font-size: 0.82rem;
   }
 
+  /* # TABLE */
   .tablePanel {
     padding: 14px 12px;
     border-radius: 20px;
@@ -2445,6 +2490,7 @@
     font-size: 0.8rem;
   }
 
+  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: 20px;
     padding: 16px 12px 14px;
@@ -2469,6 +2515,7 @@
     font-size: 1.55rem;
   }
 
+  /* # LEADERS */
   .leadersContentGrid,
   .topPlayersPodium {
     gap: 16px;
@@ -2513,6 +2560,7 @@
     border-radius: 16px;
   }
 
+  /* # GOALIE */
   .goalieCard {
     padding: 18px;
     margin-top: 0;
@@ -2524,8 +2572,22 @@
     border-radius: 16px;
   }
 
+  /* # NABOR */
   .naborContent {
     padding: 14px;
+    gap: 12px;
+  }
+
+  .naborTopRow {
+    gap: 10px;
+  }
+
+  .naborTextWrap {
+    flex: 1 1 100%;
+  }
+
+  .naborDescription {
+    max-width: 100%;
   }
 
   .naborPrimaryButton {
@@ -2534,15 +2596,19 @@
 
   .naborInfoGrid {
     flex-direction: column;
+    gap: 10px;
   }
 
   .naborInfoItem {
+    flex: 1 1 100%;
     padding: 12px 14px;
     border-radius: 14px;
   }
 }
 
- @media (max-width: 360px) {
+/* # 360 */
+@media (max-width: 360px) {
+  /* # HERO */
   .heroSection {
     padding: 0 6px;
   }

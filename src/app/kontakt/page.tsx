@@ -14,56 +14,74 @@ const contactLocations = {
 
 export default function KontaktPage() {
   return (
-    <main className={styles.page}>
+    <div className={styles.pageContainer}>
       <Header />
 
-      <section className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <span className={styles.preTitle}>Kontakt</span>
-          <h1 className={styles.sectionTitle}>FaBK ATU Košice</h1>
-        </div>
-
-        <div className={styles.contactGrid}>
-          <div className={styles.infoCard}>
-            <div className={styles.infoBlock}>
-              <span className={styles.infoLabel}>Adresa</span>
-              <p className={styles.infoText}>Jedlíkova 7, 040 11 Košice</p>
-            </div>
-
-            <div className={styles.infoBlock}>
-              <span className={styles.infoLabel}>Predseda</span>
-              <p className={styles.infoText}>Juraj Dudovič</p>
-            </div>
-
-            <div className={styles.infoBlock}>
-              <span className={styles.infoLabel}>Email</span>
-              <a className={styles.infoLink} href="mailto:dudovic@dudovic.sk">
-                dudovic@dudovic.sk
-              </a>
-            </div>
-
-            <div className={styles.infoBlock}>
-              <span className={styles.infoLabel}>Telefón</span>
-              <a className={styles.infoLink} href="tel:+421915932219">
-                +421 915 932 219
-              </a>
-            </div>
-
-            <div className={styles.infoBlock}>
-              <span className={styles.infoLabel}>IBAN</span>
-              <p className={styles.infoText}>SK76 3100 0000 0045 3000 8518</p>
-            </div>
+      <main className={styles.content}>
+        <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <span className={styles.preTitle}>Kontakt</span>
+            <h1 className={styles.sectionTitle}>FaBK ATU Košice</h1>
           </div>
 
-          <div className={styles.mapCard}>
-            <ContactMap
-              locations={contactLocations}
-              activeLocation="jedlikova"
-            />
+          <div className={styles.contactGrid}>
+            <div className={styles.contactInfoCard}>
+              <div className={styles.contactInfoList}>
+                <div className={styles.contactInfoItem}>
+                  <span className={styles.contactInfoLabel}>Adresa</span>
+                  <p className={styles.contactInfoText}>
+                    Jedlíkova 7, 040 11 Košice
+                  </p>
+                </div>
+
+                <div className={styles.contactInfoItem}>
+                  <span className={styles.contactInfoLabel}>Predseda</span>
+                  <p className={styles.contactInfoText}>Juraj Dudovič</p>
+                </div>
+
+                <div className={styles.contactInfoItem}>
+                  <span className={styles.contactInfoLabel}>Email</span>
+                  <a
+                    className={styles.contactInfoLink}
+                    href="mailto:dudovic@dudovic.sk"
+                  >
+                    dudovic@dudovic.sk
+                  </a>
+                </div>
+
+                <div className={styles.contactInfoItem}>
+                  <span className={styles.contactInfoLabel}>Telefón</span>
+                  <a
+                    className={styles.contactInfoLink}
+                    href="tel:+421915932219"
+                  >
+                    +421 915 932 219
+                  </a>
+                </div>
+
+                <div className={styles.contactInfoItem}>
+                  <span className={styles.contactInfoLabel}>IBAN</span>
+                  <p className={styles.contactInfoText}>
+                    SK76 3100 0000 0045 3000 8518
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.contactMapCard}>
+
+              <div className={styles.contactMapWrap}>
+                <ContactMap
+                  locations={contactLocations}
+                  activeLocation="jedlikova"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
+
       <Footer />
-    </main>
+    </div>
   );
 }

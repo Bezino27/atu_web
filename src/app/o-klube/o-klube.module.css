@@ -1,10 +1,6 @@
-/* =========================
-   PAGE / LAYOUT
-========================= */
-
 .page {
   min-height: 100vh;
-  background: #f7f7f5;
+  background: #ffffff;
   color: #111;
 }
 
@@ -91,7 +87,7 @@
   padding: 16px 18px;
   border-radius: 18px;
   background: #f8f9fa;
-  border: 1px solid transparent;
+  border: 1px solid rgba(17, 17, 17, 0.05);
   transition:
     transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
@@ -153,7 +149,7 @@
   height: 100%;
   border-radius: 28px;
   border: 1px solid rgba(17, 17, 17, 0.08);
-  background: #fff;
+  background: #ffffff;
   box-shadow:
     0 20px 40px rgba(15, 23, 42, 0.1),
     0 6px 18px rgba(15, 23, 42, 0.05);
@@ -241,7 +237,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fffefe;
+  background: #ffffff;
   border-radius: 24px;
   color: rgba(0, 0, 0, 0.28);
   font-size: 13px;
@@ -327,11 +323,7 @@
   padding: 38px 40px;
   border: 1px solid rgba(17, 17, 17, 0.07);
   border-radius: 32px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(252, 252, 252, 1) 100%
-  );
+  background: #ffffff;
   box-shadow:
     0 20px 50px rgba(17, 17, 17, 0.06),
     0 2px 10px rgba(17, 17, 17, 0.03);
@@ -367,7 +359,7 @@
   padding: 30px 30px 28px;
   border: 1px solid rgba(17, 17, 17, 0.07);
   border-radius: 32px;
-  background: linear-gradient(180deg, #fbfbfa 0%, #f4f4f2 100%);
+  background: #ffffff;
   box-shadow:
     0 22px 50px rgba(17, 17, 17, 0.06),
     0 4px 14px rgba(17, 17, 17, 0.03);
@@ -379,7 +371,7 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 4px;
-  background: linear-gradient(90deg, #84101a 0%, #b91c1c 100%);
+  background: #84101a;
   opacity: 0.9;
 }
 
@@ -416,7 +408,7 @@
   padding: 20px;
   border: 1px solid rgba(17, 17, 17, 0.06);
   border-radius: 24px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfc 100%);
+  background: #ffffff;
   box-shadow:
     0 10px 24px rgba(17, 17, 17, 0.035),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
@@ -477,15 +469,15 @@
 }
 
 .gold {
-  background: linear-gradient(180deg, #f7d978 0%, #e0b321 100%);
+  background: #e0b321;
 }
 
 .silver {
-  background: linear-gradient(180deg, #edf0f4 0%, #bcc3cd 100%);
+  background: #bcc3cd;
 }
 
 .bronze {
-  background: linear-gradient(180deg, #e0a06a 0%, #ba6d34 100%);
+  background: #ba6d34;
 }
 
 .itemRight {
@@ -541,7 +533,7 @@
   padding: 22px 22px 20px;
   border-radius: 26px;
   border: 1px solid rgba(17, 17, 17, 0.08);
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfc 100%);
+  background: #ffffff;
   box-shadow:
     0 16px 36px rgba(17, 17, 17, 0.05),
     0 3px 12px rgba(17, 17, 17, 0.025);

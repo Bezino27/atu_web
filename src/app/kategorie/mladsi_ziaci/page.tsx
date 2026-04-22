@@ -51,12 +51,24 @@ const MladsiZiaciPage = async () => {
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
                 <h1 className={styles.bannerTitleziaci}>Mladší žiaci</h1>
+
+                <div className={styles.heroQuickNav}>
+                  <a href="#odkazy" className={styles.heroQuickLink}>
+                    Odkazy
+                  </a>
+                  <a href="#treningy" className={styles.heroQuickLink}>
+                    Tréningy
+                  </a>
+                  <a href="#novinky" className={styles.heroQuickLink}>
+                    Novinky
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="odkazy" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>SZFB</span>
             <h2 className={styles.sectionTitle}>Odkazy</h2>
@@ -86,11 +98,11 @@ const MladsiZiaciPage = async () => {
           </div>
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="treningy" className={styles.sectionContainer}>
           <KdeTrenujeme />
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="nabor" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>NÁBOR</span>
             <h2 className={styles.sectionTitle}>Chceš hrať florbal?</h2>
@@ -98,10 +110,12 @@ const MladsiZiaciPage = async () => {
           <Nabor />
         </section>
 
-        <section className={styles.sectionContainer}>
+        <section id="novinky" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-            <h2 className={styles.sectionTitle}>Najnovšie a najdôležitejšie články</h2>
+            <h2 className={styles.sectionTitle}>
+              Najnovšie a najdôležitejšie články
+            </h2>
           </div>
           <Novinky posts={mladezPosts} />
         </section>

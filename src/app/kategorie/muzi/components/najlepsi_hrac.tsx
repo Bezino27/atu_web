@@ -13,12 +13,7 @@ type Player = {
   stats: PlayerStat[];
 };
 
-type GoalieLeader = {
-  id: number;
-  number: string;
-  name: string;
-  stats: PlayerStat[];
-};
+
 
 const topPlayers: Player[] = [
   {
@@ -59,16 +54,6 @@ const topPlayers: Player[] = [
   },
 ];
 
-const goalieLeader: GoalieLeader = {
-  id: 4,
-  number: "30",
-  name: "Lukáš Holko",
-  stats: [
-    { label: "Zápasy", value: 27 },
-    { label: "Priemer inkasovaných gólov", value: "2,6" },
-    { label: "Úspešnosť zákrokov", value: "92.1 %" },
-  ],
-};
 
 function PlayerCard({ player }: { player: Player }) {
   const sizeClass =
@@ -99,29 +84,6 @@ function PlayerCard({ player }: { player: Player }) {
   );
 }
 
-function GoalieCard({ goalie }: { goalie: GoalieLeader }) {
-  return (
-    <article className={styles.goalieCard}>
-      <div className={styles.goalieHeader}>
-        <div className={styles.goalieHeaderText}>
-          <span className={styles.goalieEyebrow}>Líder medzi brankármi</span>
-          <h3 className={styles.goalieName}>{goalie.name}</h3>
-        </div>
-
-        <div className={styles.goalieNumber}>{goalie.number}</div>
-      </div>
-
-      <div className={styles.goalieStats}>
-        {goalie.stats.map((stat) => (
-          <div key={stat.label} className={styles.goalieStatItem}>
-            <span className={styles.goalieStatValue}>{stat.value}</span>
-            <span className={styles.goalieStatLabel}>{stat.label}</span>
-          </div>
-        ))}
-      </div>
-    </article>
-  );
-}
 
 export default function SeasonLeadersSection() {
   return (
@@ -138,7 +100,6 @@ export default function SeasonLeadersSection() {
           ))}
         </div>
 
-        <GoalieCard goalie={goalieLeader} />
       </div>
     </section>
   );
