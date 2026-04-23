@@ -6,8 +6,11 @@ import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "./lib/posts";
 import { getImageUrl } from "./lib/api";
-import { getSzfbDashboard, type SzfbMatch, type SzfbStandingRow } from "./lib/szfb";
-
+import {
+  getSzfbDashboard,
+  type SzfbMatch,
+  type SzfbStandingRow,
+} from "./lib/szfb";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
@@ -67,19 +70,43 @@ function getStandingsRowClass(
   return classNames.join(" ");
 }
 
-function getPlacementLabel(position: number) {
-  if (position <= 8) return "Playoff";
-  if (position === 10 || position === 11) return "Baráž";
-  if (position === 12) return "Zostup";
-  return null;
-}
-
 function renderMatchTitle(match: SzfbMatch, ownTeamName: string) {
   if (match.is_home === false) {
     return `${match.opponent} vs ${ownTeamName}`;
   }
 
   return `${ownTeamName} vs ${match.opponent}`;
+}
+
+function getRecentResultMeta(result?: string | null) {
+  if (!result || !result.includes(":")) {
+    return {
+      isWin: false,
+      label: "Zápas",
+      badgeClass: styles.lossBadge,
+      scoreClass: styles.lossScore,
+    };
+  }
+
+  const [leftScore, rightScore] = result.split(":").map(Number);
+
+  if (Number.isNaN(leftScore) || Number.isNaN(rightScore)) {
+    return {
+      isWin: false,
+      label: "Zápas",
+      badgeClass: styles.lossBadge,
+      scoreClass: styles.lossScore,
+    };
+  }
+
+  const isWin = leftScore > rightScore;
+
+  return {
+    isWin,
+    label: isWin ? "Výhra" : "Prehra",
+    badgeClass: isWin ? styles.winBadge : styles.lossBadge,
+    scoreClass: isWin ? styles.winScore : styles.lossScore,
+  };
 }
 
 export default async function HomePage() {
@@ -95,19 +122,25 @@ export default async function HomePage() {
   const results: SzfbMatch[] = szfbDashboard?.results ?? [];
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const competitionName = szfbDashboard?.watch?.competition_name || "SZFB súťaž";
+  const competitionName =
+    szfbDashboard?.watch?.competition_name || "SZFB súťaž";
+
+  const nearestMatch = nextMatches[0];
 
   return (
-    <>
+    <div className={styles.pageContainer}>
       <Header />
 
-      <main className={styles.page}>
-        <section className={styles.topNewsSection}>
-          <div className={styles.sectionHeader}>
+      <main className={styles.content}>
+        <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
             <div>
-              <span className={styles.sectionEyebrow}>Top obsah</span>
-              <h2>Najnovšie a najdôležitejšie články</h2>
+              <span className={styles.preTitle}>Top obsah</span>
+              <h1 className={styles.sectionTitle}>
+                Najnovšie a najdôležitejšie články
+              </h1>
             </div>
+
             <Link href="/clanky" className={styles.sectionLink}>
               Všetky články
             </Link>
@@ -138,7 +171,8 @@ export default async function HomePage() {
                     </span>
                     <span>{formatDate(heroArticle.published_at)}</span>
                   </div>
-                  <h1>{heroArticle.title}</h1>
+
+                  <h2>{heroArticle.title}</h2>
                   <p>{heroArticle.excerpt || ""}</p>
                 </div>
               </Link>
@@ -169,6 +203,7 @@ export default async function HomePage() {
                           </span>
                           <span>{formatDate(article.published_at)}</span>
                         </div>
+
                         <h3>{article.title}</h3>
                       </div>
                     </Link>
@@ -179,32 +214,38 @@ export default async function HomePage() {
           )}
         </section>
 
-        <section className={styles.dashboardSection}>
-          <div className={styles.dashboardGrid}>
-            <div className={styles.panel}>
-              <div className={styles.panelHeader}>
-                <div>
-                  <span className={styles.sectionEyebrow}>Liga</span>
-                  <h3>Aktuálna tabuľka</h3>
+        <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <div>
+              <span className={styles.preTitle}>Klub a liga</span>
+              <h2 className={styles.sectionTitle}>Aktuálny prehľad</h2>
+            </div>
+          </div>
+
+          <div className={styles.overviewGrid}>
+            <div className={styles.tableColumn}>
+              <div className={styles.tablePanel}>
+                <div className={styles.panelHeader}>
+                  <div>
+                    <span className={styles.panelEyebrow}>Liga</span>
+                    <h3 className={styles.panelTitle}>Aktuálna tabuľka</h3>
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.tableWrap}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Tím</th>
-                      <th>Z</th>
-                      <th>B</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {standings.length > 0 ? (
-                      standings.map((team) => {
-                        const label = getPlacementLabel(team.position);
+                <div className={styles.tableWrap}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Tím</th>
+                        <th>Z</th>
+                        <th>B</th>
+                      </tr>
+                    </thead>
 
-                        return (
+                    <tbody>
+                      {standings.length > 0 ? (
+                        standings.map((team) => (
                           <tr
                             key={team.position}
                             className={getStandingsRowClass(
@@ -218,117 +259,121 @@ export default async function HomePage() {
                                 {team.position}
                               </span>
                             </td>
+
                             <td>
                               <div className={styles.teamCell}>
-                                <span className={styles.teamName}>
+                                <span className={styles.tableTeamName}>
                                   {team.team_name}
                                 </span>
                               </div>
                             </td>
+
                             <td>{team.played}</td>
                             <td className={styles.pointsCell}>{team.points}</td>
                           </tr>
-                        );
-                      })
-                    ) : (
-                      <tr>
-                        <td colSpan={4}>Tabuľka zatiaľ nie je dostupná.</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan={4}>Tabuľka zatiaľ nie je dostupná.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
-            <div className={styles.sideStack}>
-              <div className={styles.panel}>
-                <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Program</span>
-                  <h3>Najbližšie zápasy</h3>
+            <div className={styles.rightColumn}>
+              <div className={`${styles.sharedBox} ${styles.infoCard}`}>
+                <div className={styles.infoCardTop}>
+                  <span className={styles.infoCardLabel}>Program</span>
+                  <h3 className={styles.infoCardTitle}>Najbližší zápas</h3>
                 </div>
 
-                <div className={styles.matchList}>
-                  {nextMatches.length > 0 ? (
-                    nextMatches.slice(0, 3).map((match) => (
-                      <div key={match.id} className={styles.matchCard}>
-                        <div className={styles.matchDate}>
-                          <strong>{formatDate(match.match_date)}</strong>
-                          <span>{formatTime(match.match_time)}</span>
-                        </div>
-
-                        <div className={styles.matchInfo}>
-                          <h4>{renderMatchTitle(match, ownTeamName)}</h4>
-                          <p>{competitionName}</p>
-                          <span>
-                            {match.venue || "Miesto zatiaľ nie je uvedené"}
+                <div className={styles.infoCardBody}>
+                  {nearestMatch ? (
+                    <div className={styles.infoCardInnerBox}>
+                      <div className={styles.matchLayout}>
+                        <div className={styles.matchDateBlock}>
+                          <span className={styles.matchDatePrimary}>
+                            {formatDate(nearestMatch.match_date)}
+                          </span>
+                          <span className={styles.matchTimePrimary}>
+                            {formatTime(nearestMatch.match_time)}
                           </span>
                         </div>
+
+                        <div className={styles.matchInfoBlock}>
+                          <div className={styles.matchMainText}>
+                            {renderMatchTitle(nearestMatch, ownTeamName)}
+                          </div>
+                          <div className={styles.matchSecondaryText}>
+                            {competitionName}
+                          </div>
+                          <div className={styles.matchMutedText}>
+                            {nearestMatch.venue ||
+                              "Miesto zatiaľ nie je uvedené"}
+                          </div>
+                        </div>
                       </div>
-                    ))
+                    </div>
                   ) : (
-                    <div className={styles.noUpcomingCard}>
-                      <div className={styles.noUpcomingIcon}>🏑</div>
-                      <h4>Momentálne nie sú naplánované ďalšie zápasy</h4>
-                      <p>
-                        Sleduj klubové novinky a výsledky. Ďalší program
-                        doplníme hneď, ako bude oficiálne zverejnený.
-                      </p>
+                    <div className={styles.compactEmptyState}>
+                      Momentálne nie je naplánovaný ďalší zápas.
                     </div>
                   )}
                 </div>
               </div>
 
-            <div className={`${styles.panel} ${styles.playerPanel}`}>
-              <div className={styles.playerPanelTop}>
-                <div className={styles.playerNumberBadge}>
-                  <span className={styles.playerNumberValue}>19</span>
+              <div className={`${styles.sharedBox} ${styles.infoCard}`}>
+                <div className={styles.infoCardTop}>
+                  <span className={styles.infoCardLabel}>Anketa</span>
+                  <h3 className={styles.infoCardTitle}>Hráč mesiaca</h3>
                 </div>
 
-                <div className={styles.playerMainInfo}>
-                  <span className={styles.playerPanelLabel}>Klubová anketa</span>
-                  <h3 className={styles.playerMainName}>Martin Novák</h3>
-                </div>
-              </div>
+                <div className={styles.infoCardBody}>
+                  <div className={styles.infoCardInnerBox}>
+                    <div className={styles.pollLayout}>
+                      <div className={styles.pollTop}>
+                        <div className={styles.pollNumber}>19</div>
 
-              <div className={styles.playerStatsGrid}>
-                <div className={styles.playerStatCard}>
-                  <strong>10</strong>
-                  <span>Body</span>
-                </div>
+                        <div className={styles.pollInfo}>
+                          <div className={styles.pollName}>Martin Novák</div>
+                          <div className={styles.pollMeta}>
+                            10 bodov • 6 gólov • 4 asistencie
+                          </div>
+                        </div>
+                      </div>
 
-                <div className={styles.playerStatCard}>
-                  <strong>6</strong>
-                  <span>Góly</span>
-                </div>
+                      <div className={styles.pollBar}>
+                        <div
+                          className={styles.pollBarFill}
+                          style={{ width: "74%" }}
+                        />
+                      </div>
 
-                <div className={styles.playerStatCard}>
-                  <strong>4</strong>
-                  <span>Asistencie</span>
+                      <div className={styles.pollFooter}>
+                        <span>Výsledok ankety</span>
+                        <strong>438 hlasov</strong>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className={styles.playerVoteBar}>
-                <span className={styles.playerVoteLabel}>Výsledok ankety</span>
-                <div className={styles.playerVoteTrack}>
-                  <div className={styles.playerVoteFill} style={{ width: "74%" }} />
-                </div>
-                <span className={styles.playerVoteValue}>438 hlasov</span>
               </div>
             </div>
-           </div>
           </div>
         </section>
 
-        <section className={styles.contentSection}>
+        <section className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
+            <div>
+              <span className={styles.preTitle}>Klubový obsah</span>
+              <h2 className={styles.sectionTitle}>Ďalšie novinky a články</h2>
+            </div>
+          </div>
+
           <div className={styles.contentGrid}>
             <div className={styles.leftColumn}>
-              <div className={styles.sectionHeader}>
-                <div>
-                  <span className={styles.sectionEyebrow}>Klubový blog</span>
-                  <h2>Ďalšie novinky a články</h2>
-                </div>
-              </div>
-
               {latestPosts.length > 0 ? (
                 <div className={styles.postsGrid}>
                   {latestPosts.map((post: Post) => (
@@ -346,6 +391,7 @@ export default async function HomePage() {
                           className={styles.cardImage}
                         />
                       </div>
+
                       <div className={styles.postContent}>
                         <div className={styles.metaRow}>
                           <span className={styles.smallBadge}>
@@ -353,6 +399,7 @@ export default async function HomePage() {
                           </span>
                           <span>{formatDate(post.published_at)}</span>
                         </div>
+
                         <h3>{post.title}</h3>
                       </div>
                     </Link>
@@ -366,35 +413,71 @@ export default async function HomePage() {
             </div>
 
             <aside className={styles.rightColumn}>
-              <div className={styles.panel}>
+              <div className={styles.recentMatchesCard}>
                 <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Výsledky</span>
-                  <h3>Posledné zápasy</h3>
+                  <div>
+                    <span className={styles.panelEyebrow}>Výsledky</span>
+                    <h3 className={styles.panelTitle}>Posledné zápasy</h3>
+                  </div>
                 </div>
 
-                <div className={styles.resultsList}>
+                <div className={styles.recentMatchesList}>
                   {results.length > 0 ? (
-                    results.slice(0, 5).map((result) => (
-                      <div key={result.id} className={styles.resultCard}>
-                        <div className={styles.resultTeams}>
-                          <strong>
-                            {result.is_home === false
-                              ? result.opponent
-                              : ownTeamName}
-                          </strong>
-                          <span>vs</span>
-                          <strong>
-                            {result.is_home === false
-                              ? ownTeamName
-                              : result.opponent}
-                          </strong>
+                    results.slice(0, 4).map((result) => {
+                      const resultMeta = getRecentResultMeta(result.result);
+
+                      return (
+                        <div key={result.id} className={styles.recentMatchCard}>
+                          <div className={styles.recentMatchTop}>
+                            <span
+                              className={`${styles.recentResultBadge} ${resultMeta.badgeClass}`}
+                            >
+                              {resultMeta.label}
+                            </span>
+
+                            <span className={styles.recentMatchDate}>
+                              {formatDate(result.match_date)}
+                            </span>
+                          </div>
+
+                          <div className={styles.recentTeams}>
+                            <div className={styles.recentTeamRow}>
+                              <span
+                                className={`${styles.recentTeamName} ${
+                                  result.is_home !== false ? styles.atuTeam : ""
+                                }`}
+                              >
+                                {result.is_home === false
+                                  ? result.opponent
+                                  : ownTeamName}
+                              </span>
+                            </div>
+
+                            <div className={styles.recentVsRow}>vs</div>
+
+                            <div className={styles.recentTeamRow}>
+                              <span
+                                className={`${styles.recentTeamName} ${
+                                  result.is_home === false ? styles.atuTeam : ""
+                                }`}
+                              >
+                                {result.is_home === false
+                                  ? ownTeamName
+                                  : result.opponent}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className={styles.recentScoreRow}>
+                            <span
+                              className={`${styles.recentScore} ${resultMeta.scoreClass}`}
+                            >
+                              {result.result || "—"}
+                            </span>
+                          </div>
                         </div>
-                        <div className={styles.resultScore}>
-                          {result.result}
-                        </div>
-                        <small>{formatDate(result.match_date)}</small>
-                      </div>
-                    ))
+                      );
+                    })
                   ) : (
                     <div className={styles.emptyPosts}>
                       Zatiaľ nie sú dostupné výsledky.
@@ -403,10 +486,12 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className={styles.panel}>
+              <div className={styles.sidePanel}>
                 <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Kategórie</span>
-                  <h3>Naše tímy</h3>
+                  <div>
+                    <span className={styles.panelEyebrow}>Kategórie</span>
+                    <h3 className={styles.panelTitle}>Naše tímy</h3>
+                  </div>
                 </div>
 
                 <div className={styles.categoryList}>
@@ -422,26 +507,51 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className={styles.panel}>
+              <div className={styles.sidePanel}>
                 <div className={styles.panelHeader}>
-                  <span className={styles.sectionEyebrow}>Partneri</span>
-                  <h3>Podporujú nás</h3>
+                  <div>
+                    <span className={styles.panelEyebrow}>Partneri</span>
+                    <h3 className={styles.panelTitle}>Podporujú nás</h3>
+                  </div>
                 </div>
 
-                <div className={styles.sponsorsGrid}>
-                  {sponsors.map((sponsor) => (
-                    <div key={sponsor} className={styles.sponsorCard}>
-                      {sponsor}
-                    </div>
-                  ))}
+                <div className={styles.partnerBoxes}>
+                  <div className={styles.partnerBox} />
+                  <div className={styles.partnerBox} />
+                  <div className={styles.partnerBox} />
+                  <div className={styles.partnerBox} />
                 </div>
               </div>
             </aside>
           </div>
         </section>
+
+        <section className={styles.bottomSection}>
+          <div className={styles.sponsorsSection}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <span className={styles.preTitle}>Sponzori</span>
+                <h2 className={styles.sectionTitle}>Podporujú náš klub</h2>
+              </div>
+            </div>
+
+            <p className={styles.sponsorsIntro}>
+              Ďakujeme partnerom a sponzorom, ktorí pomáhajú rozvíjať klub,
+              mládež a naše športové aktivity.
+            </p>
+
+            <div className={styles.sponsorsLogoGrid}>
+              {sponsors.map((sponsor) => (
+                <div key={sponsor} className={styles.sponsorLogoCard}>
+                  <div className={styles.sponsorLogoInner}>{sponsor}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
