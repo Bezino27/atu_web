@@ -20,14 +20,19 @@ export const metadata: Metadata = {
     "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
 };
 
+const partners = [
+  { name: "Fenega", logo: "/partners/fenega.png" },
+  { name: "Mesto Košice", logo: "/partners/kosice.png" },
+  { name: "TUKE", logo: "/partners/tuke.png" },
+  { name: "Setex", logo: "/partners/setex.png" },
+];
+
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
 
   const date = new Date(dateString);
 
-  if (Number.isNaN(date.getTime())) {
-    return "";
-  }
+  if (Number.isNaN(date.getTime())) return "";
 
   return date.toLocaleDateString("sk-SK", {
     day: "numeric",
@@ -56,18 +61,9 @@ function getStandingsRowClass(
   return classNames.join(" ");
 }
 
-function renderMatchTitle(match: SzfbMatch, ownTeamName: string) {
-  if (match.is_home === false) {
-    return `${match.opponent} vs ${ownTeamName}`;
-  }
-
-  return `${ownTeamName} vs ${match.opponent}`;
-}
-
 function getRecentResultMeta(result?: string | null) {
   if (!result || !result.includes(":")) {
     return {
-      isWin: false,
       label: "Zápas",
       badgeClass: styles.lossBadge,
       scoreClass: styles.lossScore,
@@ -78,7 +74,6 @@ function getRecentResultMeta(result?: string | null) {
 
   if (Number.isNaN(leftScore) || Number.isNaN(rightScore)) {
     return {
-      isWin: false,
       label: "Zápas",
       badgeClass: styles.lossBadge,
       scoreClass: styles.lossScore,
@@ -88,45 +83,48 @@ function getRecentResultMeta(result?: string | null) {
   const isWin = leftScore > rightScore;
 
   return {
-    isWin,
     label: isWin ? "Výhra" : "Prehra",
     badgeClass: isWin ? styles.winBadge : styles.lossBadge,
     scoreClass: isWin ? styles.winScore : styles.lossScore,
   };
 }
+
+function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
+  if (match.is_home === false) {
+    return {
+      leftTeam: match.opponent,
+      rightTeam: ownTeamName,
+    };
+  }
+
+  return {
+    leftTeam: ownTeamName,
+    rightTeam: match.opponent,
+  };
+}
+
 export default async function HomePage() {
   const [posts, szfbDashboard, clubSeason] = await Promise.all([
-  getHomepagePosts("atu-kosice"),
-  getSzfbDashboard(1),
-  getClubSeason("atu-kosice"),
-]);
+    getHomepagePosts("atu-kosice"),
+    getSzfbDashboard(1),
+    getClubSeason("atu-kosice"),
+  ]);
 
-const currentSeason = clubSeason?.season ?? "2025 / 2026";
+  const currentSeason = clubSeason?.season ?? "2025 / 2026";
+  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+  const competitionName = szfbDashboard?.watch?.competition_name || "SZFB súťaž";
 
-const heroArticle: Post | undefined = posts[0];
-const sideArticles: Post[] = posts.slice(1, 3);
-const latestPosts: Post[] = posts.slice(3);
+  const heroArticle: Post | undefined = posts[0];
+  const sideArticles: Post[] = posts.slice(1, 3);
+  const latestPosts: Post[] = posts.slice(3, 7);
 
-const standings: SzfbStandingRow[] = szfbDashboard?.standings ?? [];
-const results: SzfbMatch[] = szfbDashboard?.results ?? [];
-const nextMatches: SzfbMatch[] = szfbDashboard?.upcoming ?? [];
-const featuredMatch: SzfbMatch | null = nextMatches[0] ?? null;
+  const standings: SzfbStandingRow[] = szfbDashboard?.standings ?? [];
+  const results: SzfbMatch[] = szfbDashboard?.results ?? [];
+  const featuredMatch: SzfbMatch | null = szfbDashboard?.upcoming?.[0] ?? null;
 
-const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-const competitionName =
-  szfbDashboard?.watch?.competition_name || "SZFB súťaž";
-
-const featuredLeftTeam = featuredMatch
-  ? featuredMatch.is_home === false
-    ? featuredMatch.opponent
-    : ownTeamName
-  : "";
-
-const featuredRightTeam = featuredMatch
-  ? featuredMatch.is_home === false
-    ? ownTeamName
-    : featuredMatch.opponent
-  : "";
+  const featuredMatchTeams = featuredMatch
+    ? getMatchTeams(featuredMatch, ownTeamName)
+    : null;
 
   return (
     <div className={styles.pageContainer}>
@@ -134,7 +132,7 @@ const featuredRightTeam = featuredMatch
 
       <main className={styles.content}>
         {/* # TOP NEWS */}
-        <section className={`${styles.sectionContainer} ${styles.firstSection}`}>
+        <section className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <div>
               <span className={styles.preTitle}>Top obsah</span>
@@ -148,7 +146,7 @@ const featuredRightTeam = featuredMatch
             </Link>
           </div>
 
-          {heroArticle && (
+          {heroArticle ? (
             <div className={styles.topNewsGrid}>
               <Link
                 href={`/clanky/${heroArticle.slug}`}
@@ -179,7 +177,7 @@ const featuredRightTeam = featuredMatch
               </Link>
 
               <div className={styles.topNewsSide}>
-                {sideArticles.map((article: Post) => (
+                {sideArticles.map((article) => (
                   <Link
                     key={article.id}
                     href={`/clanky/${article.slug}`}
@@ -209,6 +207,8 @@ const featuredRightTeam = featuredMatch
                 ))}
               </div>
             </div>
+          ) : (
+            <div className={styles.emptyPosts}>Zatiaľ nie sú dostupné články.</div>
           )}
         </section>
 
@@ -258,7 +258,6 @@ const featuredRightTeam = featuredMatch
                                 {team.position}
                               </span>
                             </td>
-
                             <td>
                               <div className={styles.teamCell}>
                                 <span className={styles.tableTeamName}>
@@ -266,7 +265,6 @@ const featuredRightTeam = featuredMatch
                                 </span>
                               </div>
                             </td>
-
                             <td>{team.played}</td>
                             <td className={styles.pointsCell}>{team.points}</td>
                           </tr>
@@ -295,6 +293,7 @@ const featuredRightTeam = featuredMatch
                   {results.length > 0 ? (
                     results.slice(0, 4).map((result) => {
                       const resultMeta = getRecentResultMeta(result.result);
+                      const resultTeams = getMatchTeams(result, ownTeamName);
 
                       return (
                         <div key={result.id} className={styles.recentMatchCard}>
@@ -314,12 +313,12 @@ const featuredRightTeam = featuredMatch
                             <div className={styles.recentTeamRow}>
                               <span
                                 className={`${styles.recentTeamName} ${
-                                  result.is_home !== false ? styles.atuTeam : ""
+                                  resultTeams.leftTeam === ownTeamName
+                                    ? styles.atuTeam
+                                    : ""
                                 }`}
                               >
-                                {result.is_home === false
-                                  ? result.opponent
-                                  : ownTeamName}
+                                {resultTeams.leftTeam}
                               </span>
                             </div>
 
@@ -328,12 +327,12 @@ const featuredRightTeam = featuredMatch
                             <div className={styles.recentTeamRow}>
                               <span
                                 className={`${styles.recentTeamName} ${
-                                  result.is_home === false ? styles.atuTeam : ""
+                                  resultTeams.rightTeam === ownTeamName
+                                    ? styles.atuTeam
+                                    : ""
                                 }`}
                               >
-                                {result.is_home === false
-                                  ? ownTeamName
-                                  : result.opponent}
+                                {resultTeams.rightTeam}
                               </span>
                             </div>
                           </div>
@@ -358,6 +357,7 @@ const featuredRightTeam = featuredMatch
             </div>
           </div>
         </section>
+
         {/* # CLUB CONTENT */}
         <section className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
@@ -371,7 +371,7 @@ const featuredRightTeam = featuredMatch
             <div className={styles.clubPostsColumn}>
               {latestPosts.length > 0 ? (
                 <div className={styles.clubPostsGrid}>
-                  {latestPosts.slice(0, 4).map((post: Post) => (
+                  {latestPosts.map((post) => (
                     <Link
                       key={post.id}
                       href={`/clanky/${post.slug}`}
@@ -419,7 +419,7 @@ const featuredRightTeam = featuredMatch
                   </div>
                 </div>
 
-                {featuredMatch ? (
+                {featuredMatch && featuredMatchTeams ? (
                   <div className={styles.simpleMatchCard}>
                     <div className={styles.simpleMatchHeaderRow}>
                       <span className={styles.simpleLeagueBadge}>
@@ -432,9 +432,13 @@ const featuredRightTeam = featuredMatch
                     </div>
 
                     <div className={styles.simpleMatchTeamsRow}>
-                      <span className={styles.simpleTeamName}>{featuredLeftTeam}</span>
+                      <span className={styles.simpleTeamName}>
+                        {featuredMatchTeams.leftTeam}
+                      </span>
                       <span className={styles.simpleVs}>VS</span>
-                      <span className={styles.simpleTeamName}>{featuredRightTeam}</span>
+                      <span className={styles.simpleTeamName}>
+                        {featuredMatchTeams.rightTeam}
+                      </span>
                     </div>
 
                     <div className={styles.simpleMatchMetaRow}>
@@ -460,10 +464,36 @@ const featuredRightTeam = featuredMatch
                 )}
               </div>
             </aside>
-
           </div>
         </section>
+
         <PollSection />
+
+        {/* # PARTNERS */}
+        <section className={`${styles.sectionContainer} ${styles.partnersSection}`}>
+          <div className={styles.resultsHeader}>
+            <div>
+              <span className={styles.preTitle}>Partneri</span>
+              <h2 className={styles.sectionTitle}>Podporujú náš klub</h2>
+            </div>
+          </div>
+
+          <div className={styles.partnersCard}>
+            <div className={styles.partnersGrid}>
+              {partners.map((partner) => (
+                <div key={partner.name} className={styles.partnerLogoCell}>
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    width={260}
+                    height={110}
+                    className={styles.partnerLogo}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

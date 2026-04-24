@@ -31,20 +31,25 @@
   margin-bottom: 0;
 }
 
-.resultsHeader {
-  margin-bottom: 18px;
-}
 .sectionContainer:first-of-type {
   margin-top: 30px;
 }
 
-/* # SHARED SECTION TITLES */
+/* # SECTION HEADER */
+.resultsHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
   color: #84101a;
-  font-weight: 700;
   font-size: var(--font-section-eyebrow);
+  font-weight: 700;
   letter-spacing: 0.75px;
   text-transform: uppercase;
 }
@@ -55,19 +60,11 @@
   border-left: 6px solid #84101a;
   color: #111;
   font-family: var(--font-geist-sans);
-  font-weight: 850;
   font-size: var(--font-section-title);
+  font-weight: 850;
   line-height: 1.08;
   letter-spacing: -1.4px;
   text-align: left;
-}
-/* # SECTION HEADER */
-.resultsHeader {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
 }
 
 .sectionLink {
@@ -138,7 +135,8 @@
 }
 
 .topNewsMainImageWrap,
-.topNewsSmallImageWrap {
+.topNewsSmallImageWrap,
+.clubNewsImageWrap {
   position: absolute;
   inset: 0;
 }
@@ -161,19 +159,25 @@
 }
 
 .topNewsMainContent,
-.topNewsSmallContent {
+.topNewsSmallContent,
+.clubNewsContent {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  padding: 22px;
   box-sizing: border-box;
 }
 
+.topNewsMainContent,
+.topNewsSmallContent {
+  padding: 22px;
+}
+
 .topNewsMainContent h1,
-.topNewsSmallContent h3 {
+.topNewsSmallContent h3,
+.clubNewsContent h3 {
   margin: 10px 0 0;
   color: #ffffff;
   line-height: 1.08;
@@ -198,7 +202,7 @@
   font-weight: 800;
 }
 
-/* # TOP NEWS META */
+/* # META */
 .metaRow {
   display: flex;
   align-items: center;
@@ -236,8 +240,8 @@
   display: flex;
 }
 
-.tablePanel,
-.recentMatchesCard {
+.tableColumn > *,
+.matchesColumn > * {
   width: 100%;
   height: 100%;
 }
@@ -276,18 +280,19 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 22px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 28px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  border-radius: 28px;
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
     0 2px 8px rgba(15, 23, 42, 0.03);
-  padding: 22px;
-  box-sizing: border-box;
-  margin: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .tableWrap {
@@ -298,6 +303,15 @@
   border: 1px solid #e7edf4;
   background: #ffffff;
   -webkit-overflow-scrolling: touch;
+}
+
+.tableWrap::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrap::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.22);
+  border-radius: 999px;
 }
 
 .table {
@@ -321,12 +335,17 @@
   white-space: nowrap;
 }
 
-.table thead th:first-child {
+.table thead th:first-child,
+.table tbody td:first-child {
   width: 68px;
 }
 
-.table thead th:nth-child(2) {
+.table thead th:nth-child(2),
+.table tbody td:nth-child(2) {
   text-align: left;
+}
+
+.table thead th:nth-child(2) {
   min-width: 280px;
 }
 
@@ -341,14 +360,6 @@
   line-height: 1.42;
   text-align: center;
   transition: background 0.18s ease;
-}
-
-.table tbody td:first-child {
-  width: 68px;
-}
-
-.table tbody td:nth-child(2) {
-  text-align: left;
 }
 
 .table tbody tr:last-child td {
@@ -389,9 +400,9 @@
 }
 
 .pointsCell {
+  color: #0b1324;
   font-size: 1.04rem;
   font-weight: 900;
-  color: #0b1324;
 }
 
 .playoffRow td:first-child {
@@ -433,17 +444,18 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 28px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  border-radius: 28px;
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
     0 2px 8px rgba(15, 23, 42, 0.03);
-  padding: 22px;
-  box-sizing: border-box;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .recentMatchesList {
@@ -453,10 +465,10 @@
 }
 
 .recentMatchCard {
+  padding: 18px 18px 16px;
+  border-radius: 22px;
   background: linear-gradient(180deg, #f8f9fb 0%, #f4f5f7 100%);
   border: 1px solid #e8ebef;
-  border-radius: 22px;
-  padding: 18px 18px 16px;
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease,
@@ -465,8 +477,8 @@
 
 .recentMatchCard:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
   border-color: rgba(239, 68, 68, 0.18);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
 }
 
 .recentMatchTop {
@@ -540,10 +552,10 @@
 }
 
 .recentScoreRow {
-  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-top: 14px;
 }
 
 .recentScore {
@@ -561,12 +573,12 @@
   color: #84101a;
 }
 
-/* # EMPTY */
-.emptyPosts {
+/* # EMPTY STATES */
+.emptyPosts,
+.compactEmptyState {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
   padding: 24px;
   border-radius: 22px;
   background: #f8fafc;
@@ -575,6 +587,15 @@
   text-align: center;
   font-weight: 700;
 }
+
+.emptyPosts {
+  min-height: 180px;
+}
+
+.compactEmptyState {
+  min-height: 140px;
+}
+
 /* # CLUB CONTENT GRID */
 .clubContentGrid {
   display: grid;
@@ -589,7 +610,6 @@
   display: flex;
 }
 
-/* # CLUB NEWS */
 .clubPostsGrid {
   width: 100%;
   display: grid;
@@ -598,10 +618,12 @@
   align-content: start;
 }
 
+/* # CLUB NEWS */
 .clubNewsCard {
   position: relative;
   display: block;
   overflow: hidden;
+  min-height: 250px;
   border-radius: 28px;
   text-decoration: none;
   color: inherit;
@@ -612,7 +634,6 @@
   transition:
     transform 0.26s ease,
     box-shadow 0.26s ease;
-  min-height: 250px;
 }
 
 .clubNewsCard:hover {
@@ -622,25 +643,11 @@
     0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
-.clubNewsImageWrap {
-  position: absolute;
-  inset: 0;
-}
-
 .clubNewsContent {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .clubNewsContent h3 {
-  margin: 10px 0 0;
-  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 800;
   line-height: 1.14;
@@ -658,16 +665,16 @@
 .upcomingMatchesCard {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 28px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  border-radius: 28px;
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
     0 2px 8px rgba(15, 23, 42, 0.03);
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
 }
 
 .upcomingMatchesList {
@@ -675,7 +682,6 @@
   gap: 14px;
 }
 
-/* # SIMPLE MATCH CARD */
 /* # SIMPLE MATCH CARD */
 .simpleMatchCard {
   display: grid;
@@ -692,8 +698,8 @@
 
 .simpleMatchCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
   border-color: rgba(132, 16, 26, 0.12);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
 }
 
 .simpleMatchHeaderRow {
@@ -784,4 +790,542 @@
   font-weight: 600;
   line-height: 1.4;
   text-align: right;
+}
+
+/* # PARTNERS */
+.partnersSection {
+  width: 100%;
+}
+
+.partnersCard {
+  width: 100%;
+  padding: 32px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.partnerLogoCell {
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f4f6f8 100%);
+  border: 1px solid #e7edf4;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.partnerLogoCell:hover {
+  transform: translateY(-2px);
+  background: #fbfcfe;
+  border-color: rgba(132, 16, 26, 0.12);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+}
+
+.partnerLogo {
+  width: auto;
+  max-width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.partnerLogoLarge {
+  max-height: 110px;
+}
+
+/* # 1024 */
+@media (max-width: 1024px) {
+  .pageContainer {
+    --font-section-eyebrow: 15px;
+    --font-section-title: clamp(1.8rem, 3.4vw, 2.35rem);
+    --font-panel-title: clamp(1.15rem, 2.4vw, 1.4rem);
+    --font-body: 0.96rem;
+  }
+
+  .content {
+    gap: 48px;
+    padding-bottom: 46px;
+  }
+
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection {
+    padding: 0 14px;
+  }
+
+  .topNewsMain {
+    min-height: 440px;
+  }
+
+  .topNewsSmall {
+    min-height: 212px;
+  }
+
+  .overviewGrid,
+  .clubContentGrid {
+    gap: 18px;
+  }
+
+  .tablePanel,
+  .recentMatchesCard,
+  .upcomingMatchesCard {
+    padding: 20px;
+    border-radius: 26px;
+  }
+
+  .clubNewsCard {
+    min-height: 230px;
+    border-radius: 26px;
+  }
+
+  .partnerLogoCell {
+    min-height: 118px;
+  }
+
+  .partnerLogo {
+    max-height: 86px;
+  }
+}
+
+/* # 900 */
+@media (max-width: 900px) {
+  .overviewGrid,
+  .clubContentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topNewsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topNewsSide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: unset;
+  }
+
+  .partnersGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* # 768 */
+@media (max-width: 768px) {
+  .pageContainer {
+    --font-section-eyebrow: 12px;
+    --font-section-title: clamp(1.5rem, 5vw, 2rem);
+    --font-panel-title: clamp(1.05rem, 4vw, 1.25rem);
+    --font-body: 0.92rem;
+  }
+
+  .content {
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection {
+    padding: 0 10px;
+  }
+
+  .sectionContainer:first-of-type {
+    margin-top: 20px;
+  }
+
+  .resultsHeader {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .preTitle {
+    margin: 0 0 6px 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .sectionTitle {
+    padding-left: 10px;
+    border-left-width: 4px;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+
+  .sectionLink {
+    font-size: 0.92rem;
+  }
+
+  .topNewsMain {
+    min-height: 360px;
+    border-radius: 24px;
+  }
+
+  .topNewsSide {
+    gap: 14px;
+  }
+
+  .topNewsSmall {
+    min-height: 210px;
+    border-radius: 22px;
+  }
+
+  .topNewsMainContent,
+  .topNewsSmallContent,
+  .clubNewsContent {
+    padding: 18px;
+  }
+
+  .topNewsMainContent h1 {
+    font-size: clamp(1.65rem, 6vw, 2.25rem);
+  }
+
+  .topNewsMainContent p {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .badge {
+    min-height: 30px;
+    padding: 0 11px;
+    font-size: 0.76rem;
+  }
+
+  .tablePanel,
+  .recentMatchesCard,
+  .upcomingMatchesCard,
+  .partnersCard {
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
+
+  .panelHeader {
+    margin-bottom: 14px;
+  }
+
+  .tableWrap {
+    border-radius: 18px;
+  }
+
+  .table {
+    min-width: 530px;
+  }
+
+  .table thead th {
+    padding: 11px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+
+  .table thead th:first-child,
+  .table tbody td:first-child {
+    width: 54px;
+  }
+
+  .table thead th:nth-child(2) {
+    min-width: 220px;
+  }
+
+  .table tbody td {
+    padding: 12px 8px;
+    font-size: 0.83rem;
+  }
+
+  .positionBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    font-size: 0.76rem;
+  }
+
+  .pointsCell {
+    font-size: 0.9rem;
+  }
+
+  .recentMatchesList {
+    gap: 12px;
+  }
+
+  .recentMatchCard,
+  .simpleMatchCard {
+    border-radius: 18px;
+    padding: 14px;
+  }
+
+  .recentMatchTop {
+    margin-bottom: 12px;
+  }
+
+  .recentResultBadge {
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 0.72rem;
+  }
+
+  .recentScore {
+    font-size: 1.75rem;
+  }
+
+  .clubPostsGrid {
+    gap: 14px;
+  }
+
+  .clubNewsCard {
+    min-height: 215px;
+    border-radius: 22px;
+  }
+
+  .simpleLeagueBadge {
+    max-width: 70%;
+    min-height: 24px;
+    padding: 0 9px;
+    font-size: 0.62rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .simpleTeamName {
+    font-size: 0.95rem;
+  }
+
+  .simpleMatchMetaRow {
+    gap: 12px;
+  }
+
+  .partnersGrid {
+    gap: 14px;
+  }
+
+  .partnerLogoCell {
+    min-height: 112px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .partnerLogo {
+    max-height: 78px;
+  }
+}
+
+/* # 560 */
+@media (max-width: 560px) {
+  .topNewsSide,
+  .clubPostsGrid,
+  .partnersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topNewsSmall,
+  .clubNewsCard {
+    min-height: 220px;
+  }
+
+  .resultsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sectionLink {
+    margin-left: 18px;
+  }
+}
+
+/* # 480 */
+@media (max-width: 480px) {
+  .pageContainer {
+    --font-section-eyebrow: 11px;
+    --font-section-title: clamp(1.25rem, 6vw, 1.55rem);
+    --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
+    --font-body: 0.86rem;
+  }
+
+  .content {
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection {
+    padding: 0 8px;
+  }
+
+  .sectionContainer:first-of-type {
+    margin-top: 16px;
+  }
+
+  .preTitle {
+    margin: 0 0 5px 10px;
+    letter-spacing: 1.1px;
+  }
+
+  .sectionTitle {
+    padding-left: 8px;
+    border-left-width: 3px;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+  }
+
+  .sectionLink {
+    margin-left: 10px;
+    font-size: 0.86rem;
+  }
+
+  .topNewsMain {
+    min-height: 300px;
+    border-radius: 20px;
+  }
+
+  .topNewsSmall,
+  .clubNewsCard {
+    min-height: 200px;
+    border-radius: 18px;
+  }
+
+  .topNewsMainContent,
+  .topNewsSmallContent,
+  .clubNewsContent {
+    padding: 14px;
+  }
+
+  .topNewsMainContent h1 {
+    font-size: clamp(1.35rem, 7vw, 1.8rem);
+  }
+
+  .topNewsSmallContent h3,
+  .clubNewsContent h3 {
+    font-size: 1rem;
+  }
+
+  .topNewsMainContent p {
+    display: none;
+  }
+
+  .badge {
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 0.66rem;
+  }
+
+  .tablePanel,
+  .recentMatchesCard,
+  .upcomingMatchesCard,
+  .partnersCard {
+    padding: 14px 12px;
+    border-radius: 20px;
+  }
+
+  .panelHeader {
+    margin-bottom: 12px;
+  }
+
+  .tableWrap {
+    border-radius: 16px;
+  }
+
+  .table {
+    min-width: 490px;
+  }
+
+  .table thead th {
+    padding: 10px 7px;
+  }
+
+  .table tbody td {
+    padding: 11px 7px;
+    font-size: 0.75rem;
+  }
+
+  .positionBadge {
+    width: 25px;
+    height: 25px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+  }
+
+  .pointsCell {
+    font-size: 0.8rem;
+  }
+
+  .recentMatchCard,
+  .simpleMatchCard {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .recentMatchTop {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .recentMatchDate {
+    text-align: left;
+  }
+
+  .recentScore {
+    font-size: 1.55rem;
+  }
+
+  .simpleMatchHeaderRow {
+    align-items: flex-start;
+  }
+
+  .simpleMatchTeamsRow {
+    gap: 8px;
+  }
+
+  .simpleTeamName {
+    font-size: 0.86rem;
+    line-height: 1.22;
+  }
+
+  .simpleVs {
+    font-size: 0.74rem;
+  }
+
+  .simpleMatchMetaRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .simpleMatchMetaItemRight {
+    align-items: flex-start;
+  }
+
+  .simpleMatchMetaValueRight {
+    text-align: left;
+  }
+
+  .partnerLogoCell {
+    min-height: 100px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .partnerLogo {
+    max-height: 68px;
+  }
+
+  .emptyPosts,
+  .compactEmptyState {
+    min-height: 130px;
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
 }

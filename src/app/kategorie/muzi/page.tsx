@@ -106,11 +106,13 @@ export default async function MuziPage() {
 
           <Novinky posts={muziPosts} />
         </section>
-
+        {/* # OVERVIEW */}
         <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
-            <span className={styles.preTitle}>Liga</span>
-            <h2 className={styles.sectionTitle}>Výsledky</h2>
+            <div>
+              <span className={styles.preTitle}>Liga</span>
+              <h2 className={styles.sectionTitle}>Výsledky</h2>
+            </div>
           </div>
 
           <div className={styles.overviewGrid}>
