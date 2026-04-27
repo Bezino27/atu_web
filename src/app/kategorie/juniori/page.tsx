@@ -11,6 +11,8 @@ import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getClubSeason } from "../../lib/season";
+
 
 export default async function JunioriPage() {
   const [szfbDashboard, nextMatchResponse] = await Promise.all([
@@ -28,6 +30,12 @@ export default async function JunioriPage() {
   const standings = szfbDashboard?.standings ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const nextMatch = nextMatchResponse?.next_match ?? null;
+const [clubSeason] = await Promise.all([
+
+  getClubSeason("atu-kosice"),
+]);
+
+const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -63,6 +71,10 @@ export default async function JunioriPage() {
                     Hráči
                   </a>
                 </div>
+              </div>
+              <div className={styles.heroMiniInfo}>
+                <span className={styles.heroMiniLabel}>Sezóna</span>
+                <span className={styles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>

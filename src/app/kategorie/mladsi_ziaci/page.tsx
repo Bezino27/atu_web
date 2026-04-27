@@ -8,6 +8,7 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_mladsi_ziaci";
 import Nabor from "./components/nabor";
+import { getClubSeason } from "../../lib/season";
 
 const MladsiZiaciPage = async () => {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
@@ -31,6 +32,13 @@ const MladsiZiaciPage = async () => {
       href: "https://www.szfb.sk/sk/stats/results-date/1178",
     },
   ];
+  const [clubSeason] = await Promise.all([
+  
+    getClubSeason("atu-kosice"),
+  ]);
+  
+  const currentSeason = clubSeason?.season ?? "2025 / 2026";
+  
 
   return (
     <div className={styles.pageContainer}>
@@ -64,7 +72,12 @@ const MladsiZiaciPage = async () => {
                   </a>
                 </div>
               </div>
+               <div className={styles.heroMiniInfo}>
+                <span className={styles.heroMiniLabel}>Sezóna</span>
+                <span className={styles.heroMiniValue}>{currentSeason}</span>
+               </div>
             </div>
+  
           </div>
         </section>
 

@@ -8,6 +8,7 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_pripravka";
 import Nabor from "./components/nabor";
+import { getClubSeason } from "../../lib/season";
 
 const PripravkaPage = async () => {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
@@ -27,6 +28,12 @@ const PripravkaPage = async () => {
       href: "https://www.szfb.sk/sk/stats/results-date/1178",
     },
   ];
+const [clubSeason] = await Promise.all([
+
+  getClubSeason("atu-kosice"),
+]);
+
+const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -46,7 +53,7 @@ const PripravkaPage = async () => {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>Prípravka</h1>
+                <h1 className={styles.bannerTitleziaci}>Starší žiaci</h1>
 
                 <div className={styles.heroQuickNav}>
                   <a href="#odkazy" className={styles.heroQuickLink}>
@@ -59,6 +66,11 @@ const PripravkaPage = async () => {
                     Novinky
                   </a>
                 </div>
+              </div>
+
+              <div className={styles.heroMiniInfo}>
+                <span className={styles.heroMiniLabel}>Sezóna</span>
+                <span className={styles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>

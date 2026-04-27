@@ -8,6 +8,8 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_dorast";
 import Nabor from "./components/nabor";
+import { getClubSeason } from "../../lib/season";
+
 
 const DorastPage = async () => {
   const posts: Post[] = await getHomepagePosts("atu-kosice");
@@ -21,6 +23,12 @@ const DorastPage = async () => {
       categoryName === "mladez"
     );
   });
+const [clubSeason] = await Promise.all([
+
+  getClubSeason("atu-kosice"),
+]);
+
+const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   const szfbLinks = [
     {
@@ -68,6 +76,10 @@ const DorastPage = async () => {
                     Novinky
                   </a>
                 </div>
+              </div>
+              <div className={styles.heroMiniInfo}>
+                <span className={styles.heroMiniLabel}>Sezóna</span>
+                <span className={styles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>
