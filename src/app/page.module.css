@@ -853,14 +853,14 @@
 @media (max-width: 1024px) {
   .pageContainer {
     --font-section-eyebrow: 15px;
-    --font-section-title: clamp(1.8rem, 3.4vw, 2.35rem);
-    --font-panel-title: clamp(1.15rem, 2.4vw, 1.4rem);
+    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
+    --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
     --font-body: 0.96rem;
   }
 
   .content {
     gap: 48px;
-    padding-bottom: 46px;
+    padding-bottom: 48px;
   }
 
   .sectionContainer,
@@ -869,12 +869,32 @@
     padding: 0 14px;
   }
 
+  .sectionContainer:first-of-type {
+    margin-top: 26px;
+  }
+
+  .resultsHeader {
+    margin-bottom: 18px;
+  }
+
+  .topNewsGrid {
+    gap: 16px;
+  }
+
   .topNewsMain {
     min-height: 440px;
+    border-radius: 26px;
   }
 
   .topNewsSmall {
     min-height: 212px;
+    border-radius: 26px;
+  }
+
+  .topNewsMainContent,
+  .topNewsSmallContent,
+  .clubNewsContent {
+    padding: 20px;
   }
 
   .overviewGrid,
@@ -884,9 +904,52 @@
 
   .tablePanel,
   .recentMatchesCard,
-  .upcomingMatchesCard {
+  .upcomingMatchesCard,
+  .partnersCard {
     padding: 20px;
     border-radius: 26px;
+  }
+
+  .tableWrap {
+    border-radius: 22px;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .table thead th {
+    padding: 13px 10px;
+  }
+
+  .table tbody td {
+    padding: 14px 10px;
+    font-size: 0.88rem;
+  }
+
+  .positionBadge {
+    width: 31px;
+    height: 31px;
+    border-radius: 11px;
+    font-size: 0.8rem;
+  }
+
+  .pointsCell {
+    font-size: 0.96rem;
+  }
+
+  .recentMatchCard,
+  .simpleMatchCard {
+    border-radius: 20px;
+    padding: 16px;
+  }
+
+  .recentScore {
+    font-size: 1.95rem;
+  }
+
+  .clubPostsGrid {
+    gap: 16px;
   }
 
   .clubNewsCard {
@@ -894,8 +957,17 @@
     border-radius: 26px;
   }
 
+  .simpleMatchCard {
+    gap: 16px;
+  }
+
+  .simpleTeamName {
+    font-size: 1rem;
+  }
+
   .partnerLogoCell {
     min-height: 118px;
+    border-radius: 20px;
   }
 
   .partnerLogo {
@@ -905,18 +977,27 @@
 
 /* # 900 */
 @media (max-width: 900px) {
+  .topNewsGrid,
   .overviewGrid,
   .clubContentGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .topNewsGrid {
     grid-template-columns: 1fr;
   }
 
   .topNewsSide {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: unset;
+  }
+
+  .overviewGrid,
+  .clubContentGrid {
+    gap: 18px;
+  }
+
+  .tableColumn,
+  .matchesColumn,
+  .clubPostsColumn,
+  .clubMatchesColumn {
+    display: block;
   }
 
   .partnersGrid {
@@ -929,10 +1010,18 @@
   .pageContainer {
     --font-section-eyebrow: 12px;
     --font-section-title: clamp(1.5rem, 5vw, 2rem);
-    --font-panel-title: clamp(1.05rem, 4vw, 1.25rem);
+    --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
     --font-body: 0.92rem;
   }
+  .recentMatchesList,
+  .upcomingMatchesList {
+    gap: 12px;
+  }
 
+  /* # MOBILE LIMIT RECENT MATCHES */
+  .recentMatchesList .recentMatchCard:nth-of-type(n + 2) {
+    display: none;
+  }
   .content {
     gap: 40px;
     padding-bottom: 40px;
@@ -951,23 +1040,27 @@
   .resultsHeader {
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .preTitle {
     margin: 0 0 6px 12px;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.4px;
   }
 
   .sectionTitle {
     padding-left: 10px;
     border-left-width: 4px;
-    line-height: 1.14;
+    line-height: 1.15;
     letter-spacing: -0.8px;
   }
 
   .sectionLink {
     font-size: 0.92rem;
+  }
+
+  .topNewsGrid {
+    gap: 14px;
   }
 
   .topNewsMain {
@@ -989,14 +1082,29 @@
   .clubNewsContent {
     padding: 18px;
   }
+  /* # MOBILE HIDDEN CLUB POSTS */
+  .clubContentHeader,
+  .clubPostsColumn {
+    display: none;
+  }
 
+  .clubContentGrid {
+    grid-template-columns: 1fr;
+  }
   .topNewsMainContent h1 {
     font-size: clamp(1.65rem, 6vw, 2.25rem);
+    line-height: 1.08;
   }
 
   .topNewsMainContent p {
     font-size: 0.9rem;
     line-height: 1.45;
+  }
+
+  .topNewsSmallContent h3,
+  .clubNewsContent h3 {
+    font-size: 1.05rem;
+    line-height: 1.12;
   }
 
   .badge {
@@ -1015,6 +1123,10 @@
 
   .panelHeader {
     margin-bottom: 14px;
+  }
+
+  .panelEyebrow {
+    font-size: 0.68rem;
   }
 
   .tableWrap {
@@ -1052,13 +1164,15 @@
     font-size: 0.76rem;
   }
 
+  .tableTeamName {
+    font-size: 0.84rem;
+  }
+
   .pointsCell {
     font-size: 0.9rem;
   }
 
-  .recentMatchesList {
-    gap: 12px;
-  }
+
 
   .recentMatchCard,
   .simpleMatchCard {
@@ -1076,6 +1190,18 @@
     font-size: 0.72rem;
   }
 
+  .recentMatchDate {
+    font-size: 0.8rem;
+  }
+
+  .recentTeamName {
+    font-size: 0.92rem;
+  }
+
+  .recentVsRow {
+    font-size: 0.78rem;
+  }
+
   .recentScore {
     font-size: 1.75rem;
   }
@@ -1089,6 +1215,10 @@
     border-radius: 22px;
   }
 
+  .simpleMatchCard {
+    gap: 14px;
+  }
+
   .simpleLeagueBadge {
     max-width: 70%;
     min-height: 24px;
@@ -1099,12 +1229,32 @@
     white-space: nowrap;
   }
 
+  .simpleMatchTimeTop {
+    font-size: 0.92rem;
+  }
+
+  .simpleMatchTeamsRow {
+    gap: 12px;
+  }
+
   .simpleTeamName {
     font-size: 0.95rem;
   }
 
+  .simpleVs {
+    font-size: 0.82rem;
+  }
+
   .simpleMatchMetaRow {
     gap: 12px;
+  }
+
+  .simpleMatchMetaValue {
+    font-size: 0.82rem;
+  }
+
+  .simpleMatchMetaValueRight {
+    font-size: 0.8rem;
   }
 
   .partnersGrid {
@@ -1120,10 +1270,25 @@
   .partnerLogo {
     max-height: 78px;
   }
+
+  .emptyPosts,
+  .compactEmptyState {
+    border-radius: 20px;
+  }
 }
 
 /* # 560 */
 @media (max-width: 560px) {
+  .resultsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sectionLink {
+    margin-left: 18px;
+  }
+
   .topNewsSide,
   .clubPostsGrid,
   .partnersGrid {
@@ -1135,13 +1300,12 @@
     min-height: 220px;
   }
 
-  .resultsHeader {
-    flex-direction: column;
+  .simpleMatchHeaderRow {
     align-items: flex-start;
   }
 
-  .sectionLink {
-    margin-left: 18px;
+  .simpleMatchTeamsRow {
+    gap: 10px;
   }
 }
 
@@ -1149,7 +1313,7 @@
 @media (max-width: 480px) {
   .pageContainer {
     --font-section-eyebrow: 11px;
-    --font-section-title: clamp(1.25rem, 6vw, 1.55rem);
+    --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
     --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
     --font-body: 0.86rem;
   }
@@ -1167,6 +1331,10 @@
 
   .sectionContainer:first-of-type {
     margin-top: 16px;
+  }
+
+  .resultsHeader {
+    margin-bottom: 14px;
   }
 
   .preTitle {
@@ -1205,15 +1373,21 @@
 
   .topNewsMainContent h1 {
     font-size: clamp(1.35rem, 7vw, 1.8rem);
+    line-height: 1.1;
   }
 
   .topNewsSmallContent h3,
   .clubNewsContent h3 {
     font-size: 1rem;
+    line-height: 1.14;
   }
 
   .topNewsMainContent p {
     display: none;
+  }
+
+  .metaRow {
+    gap: 8px;
   }
 
   .badge {
@@ -1232,6 +1406,11 @@
 
   .panelHeader {
     margin-bottom: 12px;
+  }
+
+  .panelEyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
   }
 
   .tableWrap {
@@ -1258,6 +1437,14 @@
     font-size: 0.7rem;
   }
 
+  .teamCell {
+    min-height: 30px;
+  }
+
+  .tableTeamName {
+    font-size: 0.8rem;
+  }
+
   .pointsCell {
     font-size: 0.8rem;
   }
@@ -1276,14 +1463,39 @@
 
   .recentMatchDate {
     text-align: left;
+    font-size: 0.74rem;
+  }
+
+  .recentTeamName {
+    font-size: 0.86rem;
+  }
+
+  .recentVsRow {
+    font-size: 0.74rem;
   }
 
   .recentScore {
     font-size: 1.55rem;
   }
 
+  .simpleMatchCard {
+    gap: 12px;
+  }
+
   .simpleMatchHeaderRow {
     align-items: flex-start;
+    gap: 10px;
+  }
+
+  .simpleLeagueBadge {
+    max-width: 72%;
+    min-height: 22px;
+    padding: 0 8px;
+    font-size: 0.56rem;
+  }
+
+  .simpleMatchTimeTop {
+    font-size: 0.86rem;
   }
 
   .simpleMatchTeamsRow {
@@ -1302,13 +1514,19 @@
   .simpleMatchMetaRow {
     grid-template-columns: 1fr;
     gap: 8px;
+    padding-top: 12px;
   }
 
   .simpleMatchMetaItemRight {
     align-items: flex-start;
   }
 
+  .simpleMatchMetaValue {
+    font-size: 0.78rem;
+  }
+
   .simpleMatchMetaValueRight {
+    font-size: 0.76rem;
     text-align: left;
   }
 
@@ -1322,10 +1540,15 @@
     max-height: 68px;
   }
 
+  .partnerLogoLarge {
+    max-height: 76px;
+  }
+
   .emptyPosts,
   .compactEmptyState {
     min-height: 130px;
     padding: 18px 14px;
     border-radius: 18px;
+    font-size: 0.86rem;
   }
 }

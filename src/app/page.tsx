@@ -360,7 +360,7 @@ export default async function HomePage() {
 
         {/* # CLUB CONTENT */}
         <section className={styles.sectionContainer}>
-          <div className={styles.resultsHeader}>
+          <div className={`${styles.resultsHeader} ${styles.clubContentHeader}`}>
             <div>
               <span className={styles.preTitle}>Klubový obsah</span>
               <h2 className={styles.sectionTitle}>Ďalšie novinky a články</h2>

@@ -105,7 +105,6 @@
 
 
 /* # HERO */
-/* # HERO */
 .heroSection {
   width: 100%;
   max-width: 1300px;
@@ -180,7 +179,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 0px;
   padding-right: 20px;
 }
 
@@ -1433,7 +1432,7 @@
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* # 1100 / 1000 / 900 */
+/* # 1100 */
 @media (max-width: 1100px) {
   .novinkyGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1461,7 +1460,9 @@
     --font-section-eyebrow: 15px;
     --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
     --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
+
     --font-card-title: 19px;
+    --font-card-title-sm: 17px;
     --font-player-name: clamp(1.4rem, 1.8vw, 1.7rem);
     --font-goalie-name: clamp(1.3rem, 1.7vw, 1.65rem);
     --font-team-name: 1rem;
@@ -1473,6 +1474,7 @@
     --font-meta: 0.84rem;
     --font-meta-sm: 0.82rem;
     --font-badge: 0.69rem;
+    --font-badge-sm: 10px;
     --font-stat-value: 1.1rem;
     --font-stat-label: 0.8rem;
     --font-number-display: clamp(3.8rem, 6vw, 5.4rem);
@@ -1516,7 +1518,7 @@
   }
 
   .bannerTitle {
-    margin: 0 0 0;
+    margin: 0;
     font-size: clamp(3.4rem, 9vw, 5.8rem);
     line-height: 0.9;
     letter-spacing: -3px;
@@ -1668,7 +1670,6 @@
 
 /* # 1000 */
 @media (max-width: 1000px) {
-  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
   }
@@ -1676,13 +1677,11 @@
 
 /* # 900 */
 @media (max-width: 900px) {
-  /* # OVERVIEW */
   .overviewGrid {
     grid-template-columns: 1fr;
     gap: 18px;
   }
 
-  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -1727,7 +1726,9 @@
     --font-section-eyebrow: 12px;
     --font-section-title: clamp(1.5rem, 5vw, 2rem);
     --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
+
     --font-card-title: 18px;
+    --font-card-title-sm: 16px;
     --font-player-name: 1.6rem;
     --font-goalie-name: 1.45rem;
     --font-team-name: 0.82rem;
@@ -1743,6 +1744,7 @@
     --font-stat-value: 1.04rem;
     --font-stat-label: 0.78rem;
     --font-number-display: clamp(3.5rem, 14vw, 5.2rem);
+    --font-score: 1.75rem;
   }
 
   .content {
@@ -1773,7 +1775,7 @@
 
   .heroTextContent {
     max-width: 100%;
-    gap: 10px;
+    gap: 8px;
     padding-right: 0;
   }
 
@@ -1795,10 +1797,13 @@
 
   .bannerTitleziaci {
     margin: 32px 0 0;
-    font-size: clamp(2rem, 8.8vw, 3.4rem);
+    max-width: 100%;
+    font-size: clamp(1.9rem, 8.8vw, 3.4rem);
     line-height: 0.98;
-    letter-spacing: 0.015em;
+    letter-spacing: 0.01em;
     white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   .heroDescription {
@@ -1807,20 +1812,28 @@
   }
 
   .heroQuickNav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: 8px;
     margin-top: 4px;
+    flex-wrap: wrap;
   }
 
-  .heroQuickLink,
+  .heroQuickLink {
+    display: none;
+  }
+
   .heroMiniInfo {
+    display: inline-flex;
+    flex: 0 0 auto;
     min-width: unset;
     min-height: 32px;
-    padding: 0 12px;
+    padding: 0 13px;
+    gap: 7px;
+    border-radius: 999px;
     font-size: 0.72rem;
-  }
-
-  .heroMiniInfo {
-    gap: 6px;
     white-space: nowrap;
   }
 
@@ -2082,7 +2095,7 @@
   }
 
   .recentScore {
-    font-size: 1.75rem;
+    font-size: var(--font-score);
   }
 
   /* # LEADERS */
@@ -2140,37 +2153,48 @@
   }
 
   /* # NABOR */
+  .naborCard {
+    border-radius: 24px;
+  }
+
   .naborContent {
-    padding: 16px;
-    gap: 14px;
+    padding: 18px;
+    gap: 16px;
   }
 
   .naborTopRow {
+    flex-direction: column;
+    align-items: stretch;
     gap: 12px;
   }
 
   .naborTextWrap {
-    flex: 1 1 100%;
+    flex: 1 1 auto;
+    width: 100%;
   }
 
   .naborDescription {
-    line-height: 1.55;
     max-width: 100%;
+    line-height: 1.55;
   }
 
   .naborPrimaryButton {
+    width: 100%;
     min-height: 42px;
     padding: 0 16px;
   }
 
   .naborInfoGrid {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 10px;
   }
 
   .naborInfoItem {
+    width: 100%;
+    min-height: unset;
     padding: 14px 16px;
     border-radius: 16px;
-    flex: 1 1 calc(50% - 10px);
   }
 }
 
@@ -2195,6 +2219,9 @@
   .bannerTitleziaci {
     font-size: clamp(1.7rem, 9vw, 3rem);
     letter-spacing: -0.5px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   /* # COUNTDOWN */
@@ -2207,11 +2234,6 @@
     padding: 10px 12px;
     gap: 6px;
   }
-
-  /* # NABOR */
-  .naborInfoItem {
-    flex: 1 1 100%;
-  }
 }
 
 /* # 480 */
@@ -2221,7 +2243,9 @@
     --font-section-eyebrow: 11px;
     --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
     --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
+
     --font-card-title: 16px;
+    --font-card-title-sm: 15px;
     --font-player-name: 1.45rem;
     --font-goalie-name: 1.4rem;
     --font-team-name: 0.85rem;
@@ -2237,6 +2261,7 @@
     --font-stat-value: 1rem;
     --font-stat-label: 0.76rem;
     --font-number-display: clamp(3.2rem, 16vw, 4.8rem);
+    --font-score: 1.55rem;
   }
 
   .content {
@@ -2285,7 +2310,7 @@
   }
 
   .heroTextContent {
-    gap: 8px;
+    gap: 0;
     padding-right: 0;
   }
 
@@ -2307,10 +2332,13 @@
 
   .bannerTitleziaci {
     margin: 26px 0 0;
+    max-width: 100%;
     font-size: clamp(1.45rem, 8.4vw, 2.25rem);
     line-height: 1.02;
     letter-spacing: 0.01em;
     white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   .heroDescription {
@@ -2319,19 +2347,24 @@
   }
 
   .heroQuickNav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: 6px;
+    flex-wrap: wrap;
   }
 
-  .heroQuickLink,
+  .heroQuickLink {
+    display: none;
+  }
+
   .heroMiniInfo {
     min-height: 28px;
     padding: 0 10px;
+    gap: 5px;
     border-radius: 999px;
     font-size: 0.64rem;
-  }
-
-  .heroMiniInfo {
-    gap: 5px;
     white-space: nowrap;
   }
 
@@ -2526,7 +2559,7 @@
   }
 
   .recentScore {
-    font-size: 1.55rem;
+    font-size: var(--font-score);
   }
 
   /* # LEADERS */
@@ -2587,17 +2620,24 @@
   }
 
   /* # NABOR */
+  .naborCard {
+    border-radius: 20px;
+  }
+
   .naborContent {
     padding: 14px;
     gap: 12px;
   }
 
   .naborTopRow {
+    flex-direction: column;
+    align-items: stretch;
     gap: 10px;
   }
 
   .naborTextWrap {
-    flex: 1 1 100%;
+    flex: 1 1 auto;
+    width: 100%;
   }
 
   .naborDescription {
@@ -2606,15 +2646,17 @@
 
   .naborPrimaryButton {
     width: 100%;
+    min-height: 42px;
   }
 
   .naborInfoGrid {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 10px;
   }
 
   .naborInfoItem {
-    flex: 1 1 100%;
+    width: 100%;
     padding: 12px 14px;
     border-radius: 14px;
   }
@@ -2648,7 +2690,12 @@
 
   .bannerTitleziaci {
     margin-top: 22px;
+    max-width: 100%;
     font-size: clamp(1.2rem, 8vw, 1.9rem);
+    line-height: 1.02;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 
   .heroDescription {
@@ -2656,7 +2703,10 @@
     line-height: 1.32;
   }
 
-  .heroQuickLink,
+  .heroQuickLink {
+    display: none;
+  }
+
   .heroMiniInfo {
     min-height: 26px;
     padding: 0 8px;

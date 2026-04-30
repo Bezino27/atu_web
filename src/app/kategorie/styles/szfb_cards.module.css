@@ -84,36 +84,56 @@
   font-size: 0.92rem;
   font-weight: 600;
 }
-
-@media (max-width: 1000px) {
+/* # 1024 */
+@media (max-width: 1024px) {
   .szfbGrid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .szfbCard {
     min-height: unset;
+    padding: 20px;
+    border-radius: 26px;
+  }
+
+  .szfbCardTop {
+    margin-bottom: 16px;
+  }
+
+  .szfbCardTitle {
+    margin-bottom: 16px;
+    font-size: 1.08rem;
+    line-height: 1.18;
+  }
+
+  .szfbCardLink {
+    font-size: 0.88rem;
   }
 }
 
-@media (max-width: 640px) {
+/* # 768 */
+@media (max-width: 768px) {
   .szfbGrid {
-    gap: 12px;
+    gap: 14px;
   }
 
   .szfbCard {
-    min-height: 112px;
-    padding: 15px 14px;
-    border-radius: 18px;
+    min-height: 116px;
+    padding: 16px 14px;
+    border-radius: 22px;
   }
 
   .szfbCardTop {
     margin-bottom: 12px;
+    gap: 10px;
   }
 
   .szfbBadge {
     min-height: 24px;
     padding: 0 10px;
-    font-size: 0.66rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
   }
 
   .szfbArrow {
@@ -122,27 +142,50 @@
 
   .szfbCardTitle {
     margin-bottom: 12px;
-    font-size: 0.98rem;
+    font-size: 0.96rem;
     line-height: 1.18;
   }
 
   .szfbCardLink {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
 }
 
-@media (max-width: 420px) {
+/* # 480 */
+@media (max-width: 480px) {
+  .szfbGrid {
+    gap: 12px;
+  }
+
   .szfbCard {
     min-height: 104px;
-    padding: 14px 13px;
-    border-radius: 16px;
+    padding: 14px 12px;
+    border-radius: 20px;
+  }
+
+  .szfbCardTop {
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .szfbBadge {
+    min-height: 22px;
+    padding: 0 8px;
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+  }
+
+  .szfbArrow {
+    font-size: 0.95rem;
   }
 
   .szfbCardTitle {
-    font-size: 0.92rem;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    line-height: 1.16;
   }
 
   .szfbCardLink {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 }
