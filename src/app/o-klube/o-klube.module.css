@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
-  background: #ffffff;
-  color: #111;
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 
 .content {
@@ -23,14 +23,12 @@
   margin-bottom: 24px;
 }
 
-/* =========================
-   UNIFIED TITLES
-========================= */
+/* # UNIFIED TITLES */
 
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
-  color: #84101a;
+  color: var(--color-text-muted);
   font-weight: 700;
   font-size: 16px;
   letter-spacing: 0.75px;
@@ -40,8 +38,8 @@
 .sectionTitle {
   margin: 0;
   padding-left: 12px;
-  border-left: 6px solid #84101a;
-  color: #111;
+  border-left: 6px solid var(--color-text-subtle);
+  color: var(--color-text);
   font-family: var(--font-geist-sans);
   font-weight: 850;
   font-size: clamp(2rem, 3.8vw, 2.8rem);
@@ -50,9 +48,7 @@
   text-align: left;
 }
 
-/* =========================
-   HERO
-========================= */
+/* # HERO */
 
 .heroCard {
   display: grid;
@@ -60,8 +56,8 @@
   gap: 22px;
   padding: 22px;
   border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 28px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.06);
   align-items: stretch;
 }
@@ -85,8 +81,8 @@
 
 .infoCard {
   padding: 16px 18px;
-  border-radius: 18px;
-  background: #f8f9fa;
+  border-radius: var(--radius-lg);
+  background: var(--color-page);
   border: 1px solid rgba(17, 17, 17, 0.05);
   transition:
     transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
@@ -101,16 +97,16 @@
 }
 
 .infoCardHighlight:hover {
-  background: #ffffff;
-  border-color: rgba(230, 57, 70, 0.24);
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
   transform: translateX(8px);
-  box-shadow: 0 14px 30px rgba(230, 57, 70, 0.1);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .infoCardLabel {
   display: block;
   margin-bottom: 8px;
-  color: #84101a;
+  color: var(--color-text-muted);
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -119,7 +115,7 @@
 
 .infoCardValue {
   display: block;
-  color: #111;
+  color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 850;
   line-height: 1.2;
@@ -127,14 +123,12 @@
 
 .infoCardText {
   margin: 8px 0 0;
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.58;
 }
 
-/* =========================
-   MAP
-========================= */
+/* # MAP */
 
 .venueMapWrap {
   min-width: 0;
@@ -147,9 +141,9 @@
   overflow: hidden;
   min-height: 430px;
   height: 100%;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(17, 17, 17, 0.08);
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow:
     0 20px 40px rgba(15, 23, 42, 0.1),
     0 6px 18px rgba(15, 23, 42, 0.05);
@@ -197,8 +191,8 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background-color: #fff !important;
-  color: #111 !important;
+  background-color: var(--color-white) !important;
+  color: var(--color-text) !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
   font-size: 18px !important;
   font-weight: 700 !important;
@@ -210,7 +204,7 @@
 }
 
 .mapWrapper :global(.leaflet-control-zoom-in) {
-  border-radius: 12px 12px 0 0 !important;
+  border-radius: var(--radius-md) 12px 0 0 !important;
 }
 
 .mapWrapper :global(.leaflet-control-zoom-out) {
@@ -220,14 +214,14 @@
 
 .mapWrapper :global(.leaflet-control-zoom-in:hover),
 .mapWrapper :global(.leaflet-control-zoom-out:hover) {
-  background-color: #fcfcfc !important;
-  color: #e63946 !important;
+  background-color: var(--color-page-soft) !important;
+  color: var(--color-red) !important;
   transform: scale(1.05);
 }
 
 .mapWrapper :global(.leaflet-disabled) {
-  background-color: #f5f5f5 !important;
-  color: #ccc !important;
+  background-color: var(--color-page) !important;
+  color: var(--color-text-subtle) !important;
   cursor: default !important;
 }
 
@@ -237,8 +231,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border-radius: 24px;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
   color: rgba(0, 0, 0, 0.28);
   font-size: 13px;
   font-family: var(--font-geist-sans);
@@ -248,9 +242,7 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   CUSTOM MARKER
-========================= */
+/* # CUSTOM MARKER */
 
 .customMarker {
   display: flex;
@@ -274,7 +266,7 @@
   padding: 8px 14px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   backdrop-filter: blur(8px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   transform-origin: left center;
@@ -286,7 +278,7 @@
   font-size: 13px;
   font-weight: 850;
   line-height: 1.2;
-  color: #111;
+  color: var(--color-text);
   transition: color 0.3s ease;
 }
 
@@ -295,7 +287,7 @@
   font-family: var(--font-geist-sans);
   font-size: 11px;
   font-weight: 500;
-  color: #666;
+  color: var(--color-text-muted);
   transition: color 0.3s ease;
 }
 
@@ -304,26 +296,24 @@
 }
 
 .markerActive .markerLabel {
-  background: #e63946;
-  border-color: #e63946;
+  background: var(--color-red);
+  border-color: var(--color-red);
   transform: scale(1.08) translateX(4px);
-  box-shadow: 0 12px 24px rgba(230, 57, 70, 0.35);
+  box-shadow: 0 12px 24px var(--color-red-border);
 }
 
 .markerActive .markerLabel strong,
 .markerActive .markerLabel span {
-  color: #fff;
+  color: var(--color-white);
 }
 
-/* =========================
-   HISTORY TEXT
-========================= */
+/* # HISTORY TEXT */
 
 .textSectionCard {
   padding: 38px 40px;
   border: 1px solid rgba(17, 17, 17, 0.07);
-  border-radius: 32px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   box-shadow:
     0 20px 50px rgba(17, 17, 17, 0.06),
     0 2px 10px rgba(17, 17, 17, 0.03);
@@ -337,16 +327,14 @@
 
 .bodyText {
   margin: 0;
-  color: #262626;
+  color: var(--color-text-soft);
   font-size: 1.1rem;
   line-height: 1.95;
   letter-spacing: 0.01em;
   break-inside: avoid;
 }
 
-/* =========================
-   ACHIEVEMENT GROUPS
-========================= */
+/* # ACHIEVEMENT GROUPS */
 
 .groupsGrid {
   display: grid;
@@ -358,21 +346,12 @@
   position: relative;
   padding: 30px 30px 28px;
   border: 1px solid rgba(17, 17, 17, 0.07);
-  border-radius: 32px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   box-shadow:
     0 22px 50px rgba(17, 17, 17, 0.06),
     0 4px 14px rgba(17, 17, 17, 0.03);
   overflow: hidden;
-}
-
-.groupCard::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  background: #84101a;
-  opacity: 0.9;
 }
 
 .groupHeader {
@@ -383,7 +362,7 @@
 
 .groupTitle {
   margin: 0;
-  color: #111;
+  color: var(--color-text);
   font-size: 2rem;
   font-weight: 800;
   line-height: 1.05;
@@ -396,9 +375,7 @@
   gap: 18px;
 }
 
-/* =========================
-   ACHIEVEMENT ITEM
-========================= */
+/* # ACHIEVEMENT ITEM */
 
 .achievementItem {
   display: grid;
@@ -407,8 +384,8 @@
   align-items: center;
   padding: 20px;
   border: 1px solid rgba(17, 17, 17, 0.06);
-  border-radius: 24px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   box-shadow:
     0 10px 24px rgba(17, 17, 17, 0.035),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
@@ -420,7 +397,7 @@
 
 .achievementItem:hover {
   transform: translateY(-3px);
-  border-color: rgba(132, 16, 26, 0.14);
+  border-color: var(--color-border-strong);
   box-shadow:
     0 16px 32px rgba(17, 17, 17, 0.055),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -439,7 +416,7 @@
 }
 
 .itemCount {
-  color: #111;
+  color: var(--color-text);
   font-size: 2.3rem;
   font-weight: 900;
   line-height: 0.95;
@@ -447,37 +424,60 @@
 }
 
 .medalDot {
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
+  width: 24px;
+  height: 28px;
   flex-shrink: 0;
   position: relative;
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.5),
-    0 4px 12px rgba(17, 17, 17, 0.14);
+  display: inline-block;
+}
+
+.medalDot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(135deg, var(--color-black) 0 48%, transparent 49%),
+    linear-gradient(225deg, var(--color-text-muted) 0 48%, transparent 49%);
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 50% 70%, 18% 100%);
+  opacity: 0.9;
 }
 
 .medalDot::after {
   content: "";
   position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.5);
+  left: 1px;
+  bottom: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  background:
+    radial-gradient(circle at 33% 30%, rgba(255, 255, 255, 0.8) 0 12%, transparent 13%),
+    linear-gradient(135deg, var(--medal-light), var(--medal-base) 58%, var(--medal-dark));
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.34),
+    inset 0 -3px 5px rgba(17, 17, 17, 0.14),
+    0 6px 14px rgba(17, 17, 17, 0.16);
 }
 
 .gold {
-  background: #e0b321;
+  --medal-base: var(--color-gold);
+  --medal-light: #f5d36d;
+  --medal-dark: #9d6c12;
 }
 
 .silver {
-  background: #bcc3cd;
+  --medal-base: #a7adb4;
+  --medal-light: #e6e8ea;
+  --medal-dark: #6e747a;
 }
 
 .bronze {
-  background: #ba6d34;
+  --medal-base: var(--color-warning);
+  --medal-light: #d79254;
+  --medal-dark: #7d421d;
 }
 
 .itemRight {
@@ -499,24 +499,22 @@
   justify-content: center;
   min-height: 34px;
   padding: 0 12px;
-  border-radius: 999px;
-  background: #f3f3f2;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-soft);
   border: 1px solid rgba(17, 17, 17, 0.08);
-  color: #4a4a4a;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
 }
 
-/* =========================
-   ALUMNI
-========================= */
+/* # ALUMNI */
 
 .alumniSectionIntro {
   max-width: 920px;
   margin: 0 0 22px;
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -531,9 +529,9 @@
   position: relative;
   overflow: hidden;
   padding: 22px 22px 20px;
-  border-radius: 26px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(17, 17, 17, 0.08);
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow:
     0 16px 36px rgba(17, 17, 17, 0.05),
     0 3px 12px rgba(17, 17, 17, 0.025);
@@ -545,7 +543,7 @@
 
 .alumniCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(132, 16, 26, 0.14);
+  border-color: var(--color-border-strong);
   box-shadow:
     0 22px 42px rgba(17, 17, 17, 0.065),
     0 6px 18px rgba(17, 17, 17, 0.035);
@@ -563,12 +561,12 @@
 .alumniBadge {
   width: 56px;
   height: 56px;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: #ffffff;
+  background: var(--color-surface);
   border: 1px solid rgba(17, 17, 17, 0.08);
   box-shadow:
     0 12px 24px rgba(17, 17, 17, 0.08),
@@ -595,7 +593,7 @@
 }
 
 .alumniKicker {
-  color: #84101a;
+  color: var(--color-text-muted);
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -604,7 +602,7 @@
 
 .alumniName {
   margin: 0;
-  color: #111;
+  color: var(--color-text);
   font-size: 1.22rem;
   font-weight: 850;
   line-height: 1.2;
@@ -620,7 +618,7 @@
 
 .alumniText {
   margin: 0;
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 0.98rem;
   line-height: 1.72;
 }
@@ -644,7 +642,7 @@
     grid-template-columns: 1fr;
     gap: 18px;
     padding: 18px;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
   }
 
   .heroStatsGrid {
@@ -653,7 +651,7 @@
 
   .infoCard {
     padding: 16px 14px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .infoCardValue {
@@ -688,7 +686,7 @@
     max-width: none;
     justify-self: stretch;
     padding: 24px;
-    border-radius: 28px;
+    border-radius: var(--radius-xl);
     box-sizing: border-box;
   }
 
@@ -703,7 +701,7 @@
     grid-template-columns: 150px 1fr;
     gap: 16px;
     padding: 18px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
     box-sizing: border-box;
   }
 
@@ -712,15 +710,14 @@
   }
 
   .medalDot {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 26px;
   }
 
   .medalDot::after {
-    top: 3px;
-    left: 3px;
-    width: 6px;
-    height: 6px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
   }
 
   .seasonChip {
@@ -735,13 +732,13 @@
 
   .alumniCard {
     padding: 20px 20px 18px;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
   }
 
   .alumniBadge {
     width: 52px;
     height: 52px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .alumniBadgeLogo {
@@ -786,7 +783,7 @@
 
   .sectionTitle {
     padding-left: 10px;
-    border-left: 5px solid #84101a;
+    border-left: 5px solid var(--color-text-subtle);
     font-size: clamp(1.5rem, 5vw, 2rem);
     line-height: 1.15;
     letter-spacing: -0.8px;
@@ -795,12 +792,12 @@
   .heroCard,
   .textSectionCard {
     padding: 16px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .infoCard {
     padding: 15px 14px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .infoCardLabel {
@@ -827,7 +824,7 @@
   .mapWrapper :global(.leaflet-container),
   .mapLoading {
     min-height: 240px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .mapWrapper :global(.leaflet-control-zoom-in),
@@ -903,7 +900,7 @@
     grid-template-columns: 1fr;
     gap: 14px;
     padding: 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     box-sizing: border-box;
   }
 
@@ -933,7 +930,7 @@
 
   .alumniCard {
     padding: 18px 18px 16px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .alumniCardHeader {
@@ -944,7 +941,7 @@
   .alumniBadge {
     width: 48px;
     height: 48px;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
   }
 
   .alumniBadgeLogo {
@@ -994,7 +991,7 @@
 
   .sectionTitle {
     padding-left: 9px;
-    border-left: 3px solid #84101a;
+    border-left: 3px solid var(--color-text-subtle);
     font-size: clamp(1.2rem, 6vw, 1.55rem);
     line-height: 1.2;
     letter-spacing: -0.4px;
@@ -1003,12 +1000,12 @@
   .heroCard,
   .textSectionCard {
     padding: 14px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .infoCard {
     padding: 14px 12px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .infoCardLabel {
@@ -1081,7 +1078,7 @@
     max-width: none;
     justify-self: stretch;
     padding: 14px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     box-sizing: border-box;
   }
 
@@ -1094,15 +1091,14 @@
   }
 
   .medalDot {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 24px;
   }
 
   .medalDot::after {
-    top: 3px;
-    left: 3px;
-    width: 6px;
-    height: 6px;
+    left: 1px;
+    width: 18px;
+    height: 18px;
   }
 
   .itemSeasons {
@@ -1122,7 +1118,7 @@
 
   .alumniCard {
     padding: 16px 14px 14px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .alumniCardHeader {
@@ -1133,7 +1129,7 @@
   .alumniBadge {
     width: 44px;
     height: 44px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
   }
 
   .alumniBadgeLogo {

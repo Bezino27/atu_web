@@ -1,8 +1,8 @@
 .page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top right, rgba(211, 47, 47, 0.1), transparent 26%),
-    linear-gradient(180deg, #0b0e13 0px, #151922 460px, #f7f8fb 460px, #f7f8fb 100%);
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 26%),
+    linear-gradient(180deg, var(--color-black) 0px, var(--color-black) 460px, var(--color-page) 460px, var(--color-page) 100%);
 }
 
 .section {
@@ -13,8 +13,8 @@
   max-width: 760px;
   margin: 0 auto;
   padding: 56px 32px;
-  border-radius: 28px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   box-shadow: 0 24px 60px rgba(10, 16, 26, 0.1);
   text-align: center;
 }
@@ -26,9 +26,9 @@
   min-height: 36px;
   padding: 0 16px;
   margin-bottom: 18px;
-  border-radius: 999px;
-  background: rgba(211, 47, 47, 0.1);
-  color: #d32f2f;
+  border-radius: var(--radius-pill);
+  background: var(--color-red-soft);
+  color: var(--color-red);
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -38,7 +38,7 @@
   margin: 0 0 16px;
   font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 1.08;
-  color: #111;
+  color: var(--color-text);
 }
 
 .card p {
@@ -46,7 +46,7 @@
   margin: 0 auto 30px;
   font-size: 1.05rem;
   line-height: 1.75;
-  color: #555;
+  color: var(--color-text-muted);
 }
 
 .actions {
@@ -63,31 +63,31 @@
   justify-content: center;
   min-height: 50px;
   padding: 0 22px;
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 700;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .primaryButton {
-  background: #d32f2f;
-  color: #fff;
-  box-shadow: 0 12px 28px rgba(211, 47, 47, 0.24);
+  background: var(--color-red);
+  color: var(--color-white);
+  box-shadow: 0 12px 28px var(--color-red-border);
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
-  background: #bc2626;
+  background: var(--color-red-dark);
 }
 
 .secondaryButton {
-  background: #f3f4f6;
-  color: #111;
+  background: var(--color-surface-soft);
+  color: var(--color-text);
 }
 
 .secondaryButton:hover {
   transform: translateY(-2px);
-  background: #e7e9ee;
+  background: var(--color-border);
 }
 
 @media (max-width: 640px) {
@@ -97,7 +97,7 @@
 
   .card {
     padding: 36px 20px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .card p {

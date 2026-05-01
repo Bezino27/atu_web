@@ -8,7 +8,7 @@
   --font-badge: 0.72rem;
 
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .content {
@@ -18,11 +18,10 @@
   padding: 18px 0 56px;
 }
 
-/* =========================
-   GLOBAL SECTION LAYOUT
-========================= */
+/* # GLOBAL SECTION LAYOUT */
 
 .sectionContainer {
+  position: relative;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
@@ -37,7 +36,7 @@
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
-  color: #84101a;
+  color: var(--color-text-muted);
   font-weight: 700;
   font-size: var(--font-section-eyebrow);
   letter-spacing: 0.75px;
@@ -47,8 +46,8 @@
 .sectionTitle {
   margin: 0;
   padding-left: 12px;
-  border-left: 6px solid #84101a;
-  color: #111;
+  border-left: 6px solid var(--color-text-subtle);
+  color: var(--color-text);
   font-family: var(--font-geist-sans);
   font-weight: 850;
   font-size: var(--font-section-title);
@@ -57,9 +56,7 @@
   text-align: left;
 }
 
-/* =========================
-   HERO
-========================= */
+/* # HERO */
 
 .heroSection {
   width: 100%;
@@ -72,13 +69,13 @@
 .heroCard {
   position: relative;
   min-height: 640px;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid rgba(17, 24, 39, 0.08);
   box-shadow:
     0 24px 60px rgba(15, 23, 42, 0.14),
     0 8px 24px rgba(15, 23, 42, 0.05);
-  background: #0b0e13;
+  background: var(--color-black);
 }
 
 .heroBackgroundImage {
@@ -127,8 +124,8 @@
   justify-content: center;
   min-height: 35px;
   padding: 0 14px;
-  border-radius: 999px;
-  background: rgba(230, 57, 70, 0.16);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -136,7 +133,7 @@
 }
 
 .heroGlassBadge span {
-  color: #fff;
+  color: var(--color-white);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.16em;
@@ -152,7 +149,7 @@
 
 .heroTitle {
   margin: 0;
-  color: #fff;
+  color: var(--color-white);
   font-family: var(--font-geist-sans);
   font-size: clamp(3.2rem, 6vw, 5.4rem);
   line-height: 0.92;
@@ -181,7 +178,7 @@
 .secondaryButton {
   min-height: 46px;
   padding: 0 20px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-weight: 800;
   font-size: var(--font-meta);
   line-height: 1;
@@ -199,21 +196,25 @@
 }
 
 .primaryButton {
-  background: #111;
-  color: #fff;
-  border: 1px solid rgba(17, 24, 39, 0.12);
-  box-shadow: 0 8px 14px rgba(17, 24, 39, 0.16);
+  background: linear-gradient(90deg, var(--color-red-dark) 0%, var(--color-red) 100%);
+  color: var(--color-white);
+  border: 1px solid var(--color-red-border);
+  box-shadow:
+    0 14px 28px var(--color-red-border),
+    0 8px 16px var(--color-red-soft);
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
-  background: #1f2937;
-  box-shadow: 0 12px 18px rgba(17, 24, 39, 0.2);
+  background: linear-gradient(90deg, var(--color-red-dark) 0%, var(--color-red-dark) 100%);
+  box-shadow:
+    0 18px 32px var(--color-red-border),
+    0 10px 18px var(--color-red-soft);
 }
 
 .secondaryButton {
   background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  color: var(--color-surface);
   border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -235,7 +236,7 @@
 
 .heroMiniCard {
   padding: 14px 15px 13px;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -246,7 +247,7 @@
 .heroMiniCard strong {
   display: block;
   margin: 0;
-  color: #ffffff;
+  color: var(--color-surface);
   font-size: 0.78rem;
   font-weight: 800;
   line-height: 1.2;
@@ -262,9 +263,7 @@
   line-height: 1.35;
 }
 
-/* =========================
-   CATEGORIES
-========================= */
+/* # CATEGORIES */
 
 .categoriesGrid {
   display: grid;
@@ -276,8 +275,8 @@
   display: flex;
   flex-direction: column;
   padding: 24px;
-  border-radius: 24px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
@@ -291,7 +290,7 @@
 
 .categoryCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(132, 16, 26, 0.12);
+  border-color: var(--color-border-strong);
   box-shadow:
     0 18px 34px rgba(15, 23, 42, 0.08),
     0 6px 16px rgba(15, 23, 42, 0.04);
@@ -310,16 +309,16 @@
   font-size: 1.5rem;
   line-height: 1.08;
   font-weight: 850;
-  color: #111827;
+  color: var(--color-text);
 }
 
 .categoryMeta {
   flex-shrink: 0;
   min-height: 30px;
   padding: 0 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(15, 23, 42, 0.05);
-  color: #111827;
+  color: var(--color-text);
   border: 1px solid rgba(15, 23, 42, 0.08);
   font-size: var(--font-badge);
   font-weight: 800;
@@ -332,7 +331,7 @@
 .categoryText {
   margin: 0;
   max-width: 38ch;
-  color: #4b5563;
+  color: var(--color-text-muted);
   font-size: var(--font-body);
   line-height: 1.6;
 }
@@ -347,13 +346,13 @@
 .categoryArrow span {
   width: 40px;
   height: 40px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  background: var(--color-surface-soft);
   border: 1px solid rgba(17, 24, 39, 0.08);
-  color: #84101a;
+  color: var(--color-text);
   font-size: 1.05rem;
   font-weight: 800;
   transition:
@@ -364,13 +363,11 @@
 
 .categoryCard:hover .categoryArrow span {
   transform: translateX(3px);
-  background: #fff5f5;
-  border-color: rgba(132, 16, 26, 0.16);
+  background: var(--color-surface-strong);
+  border-color: var(--color-border-strong);
 }
 
-/* =========================
-   FAQ
-========================= */
+/* # FAQ */
 
 .faqList {
   display: grid;
@@ -378,8 +375,8 @@
 }
 
 .faqItem {
-  border-radius: 20px;
-  background: #fff;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
   border: 1px solid rgba(17, 24, 39, 0.08);
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
   overflow: hidden;
@@ -396,7 +393,7 @@
 }
 
 .faqItem[open] {
-  border-color: rgba(132, 16, 26, 0.16);
+  border-color: var(--color-border-strong);
   box-shadow:
     0 16px 34px rgba(15, 23, 42, 0.06),
     0 4px 12px rgba(15, 23, 42, 0.035);
@@ -420,7 +417,7 @@
 }
 
 .faqQuestionText {
-  color: #111;
+  color: var(--color-text);
   font-size: var(--font-body);
   line-height: 1.35;
   font-weight: 850;
@@ -429,7 +426,7 @@
 .faqChevron {
   font-size: 1.3rem;
   line-height: 1;
-  color: #111;
+  color: var(--color-text);
   flex-shrink: 0;
   transition:
     transform 0.22s ease,
@@ -437,12 +434,12 @@
 }
 
 .faqItem:hover .faqChevron {
-  color: #84101a;
+  color: var(--color-text-muted);
 }
 
 .faqItem[open] .faqChevron {
   transform: rotate(45deg);
-  color: #84101a;
+  color: var(--color-text);
 }
 
 .faqAnswer {
@@ -456,7 +453,7 @@
 
 .faqAnswer p {
   margin: 0;
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 0.94rem;
   line-height: 1.64;
   padding-bottom: 18px;
@@ -477,17 +474,15 @@
   transform: translateY(0);
 }
 
-/* =========================
-   CTA / FORM SECTION HELPERS
-========================= */
+/* # CTA / FORM SECTION HELPERS */
 
 .ctaCard {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.8fr);
   gap: 20px;
   padding: 24px;
-  border-radius: 28px;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
   border: 1px solid rgba(17, 24, 39, 0.08);
   box-shadow:
     0 16px 36px rgba(15, 23, 42, 0.055),
@@ -497,7 +492,7 @@
 .ctaText p {
   margin: 18px 0 0 18px;
   max-width: 620px;
-  color: #555;
+  color: var(--color-text-muted);
   font-size: 0.98rem;
   line-height: 1.68;
 }
@@ -505,15 +500,15 @@
 .contactBox {
   margin: 22px 0 0 18px;
   padding: 16px;
-  border-radius: 18px;
-  background: #fff;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
   border: 1px solid rgba(17, 24, 39, 0.08);
   width: fit-content;
 }
 
 .contactBox strong {
   display: block;
-  color: #111;
+  color: var(--color-text);
   font-size: 0.96rem;
   font-weight: 850;
 }
@@ -521,7 +516,7 @@
 .contactBox span {
   display: block;
   margin-top: 6px;
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -531,8 +526,8 @@
   gap: 14px;
   align-content: start;
   padding: 18px;
-  border-radius: 22px;
-  background: #fff;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
   border: 1px solid rgba(17, 24, 39, 0.08);
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
 }
@@ -543,7 +538,7 @@
 }
 
 .formField label {
-  color: #111;
+  color: var(--color-text);
   font-size: 0.88rem;
   font-weight: 700;
 }
@@ -552,10 +547,10 @@
   width: 100%;
   min-height: 50px;
   padding: 0 14px;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(17, 24, 39, 0.12);
-  background: #fff;
-  color: #111;
+  background: var(--color-white);
+  color: var(--color-text);
   font-size: 0.95rem;
   outline: none;
   transition:
@@ -565,13 +560,11 @@
 }
 
 .formField input:focus {
-  border-color: rgba(132, 16, 26, 0.38);
-  box-shadow: 0 0 0 4px rgba(132, 16, 26, 0.08);
+  border-color: var(--color-red-border);
+  box-shadow: 0 0 0 4px var(--color-red-soft);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* # RESPONSIVE */
 
 /* # 1024 */
 @media (max-width: 1024px) {
@@ -597,7 +590,7 @@
 
   .heroCard {
     min-height: 560px;
-    border-radius: 28px;
+    border-radius: var(--radius-xl);
   }
 
   .heroInner {
@@ -643,7 +636,7 @@
 
   .heroMiniCard {
     padding: 12px 12px 11px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .heroMiniCard strong {
@@ -724,14 +717,14 @@
 
   .sectionTitle {
     padding-left: 10px;
-    border-left: 4px solid #84101a;
+    border-left: 4px solid var(--color-text-subtle);
     line-height: 1.15;
     letter-spacing: -0.8px;
   }
 
   .heroCard {
     min-height: 470px;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
   }
 
   .heroOverlay {
@@ -798,7 +791,7 @@
     min-height: 42px;
     padding: 0 15px;
     font-size: 0.86rem;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .heroMiniInfo {
@@ -818,7 +811,7 @@
 
   .categoryCard {
     padding: 18px 16px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .categoryTop {
@@ -882,14 +875,14 @@
 
   .sectionTitle {
     padding-left: 8px;
-    border-left: 3px solid #84101a;
+    border-left: 3px solid var(--color-text-subtle);
     line-height: 1.2;
     letter-spacing: -0.4px;
   }
 
   .heroCard {
     min-height: 430px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .heroInner {
@@ -933,7 +926,7 @@
     min-height: 40px;
     padding: 0 14px;
     font-size: 0.84rem;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .heroMiniInfo {
@@ -948,7 +941,7 @@
   }
 
   .faqItem {
-    border-radius: 13px;
+    border-radius: var(--radius-md);
   }
 
   .faqQuestion {
@@ -988,7 +981,7 @@
   .categoryCard {
     min-height: unset;
     padding: 12px 12px 10px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
   }
 
   .categoryTop {
@@ -1011,7 +1004,7 @@
     min-height: 24px;
     font-size: 0.64rem;
     padding: 0 8px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     white-space: nowrap;
   }
 

@@ -7,11 +7,15 @@
 }
 
 .headerRow {
-  width: 100%;
-  max-width: 1240px;
-  margin: -50px auto 18px;
+  position: absolute;
+  top: 0;
+  right: 16px;
+  width: auto;
+  max-width: none;
+  margin: 0;
   display: flex;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .controls {
@@ -24,10 +28,10 @@
 .arrowButton {
   width: 48px;
   height: 48px;
-  border-radius: 999px;
-  border: 1px solid rgba(17, 24, 39, 0.12);
-  background: rgba(255, 255, 255, 0.96);
-  color: #111827;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-soft);
+  color: var(--color-text-muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +48,8 @@
 
 .arrowButton:hover {
   transform: translateY(-1px);
-  border-color: rgba(211, 47, 47, 0.22);
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-strong);
   box-shadow:
     0 14px 30px rgba(15, 23, 42, 0.08),
     0 4px 12px rgba(15, 23, 42, 0.05);
@@ -109,8 +114,8 @@
   position: relative;
   width: 100%;
   height: 65%;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.13);
   box-shadow:
     0 8px 18px rgba(15, 23, 42, 0.04),
@@ -129,15 +134,15 @@
 .cardAccent {
   width: 54px;
   height: 3px;
-  border-radius: 999px;
-  background: #84101A;
+  border-radius: var(--radius-pill);
+  background: var(--color-black);
   margin-bottom: 18px;
   opacity: 0.92;
 }
 
 .cardTitle {
   margin: 0 0 14px;
-  color: #111827;
+  color: var(--color-text);
   font-size: 1.35rem;
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -146,7 +151,7 @@
 
 .cardText {
   margin: 0;
-  color: #4b5563;
+  color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.65;
   max-width: 30ch;
@@ -168,7 +173,7 @@
 @media (hover: hover) and (pointer: fine) {
   .cardActive:hover .cardInner {
     transform: translateY(-4px);
-    border-color: rgba(211, 47, 47, 0.24);
+    border-color: var(--color-border-strong);
     box-shadow:
       0 28px 54px rgba(15, 23, 42, 0.11),
       0 10px 22px rgba(15, 23, 42, 0.07);
@@ -187,7 +192,7 @@
   width: 9px;
   height: 9px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(17, 24, 39, 0.16);
   cursor: pointer;
   transition:
@@ -198,7 +203,7 @@
 
 .dotActive {
   width: 24px;
-  background: #84101A;
+  background: var(--color-black);
 }
 
 /* # 1024 */
@@ -208,8 +213,7 @@
   }
 
   .headerRow {
-    max-width: 100%;
-    margin: -42px auto 18px;
+    right: 12px;
   }
 
   .controls {
@@ -246,7 +250,7 @@
 
   .cardInner {
     height: 67%;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
     padding: 24px 22px 20px;
   }
 
@@ -278,8 +282,7 @@
   }
 
   .headerRow {
-    max-width: 100%;
-    margin: -34px auto 16px;
+    right: 8px;
   }
 
   .controls {
@@ -321,7 +324,7 @@
 
   .cardInner {
     height: 70%;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 17px 15px 14px;
     box-shadow:
       0 5px 12px rgba(15, 23, 42, 0.03),
@@ -373,8 +376,9 @@
   }
 
   .headerRow {
-    max-width: 100%;
-    margin: -33px auto 0;
+    position: static;
+    width: 100%;
+    margin: -6px 0 12px;
   }
 
   .controls {
@@ -414,7 +418,7 @@
 
   .cardInner {
     height: 72%;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     padding: 16px 14px 14px;
     box-shadow:
       0 4px 10px rgba(15, 23, 42, 0.026),

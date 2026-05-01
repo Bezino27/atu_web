@@ -64,8 +64,6 @@ function getStandingsRowClass(
 function getRecentResultMeta(result?: string | null) {
   if (!result || !result.includes(":")) {
     return {
-      label: "Zápas",
-      badgeClass: styles.lossBadge,
       scoreClass: styles.lossScore,
     };
   }
@@ -74,8 +72,6 @@ function getRecentResultMeta(result?: string | null) {
 
   if (Number.isNaN(leftScore) || Number.isNaN(rightScore)) {
     return {
-      label: "Zápas",
-      badgeClass: styles.lossBadge,
       scoreClass: styles.lossScore,
     };
   }
@@ -83,8 +79,6 @@ function getRecentResultMeta(result?: string | null) {
   const isWin = leftScore > rightScore;
 
   return {
-    label: isWin ? "Výhra" : "Prehra",
-    badgeClass: isWin ? styles.winBadge : styles.lossBadge,
     scoreClass: isWin ? styles.winScore : styles.lossScore,
   };
 }
@@ -208,7 +202,9 @@ export default async function HomePage() {
               </div>
             </div>
           ) : (
-            <div className={styles.emptyPosts}>Zatiaľ nie sú dostupné články.</div>
+            <div className={styles.emptyPosts}>
+              Zatiaľ nie sú dostupné články.
+            </div>
           )}
         </section>
 
@@ -227,7 +223,9 @@ export default async function HomePage() {
                 <div className={styles.panelHeader}>
                   <div>
                     <span className={styles.panelEyebrow}>Tabuľka</span>
-                    <h3 className={styles.panelTitle}>Sezóna: {currentSeason}</h3>
+                    <h3 className={styles.panelTitle}>
+                      Sezóna: {currentSeason}
+                    </h3>
                   </div>
                 </div>
 
@@ -298,12 +296,6 @@ export default async function HomePage() {
                       return (
                         <div key={result.id} className={styles.recentMatchCard}>
                           <div className={styles.recentMatchTop}>
-                            <span
-                              className={`${styles.recentResultBadge} ${resultMeta.badgeClass}`}
-                            >
-                              {resultMeta.label}
-                            </span>
-
                             <span className={styles.recentMatchDate}>
                               {formatDate(result.match_date)}
                             </span>

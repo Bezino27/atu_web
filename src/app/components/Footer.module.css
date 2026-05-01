@@ -1,6 +1,6 @@
 .footer {
-  background: #111111;
-  color: #ffffff;
+  background: var(--color-text);
+  color: var(--color-surface);
   padding: 56px 0 24px;
 }
 
@@ -27,7 +27,7 @@
 .text {
   margin: 0;
   max-width: 500px;
-  color: #cfcfcf;
+  color: var(--color-surface-strong);
   line-height: 1.8;
 }
 
@@ -38,19 +38,19 @@
 }
 
 .links a {
-  color: #ffffff;
+  color: var(--color-surface);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .links a:hover {
-  color: #ff5a5f;
+  color: var(--color-text-subtle);
 }
 
 .bottom {
   padding-top: 20px;
-  color: #b5b5b5;
+  color: var(--color-text-subtle);
   font-size: 0.95rem;
 }
 

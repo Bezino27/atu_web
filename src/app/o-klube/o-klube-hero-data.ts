@@ -26,7 +26,7 @@ export const heroInfoCards = [
     id: "ostrovskeho",
     label: "Domáca hala",
     value: "SOŠ Ostrovského 1",
-    description: "Moderné domáce prostredie pre zápasy aj klubové dianie.",
+    description: "Dlhoročné zázemie klubu.",
   },
 ] as const;
 

@@ -1,6 +1,4 @@
-/* =========================
-   RECRUITMENT FORM
-========================= */
+/* # RECRUITMENT FORM */
 
 .formWrap {
   width: 100%;
@@ -11,13 +9,14 @@
 .formPanel {
   width: 100%;
   max-width: 760px;
-  padding: 24px;
+  padding: 28px;
   border-radius: 28px;
   border: 1px solid rgba(17, 24, 39, 0.07);
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
   box-shadow:
-    0 18px 36px rgba(15, 23, 42, 0.05),
-    0 3px 12px rgba(15, 23, 42, 0.025);
+    0 22px 54px rgba(15, 23, 42, 0.08),
+    0 6px 18px rgba(15, 23, 42, 0.035);
+  box-sizing: border-box;
 }
 
 .formGrid {
@@ -30,6 +29,7 @@
 .formFieldFull {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .formFieldFull {
@@ -39,55 +39,299 @@
 .formField label,
 .formFieldFull label {
   margin-bottom: 8px;
+  color: #171717;
   font-size: 0.96rem;
-  font-weight: 800;
-  color: #111827;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-.formField input,
-.formFieldFull input,
-.formField textarea,
-.formFieldFull textarea {
+.formField label span,
+.formFieldFull label span {
+  color: #d30f1d;
+  font-weight: 900;
+}
+
+/* # INPUTS */
+
+.inputWrap {
+  position: relative;
   width: 100%;
-  border: 1px solid rgba(17, 24, 39, 0.1);
+}
+
+.inputWrap input,
+.inputWrap textarea,
+.dateInput {
+  width: 100%;
+  border: 1px solid rgba(17, 24, 39, 0.11);
   border-radius: 18px;
-  background: #fff;
-  padding: 15px 16px;
-  font-size: 1rem;
+  background: #ffffff;
   color: #111827;
+  font-size: 1rem;
+  font-weight: 600;
   outline: none;
+  box-sizing: border-box;
   transition:
     border-color 0.2s ease,
-    box-shadow 0.2s ease;
-  box-sizing: border-box;
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
-.formField input::placeholder,
-.formFieldFull input::placeholder,
-.formField textarea::placeholder,
-.formFieldFull textarea::placeholder {
-  color: #94a3b8;
+.inputWrap input,
+.dateInput {
+  min-height: 58px;
+  padding: 16px 52px 16px 16px;
 }
 
-.formField input:focus,
-.formFieldFull input:focus,
-.formField textarea:focus,
-.formFieldFull textarea:focus {
-  border-color: rgba(230, 57, 70, 0.45);
-  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
-}
-
-.formField textarea,
-.formFieldFull textarea {
+.inputWrap textarea {
+  min-height: 138px;
   resize: vertical;
-  min-height: 132px;
+  padding: 16px 52px 16px 16px;
+  line-height: 1.5;
 }
+
+.inputWrap input::placeholder,
+.inputWrap textarea::placeholder,
+.dateInput::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.inputWrap:focus-within input,
+.inputWrap:focus-within textarea,
+.inputWrap:focus-within .dateInput {
+  border-color: #d30f1d;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 4px rgba(211, 15, 29, 0.08),
+    0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  width: 21px;
+  height: 21px;
+  color: #8b8f98;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.inputWrap textarea + .inputIcon {
+  top: 19px;
+  transform: none;
+}
+
+.inputIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.inputWrap:focus-within .inputIcon {
+  color: #d30f1d;
+  transform: translateY(-50%) scale(1.04);
+}
+
+.inputWrap:focus-within textarea + .inputIcon {
+  transform: scale(1.04);
+}
+
+/* # DATE PICKER */
+
+.datePickerWrapper {
+  width: 100%;
+  display: block;
+}
+
+.datePickerWrapper :global(.react-datepicker-wrapper) {
+  width: 100%;
+  display: block;
+}
+
+.datePickerWrapper :global(.react-datepicker__input-container) {
+  width: 100%;
+  display: block;
+}
+
+.datePickerPopper {
+  z-index: 80;
+  max-width: calc(100vw - 32px);
+}
+
+.datePickerCalendar {
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  border: 1px solid rgba(17, 24, 39, 0.08) !important;
+  border-radius: 22px !important;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 20px 44px rgba(15, 23, 42, 0.14),
+    0 8px 18px rgba(15, 23, 42, 0.08) !important;
+  font-family: inherit !important;
+  padding: 0 0 12px;
+}
+
+.datePickerCalendar :global(.react-datepicker__header) {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+  padding: 0;
+}
+
+.datePickerHeader {
+  padding: 16px 16px 14px;
+}
+
+.datePickerTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.datePickerTitle {
+  color: #111827;
+  font-size: 1.1rem;
+  font-weight: 850;
+  line-height: 1.1;
+  text-transform: capitalize;
+}
+
+.datePickerNavButton {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 12px;
+  background: #ffffff;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.datePickerNavButton:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: rgba(211, 15, 29, 0.2);
+  transform: translateY(-1px);
+}
+
+.datePickerNavButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.datePickerSelectors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.datePickerSelect {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 0.92rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.datePickerSelect:focus {
+  border-color: #d30f1d;
+}
+
+.datePickerCalendar :global(.react-datepicker__month) {
+  margin: 12px 14px 0;
+}
+
+.datePickerCalendar :global(.react-datepicker__day-names) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.datePickerCalendar :global(.react-datepicker__week) {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.datePickerCalendar :global(.react-datepicker__day-name),
+.datePickerCalendar :global(.react-datepicker__day) {
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.datePickerCalendar :global(.react-datepicker__day-name) {
+  color: #6b7280;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.datePickerCalendar :global(.react-datepicker__day) {
+  border-radius: 12px;
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.datePickerCalendar :global(.react-datepicker__day:hover) {
+  background: rgba(211, 15, 29, 0.08);
+  color: #9f111b;
+}
+
+.datePickerCalendar :global(.react-datepicker__day--selected),
+.datePickerCalendar :global(.react-datepicker__day--keyboard-selected) {
+  background: #d30f1d !important;
+  color: #ffffff !important;
+}
+
+.datePickerCalendar :global(.react-datepicker__day--today) {
+  box-shadow: inset 0 0 0 1px rgba(211, 15, 29, 0.28);
+}
+
+.datePickerCalendar :global(.react-datepicker__day--outside-month) {
+  color: #c6cad1;
+}
+
+/* # MESSAGES */
 
 .fieldError {
   margin: 8px 0 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #c1121f;
+  color: #8f0f19;
+  font-size: 0.86rem;
+  font-weight: 650;
+  line-height: 1.45;
 }
 
 .submitError,
@@ -95,47 +339,62 @@
   margin: 18px 0 0;
   padding: 13px 15px;
   border-radius: 16px;
-  font-size: 0.96rem;
+  font-size: 0.95rem;
+  font-weight: 650;
   line-height: 1.55;
 }
 
 .submitError {
-  color: #991b1b;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.14);
+  color: #8f0f19;
+  background: rgba(211, 15, 29, 0.08);
+  border: 1px solid rgba(211, 15, 29, 0.18);
 }
 
 .successMessage {
   color: #166534;
   background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(34, 197, 94, 0.16);
 }
 
+/* # SUBMIT BUTTON */
+
 .submitButton {
-  margin-top: 20px;
   width: 100%;
+  min-height: 62px;
+  margin-top: 22px;
+  padding: 0 24px;
   border: none;
-  border-radius: 999px;
-  padding: 17px 22px;
-  font-size: 1rem;
-  font-weight: 850;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d80f1f 0%, #c70d1b 48%, #a90d18 100%);
   color: #ffffff;
   cursor: pointer;
-  background: linear-gradient(90deg, #de2b2b 0%, #ff4747 100%);
   box-shadow:
-    0 16px 30px rgba(230, 57, 70, 0.2),
-    0 8px 16px rgba(230, 57, 70, 0.12);
+    0 10px 20px rgba(132, 16, 26, 0.14),
+    0 4px 9px rgba(132, 16, 26, 0.1);
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.01em;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    filter 0.2s ease;
 }
 
 .submitButton:hover:not(:disabled) {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  filter: saturate(1.03);
   box-shadow:
-    0 20px 34px rgba(230, 57, 70, 0.22),
-    0 10px 18px rgba(230, 57, 70, 0.14);
+    0 14px 25px rgba(132, 16, 26, 0.17),
+    0 5px 12px rgba(132, 16, 26, 0.12);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .submitButton:disabled {
@@ -143,11 +402,45 @@
   cursor: not-allowed;
 }
 
+/* # SAFE NOTICE */
+
+.safeNotice {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #8b8f98;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.safeNoticeIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #8b8f98;
+}
+
+.safeNoticeIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* # 1024 */
+
 @media (max-width: 1024px) {
   .formPanel {
     max-width: 100%;
-    padding: 22px;
+    padding: 24px;
     border-radius: 26px;
   }
 
@@ -155,14 +448,15 @@
   .formFieldFull label,
   .submitError,
   .successMessage {
-    font-size: 0.96rem;
+    font-size: 0.94rem;
   }
 }
 
 /* # 768 */
+
 @media (max-width: 768px) {
   .formPanel {
-    padding: 18px;
+    padding: 20px;
     border-radius: 22px;
   }
 
@@ -177,14 +471,52 @@
 
   .formField label,
   .formFieldFull label {
+    font-size: 0.9rem;
+  }
+
+  .inputWrap input,
+  .dateInput {
+    min-height: 56px;
+    padding: 15px 48px 15px 15px;
     font-size: 0.92rem;
   }
 
-  .formField input,
-  .formFieldFull input,
-  .formField textarea,
-  .formFieldFull textarea {
+  .inputWrap textarea {
+    min-height: 128px;
+    padding: 15px 48px 15px 15px;
     font-size: 0.92rem;
+  }
+
+  .inputIcon {
+    right: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .datePickerCalendar {
+    width: 292px;
+  }
+
+  .datePickerHeader {
+    padding: 14px;
+  }
+
+  .datePickerTitle {
+    font-size: 1rem;
+  }
+
+  .datePickerSelectors {
+    gap: 8px;
+  }
+
+  .datePickerSelect {
+    min-height: 42px;
+    font-size: 0.88rem;
+  }
+
+  .datePickerCalendar :global(.react-datepicker__day-name),
+  .datePickerCalendar :global(.react-datepicker__day) {
+    height: 36px;
   }
 
   .fieldError {
@@ -193,35 +525,113 @@
 
   .submitError,
   .successMessage {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
   }
 
   .submitButton {
-    font-size: 0.92rem;
-    padding: 16px 20px;
+    min-height: 58px;
+    font-size: 0.94rem;
   }
 }
 
 /* # 480 */
+
 @media (max-width: 480px) {
   .formPanel {
     padding: 14px;
-    border-radius: 18px;
+    border-radius: 20px;
+  }
+
+  .formGrid {
+    gap: 14px;
   }
 
   .formField label,
   .formFieldFull label {
     margin-bottom: 7px;
+    font-size: 0.84rem;
+  }
+
+  .inputWrap input,
+  .dateInput {
+    min-height: 52px;
+    padding: 14px 44px 14px 14px;
+    border-radius: 16px;
     font-size: 0.86rem;
   }
 
-  .formField input,
-  .formFieldFull input,
-  .formField textarea,
-  .formFieldFull textarea {
-    padding: 14px;
-    font-size: 0.86rem;
+  .inputWrap textarea {
+    min-height: 118px;
+    padding: 14px 44px 14px 14px;
     border-radius: 16px;
+    font-size: 0.86rem;
+  }
+
+  .inputIcon {
+    right: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .inputWrap textarea + .inputIcon {
+    top: 17px;
+  }
+
+  .datePickerPopper {
+    max-width: calc(100vw - 28px);
+  }
+
+  .datePickerCalendar {
+    width: min(282px, calc(100vw - 42px));
+    border-radius: 20px !important;
+    padding-bottom: 10px;
+  }
+
+  .datePickerHeader {
+    padding: 12px 12px 10px;
+  }
+
+  .datePickerTopRow {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .datePickerTitle {
+    font-size: 0.95rem;
+  }
+
+  .datePickerNavButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+  }
+
+  .datePickerSelectors {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .datePickerSelect {
+    min-height: 39px;
+    padding: 0 10px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+  }
+
+  .datePickerCalendar :global(.react-datepicker__month) {
+    margin: 9px 10px 0;
+  }
+
+  .datePickerCalendar :global(.react-datepicker__day-names),
+  .datePickerCalendar :global(.react-datepicker__week) {
+    gap: 2px;
+  }
+
+  .datePickerCalendar :global(.react-datepicker__day-name),
+  .datePickerCalendar :global(.react-datepicker__day) {
+    height: 31px;
+    font-size: 0.78rem;
+    border-radius: 10px;
   }
 
   .fieldError {
@@ -232,11 +642,25 @@
   .successMessage {
     padding: 12px 14px;
     border-radius: 14px;
-    font-size: 0.86rem;
+    font-size: 0.84rem;
   }
 
   .submitButton {
-    font-size: 0.86rem;
-    padding: 15px 18px;
+    min-height: 54px;
+    margin-top: 18px;
+    padding: 0 18px;
+    border-radius: 16px;
+    font-size: 0.88rem;
+  }
+
+  .safeNotice {
+    margin-top: 13px;
+    gap: 7px;
+    font-size: 0.8rem;
+  }
+
+  .safeNoticeIcon {
+    width: 16px;
+    height: 16px;
   }
 }

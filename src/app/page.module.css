@@ -5,7 +5,7 @@
   --font-body: 1rem;
 
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 /* # PAGE LAYOUT */
@@ -47,7 +47,7 @@
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
-  color: #84101a;
+  color: var(--color-text-muted);
   font-size: var(--font-section-eyebrow);
   font-weight: 700;
   letter-spacing: 0.75px;
@@ -57,8 +57,8 @@
 .sectionTitle {
   margin: 0;
   padding-left: 12px;
-  border-left: 6px solid #84101a;
-  color: #111;
+  border-left: 6px solid var(--color-text-subtle);
+  color: var(--color-text);
   font-family: var(--font-geist-sans);
   font-size: var(--font-section-title);
   font-weight: 850;
@@ -71,7 +71,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #84101a;
+  color: var(--color-text);
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 800;
@@ -83,7 +83,7 @@
 }
 
 .sectionLink:hover {
-  color: #5f0b13;
+  color: var(--color-text-muted);
   transform: translateY(-1px);
 }
 
@@ -100,10 +100,10 @@
   position: relative;
   display: block;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   text-decoration: none;
   color: inherit;
-  background: #0b0e13;
+  background: var(--color-black);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.08),
     0 2px 8px rgba(15, 23, 42, 0.04);
@@ -179,7 +179,7 @@
 .topNewsSmallContent h3,
 .clubNewsContent h3 {
   margin: 10px 0 0;
-  color: #ffffff;
+  color: var(--color-surface);
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
@@ -214,12 +214,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: #9f111b;
-  color: #ffffff;
-  font-size: 0.92rem;
+  min-height: 0;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red) 100%);
+  color: var(--color-white);
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1;
@@ -258,7 +258,7 @@
 .panelEyebrow {
   display: inline-block;
   margin-bottom: 6px;
-  color: #84101a;
+  color: var(--color-text-muted);
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -267,7 +267,7 @@
 
 .panelTitle {
   margin: 0;
-  color: #0f172a;
+  color: var(--color-black);
   font-family: var(--font-geist-sans);
   font-size: var(--font-panel-title);
   font-weight: 800;
@@ -287,8 +287,8 @@
   padding: 22px;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
@@ -299,9 +299,9 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  border-radius: 24px;
-  border: 1px solid #e7edf4;
-  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -311,7 +311,7 @@
 
 .tableWrap::-webkit-scrollbar-thumb {
   background: rgba(100, 116, 139, 0.22);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 }
 
 .table {
@@ -324,9 +324,9 @@
 
 .table thead th {
   padding: 15px 12px;
-  border-bottom: 1px solid #e8edf3;
-  background: #f8fafc;
-  color: #6b7280;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-soft);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -351,10 +351,10 @@
 
 .table tbody td {
   padding: 16px 12px;
-  border-bottom: 1px solid #edf2f7;
+  border-bottom: 1px solid var(--color-border-soft);
   vertical-align: middle;
-  background: #ffffff;
-  color: #0f172a;
+  background: var(--color-surface);
+  color: var(--color-black);
   font-size: 0.94rem;
   font-weight: 650;
   line-height: 1.42;
@@ -367,7 +367,7 @@
 }
 
 .table tbody tr:hover td {
-  background: #fafcff;
+  background: var(--color-page-soft);
 }
 
 .positionBadge {
@@ -376,10 +376,10 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: 12px;
-  background: #f3f6f9;
-  border: 1px solid #e2e8f0;
-  color: #475569;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   font-size: 0.84rem;
   font-weight: 900;
   line-height: 1;
@@ -392,7 +392,7 @@
 }
 
 .tableTeamName {
-  color: #0f172a;
+  color: var(--color-black);
   font-size: 0.98rem;
   font-weight: 800;
   line-height: 1.3;
@@ -400,41 +400,41 @@
 }
 
 .pointsCell {
-  color: #0b1324;
+  color: var(--color-black);
   font-size: 1.04rem;
   font-weight: 900;
 }
 
 .playoffRow td:first-child {
-  box-shadow: inset 5px 0 0 #4f8b63;
+  box-shadow: inset 5px 0 0 var(--color-success);
 }
 
 .playoutRow td:first-child {
-  box-shadow: inset 5px 0 0 #d08b3f;
+  box-shadow: inset 5px 0 0 var(--color-warning);
 }
 
 .relegationRow td:first-child {
-  box-shadow: inset 5px 0 0 #ce6565;
+  box-shadow: inset 5px 0 0 var(--color-warning);
 }
 
 .highlightRow td {
-  background: #f8fafc;
+  background: var(--color-surface-soft);
 }
 
 .highlightRow:hover td {
-  background: #f3f7fb;
+  background: var(--color-surface-soft);
 }
 
 .highlightRow .positionBadge {
-  background: #0f172a;
-  border-color: #0f172a;
-  color: #ffffff;
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-surface);
 }
 
 .table tbody td[colspan] {
   text-align: center !important;
   padding: 28px 18px;
-  color: #64748b;
+  color: var(--color-text-subtle);
   font-size: 0.96rem;
   font-weight: 600;
 }
@@ -450,8 +450,8 @@
   padding: 22px;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
@@ -466,9 +466,9 @@
 
 .recentMatchCard {
   padding: 18px 18px 16px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, #f8f9fb 0%, #f4f5f7 100%);
-  border: 1px solid #e8ebef;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-page) 0%, var(--color-surface-soft) 100%);
+  border: 1px solid var(--color-border);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease,
@@ -477,7 +477,7 @@
 
 .recentMatchCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(239, 68, 68, 0.18);
+  border-color: var(--color-border-strong);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
 }
 
@@ -495,7 +495,7 @@
   justify-content: center;
   min-height: 28px;
   padding: 0 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -504,18 +504,18 @@
 
 .winBadge {
   background: rgba(34, 197, 94, 0.12);
-  color: #166534;
+  color: var(--color-success);
   border: 1px solid rgba(34, 197, 94, 0.18);
 }
 
 .lossBadge {
-  background: rgba(239, 68, 68, 0.1);
-  color: #84101a;
-  border: 1px solid rgba(239, 68, 68, 0.16);
+  background: var(--color-red-soft);
+  color: var(--color-red-dark);
+  border: 1px solid var(--color-red-border);
 }
 
 .recentMatchDate {
-  color: #6b7280;
+  color: var(--color-text-muted);
   font-size: 0.88rem;
   font-weight: 600;
   text-align: right;
@@ -533,19 +533,19 @@
 }
 
 .recentTeamName {
-  color: #111;
+  color: var(--color-text);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.35;
 }
 
 .atuTeam {
-  color: #0f172a;
+  color: var(--color-black);
   font-weight: 900;
 }
 
 .recentVsRow {
-  color: #7c8594;
+  color: var(--color-text-subtle);
   font-size: 0.84rem;
   font-weight: 700;
   text-transform: lowercase;
@@ -566,11 +566,11 @@
 }
 
 .winScore {
-  color: #1f7a36;
+  color: var(--color-success);
 }
 
 .lossScore {
-  color: #84101a;
+  color: var(--color-red-dark);
 }
 
 /* # EMPTY STATES */
@@ -580,10 +580,10 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  border-radius: 22px;
-  background: #f8fafc;
-  border: 1px solid #e7edf4;
-  color: #64748b;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-subtle);
   text-align: center;
   font-weight: 700;
 }
@@ -624,10 +624,10 @@
   display: block;
   overflow: hidden;
   min-height: 250px;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   text-decoration: none;
   color: inherit;
-  background: #0b0e13;
+  background: var(--color-black);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.08),
     0 2px 8px rgba(15, 23, 42, 0.04);
@@ -669,8 +669,8 @@
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
@@ -687,9 +687,9 @@
   display: grid;
   gap: 18px;
   padding: 18px 18px 16px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, #f8fafc 0%, #f3f5f7 100%);
-  border: 1px solid #e7edf4;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 100%);
+  border: 1px solid var(--color-border);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -698,7 +698,7 @@
 
 .simpleMatchCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(132, 16, 26, 0.12);
+  border-color: var(--color-border-strong);
   box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
 }
 
@@ -714,10 +714,10 @@
   align-items: center;
   min-height: 26px;
   padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(211, 47, 47, 0.08);
-  color: #84101a;
-  border: 1px solid rgba(211, 47, 47, 0.14);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-strong);
+  color: var(--color-text-soft);
+  border: 1px solid var(--color-border-strong);
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -727,7 +727,7 @@
 
 .simpleMatchTimeTop {
   flex-shrink: 0;
-  color: #111827;
+  color: var(--color-text);
   font-size: 1rem;
   font-weight: 900;
   line-height: 1;
@@ -742,7 +742,7 @@
 }
 
 .simpleTeamName {
-  color: #0f172a;
+  color: var(--color-black);
   font-size: 1.05rem;
   font-weight: 800;
   line-height: 1.3;
@@ -751,7 +751,7 @@
 }
 
 .simpleVs {
-  color: #98a2b3;
+  color: var(--color-text-subtle);
   font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -764,7 +764,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 18px;
   padding-top: 14px;
-  border-top: 1px solid #dbe3eb;
+  border-top: 1px solid var(--color-border);
 }
 
 .simpleMatchMetaItem {
@@ -778,14 +778,14 @@
 }
 
 .simpleMatchMetaValue {
-  color: #475569;
+  color: var(--color-text-muted);
   font-size: 0.88rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
 .simpleMatchMetaValueRight {
-  color: #64748b;
+  color: var(--color-text-subtle);
   font-size: 0.84rem;
   font-weight: 600;
   line-height: 1.4;
@@ -800,8 +800,8 @@
 .partnersCard {
   width: 100%;
   padding: 32px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   box-shadow:
     0 12px 30px rgba(15, 23, 42, 0.06),
@@ -821,9 +821,9 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, #f8fafc 0%, #f4f6f8 100%);
-  border: 1px solid #e7edf4;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 100%);
+  border: 1px solid var(--color-border);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -833,8 +833,8 @@
 
 .partnerLogoCell:hover {
   transform: translateY(-2px);
-  background: #fbfcfe;
-  border-color: rgba(132, 16, 26, 0.12);
+  background: var(--color-page-soft);
+  border-color: var(--color-border-strong);
   box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
 }
 
@@ -883,12 +883,12 @@
 
   .topNewsMain {
     min-height: 440px;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
   }
 
   .topNewsSmall {
     min-height: 212px;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
   }
 
   .topNewsMainContent,
@@ -907,11 +907,11 @@
   .upcomingMatchesCard,
   .partnersCard {
     padding: 20px;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
   }
 
   .tableWrap {
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .table {
@@ -940,7 +940,7 @@
 
   .recentMatchCard,
   .simpleMatchCard {
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 16px;
   }
 
@@ -954,7 +954,7 @@
 
   .clubNewsCard {
     min-height: 230px;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
   }
 
   .simpleMatchCard {
@@ -967,7 +967,7 @@
 
   .partnerLogoCell {
     min-height: 118px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .partnerLogo {
@@ -1065,7 +1065,7 @@
 
   .topNewsMain {
     min-height: 360px;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
   }
 
   .topNewsSide {
@@ -1074,7 +1074,7 @@
 
   .topNewsSmall {
     min-height: 210px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .topNewsMainContent,
@@ -1108,9 +1108,8 @@
   }
 
   .badge {
-    min-height: 30px;
-    padding: 0 11px;
-    font-size: 0.76rem;
+    padding: 5px 9px;
+    font-size: 10px;
   }
 
   .tablePanel,
@@ -1118,7 +1117,7 @@
   .upcomingMatchesCard,
   .partnersCard {
     padding: 18px 14px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .panelHeader {
@@ -1130,7 +1129,7 @@
   }
 
   .tableWrap {
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .table {
@@ -1176,7 +1175,7 @@
 
   .recentMatchCard,
   .simpleMatchCard {
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     padding: 14px;
   }
 
@@ -1212,7 +1211,7 @@
 
   .clubNewsCard {
     min-height: 215px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .simpleMatchCard {
@@ -1264,7 +1263,7 @@
   .partnerLogoCell {
     min-height: 112px;
     padding: 16px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .partnerLogo {
@@ -1273,7 +1272,7 @@
 
   .emptyPosts,
   .compactEmptyState {
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 }
 
@@ -1356,13 +1355,13 @@
 
   .topNewsMain {
     min-height: 300px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .topNewsSmall,
   .clubNewsCard {
     min-height: 200px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
   }
 
   .topNewsMainContent,
@@ -1391,9 +1390,8 @@
   }
 
   .badge {
-    min-height: 26px;
-    padding: 0 9px;
-    font-size: 0.66rem;
+    padding: 4px 8px;
+    font-size: 9px;
   }
 
   .tablePanel,
@@ -1401,7 +1399,7 @@
   .upcomingMatchesCard,
   .partnersCard {
     padding: 14px 12px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .panelHeader {
@@ -1414,7 +1412,7 @@
   }
 
   .tableWrap {
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .table {
@@ -1433,7 +1431,7 @@
   .positionBadge {
     width: 25px;
     height: 25px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-size: 0.7rem;
   }
 
@@ -1452,7 +1450,7 @@
   .recentMatchCard,
   .simpleMatchCard {
     padding: 12px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .recentMatchTop {
@@ -1533,7 +1531,7 @@
   .partnerLogoCell {
     min-height: 100px;
     padding: 14px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .partnerLogo {
@@ -1548,7 +1546,7 @@
   .compactEmptyState {
     min-height: 130px;
     padding: 18px 14px;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     font-size: 0.86rem;
   }
 }

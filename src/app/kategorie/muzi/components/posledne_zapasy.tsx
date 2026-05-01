@@ -64,15 +64,11 @@ function getMatchOutcome(match: SzfbMatch, ownTeamName: string) {
 
   if (atuScore > opponentScore) {
     return {
-      label: "Výhra",
-      className: styles.winBadge,
       scoreClassName: styles.winScore,
     };
   }
 
   return {
-    label: "Prehra",
-    className: styles.lossBadge,
     scoreClassName: styles.lossScore,
   };
 }
@@ -97,11 +93,6 @@ export default function RecentMatches({
             return (
               <article key={match.id} className={styles.recentMatchCard}>
                 <div className={styles.recentMatchTop}>
-                  <span
-                    className={`${styles.recentResultBadge} ${outcome.className}`}
-                  >
-                    {outcome.label}
-                  </span>
                   <span className={styles.recentMatchDate}>
                     {formatDate(match.match_date)}
                   </span>
@@ -143,14 +134,6 @@ export default function RecentMatches({
           })
         ) : (
           <article className={styles.recentMatchCard}>
-            <div className={styles.recentMatchTop}>
-              <span
-                className={`${styles.recentResultBadge} ${styles.lossBadge}`}
-              >
-                Zatiaľ nič
-              </span>
-            </div>
-
             <div className={styles.recentTeams}>
               <div className={styles.recentTeamRow}>
                 <span className={styles.recentTeamName}>

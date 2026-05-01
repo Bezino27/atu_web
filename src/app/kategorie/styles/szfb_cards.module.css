@@ -13,10 +13,10 @@
   flex-direction: column;
   min-height: 160px;
   padding: 22px;
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   text-decoration: none;
   color: inherit;
-  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.07);
   box-shadow:
     0 14px 30px rgba(15, 23, 42, 0.06),
@@ -29,10 +29,10 @@
 
 .szfbCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(211, 47, 47, 0.22);
+  border-color: var(--color-border-strong);
   box-shadow:
     0 18px 38px rgba(15, 23, 42, 0.08),
-    0 8px 18px rgba(211, 47, 47, 0.06);
+    var(--shadow-soft);
 }
 
 .szfbCardTop {
@@ -49,9 +49,9 @@
   justify-content: center;
   min-height: 28px;
   padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(211, 47, 47, 0.08);
-  color: #84101A;
+  border-radius: var(--radius-pill);
+  background: var(--color-black);
+  color: var(--color-white);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -61,13 +61,13 @@
 .szfbArrow {
   font-size: 1.1rem;
   font-weight: 900;
-  color: #111;
+  color: var(--color-text);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .szfbCard:hover .szfbArrow {
   transform: translate(2px, -2px);
-  color: #84101A;
+  color: var(--color-text-muted);
 }
 
 .szfbCardTitle {
@@ -75,7 +75,7 @@
   font-size: 1.18rem;
   line-height: 1.2;
   font-weight: 850;
-  color: #111;
+  color: var(--color-text);
 }
 
 .szfbCardLink {
@@ -95,7 +95,7 @@
   .szfbCard {
     min-height: unset;
     padding: 20px;
-    border-radius: 26px;
+    border-radius: var(--radius-xl);
   }
 
   .szfbCardTop {
@@ -122,7 +122,7 @@
   .szfbCard {
     min-height: 116px;
     padding: 16px 14px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .szfbCardTop {
@@ -161,7 +161,7 @@
   .szfbCard {
     min-height: 104px;
     padding: 14px 12px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
   }
 
   .szfbCardTop {

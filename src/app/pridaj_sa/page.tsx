@@ -16,12 +16,12 @@ const benefits = [
   {
     id: 2,
     title: "Mladí tréneri",
-    text: "Aktívni, hrajúci a blízki dnešnej hre.",
+    text: "Aktívni, hrajúci hráči, kamarátski k deťom.",
   },
   {
     id: 3,
     title: "Dobrá partia",
-    text: "Deti sa u nás cítia prirodzene a bezpečne.",
+    text: "Priateľské vzťahy medzi deťmi.",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const benefits = [
   {
     id: 6,
     title: "Prvý tréning zdarma",
-    text: "Najprv skúsiť, potom sa rozhodnúť.",
+    text: "Možnosť vyskúšať si florbal.",
   },
 ];
 
@@ -45,32 +45,19 @@ type BackendCategory = {
   name: string;
   slug?: string | null;
   season?: string | null;
+  description?: string | null;
   birth_year_from: number;
   birth_year_to: number;
+  order?: number;
   is_active?: boolean;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
 };
 
-const CATEGORY_CONTENT: Record<string, { text: string; href: string }> = {
-  pripravka: {
-    text: "Pre deti, ktoré sa chcú hýbať, zabaviť a získať prvé športové návyky.",
-    href: "/kategorie/pripravky",
-  },
-  "mladsi-ziaci": {
-    text: "Rozvoj techniky, pohybu a vzťahu k hre v tímovom prostredí.",
-    href: "/kategorie/mladsi_ziaci",
-  },
-  "starsi-ziaci": {
-    text: "Viac tempa, viac zodpovednosti a ďalší športový rast.",
-    href: "/kategorie/starsi_ziaci",
-  },
-  dorast: {
-    text: "Súťažné prostredie, intenzívnejší tréning a príprava na vyšší level.",
-    href: "/kategorie/dorast",
-  },
-  juniori: {
-    text: "Vyššie tempo, kvalitná príprava a posun k seniorskému florbalu.",
-    href: "/kategorie/juniori",
-  },
+type FaqItem = {
+  question: string;
+  answer: string | string[];
 };
 
 function createSlugFromName(name: string) {
@@ -82,8 +69,12 @@ function createSlugFromName(name: string) {
     .replace(/\s+/g, "-");
 }
 
-function getCategoryKey(category: BackendCategory) {
+function getCategorySlug(category: BackendCategory) {
   return category.slug || createSlugFromName(category.name);
+}
+
+function getCategoryHref(category: BackendCategory) {
+  return `/kategorie/${getCategorySlug(category)}`;
 }
 
 function getCategoryYears(category: BackendCategory) {
@@ -115,35 +106,43 @@ async function getCategories(): Promise<BackendCategory[]> {
   }
 }
 
-const faqItems = [
+const faqItems: FaqItem[] = [
   {
     question: "Môže prísť aj dieťa bez skúseností?",
     answer:
-      "Áno. Veľa detí začína úplne od nuly. Dôležitá je chuť hýbať sa a skúsiť niečo nové.",
+      "Áno, veľa detí začína úplne od nuly. Dôležitá je chuť hýbať sa a skúsiť niečo nové.",
   },
   {
     question: "Čo si treba priniesť na prvý tréning?",
     answer:
-      "Stačí športové oblečenie, halové tenisky a fľaša s vodou. Ostatné vám vysvetlíme.",
+      "Stačí športové oblečenie, halové tenisky a fľaša s vodou. Hokejku a okuliare si môžete požičať.",
   },
   {
     question: "Je prvý tréning zadarmo?",
     answer:
-      "Áno. Dieťa si môže tréning najprv vyskúšať bez poplatku a bez záväzku.",
+      "Áno, dieťa si môže tréning vyskúšať bez poplatku a bez záväzku.",
   },
   {
     question: "Koľko stojí členstvo?",
     answer: "Členský poplatok je 150 € na pol roka.",
   },
   {
+    question: "Kedy a kde sú tréningy?",
+    answer: [
+      "Prípravka: utorok a piatok o 15:00, Jedlíkova 7.",
+      "Mladší žiaci: pondelok a streda o 15:00, Jedlíkova 7.",
+      "Starší žiaci: utorok a streda o 17:00, SOŠ Ostrovského; štvrtok o 15:00, Jedlíkova 7.",
+      "Dorast: utorok a streda o 18:30, SOŠ Ostrovského; štvrtok o 16:30, Jedlíkova 7.",
+    ],
+  },
+  {
     question: "Ako vybrať správnu kategóriu?",
     answer:
-      "Napíšte nám vek dieťaťa a my vás nasmerujeme na správnu kategóriu.",
+      "Kategória sa vyberá najmä podľa ročníka narodenia dieťaťa. Vyberte si kategóriu podľa zoznamu na stránke, kde sú pri každej kategórii uvedené ročníky narodenia. Ak si nie ste istí, napíšte nám vek alebo ročník narodenia dieťaťa a my vás nasmerujeme na správnu skupinu.",
   },
   {
     question: "Ako sa prihlásiť alebo ozvať?",
-    answer:
-      "Najjednoduchšie je poslať meno a email. Následne sa vám ozveme.",
+    answer: "Použite formulár a my sa vám následne ozveme.",
   },
 ];
 
@@ -189,23 +188,6 @@ export default async function PridajSaPage() {
                   </a>
                 </div>
               </div>
-
-              <div className={styles.heroMiniInfo}>
-                <div className={styles.heroMiniCard}>
-                  <strong>Skúsiť bez záväzku</strong>
-                  <span>1. mesiac bez poplatku</span>
-                </div>
-
-                <div className={styles.heroMiniCard}>
-                  <strong>Správna kategória</strong>
-                  <span>Pomôžeme zaradiť dieťa</span>
-                </div>
-
-                <div className={styles.heroMiniCard}>
-                  <strong>Pre ročníky</strong>
-                  <span>2009 a mladší</span>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -223,15 +205,12 @@ export default async function PridajSaPage() {
             <h2 className={styles.sectionTitle}>Kategórie</h2>
           </div>
 
-          <div className={styles.categoriesGrid}>
-            {categories.map((category) => {
-              const categoryKey = getCategoryKey(category);
-              const content = CATEGORY_CONTENT[categoryKey];
-
-              return (
+          {categories.length > 0 ? (
+            <div className={styles.categoriesGrid}>
+              {categories.map((category) => (
                 <Link
                   key={category.id}
-                  href={content?.href || `/kategorie/${categoryKey}`}
+                  href={getCategoryHref(category)}
                   className={styles.categoryCard}
                 >
                   <div className={styles.categoryTop}>
@@ -243,7 +222,7 @@ export default async function PridajSaPage() {
                   </div>
 
                   <p className={styles.categoryText}>
-                    {content?.text ||
+                    {category.description?.trim() ||
                       "Viac informácií o kategórii nájdeš po rozkliknutí."}
                   </p>
 
@@ -251,9 +230,13 @@ export default async function PridajSaPage() {
                     <span>→</span>
                   </div>
                 </Link>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className={styles.emptyText}>
+              Momentálne nie sú dostupné žiadne kategórie.
+            </p>
+          )}
         </section>
 
         <section className={styles.sectionContainer}>
@@ -273,7 +256,15 @@ export default async function PridajSaPage() {
                 </summary>
 
                 <div className={styles.faqAnswer}>
-                  <p>{item.answer}</p>
+                  {Array.isArray(item.answer) ? (
+                    <div className={styles.faqAnswerList}>
+                      {item.answer.map((line) => (
+                        <p key={line}>{line}</p>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>{item.answer}</p>
+                  )}
                 </div>
               </details>
             ))}
