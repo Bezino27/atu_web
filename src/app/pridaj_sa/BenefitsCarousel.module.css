@@ -376,22 +376,24 @@
   }
 
   .headerRow {
-    position: static;
-    width: 100%;
-    margin: -6px 0 12px;
+    position: absolute;
+    top: 0;
+    right: 8px;
+    width: auto;
+    margin: 0;
   }
 
   .controls {
-    gap: 8px;
+    gap: 6px;
   }
 
   .arrowButton {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
   }
 
   .arrowButton span {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .carousel {

@@ -10,27 +10,109 @@ import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
-import { getHomepagePosts } from "@/app/lib/posts";
+import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
+import { API_URL } from "@/app/lib/api";
+
+type BackendCategory = {
+  id: number;
+  name: string;
+  slug?: string | null;
+  season?: string | null;
+  description?: string | null;
+  birth_year_from: number;
+  birth_year_to: number;
+  order?: number;
+  is_active?: boolean;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
+};
+
+const CLUB_SLUG = "atu-kosice";
+const CATEGORY_SLUG = "juniori";
+const CATEGORY_FALLBACK_NAME = "Juniori";
+
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function createSlugFromName(name: string) {
+  return name
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function getCategorySlug(category: BackendCategory) {
+  return category.slug || createSlugFromName(category.name);
+}
+
+function isCurrentCategory(category: BackendCategory) {
+  const categorySlug = normalizeText(getCategorySlug(category));
+  const categoryName = normalizeText(category.name);
+
+  return categorySlug === CATEGORY_SLUG || categoryName === CATEGORY_SLUG;
+}
+
+function isCurrentCategoryPost(post: Post) {
+  const categoryName = normalizeText(post.category?.name);
+
+  return categoryName === CATEGORY_SLUG || categoryName === "mladez";
+}
+
+async function getCategories(): Promise<BackendCategory[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      return [];
+    }
+
+    return data;
+  } catch {
+    return [];
+  }
+}
 
 export default async function JunioriPage() {
-  const [szfbDashboard, nextMatchResponse, posts, clubSeason] =
+  const [szfbDashboard, nextMatchResponse, posts, clubSeason, categories] =
     await Promise.all([
       getSzfbDashboard(1),
       getSzfbNextMatch(1),
-      getHomepagePosts("atu-kosice"),
-      getClubSeason("atu-kosice"),
+      getHomepagePosts(CLUB_SLUG),
+      getClubSeason(CLUB_SLUG),
+      getCategories(),
     ]);
 
-  const junioriPosts = posts.filter((post) => {
-    const categoryName = post.category?.name?.toLowerCase().trim();
-    return ["juniori", "mládež", "mladez"].includes(categoryName || "");
-  });
+  const currentCategory = categories.find(isCurrentCategory);
+
+  const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+
+  const junioriPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const nextMatch = nextMatchResponse?.next_match ?? null;
-  const currentSeason = clubSeason?.season ?? "2025 / 2026";
+
+  const currentSeason =
+    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -41,7 +123,7 @@ export default async function JunioriPage() {
           <div className={styles.bannerContainer}>
             <Image
               src="/images/kategorie/juniori_kader.jpg"
-              alt="ATU Košice Juniori"
+              alt={`ATU Košice ${categoryName}`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1300px"
@@ -53,7 +135,8 @@ export default async function JunioriPage() {
                 <span className={styles.heroSubtitle}>
                   Slovenská Florbalová Juniorská Extraliga
                 </span>
-                <h1 className={styles.bannerTitle}>Juniori</h1>
+
+                <h1 className={styles.bannerTitle}>{categoryName}</h1>
 
                 <div className={styles.heroQuickNav}>
                   <a href="#zapasy" className={styles.heroQuickLink}>

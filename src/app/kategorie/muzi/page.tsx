@@ -12,24 +12,107 @@ import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
+import { API_URL } from "@/app/lib/api";
+
+type BackendCategory = {
+  id: number;
+  name: string;
+  slug?: string | null;
+  season?: string | null;
+  description?: string | null;
+  birth_year_from: number;
+  birth_year_to: number;
+  order?: number;
+  is_active?: boolean;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
+};
+
+const CLUB_SLUG = "atu-kosice";
+const CATEGORY_SLUG = "muzi";
+const CATEGORY_FALLBACK_NAME = "Muži";
+
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function createSlugFromName(name: string) {
+  return name
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function getCategorySlug(category: BackendCategory) {
+  return category.slug || createSlugFromName(category.name);
+}
+
+function isCurrentCategory(category: BackendCategory) {
+  const categorySlug = normalizeText(getCategorySlug(category));
+  const categoryName = normalizeText(category.name);
+
+  return (
+    categorySlug === CATEGORY_SLUG ||
+    categoryName === CATEGORY_SLUG ||
+    categoryName === "muzi" ||
+    categoryName === "a-tim"
+  );
+}
+
+function isCurrentCategoryPost(post: Post) {
+  const categoryName = normalizeText(post.category?.name);
+
+  return (
+    categoryName === "muzi" ||
+    categoryName === "a-tim" ||
+    categoryName === CATEGORY_SLUG
+  );
+}
+
+async function getCategories(): Promise<BackendCategory[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      return [];
+    }
+
+    return data;
+  } catch {
+    return [];
+  }
+}
 
 export default async function MuziPage() {
-  const [szfbDashboard, posts, clubSeason] = await Promise.all([
+  const [szfbDashboard, posts, clubSeason, categories] = await Promise.all([
     getSzfbDashboard(1),
-    getHomepagePosts("atu-kosice"),
-    getClubSeason("atu-kosice"),
+    getHomepagePosts(CLUB_SLUG),
+    getClubSeason(CLUB_SLUG),
+    getCategories(),
   ]);
 
-  const muziPosts = posts.filter((post: Post) => {
-    const categoryName = post.category?.name?.toLowerCase().trim();
+  const currentCategory = categories.find(isCurrentCategory);
 
-    return (
-      categoryName === "muži" ||
-      categoryName === "muzi" ||
-      categoryName === "a-tím" ||
-      categoryName === "a-tim"
-    );
-  });
+  const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+
+  const muziPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
@@ -40,7 +123,9 @@ export default async function MuziPage() {
     szfbDashboard?.watch?.competition_name || "EXTRALIGA MUŽOV";
 
   const nextMatch = upcomingMatches[0] ?? null;
-  const currentSeason = clubSeason?.season ?? "2025 / 2026";
+
+  const currentSeason =
+    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -51,7 +136,7 @@ export default async function MuziPage() {
           <div className={styles.bannerContainer}>
             <Image
               src="/images/kategorie/muzi_kader.jpg"
-              alt="ATU Košice Muži"
+              alt={`ATU Košice ${categoryName}`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1300px"
@@ -64,7 +149,7 @@ export default async function MuziPage() {
                   Slovenská florbalová extraliga
                 </span>
 
-                <h1 className={styles.bannerTitle}>Muži</h1>
+                <h1 className={styles.bannerTitle}>{categoryName}</h1>
 
                 <div className={styles.heroQuickNav}>
                   <a href="#novinky" className={styles.heroQuickLink}>

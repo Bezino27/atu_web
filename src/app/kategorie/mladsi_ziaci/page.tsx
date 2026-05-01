@@ -9,14 +9,108 @@ import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_mladsi_ziaci";
 import Nabor from "./components/nabor";
 import { getClubSeason } from "../../lib/season";
+import { API_URL } from "@/app/lib/api";
+
+type BackendCategory = {
+  id: number;
+  name: string;
+  slug?: string | null;
+  season?: string | null;
+  description?: string | null;
+  birth_year_from: number;
+  birth_year_to: number;
+  order?: number;
+  is_active?: boolean;
+  coach_name?: string;
+  coach_email?: string;
+  coach_phone?: string;
+};
+
+const CLUB_SLUG = "atu-kosice";
+const CATEGORY_SLUG = "mladsi-ziaci";
+const CATEGORY_FALLBACK_NAME = "Mladší žiaci";
+
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function createSlugFromName(name: string) {
+  return name
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function getCategorySlug(category: BackendCategory) {
+  return category.slug || createSlugFromName(category.name);
+}
+
+function isCurrentCategory(category: BackendCategory) {
+  const categorySlug = normalizeText(getCategorySlug(category));
+  const categoryName = normalizeText(category.name);
+
+  return (
+    categorySlug === CATEGORY_SLUG ||
+    categoryName === CATEGORY_SLUG ||
+    categoryName === "mladsi ziaci"
+  );
+}
+
+function isYouthPost(post: Post) {
+  const categoryName = normalizeText(post.category?.name);
+
+  return (
+    categoryName === "mladez" ||
+    categoryName === CATEGORY_SLUG ||
+    categoryName === "mladsi ziaci"
+  );
+}
+
+async function getCategories(): Promise<BackendCategory[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      return [];
+    }
+
+    return data;
+  } catch {
+    return [];
+  }
+}
 
 const MladsiZiaciPage = async () => {
-  const posts: Post[] = await getHomepagePosts("atu-kosice");
+  const [posts, clubSeason, categories] = await Promise.all([
+    getHomepagePosts(CLUB_SLUG),
+    getClubSeason(CLUB_SLUG),
+    getCategories(),
+  ]);
 
-  const mladezPosts = posts.filter((post) => {
-    const categoryName = post.category?.name?.toLowerCase().trim();
-    return categoryName === "mládež" || categoryName === "mladez";
-  });
+  const currentCategory = categories.find(isCurrentCategory);
+
+  const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+
+  const mladezPosts = posts.filter(isYouthPost);
+
+  const currentSeason =
+    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
   const szfbLinks = [
     {
@@ -32,13 +126,6 @@ const MladsiZiaciPage = async () => {
       href: "https://www.szfb.sk/sk/stats/results-date/1178",
     },
   ];
-  const [clubSeason] = await Promise.all([
-  
-    getClubSeason("atu-kosice"),
-  ]);
-  
-  const currentSeason = clubSeason?.season ?? "2025 / 2026";
-  
 
   return (
     <div className={styles.pageContainer}>
@@ -49,7 +136,7 @@ const MladsiZiaciPage = async () => {
           <div className={styles.bannerContainer}>
             <Image
               src="/images/kategorie/mladsi_ziaci.jpg"
-              alt="ATU Košice Mladší žiaci"
+              alt={`ATU Košice ${categoryName}`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1300px"
@@ -58,7 +145,7 @@ const MladsiZiaciPage = async () => {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>Mladší žiaci</h1>
+                <h1 className={styles.bannerTitleziaci}>{categoryName}</h1>
 
                 <div className={styles.heroQuickNav}>
                   <a href="#odkazy" className={styles.heroQuickLink}>
@@ -72,12 +159,12 @@ const MladsiZiaciPage = async () => {
                   </a>
                 </div>
               </div>
-               <div className={styles.heroMiniInfo}>
+
+              <div className={styles.heroMiniInfo}>
                 <span className={styles.heroMiniLabel}>Sezóna</span>
                 <span className={styles.heroMiniValue}>{currentSeason}</span>
-               </div>
+              </div>
             </div>
-  
           </div>
         </section>
 
@@ -104,7 +191,9 @@ const MladsiZiaciPage = async () => {
 
                   <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
 
-                  <span className={szfbStyle.szfbCardLink}>Otvoriť odkaz</span>
+                  <span className={szfbStyle.szfbCardLink}>
+                    Otvoriť odkaz
+                  </span>
                 </a>
               ))}
             </div>
@@ -118,8 +207,11 @@ const MladsiZiaciPage = async () => {
         <section id="nabor" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>NÁBOR</span>
-            <h2 className={styles.sectionTitle}>Chceš hrať florbal?</h2>
+            <h2 className={styles.sectionTitle}>
+              Chceš hrať za {categoryName.toLowerCase()}?
+            </h2>
           </div>
+
           <Nabor />
         </section>
 
@@ -130,6 +222,7 @@ const MladsiZiaciPage = async () => {
               Najnovšie a najdôležitejšie články
             </h2>
           </div>
+
           <Novinky posts={mladezPosts} />
         </section>
       </main>

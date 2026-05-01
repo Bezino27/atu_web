@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
+import { flip } from "@floating-ui/dom";
 import { sk } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import { API_URL } from "@/app/lib/api";
@@ -48,7 +49,11 @@ const monthNames = [
 ];
 
 const currentYear = new Date().getFullYear();
-const years = Array.from({ length: currentYear - 1990 + 1 }, (_, index) => currentYear - index);
+
+const years = Array.from(
+  { length: currentYear - 1990 + 1 },
+  (_, index) => currentYear - index
+);
 
 function UserIcon() {
   return (
@@ -92,6 +97,16 @@ function NoteIcon() {
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12 20h9" />
       <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="5" y="10" width="14" height="10" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+      <path d="M12 14v2" />
     </svg>
   );
 }
@@ -157,7 +172,9 @@ export default function RecruitmentForm() {
         },
         body: JSON.stringify({
           child_full_name: formData.child_full_name.trim(),
-          birth_year: formData.birth_date ? formData.birth_date.getFullYear() : null,
+          birth_year: formData.birth_date
+            ? formData.birth_date.getFullYear()
+            : null,
           email: formData.email.trim(),
           phone: formData.phone.trim(),
           note: formData.note.trim(),
@@ -234,6 +251,12 @@ export default function RecruitmentForm() {
                 wrapperClassName={styles.datePickerWrapper}
                 popperClassName={styles.datePickerPopper}
                 calendarClassName={styles.datePickerCalendar}
+                popperPlacement="bottom-start"
+                popperModifiers={[
+                  flip({
+                    fallbackPlacements: ["bottom-start"],
+                  }),
+                ]}
                 showPopperArrow={false}
                 formatWeekDay={(nameOfDay) => nameOfDay.slice(0, 2)}
                 renderCustomHeader={({
@@ -394,7 +417,9 @@ export default function RecruitmentForm() {
           </p>
         ))}
 
-        {submitError ? <p className={styles.submitError}>{submitError}</p> : null}
+        {submitError ? (
+          <p className={styles.submitError}>{submitError}</p>
+        ) : null}
 
         {successMessage ? (
           <p className={styles.successMessage}>{successMessage}</p>
@@ -407,6 +432,13 @@ export default function RecruitmentForm() {
         >
           {isSubmitting ? "Odosielam..." : "Chcem skúsiť tréning"}
         </button>
+
+        <div className={styles.safeNotice}>
+          <span className={styles.safeNoticeIcon}>
+            <LockIcon />
+          </span>
+          <span>Vaše údaje sú u nás v bezpečí.</span>
+        </div>
       </form>
     </div>
   );
