@@ -12,7 +12,7 @@ const ClubVenueMap = dynamic(() => import("./ClubVenueMap"), {
 
 export default function ClubHero() {
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
-  
+
   return (
     <div className={styles.heroCard}>
       <div className={styles.heroLeft}>

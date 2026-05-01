@@ -95,7 +95,7 @@ export default function RecruitmentForm() {
       setSuccessMessage(
         "Ďakujeme, formulár bol úspešne odoslaný. Čoskoro sa vám ozveme."
       );
-    } catch (error) {
+    } catch {
       setSubmitError(
         "Nastala chyba pri odosielaní formulára. Skúste to prosím znova."
       );
@@ -104,109 +104,117 @@ export default function RecruitmentForm() {
     }
   }
 
-return (
-  <div className={styles.formWrap}>
-    <form className={styles.formPanel} onSubmit={handleSubmit} noValidate>
-      <div className={styles.formGrid}>
-        <div className={styles.formFieldFull}>
-          <label htmlFor="child_full_name">Meno a priezvisko dieťaťa</label>
-          <input
-            id="child_full_name"
-            name="child_full_name"
-            type="text"
-            placeholder="Napíšte meno a priezvisko"
-            value={formData.child_full_name}
-            onChange={handleChange}
-          />
-          {errors.child_full_name?.map((error) => (
-            <p key={error} className={styles.fieldError}>
-              {error}
-            </p>
-          ))}
+  return (
+    <div className={styles.formWrap}>
+      <form className={styles.formPanel} onSubmit={handleSubmit} noValidate>
+        <div className={styles.formGrid}>
+          <div className={styles.formFieldFull}>
+            <label htmlFor="child_full_name">Meno a priezvisko dieťaťa</label>
+            <input
+              id="child_full_name"
+              name="child_full_name"
+              type="text"
+              placeholder="Napíšte meno a priezvisko"
+              value={formData.child_full_name}
+              onChange={handleChange}
+            />
+
+            {errors.child_full_name?.map((error) => (
+              <p key={error} className={styles.fieldError}>
+                {error}
+              </p>
+            ))}
+          </div>
+
+          <div className={styles.formField}>
+            <label htmlFor="birth_year">Rok narodenia</label>
+            <input
+              id="birth_year"
+              name="birth_year"
+              type="number"
+              placeholder="Napr. 2013"
+              value={formData.birth_year}
+              onChange={handleChange}
+            />
+
+            {errors.birth_year?.map((error) => (
+              <p key={error} className={styles.fieldError}>
+                {error}
+              </p>
+            ))}
+          </div>
+
+          <div className={styles.formField}>
+            <label htmlFor="phone">Telefón</label>
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              placeholder="+421 900 000 000"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+
+            {errors.phone?.map((error) => (
+              <p key={error} className={styles.fieldError}>
+                {error}
+              </p>
+            ))}
+          </div>
+
+          <div className={styles.formFieldFull}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="vas@email.sk"
+              value={formData.email}
+              onChange={handleChange}
+            />
+
+            {errors.email?.map((error) => (
+              <p key={error} className={styles.fieldError}>
+                {error}
+              </p>
+            ))}
+          </div>
+
+          <div className={styles.formFieldFull}>
+            <label htmlFor="note">Poznámka</label>
+            <textarea
+              id="note"
+              name="note"
+              placeholder="Voliteľné – môžete doplniť krátku poznámku"
+              value={formData.note}
+              onChange={handleChange}
+              rows={5}
+            />
+
+            {errors.note?.map((error) => (
+              <p key={error} className={styles.fieldError}>
+                {error}
+              </p>
+            ))}
+          </div>
         </div>
 
-        <div className={styles.formField}>
-          <label htmlFor="birth_year">Rok narodenia</label>
-          <input
-            id="birth_year"
-            name="birth_year"
-            type="number"
-            placeholder="Napr. 2013"
-            value={formData.birth_year}
-            onChange={handleChange}
-          />
-          {errors.birth_year?.map((error) => (
-            <p key={error} className={styles.fieldError}>
-              {error}
-            </p>
-          ))}
-        </div>
+        {submitError ? (
+          <p className={styles.submitError}>{submitError}</p>
+        ) : null}
 
-        <div className={styles.formField}>
-          <label htmlFor="phone">Telefón</label>
-          <input
-            id="phone"
-            name="phone"
-            type="text"
-            placeholder="+421 900 000 000"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-          {errors.phone?.map((error) => (
-            <p key={error} className={styles.fieldError}>
-              {error}
-            </p>
-          ))}
-        </div>
+        {successMessage ? (
+          <p className={styles.successMessage}>{successMessage}</p>
+        ) : null}
 
-        <div className={styles.formFieldFull}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="vas@email.sk"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email?.map((error) => (
-            <p key={error} className={styles.fieldError}>
-              {error}
-            </p>
-          ))}
-        </div>
-
-        <div className={styles.formFieldFull}>
-          <label htmlFor="note">Poznámka</label>
-          <textarea
-            id="note"
-            name="note"
-            placeholder="Voliteľné – môžete doplniť krátku poznámku"
-            value={formData.note}
-            onChange={handleChange}
-            rows={5}
-          />
-          {errors.note?.map((error) => (
-            <p key={error} className={styles.fieldError}>
-              {error}
-            </p>
-          ))}
-        </div>
-      </div>
-
-      {submitError ? <p className={styles.submitError}>{submitError}</p> : null}
-      {successMessage ? (
-        <p className={styles.successMessage}>{successMessage}</p>
-      ) : null}
-
-      <button
-        type="submit"
-        className={styles.submitButton}
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Odosielam..." : "Chcem skúsiť tréning"}
-      </button>
-    </form>
-  </div>
-);
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Odosielam..." : "Chcem skúsiť tréning"}
+        </button>
+      </form>
+    </div>
+  );
 }

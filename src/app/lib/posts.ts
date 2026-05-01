@@ -21,18 +21,37 @@ export type Post = {
 };
 
 export async function getHomepagePosts(clubSlug: string): Promise<Post[]> {
-  const res = await fetch(`${API_URL}/public/posts/${clubSlug}/`, {
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(`${API_URL}/public/posts/${clubSlug}/`, {
+      cache: "no-store",
+    });
 
-  if (!res.ok) {
-    throw new Error(`Nepodarilo sa načítať články: ${res.status}`);
+    if (!res.ok) {
+      console.error(`Nepodarilo sa načítať články: ${res.status}`);
+      return [];
+    }
+
+    const data = await res.json();
+
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    if (Array.isArray(data.results)) {
+      return data.results;
+    }
+
+    return [];
+  } catch (error) {
+    console.error("Chyba pri načítaní článkov:", error);
+    return [];
   }
-
-  return res.json();
 }
 
-export async function getPostDetail(clubSlug: string, slug: string): Promise<Post> {
+export async function getPostDetail(
+  clubSlug: string,
+  slug: string,
+): Promise<Post> {
   const res = await fetch(`${API_URL}/public/posts/${clubSlug}/${slug}/`, {
     cache: "no-store",
   });

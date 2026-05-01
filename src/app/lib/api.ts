@@ -1,5 +1,11 @@
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+if (!rawApiUrl && process.env.NODE_ENV === "production") {
+  throw new Error("Missing NEXT_PUBLIC_API_URL in production environment.");
+}
+
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ?? "http://localhost:8000/api";
 
 export const BACKEND_URL = API_URL.endsWith("/api")
   ? API_URL.slice(0, -4)
@@ -12,5 +18,7 @@ export function getImageUrl(image?: string | null): string {
     return image;
   }
 
-  return `${BACKEND_URL}${image}`;
+  const normalizedImage = image.startsWith("/") ? image : `/${image}`;
+
+  return `${BACKEND_URL}${normalizedImage}`;
 }

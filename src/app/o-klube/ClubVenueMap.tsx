@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { MapContainer, Marker, TileLayer, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -12,28 +12,20 @@ interface ClubVenueMapProps {
   activeLocation: string | null;
 }
 
-const MAP_CENTER: [number, number] = [48.70186, 21.2441];
+const MAP_CENTER: [number, number] = [48.70386010126878, 21.25058525154437];
 
 const getInitialZoom = () => {
   if (typeof window === "undefined") return 13;
-  return window.innerWidth <= 640 ? 13 : 15;
+  return window.innerWidth <= 640 ? 16 : 17;
 };
 
 const ClubVenueMap: React.FC<ClubVenueMapProps> = ({
   locations,
   activeLocation,
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [zoom, setZoom] = useState(13);
-
-  useEffect(() => {
-    setIsMounted(true);
-    setZoom(getInitialZoom());
-  }, []);
+  const [initialZoom] = useState(getInitialZoom);
 
   const markerEntries = useMemo(() => {
-    if (typeof window === "undefined") return [];
-
     return Object.entries(locations).map(([id, loc]) => {
       const isActive = activeLocation === id;
 
@@ -63,15 +55,11 @@ const ClubVenueMap: React.FC<ClubVenueMapProps> = ({
     });
   }, [locations, activeLocation]);
 
-  if (!isMounted || typeof window === "undefined") {
-    return <div className={styles.mapLoading}>Pripravujem mapu...</div>;
-  }
-
   return (
     <div className={styles.mapWrapper}>
       <MapContainer
         center={MAP_CENTER}
-        zoom={zoom}
+        zoom={initialZoom}
         style={{ width: "100%", height: "100%", minHeight: "210px" }}
         scrollWheelZoom={false}
         zoomControl={false}

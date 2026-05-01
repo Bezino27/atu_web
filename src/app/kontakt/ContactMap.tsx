@@ -10,17 +10,20 @@ type Location = {
   lng: number;
 };
 
-interface ContactMapProps {
+type ContactMapProps = {
   locations: Record<string, Location>;
   activeLocation: string | null;
-}
+};
 
-const ContactMapClient = dynamic(() => import("./ContactMapClient"), {
+const ContactMapClient = dynamic<ContactMapProps>(
+  () => import("./ContactMapClient"),
+  {
   ssr: false,
-  loading: () => (
-    <div className={styles.mapLoading}>Pripravujem mapu...</div>
-  ),
-});
+    loading: () => (
+      <div className={styles.mapLoading}>Pripravujem mapu...</div>
+    ),
+  }
+);
 
 export default function ContactMap(props: ContactMapProps) {
   return <ContactMapClient {...props} />;

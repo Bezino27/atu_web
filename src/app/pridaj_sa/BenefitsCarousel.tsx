@@ -10,8 +10,6 @@ type WhyAtuItem = {
 };
 
 type WhyAtuCarouselProps = {
-  eyebrow?: string;
-  title: string;
   items: WhyAtuItem[];
 };
 
@@ -19,11 +17,7 @@ function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
-export default function WhyAtuCarousel({
-  eyebrow,
-  title,
-  items,
-}: WhyAtuCarouselProps) {
+export default function WhyAtuCarousel({ items }: WhyAtuCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(items.length / 2)
   );
@@ -91,35 +85,35 @@ export default function WhyAtuCarousel({
   if (!items?.length) return null;
 
   return (
-      <div className={styles.section}>
-        <div className={styles.headerRow}>
-          <div className={styles.controls}>
-            <button
-              type="button"
-              className={styles.arrowButton}
-              onClick={goPrev}
-              aria-label="Predchádzajúca karta"
-            >
-              <span aria-hidden="true">←</span>
-            </button>
+    <div className={styles.section}>
+      <div className={styles.headerRow}>
+        <div className={styles.controls}>
+          <button
+            type="button"
+            className={styles.arrowButton}
+            onClick={goPrev}
+            aria-label="Predchádzajúca karta"
+          >
+            <span aria-hidden="true">←</span>
+          </button>
 
-            <button
-              type="button"
-              className={styles.arrowButton}
-              onClick={goNext}
-              aria-label="Ďalšia karta"
-            >
-              <span aria-hidden="true">→</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            className={styles.arrowButton}
+            onClick={goNext}
+            aria-label="Ďalšia karta"
+          >
+            <span aria-hidden="true">→</span>
+          </button>
         </div>
+      </div>
 
-        <div
-          className={styles.carousel}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          aria-label="Carousel Prečo ATU"
-        >
+      <div
+        className={styles.carousel}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        aria-label="Carousel Prečo ATU"
+      >
         <div className={styles.stage}>
           {mappedItems.map((item) => {
             const hidden = item.absOffset > 2;
@@ -143,9 +137,8 @@ export default function WhyAtuCarousel({
                 aria-hidden={hidden}
               >
                 <div className={styles.cardInner}>
-                <div
-                  className={`${styles.cardAccent} ${item.isActive ? styles.cardAccentActive : ""}`}
-                />                  
+                  <div className={styles.cardAccent} />
+
                   <h3 className={styles.cardTitle}>{item.title}</h3>
                   <p className={styles.cardText}>{item.text}</p>
                 </div>

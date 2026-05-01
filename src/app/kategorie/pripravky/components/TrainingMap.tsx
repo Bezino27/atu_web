@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -23,17 +24,9 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
   locations,
   activeLocation,
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [zoom, setZoom] = useState(13);
-
-  useEffect(() => {
-    setIsMounted(true);
-    setZoom(getInitialZoom());
-  }, []);
+  const [initialZoom] = useState(getInitialZoom);
 
   const markerEntries = useMemo(() => {
-    if (typeof window === "undefined") return [];
-
     return Object.entries(locations).map(([id, loc]) => {
       const isActive = activeLocation === id;
 
@@ -63,15 +56,11 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
     });
   }, [locations, activeLocation]);
 
-  if (!isMounted || typeof window === "undefined") {
-    return <div className={styles.mapLoading}>Pripravujem mapu...</div>;
-  }
-
   return (
     <div style={{ width: "100%", height: "100%", position: "relative" }}>
       <MapContainer
         center={MAP_CENTER}
-        zoom={zoom}
+        zoom={initialZoom}
         style={{ width: "100%", height: "100%", minHeight: "420px" }}
         scrollWheelZoom={false}
         zoomControl={false}

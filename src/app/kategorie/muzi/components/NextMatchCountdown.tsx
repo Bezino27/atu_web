@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from 'react';
-import styles from '../../styles/unified.module.css';
+import { useEffect, useMemo, useState } from "react";
+import styles from "../../styles/unified.module.css";
 
 type NextMatchCountdownProps = {
   matchDate: string | null;
   matchTime: string | null;
   opponent: string;
-  venue: string;
   ownTeamName: string;
   isHome: boolean | null;
 };
@@ -20,7 +19,7 @@ function buildTargetDate(matchDate: string | null, matchTime: string | null) {
   if (!matchDate) return null;
 
   const safeTime =
-    matchTime && matchTime.length >= 5 ? matchTime.slice(0, 5) : '18:00';
+    matchTime && matchTime.length >= 5 ? matchTime.slice(0, 5) : "18:00";
 
   const parsed = new Date(`${matchDate}T${safeTime}:00`);
 
@@ -33,7 +32,6 @@ export default function NextMatchCountdown({
   matchDate,
   matchTime,
   opponent,
-  venue,
   ownTeamName,
   isHome,
 }: NextMatchCountdownProps) {
@@ -42,7 +40,7 @@ export default function NextMatchCountdown({
     [matchDate, matchTime]
   );
 
-  const [now, setNow] = useState<number | null>(null);
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
     if (!targetDate) return;
@@ -55,10 +53,12 @@ export default function NextMatchCountdown({
   }, [targetDate]);
 
   const matchupTitle =
-    isHome === false ? `${opponent} vs ${ownTeamName}` : `${ownTeamName} vs ${opponent}`;
+    isHome === false
+      ? `${opponent} vs ${ownTeamName}`
+      : `${ownTeamName} vs ${opponent}`;
 
   const countdown = useMemo(() => {
-    if (!targetDate || now === null) {
+    if (!targetDate) {
       return {
         isReady: false,
         isLive: false,
@@ -86,7 +86,9 @@ export default function NextMatchCountdown({
       isReady: true,
       isLive: false,
       days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      hours: Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      ),
       minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
       seconds: Math.floor((distance % (1000 * 60)) / 1000),
     };
@@ -97,8 +99,9 @@ export default function NextMatchCountdown({
       <div className={styles.countdownWrapper}>
         <div className={styles.countdownBar}>
           <span className={styles.liveDot} />
+
           <span className={styles.timer}>
-            <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{' '}
+            <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
             Zatiaľ nie je k dispozícii.
           </span>
         </div>
@@ -114,8 +117,8 @@ export default function NextMatchCountdown({
           style={
             countdown.isReady && countdown.isLive
               ? {
-                  backgroundColor: '#ff0000',
-                  boxShadow: '0 0 15px #ff0000',
+                  backgroundColor: "#ff0000",
+                  boxShadow: "0 0 15px #ff0000",
                 }
               : undefined
           }
@@ -124,25 +127,24 @@ export default function NextMatchCountdown({
         <span className={styles.timer}>
           {!countdown.isReady ? (
             <>
-              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{' '}
-              {targetDate.toLocaleDateString('sk-SK')} •{' '}
-              {matchTime?.slice(0, 5) || 'čas bude doplnený'}
+              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
+              {targetDate.toLocaleDateString("sk-SK")} •{" "}
+              {matchTime?.slice(0, 5) || "čas bude doplnený"}
             </>
           ) : countdown.isLive ? (
-            <span style={{ color: '#d32f2f', fontWeight: 900 }}>
+            <span style={{ color: "#d32f2f", fontWeight: 900 }}>
               SLEDUJTE LIVE ⚡ {matchupTitle}
             </span>
           ) : (
             <>
-              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{' '}
-              {countdown.days}d : {formatUnit(countdown.hours)}h :{' '}
-              {formatUnit(countdown.minutes)}m : {formatUnit(countdown.seconds)}s
+              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{" "}
+              {countdown.days}d : {formatUnit(countdown.hours)}h :{" "}
+              {formatUnit(countdown.minutes)}m : {formatUnit(countdown.seconds)}
+              s
             </>
           )}
         </span>
       </div>
-
-      
     </div>
   );
 }

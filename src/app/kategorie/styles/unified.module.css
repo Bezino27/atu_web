@@ -2325,7 +2325,7 @@
 
   .bannerTitle {
     margin: 26px 0 -10px;
-    font-size: clamp(4.5rem, 13vw, 3rem);
+    font-size: clamp(2.45rem, 13vw, 3rem);
     line-height: 0.98;
     letter-spacing: 0.01em;
   }

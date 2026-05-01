@@ -38,7 +38,7 @@ export const heroLocations: Record<string, HeroLocation> = {
     description: "Moderné domáce prostredie pre zápasy aj klubové dianie.",
     name: "SOŠ Ostrovského 1",
     address: "Ostrovského 1, Košice",
-    lat: 48.70186,
-    lng: 21.2441,
+    lat: 48.70386010126878,   
+    lng: 21.25058525154437,
   },
 };

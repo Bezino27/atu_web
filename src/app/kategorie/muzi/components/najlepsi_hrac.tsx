@@ -64,7 +64,7 @@ function PlayerCard({ player }: { player: Player }) {
       className={`${styles.playerCard} ${styles[`playerCardRank${player.rank}`]} ${sizeClass}`}
     >
       <div className={styles.playerCardTop}>
-        <div className={styles.rankBadge}>#{player.rank}</div>
+        <div className={styles.rankBadge}>{player.rank}.</div>
         <div className={styles.playerNumber}>{player.number}</div>
       </div>
 

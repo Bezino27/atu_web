@@ -1,5 +1,10 @@
 import styles from "../../styles/unified.module.css";
-import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
+import type { SzfbMatch } from "@/app/lib/szfb";
+
+type RecentMatchesProps = {
+  results: SzfbMatch[];
+  ownTeamName: string;
+};
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
@@ -72,12 +77,10 @@ function getMatchOutcome(match: SzfbMatch, ownTeamName: string) {
   };
 }
 
-export default async function RecentMatches() {
-  const szfbDashboard = await getSzfbDashboard(1);
-
-  const results: SzfbMatch[] = szfbDashboard?.results ?? [];
-  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-
+export default function RecentMatches({
+  results,
+  ownTeamName,
+}: RecentMatchesProps) {
   return (
     <section className={styles.recentMatchesCard}>
       <div className={styles.panelHeader}>
@@ -94,7 +97,9 @@ export default async function RecentMatches() {
             return (
               <article key={match.id} className={styles.recentMatchCard}>
                 <div className={styles.recentMatchTop}>
-                  <span className={`${styles.recentResultBadge} ${outcome.className}`}>
+                  <span
+                    className={`${styles.recentResultBadge} ${outcome.className}`}
+                  >
                     {outcome.label}
                   </span>
                   <span className={styles.recentMatchDate}>
@@ -127,7 +132,9 @@ export default async function RecentMatches() {
                 </div>
 
                 <div className={styles.recentScoreRow}>
-                  <span className={`${styles.recentScore} ${outcome.scoreClassName}`}>
+                  <span
+                    className={`${styles.recentScore} ${outcome.scoreClassName}`}
+                  >
                     {homeScore}:{awayScore}
                   </span>
                 </div>
@@ -137,7 +144,9 @@ export default async function RecentMatches() {
         ) : (
           <article className={styles.recentMatchCard}>
             <div className={styles.recentMatchTop}>
-              <span className={`${styles.recentResultBadge} ${styles.lossBadge}`}>
+              <span
+                className={`${styles.recentResultBadge} ${styles.lossBadge}`}
+              >
                 Zatiaľ nič
               </span>
             </div>

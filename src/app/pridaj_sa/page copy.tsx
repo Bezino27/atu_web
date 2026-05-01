@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import BenefitsCarouselSection from "./BenefitsCarousel";
 import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
@@ -43,14 +42,17 @@ const benefits = [
 type BackendCategory = {
   id: number;
   name: string;
-  slug?: string | null;
-  season?: string | null;
+  slug: string;
+  season: string;
   birth_year_from: number;
   birth_year_to: number;
-  is_active?: boolean;
+  is_active: boolean;
 };
 
-const CATEGORY_CONTENT: Record<string, { text: string; href: string }> = {
+const CATEGORY_CONTENT: Record<
+  string,
+  { text: string; href: string }
+> = {
   pripravka: {
     text: "Pre deti, ktoré sa chcú hýbať, zabaviť a získať prvé športové návyky.",
     href: "/kategorie/pripravky",
@@ -73,26 +75,6 @@ const CATEGORY_CONTENT: Record<string, { text: string; href: string }> = {
   },
 };
 
-function createSlugFromName(name: string) {
-  return name
-    .toLowerCase()
-    .trim()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, "-");
-}
-
-function getCategoryKey(category: BackendCategory) {
-  return category.slug || createSlugFromName(category.name);
-}
-
-function getCategoryYears(category: BackendCategory) {
-  const minYear = Math.min(category.birth_year_from, category.birth_year_to);
-  const maxYear = Math.max(category.birth_year_from, category.birth_year_to);
-
-  return `ročníky ${minYear} – ${maxYear}`;
-}
-
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/atu-kosice/`, {
@@ -103,17 +85,12 @@ async function getCategories(): Promise<BackendCategory[]> {
       return [];
     }
 
-    const data = await res.json();
-
-    if (!Array.isArray(data)) {
-      return [];
-    }
-
-    return data;
+    return res.json();
   } catch {
     return [];
   }
 }
+
 
 const faqItems = [
   {
@@ -149,7 +126,6 @@ const faqItems = [
 
 export default async function PridajSaPage() {
   const categories = await getCategories();
-
   return (
     <main className={styles.pageContainer}>
       <Header />
@@ -157,14 +133,12 @@ export default async function PridajSaPage() {
       <div className={styles.content}>
         <section className={styles.heroSection}>
           <div className={styles.heroCard}>
-            <Image
+            <img
               src="/images/nabor-hero.jpg"
               alt="Deti na tréningu ATU Košice"
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroBackgroundImage}
             />
+
             <div className={styles.heroOverlay} />
 
             <div className={styles.heroInner}>
@@ -176,8 +150,8 @@ export default async function PridajSaPage() {
                 <h1 className={styles.heroTitle}>Poď hrať florbal</h1>
 
                 <p className={styles.heroText}>
-                  Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom
-                  klubovom prostredí s osobným prístupom.
+                  Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom klubovom
+                  prostredí s osobným prístupom.
                 </p>
 
                 <div className={styles.heroActions}>
@@ -209,7 +183,6 @@ export default async function PridajSaPage() {
             </div>
           </div>
         </section>
-
         <section className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Prečo ATU</h2>
@@ -218,78 +191,73 @@ export default async function PridajSaPage() {
           <BenefitsCarouselSection items={benefits} />
         </section>
 
+
         <section id="kategorie" className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Kategórie</h2>
           </div>
+        <div className={styles.categoriesGrid}>
+          {categories.map((category) => {
+            const content = CATEGORY_CONTENT[category.slug];
 
-          <div className={styles.categoriesGrid}>
-            {categories.map((category) => {
-              const categoryKey = getCategoryKey(category);
-              const content = CATEGORY_CONTENT[categoryKey];
+            return (
+              <Link
+                key={category.id}
+                href={content?.href || "/kategorie"}
+                className={styles.categoryCard}
+              >
+                <div className={styles.categoryTop}>
+                  <h3 className={styles.categoryTitle}>{category.name}</h3>
+                  <span className={styles.categoryMeta}>
+                    ročníky {Math.min(category.birth_year_from, category.birth_year_to)} –{" "}
+                    {Math.max(category.birth_year_from, category.birth_year_to)}
+                  </span>
+                </div>
 
-              return (
-                <Link
-                  key={category.id}
-                  href={content?.href || `/kategorie/${categoryKey}`}
-                  className={styles.categoryCard}
-                >
-                  <div className={styles.categoryTop}>
-                    <h3 className={styles.categoryTitle}>{category.name}</h3>
+                <p className={styles.categoryText}>
+                  {content?.text || "Viac informácií o kategórii nájdeš po rozkliknutí."}
+                </p>
 
-                    <span className={styles.categoryMeta}>
-                      {getCategoryYears(category)}
-                    </span>
-                  </div>
-
-                  <p className={styles.categoryText}>
-                    {content?.text ||
-                      "Viac informácií o kategórii nájdeš po rozkliknutí."}
-                  </p>
-
-                  <div className={styles.categoryArrow}>
-                    <span>→</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                <div className={styles.categoryArrow}>
+                  <span>→</span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
         </section>
+
+        
 
         <section className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <span className={styles.preTitle}>FAQ</span>
             <h2 className={styles.sectionTitle}>Časté otázky</h2>
           </div>
-
           <div className={styles.faqList}>
-            {faqItems.map((item) => (
-              <details key={item.question} className={styles.faqItem}>
-                <summary className={styles.faqQuestion}>
-                  <span className={styles.faqQuestionText}>
-                    {item.question}
-                  </span>
-                  <span className={styles.faqChevron}>+</span>
-                </summary>
+          {faqItems.map((item) => (
+            <details key={item.question} className={styles.faqItem}>
+              <summary className={styles.faqQuestion}>
+                <span className={styles.faqQuestionText}>{item.question}</span>
+                <span className={styles.faqChevron}>+</span>
+              </summary>
 
-                <div className={styles.faqAnswer}>
-                  <p>{item.answer}</p>
-                </div>
-              </details>
-            ))}
-          </div>
+              <div className={styles.faqAnswer}>
+                <p>{item.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
         </section>
 
-        <section id="kontakt" className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>KONTAKT</span>
-            <h2 className={styles.sectionTitle}>
-              Príďte si vyskúšať tréning
-            </h2>
-          </div>
+       <section id="kontakt" className={styles.sectionContainer}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.preTitle}>KONTAKT</span>
+          <h2 className={styles.sectionTitle}>Príďte si vyskúšať tréning</h2>
+        </div>
 
-          <RecruitmentForm />
-        </section>
+        <RecruitmentForm />
+      </section>
       </div>
 
       <Footer />

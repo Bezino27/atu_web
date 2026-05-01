@@ -608,9 +608,28 @@
     transform: scale(1.03) translateX(1px);
   }
 
-  .customMarker:hover .markerDot,
-  .markerActive .markerDot {
-    border-width: 2px;
-    transform: scale(1.03);
+.customMarker {
+    gap: 8px;
+  }
+
+  .markerDot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .markerLabel {
+    max-width: 200px;
+    padding: 7px 11px;
+    border-radius: 12px;
+  }
+
+  .markerLabel strong {
+    font-size: 13px;
+    line-height: 1.16;
+  }
+
+  .markerLabel span {
+    font-size: 11px;
+    line-height: 1.16;
   }
 }

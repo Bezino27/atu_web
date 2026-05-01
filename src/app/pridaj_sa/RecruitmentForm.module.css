@@ -143,22 +143,23 @@
   cursor: not-allowed;
 }
 
-/* =========================
-   1024px
-========================= */
-
+/* # 1024 */
 @media (max-width: 1024px) {
   .formPanel {
     max-width: 100%;
     padding: 22px;
-    border-radius: 24px;
+    border-radius: 26px;
+  }
+
+  .formField label,
+  .formFieldFull label,
+  .submitError,
+  .successMessage {
+    font-size: 0.96rem;
   }
 }
 
-/* =========================
-   768px
-========================= */
-
+/* # 768 */
 @media (max-width: 768px) {
   .formPanel {
     padding: 18px;
@@ -174,21 +175,6 @@
     grid-column: auto;
   }
 
-  .submitButton {
-    padding: 16px 20px;
-  }
-}
-
-/* =========================
-   480px
-========================= */
-
-@media (max-width: 480px) {
-  .formPanel {
-    padding: 14px;
-    border-radius: 18px;
-  }
-
   .formField label,
   .formFieldFull label {
     font-size: 0.92rem;
@@ -198,13 +184,59 @@
   .formFieldFull input,
   .formField textarea,
   .formFieldFull textarea {
-    padding: 14px;
-    font-size: 0.96rem;
-    border-radius: 16px;
+    font-size: 0.92rem;
+  }
+
+  .fieldError {
+    font-size: 0.8rem;
+  }
+
+  .submitError,
+  .successMessage {
+    font-size: 0.92rem;
   }
 
   .submitButton {
-    font-size: 0.96rem;
+    font-size: 0.92rem;
+    padding: 16px 20px;
+  }
+}
+
+/* # 480 */
+@media (max-width: 480px) {
+  .formPanel {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .formField label,
+  .formFieldFull label {
+    margin-bottom: 7px;
+    font-size: 0.86rem;
+  }
+
+  .formField input,
+  .formFieldFull input,
+  .formField textarea,
+  .formFieldFull textarea {
+    padding: 14px;
+    font-size: 0.86rem;
+    border-radius: 16px;
+  }
+
+  .fieldError {
+    font-size: 0.74rem;
+  }
+
+  .submitError,
+  .successMessage {
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 0.86rem;
+  }
+
+  .submitButton {
+    font-size: 0.86rem;
     padding: 15px 18px;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   Marker,
@@ -18,10 +18,10 @@ type Location = {
   lng: number;
 };
 
-interface ContactMapProps {
+type ContactMapClientProps = {
   locations: Record<string, Location>;
   activeLocation: string | null;
-}
+};
 
 const DEFAULT_CENTER: [number, number] = [48.69814880000001, 21.23390379325404];
 
@@ -49,15 +49,10 @@ function MapAutoCenter() {
   return null;
 }
 
-export default function ContactMap({
-  locations,
-  activeLocation,
-}: ContactMapProps) {
-  const [zoom, setZoom] = useState(16);
+export default function ContactMap(props: ContactMapClientProps) {
+  void props;
 
-  useEffect(() => {
-    setZoom(getInitialZoom());
-  }, []);
+  const [initialZoom] = useState(getInitialZoom);
 
   const markerEntries = useMemo(() => {
     const isActive = true;
@@ -88,34 +83,32 @@ export default function ContactMap({
   }, []);
 
   return (
-    <div className={styles.mapWrap}>
-      <MapContainer
-        center={DEFAULT_CENTER}
-        zoom={zoom}
-        className={styles.leafletMap}
-        scrollWheelZoom={false}
-        zoomControl={false}
-      >
-        <MapAutoCenter />
+    <MapContainer
+      center={DEFAULT_CENTER}
+      zoom={initialZoom}
+      className={styles.leafletMap}
+      scrollWheelZoom={false}
+      zoomControl={false}
+    >
+      <MapAutoCenter />
 
-        <TileLayer
-          attribution='&copy; OpenStreetMap contributors &copy; CARTO'
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          subdomains={["a", "b", "c", "d"]}
-          maxZoom={20}
+      <TileLayer
+        attribution='&copy; OpenStreetMap contributors &copy; CARTO'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        subdomains={["a", "b", "c", "d"]}
+        maxZoom={20}
+      />
+
+      <ZoomControl position="topleft" />
+
+      {markerEntries.map(({ id, loc, icon, isActive }) => (
+        <Marker
+          key={id}
+          position={[loc.lat, loc.lng]}
+          icon={icon}
+          zIndexOffset={isActive ? 1000 : 0}
         />
-
-        <ZoomControl position="topleft" />
-
-        {markerEntries.map(({ id, loc, icon, isActive }) => (
-          <Marker
-            key={id}
-            position={[loc.lat, loc.lng]}
-            icon={icon}
-            zIndexOffset={isActive ? 1000 : 0}
-          />
-        ))}
-      </MapContainer>
-    </div>
+      ))}
+    </MapContainer>
   );
 }

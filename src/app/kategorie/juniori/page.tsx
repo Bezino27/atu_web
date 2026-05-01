@@ -10,17 +10,17 @@ import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getHomepagePosts } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
 
-
 export default async function JunioriPage() {
-  const [szfbDashboard, nextMatchResponse] = await Promise.all([
-    getSzfbDashboard(1),
-    getSzfbNextMatch(1),
-  ]);
-
-  const posts: Post[] = await getHomepagePosts("atu-kosice");
+  const [szfbDashboard, nextMatchResponse, posts, clubSeason] =
+    await Promise.all([
+      getSzfbDashboard(1),
+      getSzfbNextMatch(1),
+      getHomepagePosts("atu-kosice"),
+      getClubSeason("atu-kosice"),
+    ]);
 
   const junioriPosts = posts.filter((post) => {
     const categoryName = post.category?.name?.toLowerCase().trim();
@@ -30,12 +30,7 @@ export default async function JunioriPage() {
   const standings = szfbDashboard?.standings ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const nextMatch = nextMatchResponse?.next_match ?? null;
-const [clubSeason] = await Promise.all([
-
-  getClubSeason("atu-kosice"),
-]);
-
-const currentSeason = clubSeason?.season ?? "2025 / 2026";
+  const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   return (
     <div className={styles.pageContainer}>
@@ -72,6 +67,7 @@ const currentSeason = clubSeason?.season ?? "2025 / 2026";
                   </a>
                 </div>
               </div>
+
               <div className={styles.heroMiniInfo}>
                 <span className={styles.heroMiniLabel}>Sezóna</span>
                 <span className={styles.heroMiniValue}>{currentSeason}</span>
@@ -83,7 +79,6 @@ const currentSeason = clubSeason?.season ?? "2025 / 2026";
             matchDate={nextMatch?.match_date ?? null}
             matchTime={nextMatch?.match_time ?? null}
             opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
-            venue={nextMatch?.venue ?? "Miesto zatiaľ nie je uvedené"}
             ownTeamName={ownTeamName}
             isHome={nextMatch?.is_home ?? null}
           />

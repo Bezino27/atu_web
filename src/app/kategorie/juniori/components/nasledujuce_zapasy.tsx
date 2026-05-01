@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "../../styles/unified.module.css";
 import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
 import { getTeamLogo } from "@/app/lib/teamLogos";
@@ -77,7 +78,9 @@ export default async function NasledujuceZapasy() {
               return (
                 <article className={styles.featuredMatchCard}>
                   <div className={styles.featuredMatchCardTop}>
-                    <span className={styles.featuredMatchBadge}>Najbližší zápas</span>
+                    <span className={styles.featuredMatchBadge}>
+                      Najbližší zápas
+                    </span>
                     <span className={styles.featuredMatchLeague}>
                       {competitionName}
                     </span>
@@ -86,18 +89,32 @@ export default async function NasledujuceZapasy() {
                   <div className={styles.featuredMatchTeamsRow}>
                     <div className={styles.featuredMatchTeamInfo}>
                       <div className={styles.featuredMatchTeamLogo}>
-                        <img src={getTeamLogo(homeTeam)} alt={homeTeam} />
+                        <Image
+                          src={getTeamLogo(homeTeam)}
+                          alt={homeTeam}
+                          width={56}
+                          height={56}
+                        />
                       </div>
-                      <span className={styles.featuredMatchTeam}>{homeTeam}</span>
+                      <span className={styles.featuredMatchTeam}>
+                        {homeTeam}
+                      </span>
                     </div>
 
                     <div className={styles.featuredMatchVsDivider}>VS</div>
 
                     <div className={styles.featuredMatchTeamInfo}>
                       <div className={styles.featuredMatchTeamLogo}>
-                        <img src={getTeamLogo(awayTeam)} alt={awayTeam} />
+                        <Image
+                          src={getTeamLogo(awayTeam)}
+                          alt={awayTeam}
+                          width={56}
+                          height={56}
+                        />
                       </div>
-                      <span className={styles.featuredMatchTeam}>{awayTeam}</span>
+                      <span className={styles.featuredMatchTeam}>
+                        {awayTeam}
+                      </span>
                     </div>
                   </div>
 
@@ -124,7 +141,9 @@ export default async function NasledujuceZapasy() {
               return (
                 <article className={styles.featuredMatchCard}>
                   <div className={styles.featuredMatchCardTop}>
-                    <span className={styles.featuredResultBadge}>Posledný výsledok</span>
+                    <span className={styles.featuredResultBadge}>
+                      Posledný výsledok
+                    </span>
                     <span className={styles.featuredMatchLeague}>
                       {competitionName}
                     </span>
@@ -133,9 +152,16 @@ export default async function NasledujuceZapasy() {
                   <div className={styles.featuredMatchTeamsRow}>
                     <div className={styles.featuredMatchTeamInfo}>
                       <div className={styles.featuredMatchTeamLogo}>
-                        <img src={getTeamLogo(homeTeam)} alt={homeTeam} />
+                        <Image
+                          src={getTeamLogo(homeTeam)}
+                          alt={homeTeam}
+                          width={56}
+                          height={56}
+                        />
                       </div>
-                      <span className={styles.featuredMatchTeam}>{homeTeam}</span>
+                      <span className={styles.featuredMatchTeam}>
+                        {homeTeam}
+                      </span>
                     </div>
 
                     <div className={styles.featuredMatchScoreDivider}>
@@ -144,9 +170,16 @@ export default async function NasledujuceZapasy() {
 
                     <div className={styles.featuredMatchTeamInfo}>
                       <div className={styles.featuredMatchTeamLogo}>
-                        <img src={getTeamLogo(awayTeam)} alt={awayTeam} />
+                        <Image
+                          src={getTeamLogo(awayTeam)}
+                          alt={awayTeam}
+                          width={56}
+                          height={56}
+                        />
                       </div>
-                      <span className={styles.featuredMatchTeam}>{awayTeam}</span>
+                      <span className={styles.featuredMatchTeam}>
+                        {awayTeam}
+                      </span>
                     </div>
                   </div>
 

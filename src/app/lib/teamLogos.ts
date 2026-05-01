@@ -1,3 +1,5 @@
+const DEFAULT_TEAM_LOGO = "/logo/teams/default.svg";
+
 const TEAM_ALIASES: Record<string, string> = {
   "fabk atu kosice": "atu-kosice",
   "atu kosice": "atu-kosice",
@@ -59,10 +61,10 @@ function normalizeTeamName(name: string) {
 }
 
 export function getTeamLogo(teamName?: string | null) {
-  if (!teamName) return "/logo/teams/default.png";
+  if (!teamName) return DEFAULT_TEAM_LOGO;
 
   const normalized = normalizeTeamName(teamName);
   const teamKey = TEAM_ALIASES[normalized];
 
-  return teamKey ? TEAM_LOGOS[teamKey] : "/logo/teams/default.png";
+  return teamKey ? TEAM_LOGOS[teamKey] : DEFAULT_TEAM_LOGO;
 }

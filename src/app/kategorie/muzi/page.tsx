@@ -9,20 +9,18 @@ import TopPlayer from "./components/najlepsi_hrac";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
-import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
+import { getSzfbDashboard } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
 
 export default async function MuziPage() {
-  const [szfbDashboard, nextMatchResponse, clubSeason] = await Promise.all([
+  const [szfbDashboard, posts, clubSeason] = await Promise.all([
     getSzfbDashboard(1),
-    getSzfbNextMatch(1),
+    getHomepagePosts("atu-kosice"),
     getClubSeason("atu-kosice"),
   ]);
 
-  const posts: Post[] = await getHomepagePosts("atu-kosice");
-
-  const muziPosts = posts.filter((post) => {
+  const muziPosts = posts.filter((post: Post) => {
     const categoryName = post.category?.name?.toLowerCase().trim();
 
     return (
@@ -34,8 +32,14 @@ export default async function MuziPage() {
   });
 
   const standings = szfbDashboard?.standings ?? [];
+  const upcomingMatches = szfbDashboard?.upcoming ?? [];
+  const resultMatches = szfbDashboard?.results ?? [];
+
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const nextMatch = nextMatchResponse?.next_match ?? null;
+  const competitionName =
+    szfbDashboard?.watch?.competition_name || "EXTRALIGA MUŽOV";
+
+  const nextMatch = upcomingMatches[0] ?? null;
   const currentSeason = clubSeason?.season ?? "2025 / 2026";
 
   return (
@@ -86,14 +90,18 @@ export default async function MuziPage() {
             matchDate={nextMatch?.match_date ?? null}
             matchTime={nextMatch?.match_time ?? null}
             opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
-            venue={nextMatch?.venue ?? "Miesto zatiaľ nie je uvedené"}
             ownTeamName={ownTeamName}
             isHome={nextMatch?.is_home ?? null}
           />
         </section>
 
         <section id="zapasy" className={styles.sectionContainer}>
-          <NasledujuceZapasy />
+          <NasledujuceZapasy
+            upcomingMatches={upcomingMatches}
+            resultMatches={resultMatches}
+            ownTeamName={ownTeamName}
+            competitionName={competitionName}
+          />
         </section>
 
         <section id="novinky" className={styles.sectionContainer}>
@@ -106,6 +114,7 @@ export default async function MuziPage() {
 
           <Novinky posts={muziPosts} />
         </section>
+
         {/* # OVERVIEW */}
         <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
@@ -121,7 +130,10 @@ export default async function MuziPage() {
             </div>
 
             <div className={styles.matchesColumn}>
-              <RecentMatches />
+              <RecentMatches
+                results={resultMatches}
+                ownTeamName={ownTeamName}
+              />
             </div>
           </div>
         </section>
