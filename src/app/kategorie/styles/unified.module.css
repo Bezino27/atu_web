@@ -34,6 +34,7 @@
 }
 
 /* # GLOBAL SECTION LAYOUT */
+
 .sectionContainer,
 .bottomSection,
 .overviewSection {
@@ -53,6 +54,7 @@
 }
 
 /* # OVERVIEW GRID */
+
 .overviewGrid {
   width: 100%;
   display: grid;
@@ -62,6 +64,7 @@
 }
 
 /* # COLUMNS */
+
 .tableColumn,
 .matchesColumn {
   min-width: 0;
@@ -75,6 +78,7 @@
 }
 
 /* # SHARED SECTION TITLES */
+
 .preTitle {
   display: block;
   margin: 0 0 8px 18px;
@@ -98,13 +102,8 @@
   text-align: left;
 }
 
-
-
-
-
-
-
 /* # HERO */
+
 .heroSection {
   width: 100%;
   max-width: 1300px;
@@ -240,7 +239,6 @@
   white-space: normal;
 }
 
-
 .heroQuickNav {
   position: relative;
   z-index: 6;
@@ -256,7 +254,6 @@
   position: relative;
   z-index: 7;
 }
-
 
 .heroDescription {
   margin: 0;
@@ -333,11 +330,8 @@
   scroll-behavior: smooth;
 }
 
-
-
-
-
 /* # COUNTDOWN */
+
 .countdownWrapper {
   width: 100%;
   margin-top: -24px;
@@ -406,6 +400,7 @@
 }
 
 /* # NOVINKY */
+
 .novinkySection {
   width: 100%;
 }
@@ -539,6 +534,7 @@
 }
 
 /* # UPCOMING / FEATURED MATCHES */
+
 .featuredMatchesSection {
   width: 100%;
 }
@@ -772,6 +768,7 @@
 }
 
 /* # TABLE PANEL */
+
 .tablePanel {
   width: 100%;
   max-width: 100%;
@@ -779,7 +776,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   border-radius: var(--radius-xl);
@@ -791,6 +787,7 @@
   margin: 0;
   overflow: hidden;
 }
+
 .panelHeader {
   display: flex;
   align-items: center;
@@ -967,6 +964,7 @@
 }
 
 /* # RECENT MATCHES PANEL */
+
 .recentMatchesCard {
   width: 100%;
   max-width: 100%;
@@ -974,7 +972,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
   border-radius: var(--radius-xl);
@@ -1104,6 +1101,7 @@
 }
 
 /* # SEASON LEADERS */
+
 .leadersSection {
   width: 100%;
 }
@@ -1115,7 +1113,7 @@
 
 .topPlayersPodium {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 1.08fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 1.08fr) minmax(0, 1fr);
   grid-template-areas: "left center right";
   gap: 22px;
   align-items: end;
@@ -1163,14 +1161,15 @@
 }
 
 .playerCardMain {
-  padding: 28px 28px 26px;
+  padding: 26px;
 }
 
 .playerCardSide {
-  padding: 24px 24px 22px;
+  padding: 24px;
 }
 
 /* # PODIUM HEIGHTS */
+
 .playerCardRank1 {
   transform: translateY(0);
 }
@@ -1183,8 +1182,7 @@
   transform: translateY(42px);
 }
 
-/* # PODIUM BORDERS */
-
+/* # PODIUM HOVER */
 
 .playerCardRank1:hover {
   transform: translateY(-4px);
@@ -1201,40 +1199,58 @@
   border-color: rgba(205, 127, 50, 0.92);
 }
 
+/* # PLAYER CARD HEADER */
+
 .playerCardTop {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  margin-top: 6px;
-  margin-bottom: -25px;
+  margin-bottom: 18px;
 }
 
 .rankBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 56px;
-  height: 32px;
-  padding: 0 14px;
+  min-width: 54px;
+  height: 30px;
+  padding: 0 13px;
   border-radius: var(--radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-text-muted);
   border: 1px solid var(--color-border);
-  font-size: 0.84rem;
-  font-weight: 800;
+  font-size: 0.82rem;
+  font-weight: 850;
+  line-height: 1;
   letter-spacing: 0.04em;
 }
 
 .playerNumber {
-  color: rgba(17, 17, 17, 0.08);
-  font-size: var(--font-number-display);
-  font-weight: 900;
-  line-height: 0.86;
-  letter-spacing: -2px;
+  color: rgba(17, 17, 17, 0.065);
+  font-size: clamp(2.7rem, 4.5vw, 4.6rem);
+  font-weight: 950;
+  line-height: 0.82;
+  letter-spacing: -3px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* # PLAYER CARD BODY */
+
+.playerCardBody {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(128px, 0.72fr);
+  gap: 18px;
+  align-items: stretch;
 }
 
 .playerContent {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -1244,22 +1260,64 @@
   margin: 0;
   color: var(--color-text);
   font-size: var(--font-player-name);
-  font-weight: 800;
+  font-weight: 850;
   line-height: 1.12;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
 }
+
+/* # PLAYER PHOTO */
+
+.playerPhotoWrap {
+  position: relative;
+  min-height: 210px;
+  border-radius: 22px;
+  overflow: hidden;
+  align-self: stretch;
+  background:
+    radial-gradient(circle at top, rgba(211, 47, 47, 0.08), transparent 52%),
+    linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-page-soft) 100%);
+  border: 1px solid var(--color-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.playerCardMain .playerPhotoWrap {
+  min-height: 230px;
+}
+
+.playerPhoto {
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.01);
+}
+
+.playerPhotoPlaceholder {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(17, 17, 17, 0.28);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* # PLAYER STATS */
 
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .statItem {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 14px 12px;
+  gap: 5px;
+  padding: 13px 13px 12px;
   border-radius: var(--radius-lg);
   background: var(--color-surface-soft);
   border: 1px solid var(--color-border);
@@ -1279,19 +1337,40 @@
 
 .statValue {
   color: var(--color-text);
-  font-size: var(--font-stat-value);
-  font-weight: 800;
+  font-size: 1.02rem;
+  font-weight: 850;
   line-height: 1;
 }
 
 .statLabel {
   color: var(--color-text-muted);
-  font-size: var(--font-stat-label);
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+/* # LEADERS EMPTY STATE */
+
+.leadersEmptyState {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 22px;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: var(--font-body);
+  font-weight: 750;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
 
 /* # NABOR */
+
 .naborSection {
   width: 100%;
 }
@@ -1417,23 +1496,48 @@
 }
 
 /* # ANIMATIONS */
+
 @keyframes pulse {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  70% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
 }
 
 @keyframes titleEntrance {
-  0% { opacity: 0; transform: translateY(18px); }
-  100% { opacity: 0.99; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 0.99;
+    transform: translateY(0);
+  }
 }
 
 @keyframes snakeRotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 /* # 1100 */
+
 @media (max-width: 1100px) {
   .novinkyGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1455,8 +1559,8 @@
 }
 
 /* # 1024 */
+
 @media (max-width: 1024px) {
-  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 15px;
     --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
@@ -1487,7 +1591,6 @@
     padding-bottom: 48px;
   }
 
-  /* # HERO */
   .heroSection {
     margin: 14px auto 0;
     padding: 0 14px;
@@ -1564,14 +1667,12 @@
     object-position: center 30%;
   }
 
-  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
     padding: 0 14px;
   }
 
-  /* # TABLE */
   .tablePanel {
     min-height: 700px;
     padding: 20px;
@@ -1601,7 +1702,6 @@
     font-size: 0.96rem;
   }
 
-  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: var(--radius-xl);
     padding: 20px 18px 18px;
@@ -1616,18 +1716,17 @@
     font-size: 1.95rem;
   }
 
-  /* # LEADERS */
   .topPlayersPodium {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 1.02fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 1.02fr) minmax(0, 1fr);
     gap: 18px;
   }
 
   .playerCardMain {
-    padding: 26px 24px 24px;
+    padding: 24px;
   }
 
   .playerCardSide {
-    padding: 22px 20px 20px;
+    padding: 22px;
   }
 
   .playerCardRank2,
@@ -1644,13 +1743,28 @@
     transform: translateY(8px);
   }
 
-  /* # GOALIE */
+  .playerCardBody {
+    grid-template-columns: minmax(0, 1fr) minmax(115px, 0.68fr);
+    gap: 14px;
+  }
+
+  .playerPhotoWrap {
+    min-height: 190px;
+  }
+
+  .playerCardMain .playerPhotoWrap {
+    min-height: 210px;
+  }
+
+  .playerNumber {
+    font-size: clamp(2.4rem, 4.2vw, 4rem);
+  }
+
   .goalieCard {
     padding: 22px;
     margin-top: 6px;
   }
 
-  /* # NABOR */
   .naborContent {
     padding: 20px;
     gap: 16px;
@@ -1670,6 +1784,7 @@
 }
 
 /* # 1000 */
+
 @media (max-width: 1000px) {
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
@@ -1677,6 +1792,7 @@
 }
 
 /* # 900 */
+
 @media (max-width: 900px) {
   .overviewGrid {
     grid-template-columns: 1fr;
@@ -1721,8 +1837,8 @@
 }
 
 /* # 768 */
+
 @media (max-width: 768px) {
-  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 12px;
     --font-section-title: clamp(1.5rem, 5vw, 2rem);
@@ -1753,7 +1869,6 @@
     padding-bottom: 40px;
   }
 
-  /* # HERO */
   .heroSection {
     margin: 12px auto 0;
     padding: 0 10px;
@@ -1846,7 +1961,6 @@
     font-size: 0.72rem;
   }
 
-  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -14px;
     padding: 0 10px;
@@ -1880,7 +1994,6 @@
     line-height: 1.2;
   }
 
-  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
@@ -1904,7 +2017,6 @@
     margin-bottom: 18px;
   }
 
-  /* # NOVINKY */
   .novinkyGrid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -1944,7 +2056,6 @@
     font-size: 0.95rem;
   }
 
-  /* # FEATURED MATCHES */
   .featuredMatchesGrid {
     gap: 12px;
   }
@@ -2021,7 +2132,6 @@
     line-height: 1.5;
   }
 
-  /* # TABLE */
   .tablePanel {
     min-height: auto;
     padding: 16px 14px;
@@ -2070,7 +2180,6 @@
     font-size: 0.88rem;
   }
 
-  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: var(--radius-lg);
     padding: 18px 14px 16px;
@@ -2099,7 +2208,6 @@
     font-size: var(--font-score);
   }
 
-  /* # LEADERS */
   .leadersContentGrid {
     gap: 18px;
   }
@@ -2119,7 +2227,7 @@
   .playerCardRank2,
   .playerCardRank3 {
     min-height: auto;
-    padding: 22px 20px;
+    padding: 20px;
     border-radius: var(--radius-xl);
     transform: none;
   }
@@ -2132,11 +2240,27 @@
   }
 
   .playerCardTop {
-    margin-top: 4px;
-    margin-bottom: -10px;
+    margin-bottom: 14px;
   }
 
-  /* # GOALIE */
+  .playerCardBody {
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 0.62fr);
+    gap: 14px;
+  }
+
+  .playerPhotoWrap,
+  .playerCardMain .playerPhotoWrap {
+    min-height: 190px;
+  }
+
+  .playerNumber {
+    font-size: clamp(2.2rem, 10vw, 3.6rem);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .goalieCard {
     gap: 18px;
     padding: 20px;
@@ -2153,7 +2277,6 @@
     gap: 12px;
   }
 
-  /* # NABOR */
   .naborCard {
     border-radius: var(--radius-xl);
   }
@@ -2200,8 +2323,8 @@
 }
 
 /* # 640 */
+
 @media (max-width: 640px) {
-  /* # HERO */
   .heroSection {
     margin: 10px auto 0;
     padding: 0 8px;
@@ -2225,7 +2348,6 @@
     text-overflow: unset;
   }
 
-  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -12px;
     padding: 0 8px;
@@ -2238,8 +2360,8 @@
 }
 
 /* # 480 */
+
 @media (max-width: 480px) {
-  /* # TOKENS */
   .pageContainer {
     --font-section-eyebrow: 11px;
     --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
@@ -2270,7 +2392,6 @@
     padding-bottom: 32px;
   }
 
-  /* # LAYOUT */
   .bottomSection,
   .overviewSection,
   .sectionContainer {
@@ -2289,7 +2410,6 @@
     letter-spacing: -0.4px;
   }
 
-  /* # HERO */
   .heroSection {
     margin: 10px auto 0;
     padding: 0 8px;
@@ -2377,7 +2497,6 @@
     font-size: 0.64rem;
   }
 
-  /* # COUNTDOWN */
   .countdownWrapper {
     margin-top: -10px;
     padding: 0 6px;
@@ -2402,7 +2521,6 @@
     margin-bottom: 14px;
   }
 
-  /* # NOVINKY */
   .novinkyGrid {
     gap: 14px;
   }
@@ -2441,7 +2559,6 @@
     font-size: 0.9rem;
   }
 
-  /* # FEATURED MATCHES */
   .featuredMatchCard {
     padding: 12px 10px;
     border-radius: var(--radius-lg);
@@ -2508,7 +2625,6 @@
     font-size: 0.82rem;
   }
 
-  /* # TABLE */
   .tablePanel {
     padding: 14px 12px;
     border-radius: var(--radius-lg);
@@ -2538,7 +2654,6 @@
     font-size: 0.8rem;
   }
 
-  /* # RECENT MATCHES */
   .recentMatchesCard {
     border-radius: var(--radius-lg);
     padding: 16px 12px 14px;
@@ -2563,7 +2678,6 @@
     font-size: var(--font-score);
   }
 
-  /* # LEADERS */
   .leadersContentGrid,
   .topPlayersPodium {
     gap: 16px;
@@ -2574,7 +2688,7 @@
   .playerCardRank1,
   .playerCardRank2,
   .playerCardRank3 {
-    padding: 18px;
+    padding: 16px;
     border-radius: var(--radius-lg);
     transform: none;
   }
@@ -2587,15 +2701,38 @@
   }
 
   .playerCardTop {
-    margin-top: 2px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   .rankBadge {
-    min-width: 52px;
-    height: 31px;
-    padding: 0 12px;
-    font-size: 0.8rem;
+    min-width: 48px;
+    height: 29px;
+    padding: 0 11px;
+    font-size: 0.76rem;
+  }
+
+  .playerNumber {
+    font-size: clamp(2rem, 13vw, 3rem);
+    letter-spacing: -2px;
+  }
+
+  .playerCardBody {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .playerContent {
+    gap: 14px;
+  }
+
+  .playerPhotoWrap,
+  .playerCardMain .playerPhotoWrap {
+    min-height: 220px;
+    order: -1;
+  }
+
+  .playerName {
+    font-size: 1.35rem;
   }
 
   .statsGrid {
@@ -2608,7 +2745,14 @@
     border-radius: var(--radius-lg);
   }
 
-  /* # GOALIE */
+  .statValue {
+    font-size: 0.95rem;
+  }
+
+  .statLabel {
+    font-size: 0.74rem;
+  }
+
   .goalieCard {
     padding: 18px;
     margin-top: 0;
@@ -2620,7 +2764,6 @@
     border-radius: var(--radius-lg);
   }
 
-  /* # NABOR */
   .naborCard {
     border-radius: var(--radius-lg);
   }
@@ -2664,8 +2807,8 @@
 }
 
 /* # 360 */
+
 @media (max-width: 360px) {
-  /* # HERO */
   .heroSection {
     padding: 0 6px;
   }

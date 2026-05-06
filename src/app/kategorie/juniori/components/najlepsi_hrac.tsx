@@ -1,54 +1,51 @@
+import Image from "next/image";
 import styles from "../../styles/unified.module.css";
 
 type PlayerStat = {
   label: string;
-  value: string | number;
+  value?: string | number | null;
 };
 
 type Player = {
   id: number;
   rank: 1 | 2 | 3;
-  number: string;
-  name: string;
+  number?: string | null;
+  name?: string | null;
+  photoSrc?: string | null;
   stats: PlayerStat[];
 };
 
-const topPlayers: Player[] = [
+const placeholderStats: PlayerStat[] = [
+  { label: "Góly", value: null },
+  { label: "Asistencie", value: null },
+  { label: "Body", value: null },
+  { label: "Zápasy", value: null },
+];
+
+const preparedPlayers: Player[] = [
   {
     id: 1,
     rank: 1,
-    number: "91",
-    name: "Martin Novák",
-    stats: [
-      { label: "Góly", value: 28 },
-      { label: "Asistencie", value: 17 },
-      { label: "Body", value: 45 },
-      { label: "Zápasy", value: 22 },
-    ],
+    number: null,
+    name: null,
+    photoSrc: null,
+    stats: placeholderStats,
   },
   {
     id: 2,
     rank: 2,
-    number: "14",
-    name: "Jakub Kováč",
-    stats: [
-      { label: "Góly", value: 19 },
-      { label: "Asistencie", value: 20 },
-      { label: "Body", value: 39 },
-      { label: "Zápasy", value: 23 },
-    ],
+    number: null,
+    name: null,
+    photoSrc: null,
+    stats: placeholderStats,
   },
   {
     id: 3,
     rank: 3,
-    number: "7",
-    name: "Samuel Hric",
-    stats: [
-      { label: "Góly", value: 16 },
-      { label: "Asistencie", value: 14 },
-      { label: "Body", value: 30 },
-      { label: "Zápasy", value: 21 },
-    ],
+    number: null,
+    name: null,
+    photoSrc: null,
+    stats: placeholderStats,
   },
 ];
 
@@ -67,23 +64,46 @@ function getPlayerCardClassName(rank: Player["rank"]) {
 }
 
 function PlayerCard({ player }: { player: Player }) {
+  const displayName = player.name?.trim() || "Hráč sezóny";
+  const displayNumber = player.number?.trim() || "—";
+
   return (
     <article className={getPlayerCardClassName(player.rank)}>
       <div className={styles.playerCardTop}>
         <div className={styles.rankBadge}>{player.rank}.</div>
-        <div className={styles.playerNumber}>{player.number}</div>
       </div>
 
-      <div className={styles.playerContent}>
-        <h3 className={styles.playerName}>{player.name}</h3>
+      <div className={styles.playerCardBody}>
+        <div className={styles.playerContent}>
+          <div className={styles.playerHeading}>
+            <div className={styles.playerNumber}>{displayNumber}</div>
+            <h3 className={styles.playerName}>{displayName}</h3>
+          </div>
 
-        <div className={styles.statsGrid}>
-          {player.stats.map((stat) => (
-            <div key={stat.label} className={styles.statItem}>
-              <span className={styles.statValue}>{stat.value}</span>
-              <span className={styles.statLabel}>{stat.label}</span>
+          <div className={styles.statsGrid}>
+            {player.stats.map((stat) => (
+              <div key={stat.label} className={styles.statItem}>
+                <span className={styles.statValue}>{stat.value ?? "—"}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.playerPhotoWrap}>
+          {player.photoSrc ? (
+            <Image
+              src={player.photoSrc}
+              alt={displayName}
+              fill
+              sizes="(max-width: 768px) 100vw, 260px"
+              className={styles.playerPhoto}
+            />
+          ) : (
+            <div className={styles.playerPhotoPlaceholder}>
+              <span>FOTO</span>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </article>
@@ -91,7 +111,19 @@ function PlayerCard({ player }: { player: Player }) {
 }
 
 export default function SeasonLeadersSection() {
-  const [firstPlayer, secondPlayer, thirdPlayer] = topPlayers;
+  const firstPlayer = preparedPlayers.find((player) => player.rank === 1);
+  const secondPlayer = preparedPlayers.find((player) => player.rank === 2);
+  const thirdPlayer = preparedPlayers.find((player) => player.rank === 3);
+
+  if (!firstPlayer || !secondPlayer || !thirdPlayer) {
+    return (
+      <section className={styles.leadersSection}>
+        <div className={styles.leadersEmptyState}>
+          Štatistiky lídrov sezóny pripravujeme.
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.leadersSection}>
