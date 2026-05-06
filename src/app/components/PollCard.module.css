@@ -27,6 +27,68 @@
     0 2px 8px rgba(15, 23, 42, 0.03);
   box-sizing: border-box;
 }
+/* # POLL EMPTY STATE */
+.pollEmptyState {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 46px 28px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.pollEmptyCompact {
+  min-height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 14px;
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 100%);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+}
+
+.pollEmptyIcon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  font-size: 1.55rem;
+}
+
+.pollEmptyTitle {
+  margin: 0;
+  color: var(--color-black);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.pollEmptyText {
+  max-width: 560px;
+  margin: 0;
+  color: var(--color-text-subtle);
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.pollEmptyCompact .pollEmptyText {
+  max-width: 420px;
+}
 
 /* # POLL BODY */
 .pollBody {
@@ -465,6 +527,15 @@
     flex-direction: column;
     align-items: stretch;
   }
+  .pollEmptyState {
+  padding: 34px 22px;
+}
+
+.pollEmptyCompact {
+  justify-items: center;
+  text-align: center;
+  padding: 22px;
+}
 
   .voteButton {
     width: 100%;
@@ -502,7 +573,29 @@
   .pollQuestion {
     font-size: 1rem;
   }
+  .pollEmptyState {
+    padding: 28px 16px;
+    border-radius: var(--radius-lg);
+  }
 
+  .pollEmptyCompact {
+    padding: 18px;
+    border-radius: var(--radius-lg);
+  }
+
+  .pollEmptyIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.35rem;
+  }
+
+  .pollEmptyTitle {
+    font-size: 1.15rem;
+  }
+
+  .pollEmptyText {
+    font-size: 0.88rem;
+  }
   .optionLabel,
   .previousRankingName {
     font-size: 0.94rem;

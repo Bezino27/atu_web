@@ -183,6 +183,10 @@
   padding: 0 0 12px;
 }
 
+.datePickerCalendar :global(.react-datepicker__month-container) {
+  width: 100%;
+}
+
 .datePickerCalendar :global(.react-datepicker__header) {
   background: #ffffff;
   border-bottom: 1px solid rgba(17, 24, 39, 0.06);
@@ -262,15 +266,17 @@
   border-color: #d30f1d;
 }
 
-.datePickerCalendar :global(.react-datepicker__month) {
-  margin: 12px 14px 0;
-}
+/* # DATE PICKER GRID ALIGNMENT */
 
 .datePickerCalendar :global(.react-datepicker__day-names) {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  margin-bottom: 8px;
+  margin: 0 14px 8px;
+}
+
+.datePickerCalendar :global(.react-datepicker__month) {
+  margin: 0 14px;
 }
 
 .datePickerCalendar :global(.react-datepicker__week) {
@@ -287,6 +293,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .datePickerCalendar :global(.react-datepicker__day-name) {
@@ -628,10 +635,14 @@
   }
 
   .datePickerCalendar :global(.react-datepicker__month) {
-    margin: 9px 10px 0;
+    margin: 0 10px;
   }
 
-  .datePickerCalendar :global(.react-datepicker__day-names),
+  .datePickerCalendar :global(.react-datepicker__day-names) {
+    margin: 0 10px 7px;
+    gap: 2px;
+  }
+
   .datePickerCalendar :global(.react-datepicker__week) {
     gap: 2px;
   }

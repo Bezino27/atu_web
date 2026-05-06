@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -95,26 +95,32 @@ const socialItems: SocialItem[] = [
 ];
 
 export default function Footer() {
-  const [menuPinned, setMenuPinned] = useState(false);
-  const [menuHovered, setMenuHovered] = useState(false);
-  const [hoverLocked, setHoverLocked] = useState(false);
+  const shareSectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const isMenuOpen = useMemo(
-    () => menuPinned || (menuHovered && !hoverLocked),
-    [menuPinned, menuHovered, hoverLocked]
-  );
+  useEffect(() => {
+    const shareSectionElement = shareSectionRef.current;
 
-  const handleShareToggle = () => {
-    if (isMenuOpen) {
-      setMenuPinned(false);
-      setMenuHovered(false);
-      setHoverLocked(true);
+    if (!shareSectionElement) {
       return;
     }
 
-    setMenuPinned(true);
-    setHoverLocked(false);
-  };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsMenuOpen(entry.isIntersecting);
+      },
+      {
+        threshold: 0.45,
+        rootMargin: "0px 0px -8% 0px",
+      }
+    );
+
+    observer.observe(shareSectionElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <footer className={styles.footer}>
@@ -162,7 +168,7 @@ export default function Footer() {
             </div>
           </nav>
 
-          <div className={styles.shareSection}>
+          <div ref={shareSectionRef} className={styles.shareSection}>
             <h3 className={styles.navTitle}>Odkazy</h3>
 
             <div className={styles.shareBlock}>
@@ -171,22 +177,13 @@ export default function Footer() {
                   className={`${styles.shareMenu} ${
                     isMenuOpen ? styles.shareMenuOpen : ""
                   }`}
-                  onMouseEnter={() => {
-                    if (!hoverLocked) {
-                      setMenuHovered(true);
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    setMenuHovered(false);
-                    setHoverLocked(false);
-                  }}
                 >
                   <button
                     type="button"
                     className={styles.shareToggle}
-                    onClick={handleShareToggle}
-                    aria-label="Otvoriť sociálne odkazy"
+                    aria-label="Sociálne odkazy"
                     aria-expanded={isMenuOpen}
+                    tabIndex={-1}
                   >
                     <IoShareSocialOutline />
                   </button>
@@ -230,7 +227,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <p>© {new Date().getFullYear()} ATU Košice / Ludimus / všetky práva</p>
+          <p>© {new Date().getFullYear()} ATU Košice / Martin Guľaš / všetky práva</p>
         </div>
       </div>
     </footer>

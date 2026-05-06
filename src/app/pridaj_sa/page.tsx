@@ -60,6 +60,15 @@ type FaqItem = {
   answer: string | string[];
 };
 
+const categoryHrefMap: Record<string, string> = {
+  pripravka: "/kategorie/pripravka",
+  "mladsi-ziaci": "/kategorie/mladsi-ziaci",
+  "starsi-ziaci": "/kategorie/starsi-ziaci",
+  dorast: "/kategorie/dorast",
+  juniori: "/kategorie/juniori",
+  muzi: "/kategorie/muzi",
+};
+
 function createSlugFromName(name: string) {
   return name
     .toLowerCase()
@@ -74,7 +83,9 @@ function getCategorySlug(category: BackendCategory) {
 }
 
 function getCategoryHref(category: BackendCategory) {
-  return `/kategorie/${getCategorySlug(category)}`;
+  const slug = getCategorySlug(category);
+
+  return categoryHrefMap[slug] || `/kategorie/${slug}`;
 }
 
 function getCategoryYears(category: BackendCategory) {
@@ -82,6 +93,22 @@ function getCategoryYears(category: BackendCategory) {
   const maxYear = Math.max(category.birth_year_from, category.birth_year_to);
 
   return `ročníky ${minYear} – ${maxYear}`;
+}
+
+function sortCategoriesFromYoungestToOldest(categories: BackendCategory[]) {
+  return [...categories].sort((a, b) => {
+    const aYoungestYear = Math.max(a.birth_year_from, a.birth_year_to);
+    const bYoungestYear = Math.max(b.birth_year_from, b.birth_year_to);
+
+    if (bYoungestYear !== aYoungestYear) {
+      return bYoungestYear - aYoungestYear;
+    }
+
+    const aOldestYear = Math.min(a.birth_year_from, a.birth_year_to);
+    const bOldestYear = Math.min(b.birth_year_from, b.birth_year_to);
+
+    return bOldestYear - aOldestYear;
+  });
 }
 
 async function getCategories(): Promise<BackendCategory[]> {
@@ -148,6 +175,7 @@ const faqItems: FaqItem[] = [
 
 export default async function PridajSaPage() {
   const categories = await getCategories();
+  const sortedCategories = sortCategoriesFromYoungestToOldest(categories);
 
   return (
     <main className={styles.pageContainer}>
@@ -205,9 +233,9 @@ export default async function PridajSaPage() {
             <h2 className={styles.sectionTitle}>Kategórie</h2>
           </div>
 
-          {categories.length > 0 ? (
+          {sortedCategories.length > 0 ? (
             <div className={styles.categoriesGrid}>
-              {categories.map((category) => (
+              {sortedCategories.map((category) => (
                 <Link
                   key={category.id}
                   href={getCategoryHref(category)}

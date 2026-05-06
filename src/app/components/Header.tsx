@@ -14,9 +14,9 @@ const navItems = [
 ];
 
 const categoryItems = [
-  { href: "/kategorie/pripravky", label: "Prípravky" },
-  { href: "/kategorie/mladsi_ziaci", label: "Mladší žiaci" },
-  { href: "/kategorie/starsi_ziaci", label: "Starší žiaci" },
+  { href: "/kategorie/pripravka", label: "Prípravky" },
+  { href: "/kategorie/mladsi-ziaci", label: "Mladší žiaci" },
+  { href: "/kategorie/starsi-ziaci", label: "Starší žiaci" },
   { href: "/kategorie/dorast", label: "Dorast" },
   { href: "/kategorie/juniori", label: "Juniori" },
 ];
@@ -126,15 +126,14 @@ export default function Header() {
         <div className={styles.container}>
           <div className={styles.mainBarInner}>
             <Link href="/" className={styles.logoWrap} onClick={closeMenu}>
-              <div className={styles.logoBox}>
-                <Image
-                  src="/logo/znak_atu_white.svg"
-                  alt="ATU Košice logo"
-                  width={44}
-                  height={44}
-                  className={styles.logo}
-                />
-              </div>
+              <Image
+                src="/logo/znak_atu_nove.svg"
+                alt="ATU Košice logo"
+                width={72}
+                height={72}
+                className={styles.logo}
+                priority
+              />
               <div className={styles.logoText}>
                 <strong>FaBK ATU Košice</strong>
 

@@ -137,34 +137,16 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   min-width: 0;
   flex-shrink: 0;
   text-decoration: none;
 }
 
-.logoBox {
-  width: 58px;
-  height: 58px;
-  flex-shrink: 0;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.06)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
 .logo {
-  width: 44px;
-  height: 44px;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
   object-fit: contain;
 }
 
@@ -627,15 +609,9 @@
     font-size: 0.77rem;
   }
 
-  .logoBox {
-    width: 54px;
-    height: 54px;
-    border-radius: var(--radius-md);
-  }
-
   .logo {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
   }
 
   .logoText strong {
@@ -688,20 +664,14 @@
   }
 
   .logoWrap {
-    gap: 10px;
+    gap: 12px;
     min-width: 0;
     max-width: calc(100% - 64px);
   }
 
-  .logoBox {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-  }
-
   .logo {
-    width: 36px;
-    height: 36px;
+    width: 58px;
+    height: 58px;
   }
 
   .logoText strong {
@@ -760,15 +730,9 @@
     max-width: calc(100% - 58px);
   }
 
-  .logoBox {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-md);
-  }
-
   .logo {
-    width: 32px;
-    height: 32px;
+    width: 52px;
+    height: 52px;
   }
 
   .logoText strong {
