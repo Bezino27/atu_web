@@ -32,6 +32,7 @@ type BackendCategory = {
 const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "muzi";
 const CATEGORY_FALLBACK_NAME = "Muži";
+const SZFB_WATCH_ID = 1;
 
 function normalizeText(value?: string | null) {
   return (
@@ -102,14 +103,13 @@ async function getCategories(): Promise<BackendCategory[]> {
 
 export default async function MuziPage() {
   const [szfbDashboard, posts, clubSeason, categories] = await Promise.all([
-    getSzfbDashboard(1),
+    getSzfbDashboard(SZFB_WATCH_ID),
     getHomepagePosts(CLUB_SLUG),
     getClubSeason(CLUB_SLUG),
     getCategories(),
   ]);
 
   const currentCategory = categories.find(isCurrentCategory);
-
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
 
   const muziPosts = posts.filter(isCurrentCategoryPost);
@@ -117,6 +117,7 @@ export default async function MuziPage() {
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
+  const playerStats = szfbDashboard?.player_stats ?? [];
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const competitionName =
@@ -229,7 +230,7 @@ export default async function MuziPage() {
             <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
           </div>
 
-          <TopPlayer />
+          <TopPlayer players={playerStats} />
         </section>
       </main>
 

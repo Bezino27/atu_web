@@ -38,9 +38,9 @@ const categoryLinks: NavItem[] = [
   { label: "Muži", href: "/kategorie/muzi" },
   { label: "Juniori", href: "/kategorie/juniori" },
   { label: "Dorastenci", href: "/kategorie/dorast" },
-  { label: "Starší žiaci", href: "/kategorie/starsi_ziaci" },
-  { label: "Mladší žiaci", href: "/kategorie/mladsi_ziaci" },
-  { label: "Prípravka", href: "/kategorie/pripravky" },
+  { label: "Starší žiaci", href: "/kategorie/starsi-ziaci" },
+  { label: "Mladší žiaci", href: "/kategorie/mladsi-ziaci" },
+  { label: "Prípravka", href: "/kategorie/pripravka" },
 ];
 
 const socialItems: SocialItem[] = [

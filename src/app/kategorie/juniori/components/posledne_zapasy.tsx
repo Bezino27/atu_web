@@ -1,5 +1,20 @@
 import styles from "../../styles/unified.module.css";
-import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
+import type { SzfbMatch } from "@/app/lib/szfb";
+
+type RecentMatchesProps = {
+  results: SzfbMatch[];
+  ownTeamName: string;
+};
+
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
@@ -17,8 +32,15 @@ function formatDate(dateString?: string | null) {
   });
 }
 
-function isAtuTeam(team: string) {
-  return team.toLowerCase().includes("atu košice");
+function isOwnTeam(team: string, ownTeamName: string) {
+  const normalizedTeam = normalizeText(team);
+  const normalizedOwnTeam = normalizeText(ownTeamName);
+
+  return (
+    normalizedTeam.includes(normalizedOwnTeam) ||
+    normalizedOwnTeam.includes(normalizedTeam) ||
+    normalizedTeam.includes("atu kosice")
+  );
 }
 
 function getTeams(match: SzfbMatch, ownTeamName: string) {
@@ -53,22 +75,17 @@ function getMatchOutcome(match: SzfbMatch, ownTeamName: string) {
   const { homeTeam } = getTeams(match, ownTeamName);
   const { homeScore, awayScore } = getScore(match);
 
-  const atuIsHome = isAtuTeam(homeTeam);
-  const atuScore = atuIsHome ? homeScore : awayScore;
-  const opponentScore = atuIsHome ? awayScore : homeScore;
+  const ownTeamIsHome = isOwnTeam(homeTeam, ownTeamName);
+  const ownTeamScore = ownTeamIsHome ? homeScore : awayScore;
+  const opponentScore = ownTeamIsHome ? awayScore : homeScore;
 
   return {
     scoreClassName:
-      atuScore > opponentScore ? styles.winScore : styles.lossScore,
+      ownTeamScore >= opponentScore ? styles.winScore : styles.lossScore,
   };
 }
 
-export default async function RecentMatches() {
-  const szfbDashboard = await getSzfbDashboard(1);
-
-  const results: SzfbMatch[] = szfbDashboard?.results ?? [];
-  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-
+export default function RecentMatches({ results, ownTeamName }: RecentMatchesProps) {
   return (
     <section className={styles.recentMatchesCard}>
       <div className={styles.panelHeader}>
@@ -96,7 +113,7 @@ export default async function RecentMatches() {
                   <div className={styles.recentTeamRow}>
                     <span
                       className={`${styles.recentTeamName} ${
-                        isAtuTeam(homeTeam) ? styles.atuTeam : ""
+                        isOwnTeam(homeTeam, ownTeamName) ? styles.atuTeam : ""
                       }`}
                     >
                       {homeTeam}
@@ -108,7 +125,7 @@ export default async function RecentMatches() {
                   <div className={styles.recentTeamRow}>
                     <span
                       className={`${styles.recentTeamName} ${
-                        isAtuTeam(awayTeam) ? styles.atuTeam : ""
+                        isOwnTeam(awayTeam, ownTeamName) ? styles.atuTeam : ""
                       }`}
                     >
                       {awayTeam}

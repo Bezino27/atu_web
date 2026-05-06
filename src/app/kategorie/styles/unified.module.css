@@ -1113,7 +1113,7 @@
 
 .topPlayersPodium {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 1.08fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 1.08fr) minmax(0, 1fr);
   grid-template-areas: "left center right";
   gap: 22px;
   align-items: end;
@@ -1140,6 +1140,8 @@
 .playerCard {
   position: relative;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 17, 17, 0.06);
@@ -1205,10 +1207,11 @@
   position: relative;
   z-index: 3;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  min-height: 32px;
 }
 
 .rankBadge {
@@ -1229,11 +1232,11 @@
 }
 
 .playerNumber {
-  color: rgba(17, 17, 17, 0.065);
-  font-size: clamp(2.7rem, 4.5vw, 4.6rem);
-  font-weight: 950;
-  line-height: 0.82;
-  letter-spacing: -3px;
+  color: rgba(17, 17, 17, 0.16);
+  font-size: clamp(1.15rem, 1.8vw, 1.65rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
   pointer-events: none;
   user-select: none;
 }
@@ -1243,39 +1246,47 @@
 .playerCardBody {
   position: relative;
   z-index: 2;
+  flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(128px, 0.72fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(172px, 0.72fr);
+  grid-template-areas: "content photo";
+  column-gap: 20px;
   align-items: stretch;
 }
 
 .playerContent {
+  grid-area: content;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.playerHeading {
+  min-width: 0;
 }
 
 .playerName {
   margin: 0;
   color: var(--color-text);
-  font-size: var(--font-player-name);
+  font-size: clamp(1.12rem, 1.45vw, 1.42rem);
   font-weight: 850;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
 }
 
 /* # PLAYER PHOTO */
 
 .playerPhotoWrap {
+  grid-area: photo;
   position: relative;
   min-height: 210px;
   border-radius: 22px;
   overflow: hidden;
   align-self: stretch;
-  background:
-    radial-gradient(circle at top, rgba(211, 47, 47, 0.08), transparent 52%),
-    linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-page-soft) 100%);
+  background: var(--color-surface-soft);
   border: 1px solid var(--color-border);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
@@ -1297,11 +1308,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(17, 17, 17, 0.28);
-  font-size: 0.8rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+}
+
+.playerPhotoLogo {
+  width: min(58%, 128px);
+  height: auto;
+  opacity: 0.2;
+  object-fit: contain;
 }
 
 /* # PLAYER STATS */
@@ -1314,6 +1327,7 @@
 
 .statItem {
   min-width: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -1343,10 +1357,13 @@
 }
 
 .statLabel {
+  min-width: 0;
   color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 650;
   line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 /* # LEADERS EMPTY STATE */
@@ -1717,7 +1734,7 @@
   }
 
   .topPlayersPodium {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 1.02fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 1.02fr) minmax(0, 1fr);
     gap: 18px;
   }
 
@@ -1744,7 +1761,7 @@
   }
 
   .playerCardBody {
-    grid-template-columns: minmax(0, 1fr) minmax(115px, 0.68fr);
+    grid-template-columns: minmax(0, 1fr) minmax(142px, 0.62fr);
     gap: 14px;
   }
 
@@ -1757,7 +1774,7 @@
   }
 
   .playerNumber {
-    font-size: clamp(2.4rem, 4.2vw, 4rem);
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
   }
 
   .goalieCard {
@@ -2244,7 +2261,7 @@
   }
 
   .playerCardBody {
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 0.62fr);
+    grid-template-columns: minmax(0, 1fr) minmax(132px, 0.58fr);
     gap: 14px;
   }
 
@@ -2254,7 +2271,7 @@
   }
 
   .playerNumber {
-    font-size: clamp(2.2rem, 10vw, 3.6rem);
+    font-size: clamp(0.95rem, 3.4vw, 1.25rem);
   }
 
   .statsGrid {
@@ -2712,12 +2729,15 @@
   }
 
   .playerNumber {
-    font-size: clamp(2rem, 13vw, 3rem);
-    letter-spacing: -2px;
+    font-size: 1rem;
+    letter-spacing: -0.03em;
   }
 
   .playerCardBody {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "photo";
     gap: 14px;
   }
 
@@ -2728,11 +2748,11 @@
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
     min-height: 220px;
-    order: -1;
   }
 
   .playerName {
-    font-size: 1.35rem;
+    font-size: 1.12rem;
+    line-height: 1.15;
   }
 
   .statsGrid {
@@ -2741,7 +2761,7 @@
   }
 
   .statItem {
-    padding: 12px;
+    padding: 12px 10px;
     border-radius: var(--radius-lg);
   }
 
@@ -2750,7 +2770,7 @@
   }
 
   .statLabel {
-    font-size: 0.74rem;
+    font-size: clamp(0.68rem, 3.1vw, 0.74rem);
   }
 
   .goalieCard {

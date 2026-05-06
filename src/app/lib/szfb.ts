@@ -19,6 +19,19 @@ export type SzfbMatch = {
   is_home: boolean | null;
 };
 
+export type SzfbPlayerStat = {
+  id: number;
+  rank: number;
+  player_name: string;
+  birth_year: number | null;
+  team_short_name: string;
+  player_position: string;
+  games: number;
+  goals: number;
+  assists: number;
+  points: number;
+};
+
 export type SzfbDashboardResponse = {
   watch: {
     id: number;
@@ -30,6 +43,7 @@ export type SzfbDashboardResponse = {
   standings: SzfbStandingRow[];
   results: SzfbMatch[];
   upcoming: SzfbMatch[];
+  player_stats: SzfbPlayerStat[];
 };
 
 export async function getSzfbDashboard(
@@ -53,7 +67,6 @@ export async function getSzfbDashboard(
     return null;
   }
 }
-
 
 export type SzfbSingleMatch = {
   id: number;

@@ -33,6 +33,10 @@ const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "juniori";
 const CATEGORY_FALLBACK_NAME = "Juniori";
 
+// Toto je ID z Django adminu pre SzfbTeamWatch juniorov.
+// Ak bude mať junior team watch iné ID, zmeň iba túto hodnotu.
+const SZFB_WATCH_ID = 2;
+
 function normalizeText(value?: string | null) {
   return (
     value
@@ -94,22 +98,24 @@ async function getCategories(): Promise<BackendCategory[]> {
 export default async function JunioriPage() {
   const [szfbDashboard, nextMatchResponse, posts, clubSeason, categories] =
     await Promise.all([
-      getSzfbDashboard(1),
-      getSzfbNextMatch(1),
+      getSzfbDashboard(SZFB_WATCH_ID),
+      getSzfbNextMatch(SZFB_WATCH_ID),
       getHomepagePosts(CLUB_SLUG),
       getClubSeason(CLUB_SLUG),
       getCategories(),
     ]);
 
   const currentCategory = categories.find(isCurrentCategory);
-
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
-
   const junioriPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
+  const upcomingMatches = szfbDashboard?.upcoming ?? [];
+  const resultMatches = szfbDashboard?.results ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const nextMatch = nextMatchResponse?.next_match ?? null;
+  const competitionName =
+    szfbDashboard?.watch?.competition_name || "Macron Extraliga juniorov";
+  const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
 
   const currentSeason =
     currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
@@ -133,7 +139,7 @@ export default async function JunioriPage() {
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
                 <span className={styles.heroSubtitle}>
-                  Slovenská Florbalová Juniorská Extraliga
+                  Slovenská florbalová juniorská extraliga
                 </span>
 
                 <h1 className={styles.bannerTitle}>{categoryName}</h1>
@@ -170,15 +176,20 @@ export default async function JunioriPage() {
         <section id="zapasy" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Zápasy</span>
-            <h2 className={styles.sectionTitle}>Featured zápasy</h2>
+            <h2 className={styles.sectionTitle}>Najbližší zápas a výsledok</h2>
           </div>
 
-          <NasledujuceZapasy />
+          <NasledujuceZapasy
+            upcomingMatches={upcomingMatches}
+            resultMatches={resultMatches}
+            ownTeamName={ownTeamName}
+            competitionName={competitionName}
+          />
         </section>
 
         <section id="novinky" className={styles.sectionContainer}>
           <div className={styles.resultsHeader}>
-            <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
+            <span className={styles.preTitle}>Aktuálne dianie</span>
             <h2 className={styles.sectionTitle}>
               Najnovšie a najdôležitejšie články
             </h2>
@@ -190,7 +201,7 @@ export default async function JunioriPage() {
         <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
             <span className={styles.preTitle}>Liga</span>
-            <h2 className={styles.sectionTitle}>Výsledky</h2>
+            <h2 className={styles.sectionTitle}>Tabuľka a posledné zápasy</h2>
           </div>
 
           <div className={styles.overviewGrid}>
@@ -199,7 +210,7 @@ export default async function JunioriPage() {
             </div>
 
             <div className={styles.matchesColumn}>
-              <RecentMatches />
+              <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
             </div>
           </div>
         </section>

@@ -6,6 +6,27 @@ type TabulkaProps = {
   ownTeamName: string;
 };
 
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function isOwnTeam(teamName: string, ownTeamName: string) {
+  const normalizedTeamName = normalizeText(teamName);
+  const normalizedOwnTeamName = normalizeText(ownTeamName);
+
+  return (
+    normalizedTeamName.includes(normalizedOwnTeamName) ||
+    normalizedOwnTeamName.includes(normalizedTeamName) ||
+    normalizedTeamName.includes("atu kosice")
+  );
+}
+
 function getStandingsRowClass(
   position: number,
   teamName: string,
@@ -16,7 +37,7 @@ function getStandingsRowClass(
   if (position <= 8) classNames.push(styles.playoffRow);
   if (position === 10 || position === 11) classNames.push(styles.playoutRow);
   if (position === 12) classNames.push(styles.relegationRow);
-  if (teamName === ownTeamName) classNames.push(styles.highlightRow);
+  if (isOwnTeam(teamName, ownTeamName)) classNames.push(styles.highlightRow);
 
   return classNames.join(" ");
 }
@@ -42,7 +63,7 @@ export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
             {standings.length > 0 ? (
               standings.map((team) => (
                 <tr
-                  key={team.position}
+                  key={`${team.position}-${team.team_name}`}
                   className={getStandingsRowClass(
                     team.position,
                     team.team_name,
@@ -54,7 +75,9 @@ export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
                   </td>
                   <td>
                     <div className={styles.teamCell}>
-                      <span className={styles.tableTeamName}>{team.team_name}</span>
+                      <span className={styles.tableTeamName}>
+                        {team.team_name}
+                      </span>
                     </div>
                   </td>
                   <td>{team.played}</td>

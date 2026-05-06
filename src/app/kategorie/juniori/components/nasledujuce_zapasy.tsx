@@ -1,8 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../../styles/unified.module.css";
-import { getSzfbDashboard, type SzfbMatch } from "@/app/lib/szfb";
+import type { SzfbMatch } from "@/app/lib/szfb";
 import { getTeamLogo } from "@/app/lib/teamLogos";
+
+type NasledujuceZapasyProps = {
+  upcomingMatches: SzfbMatch[];
+  resultMatches: SzfbMatch[];
+  ownTeamName: string;
+  competitionName: string;
+};
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
@@ -39,18 +46,14 @@ function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
   };
 }
 
-export default async function NasledujuceZapasy() {
-  const szfbDashboard = await getSzfbDashboard(1);
-
-  const upcomingMatches = szfbDashboard?.upcoming ?? [];
-  const resultMatches = szfbDashboard?.results ?? [];
-  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const competitionName =
-    szfbDashboard?.watch?.competition_name || "EXTRALIGA MUŽOV";
-
+export default function NasledujuceZapasy({
+  upcomingMatches,
+  resultMatches,
+  ownTeamName,
+  competitionName,
+}: NasledujuceZapasyProps) {
   const nextMatch = upcomingMatches[0];
   const lastResult = resultMatches[0];
-
   const hasAnyMatch = nextMatch || lastResult;
 
   return (
@@ -120,8 +123,10 @@ export default async function NasledujuceZapasy() {
 
                   <div className={styles.featuredMatchFooter}>
                     <div className={styles.featuredMatchDateTime}>
-                      <strong>{formatDate(nextMatch.match_date)}</strong> •{" "}
-                      {formatTime(nextMatch.match_time)}
+                      <strong>{formatDate(nextMatch.match_date)}</strong>
+                      {nextMatch.match_time ? (
+                        <> • {formatTime(nextMatch.match_time)}</>
+                      ) : null}
                     </div>
                     <div className={styles.featuredMatchPlace}>
                       {nextMatch.venue || "Miesto zatiaľ nie je uvedené"}
