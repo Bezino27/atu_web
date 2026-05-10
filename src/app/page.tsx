@@ -12,7 +12,7 @@ import {
   type SzfbStandingRow,
 } from "./lib/szfb";
 import { getClubSeason } from "./lib/season";
-import PollSection from "./components/PollSection";
+import PollSection from "./components/poll/PollSection";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",

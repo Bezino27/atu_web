@@ -59,8 +59,7 @@ const placeholderPlayers: Player[] = [
 ];
 
 function getPlayerCardClassName(rank: Player["rank"]) {
-  const sizeClass =
-    rank === 1 ? styles.playerCardMain : styles.playerCardSide;
+  const sizeClass = rank === 1 ? styles.playerCardMain : styles.playerCardSide;
 
   const rankClass =
     rank === 1
@@ -106,7 +105,10 @@ function PlayerCard({ player }: { player: Player }) {
   return (
     <article className={getPlayerCardClassName(player.rank)}>
       <div className={styles.playerCardTop}>
-        <div className={styles.rankBadge}>{player.displayRank ?? player.rank}.</div>
+        <div className={styles.rankBadge}>
+          {player.displayRank ?? player.rank}.
+        </div>
+
         <div className={styles.playerNumber}>{displayNumber}</div>
       </div>
 
@@ -165,7 +167,7 @@ export default function SeasonLeadersSection({
     return (
       <section className={styles.leadersSection}>
         <div className={styles.leadersEmptyState}>
-          Štatistiky lídrov sezóny pripravujeme.
+          Štatistiky produktivity zatiaľ nie sú dostupné.
         </div>
       </section>
     );

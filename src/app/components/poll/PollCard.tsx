@@ -1,60 +1,56 @@
 "use client";
 
-import { useMemo } from "react";
 import styles from "./PollCard.module.css";
-import type { PollData } from "./poll.types";
+import type { ApiPoll, ApiPollResults } from "./poll.types";
 
 type PollCardProps = {
-  poll: PollData;
-  onVote: (optionId: string) => void;
-  onSelect: (optionId: string) => void;
-  selectedOptionId: string | null;
-  hasVoted: boolean;
+  poll: ApiPoll;
+  results: ApiPollResults | null;
+  selectedOptionId: number | null;
+  voting: boolean;
+  error: string | null;
+  onVote: () => void;
+  onSelect: (optionId: number) => void;
 };
+
+function formatDateTime(value: string | null) {
+  if (!value) return null;
+
+  return new Intl.DateTimeFormat("sk-SK", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
 
 export default function PollCard({
   poll,
+  results,
+  selectedOptionId,
+  voting,
+  error,
   onVote,
   onSelect,
-  selectedOptionId,
-  hasVoted,
 }: PollCardProps) {
-  const selectedOption =
-    poll.options.find((option) => option.id === selectedOptionId) ?? null;
+  const hasVoted = Boolean(poll.has_voted);
+  const showResults = Boolean(results);
+  const isVoteDisabled =
+    !selectedOptionId || voting || hasVoted || !poll.voting_open;
 
-  const totalVotes = useMemo(() => {
-    if (typeof poll.totalVotes === "number") return poll.totalVotes;
-
-    return poll.options.reduce((sum, option) => sum + option.votes, 0);
-  }, [poll]);
-
-  const optionsWithPercentages = useMemo(() => {
-    return poll.options.map((option) => {
-      const percentage =
-        totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
-
-      return {
-        ...option,
-        percentage,
-      };
-    });
-  }, [poll.options, totalVotes]);
-
-  const handleVote = () => {
-    if (!selectedOptionId || hasVoted) return;
-    onVote(selectedOptionId);
-  };
+  const endsAtLabel = formatDateTime(poll.ends_at);
 
   return (
     <div className={styles.pollCard}>
       <div className={styles.pollCardInner}>
         <div className={styles.pollBody}>
           <div className={styles.pollTopMeta}>
-            <span className={styles.pollMiniLabel}>Otázka dňa</span>
+            <span className={styles.pollMiniLabel}>Aktuálna anketa</span>
 
-            {poll.endsAt ? (
+            {endsAtLabel ? (
               <span className={styles.pollDeadline}>
-                Hlasovanie končí {poll.endsAt}
+                Hlasovanie končí {endsAtLabel}
               </span>
             ) : null}
           </div>
@@ -65,7 +61,7 @@ export default function PollCard({
             <p className={styles.pollDescription}>{poll.description}</p>
           ) : null}
 
-          {!hasVoted ? (
+          {!showResults ? (
             <div className={styles.optionsList}>
               {poll.options.map((option) => {
                 const isSelected = selectedOptionId === option.id;
@@ -78,17 +74,17 @@ export default function PollCard({
                       isSelected ? styles.optionButtonActive : ""
                     }`}
                     onClick={() => onSelect(option.id)}
-                    disabled={hasVoted}
+                    disabled={hasVoted || !poll.voting_open || voting}
                   >
                     <span className={styles.optionIndicator} />
-                    <span className={styles.optionLabel}>{option.label}</span>
+                    <span className={styles.optionLabel}>{option.text}</span>
                   </button>
                 );
               })}
             </div>
           ) : (
             <div className={styles.pollResultsList}>
-              {optionsWithPercentages.map((option) => {
+              {results?.options.map((option) => {
                 const isSelected = selectedOptionId === option.id;
 
                 return (
@@ -99,11 +95,9 @@ export default function PollCard({
                     }`}
                   >
                     <div className={styles.pollResultTop}>
-                      <span className={styles.pollResultLabel}>
-                        {option.label}
-                      </span>
+                      <span className={styles.pollResultLabel}>{option.text}</span>
                       <span className={styles.pollResultValue}>
-                        {option.percentage} %
+                        {option.percent} %
                       </span>
                     </div>
 
@@ -112,7 +106,7 @@ export default function PollCard({
                         className={`${styles.pollResultBarFill} ${
                           isSelected ? styles.pollResultBarFillActive : ""
                         }`}
-                        style={{ width: `${option.percentage}%` }}
+                        style={{ width: `${option.percent}%` }}
                       />
                     </div>
                   </div>
@@ -123,15 +117,15 @@ export default function PollCard({
         </div>
 
         <div className={styles.pollFooter}>
-          {!hasVoted ? (
+          {!showResults ? (
             <>
               <button
                 type="button"
                 className={styles.voteButton}
-                onClick={handleVote}
-                disabled={!selectedOptionId}
+                onClick={onVote}
+                disabled={isVoteDisabled}
               >
-                {poll.buttonLabel || "Hlasovať"}
+                {voting ? "Odosielam..." : "Hlasovať"}
               </button>
 
               <span className={styles.pollFooterText}>
@@ -141,15 +135,16 @@ export default function PollCard({
           ) : (
             <>
               <div className={styles.voteSuccess}>
-                Ďakujeme za hlas
-                {selectedOption ? ` – ${selectedOption.label}` : ""}
+                {hasVoted ? "Ďakujeme za hlas" : "Výsledky hlasovania"}
               </div>
 
               <span className={styles.pollFooterText}>
-                Celkovo hlasov: {totalVotes}
+                Celkovo hlasov: {results?.total_votes ?? 0}
               </span>
             </>
           )}
+
+          {error ? <span className={styles.pollErrorText}>{error}</span> : null}
         </div>
       </div>
     </div>

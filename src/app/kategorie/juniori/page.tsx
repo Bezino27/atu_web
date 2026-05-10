@@ -112,6 +112,7 @@ export default async function JunioriPage() {
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
+  const playerStats = szfbDashboard?.player_stats ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const competitionName =
     szfbDashboard?.watch?.competition_name || "Macron Extraliga juniorov";
@@ -221,7 +222,7 @@ export default async function JunioriPage() {
             <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
           </div>
 
-          <TopPlayer />
+          <TopPlayer players={playerStats} />
         </section>
       </main>
 
