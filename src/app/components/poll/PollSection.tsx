@@ -22,6 +22,35 @@ type PollState = {
   error: string | null;
 };
 
+const VOTED_POLLS_STORAGE_KEY = "atu_voted_poll_ids";
+
+function getStoredVotedPollIds() {
+  try {
+    const storedValue = window.localStorage.getItem(VOTED_POLLS_STORAGE_KEY);
+    const parsedValue = storedValue ? JSON.parse(storedValue) : [];
+
+    if (!Array.isArray(parsedValue)) {
+      return new Set<number>();
+    }
+
+    return new Set(
+      parsedValue.filter((value): value is number => typeof value === "number")
+    );
+  } catch {
+    return new Set<number>();
+  }
+}
+
+function storeVotedPollId(pollId: number) {
+  const votedPollIds = getStoredVotedPollIds();
+  votedPollIds.add(pollId);
+
+  window.localStorage.setItem(
+    VOTED_POLLS_STORAGE_KEY,
+    JSON.stringify(Array.from(votedPollIds))
+  );
+}
+
 export default function PollSection() {
   const [polls, setPolls] = useState<PollState[]>([]);
   const [latestResult, setLatestResult] = useState<ApiPollResults | null>(null);
@@ -33,22 +62,28 @@ export default function PollSection() {
       setLoading(true);
       setSectionError(null);
 
-      const [list, previousResult] = await Promise.all([
-        getPolls(),
-        getLatestPollResult(),
-      ]);
+      const list = await getPolls();
+      const previousResult = await getLatestPollResult().catch((error) => {
+        console.error("Nepodarilo sa načítať posledný výsledok ankety:", error);
+        return null;
+      });
       const activePollLimit = previousResult ? 1 : 2;
+      const votedPollIds = getStoredVotedPollIds();
 
       const openPolls = await Promise.all(
         list.slice(0, activePollLimit).map(async (poll) => {
           let results: ApiPollResults | null = null;
+          const hasVoted = Boolean(poll.has_voted || votedPollIds.has(poll.id));
 
-          if (poll.has_voted) {
+          if (hasVoted) {
             results = await getPollResults(poll.id);
           }
 
           return {
-            poll,
+            poll: {
+              ...poll,
+              has_voted: hasVoted,
+            },
             selectedOptionId: null,
             results,
             voting: false,
@@ -109,6 +144,7 @@ export default function PollSection() {
       );
 
       await voteInPoll(pollId, targetPoll.selectedOptionId);
+      storeVotedPollId(pollId);
 
       const [updatedPoll, results] = await Promise.all([
         getPollDetail(pollId),
@@ -120,7 +156,10 @@ export default function PollSection() {
           item.poll.id === pollId
             ? {
                 ...item,
-                poll: updatedPoll,
+                poll: {
+                  ...updatedPoll,
+                  has_voted: true,
+                },
                 results,
                 voting: false,
                 error: null,
