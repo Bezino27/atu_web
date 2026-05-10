@@ -5,7 +5,7 @@ if (!rawApiUrl && process.env.NODE_ENV === "production") {
 }
 
 export const API_URL =
-  rawApiUrl?.replace(/\/$/, "") ?? "http://localhost:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ?? "http://178.104.54.84:8000";
 
 export const BACKEND_URL = API_URL.endsWith("/api")
   ? API_URL.slice(0, -4)
