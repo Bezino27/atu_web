@@ -12,7 +12,7 @@ import {
   type SzfbStandingRow,
 } from "./lib/szfb";
 import { getClubSeason } from "./lib/season";
-import { getClubPartners, type Partner } from "./lib/partners";
+import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
 
 export const metadata: Metadata = {
@@ -38,14 +38,6 @@ function formatDate(dateString?: string | null) {
 function formatTime(timeString?: string | null) {
   if (!timeString) return "";
   return timeString.slice(0, 5);
-}
-
-function getPartnerImageSrc(partner: Partner) {
-  if (partner.image_url) return partner.image_url;
-  if (partner.logo_url) return partner.logo_url;
-  if (partner.logo) return getImageUrl(partner.logo);
-
-  return "";
 }
 
 function getStandingsRowClass(
@@ -121,7 +113,7 @@ export default async function HomePage() {
   const partnersWithLogos = partners
     .map((partner) => ({
       partner,
-      imageSrc: getPartnerImageSrc(partner),
+      imageSrc: getPartnerImageUrl(partner),
     }))
     .filter(({ imageSrc }) => Boolean(imageSrc));
 
@@ -490,6 +482,7 @@ export default async function HomePage() {
                       width={260}
                       height={110}
                       className={styles.partnerLogo}
+                      unoptimized
                     />
                   );
 

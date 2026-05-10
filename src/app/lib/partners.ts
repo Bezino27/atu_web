@@ -23,9 +23,7 @@ export function getPartnerImageUrl(partner: Partner): string {
 export async function getClubPartners(clubSlug: string): Promise<Partner[]> {
   try {
     const response = await fetch(`${API_URL}/public/partners/${clubSlug}/`, {
-      next: {
-        revalidate: 300,
-      },
+      cache: "no-store",
     });
 
     if (!response.ok) {
