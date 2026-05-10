@@ -12,6 +12,7 @@ import {
   type SzfbStandingRow,
 } from "./lib/szfb";
 import { getClubSeason } from "./lib/season";
+import { getClubPartners, type Partner } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
 
 export const metadata: Metadata = {
@@ -19,13 +20,6 @@ export const metadata: Metadata = {
   description:
     "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
 };
-
-const partners = [
-  { name: "Fenega", logo: "/partners/fenega.png" },
-  { name: "Mesto Košice", logo: "/partners/kosice.png" },
-  { name: "TUKE", logo: "/partners/tuke.png" },
-  { name: "Setex", logo: "/partners/setex.png" },
-];
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";
@@ -44,6 +38,14 @@ function formatDate(dateString?: string | null) {
 function formatTime(timeString?: string | null) {
   if (!timeString) return "";
   return timeString.slice(0, 5);
+}
+
+function getPartnerImageSrc(partner: Partner) {
+  if (partner.image_url) return partner.image_url;
+  if (partner.logo_url) return partner.logo_url;
+  if (partner.logo) return getImageUrl(partner.logo);
+
+  return "";
 }
 
 function getStandingsRowClass(
@@ -98,10 +100,11 @@ function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
 }
 
 export default async function HomePage() {
-  const [posts, szfbDashboard, clubSeason] = await Promise.all([
+  const [posts, szfbDashboard, clubSeason, partners] = await Promise.all([
     getHomepagePosts("atu-kosice"),
     getSzfbDashboard(1),
     getClubSeason("atu-kosice"),
+    getClubPartners("atu-kosice"),
   ]);
 
   const currentSeason = clubSeason?.season ?? "2025 / 2026";
@@ -115,6 +118,12 @@ export default async function HomePage() {
   const standings: SzfbStandingRow[] = szfbDashboard?.standings ?? [];
   const results: SzfbMatch[] = szfbDashboard?.results ?? [];
   const featuredMatch: SzfbMatch | null = szfbDashboard?.upcoming?.[0] ?? null;
+  const partnersWithLogos = partners
+    .map((partner) => ({
+      partner,
+      imageSrc: getPartnerImageSrc(partner),
+    }))
+    .filter(({ imageSrc }) => Boolean(imageSrc));
 
   const featuredMatchTeams = featuredMatch
     ? getMatchTeams(featuredMatch, ownTeamName)
@@ -471,19 +480,46 @@ export default async function HomePage() {
           </div>
 
           <div className={styles.partnersCard}>
-            <div className={styles.partnersGrid}>
-              {partners.map((partner) => (
-                <div key={partner.name} className={styles.partnerLogoCell}>
-                  <Image
-                    src={partner.logo}
-                    alt={partner.name}
-                    width={260}
-                    height={110}
-                    className={styles.partnerLogo}
-                  />
-                </div>
-              ))}
-            </div>
+            {partnersWithLogos.length > 0 ? (
+              <div className={styles.partnersGrid}>
+                {partnersWithLogos.map(({ partner, imageSrc }) => {
+                  const logo = (
+                    <Image
+                      src={imageSrc}
+                      alt={partner.name}
+                      width={260}
+                      height={110}
+                      className={styles.partnerLogo}
+                    />
+                  );
+
+                  if (partner.website) {
+                    return (
+                      <a
+                        key={partner.id}
+                        href={partner.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.partnerLogoCell}
+                        aria-label={partner.name}
+                      >
+                        {logo}
+                      </a>
+                    );
+                  }
+
+                  return (
+                    <div key={partner.id} className={styles.partnerLogoCell}>
+                      {logo}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={styles.compactEmptyState}>
+                Partneri budú doplnení čoskoro.
+              </div>
+            )}
           </div>
         </section>
       </main>
