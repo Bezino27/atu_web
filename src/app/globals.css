@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Unison Pro";
+  src: url("/fonts/unison-pro-bold-italic.otf") format("opentype");
+  font-weight: 700 1000;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* # BRAND */
   --color-black: #0b0b0c;
@@ -49,13 +57,25 @@
   --radius-xl: 20px;
   --radius-pill: 999px;
 
+  /* # NEXT / TAILWIND */
   --background: var(--color-page);
   --foreground: var(--color-text);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* # FONTS */
   --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
-  --font-banner: var(--font-anton);
+  --font-unison: "Unison Pro", sans-serif;
+  --font-banner: var(--font-unison);
+
+  /* # FONT WEIGHTS */
+  --font-title-weight: 700;
+  --font-banner-weight: 900;
+
+  /* # FONT SIZES */
+  --font-section-eyebrow: 16px;
+  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
 }
 
 html {
@@ -68,6 +88,190 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   padding-top: 0px;
 }
+
+/* # GLOBAL SECTION LAYOUT */
+
+.sectionContainer,
+.bottomSection,
+.overviewSection,
+.section {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.sectionContainer:first-of-type {
+  margin-top: 30px;
+}
+
+.bottomSection {
+  margin-bottom: 0;
+}
+
+/* # GLOBAL SECTION HEADERS */
+
+.resultsHeader,
+.sectionHeader,
+.sectionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.sectionHeader,
+.sectionHeading {
+  display: block;
+}
+
+.preTitle {
+  display: block;
+  margin: 0 0 8px 18px;
+  color: var(--color-text-muted);
+  font-size: var(--font-section-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding-left: 12px;
+  border-left: 6px solid var(--color-text-subtle);
+  color: var(--color-text);
+
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: var(--font-section-title);
+  font-weight: var(--font-title-weight);
+  font-style: italic;
+
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+/* # GLOBAL LINKS */
+
+.sectionLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sectionLink:hover {
+  color: var(--color-text-muted);
+  transform: translateY(-1px);
+}
+
+/* # RESPONSIVE - 1024 */
+
+@media (max-width: 1024px) {
+  :root {
+    --font-section-eyebrow: 15px;
+    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
+  }
+
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection,
+  .section {
+    padding: 0 14px;
+  }
+
+  .sectionContainer:first-of-type {
+    margin-top: 26px;
+  }
+}
+
+/* # RESPONSIVE - 640 */
+
+@media (max-width: 640px) {
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection,
+  .section {
+    padding: 0 10px;
+  }
+
+  .sectionContainer:first-of-type {
+    margin-top: 20px;
+  }
+
+  .resultsHeader,
+  .sectionHeader,
+  .sectionHeading {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .preTitle {
+    margin: 0 0 6px 12px;
+    letter-spacing: 1.4px;
+  }
+
+  .sectionTitle {
+    padding-left: 10px;
+    border-left-width: 4px;
+    line-height: 1.15;
+  }
+
+  .sectionLink {
+    font-size: 0.92rem;
+  }
+}
+
+/* # RESPONSIVE - 480 */
+
+@media (max-width: 480px) {
+  .sectionContainer,
+  .bottomSection,
+  .overviewSection,
+  .section {
+    padding: 0 8px;
+  }
+
+  .sectionContainer:first-of-type {
+    margin-top: 16px;
+  }
+
+  .resultsHeader,
+  .sectionHeader,
+  .sectionHeading {
+    margin-bottom: 14px;
+  }
+
+  .preTitle {
+    margin: 0 0 5px 10px;
+    letter-spacing: 1.1px;
+  }
+
+  .sectionTitle {
+    padding-left: 8px;
+    border-left-width: 3px;
+    line-height: 1.2;
+  }
+
+  .sectionLink {
+    margin-left: 10px;
+    font-size: 0.86rem;
+  }
+}
+
+/* # ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   html {

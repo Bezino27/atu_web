@@ -127,16 +127,16 @@ export default async function HomePage() {
 
       <main className={styles.content}>
         {/* # TOP NEWS */}
-        <section className={styles.sectionContainer}>
-          <div className={styles.resultsHeader}>
+        <section className="sectionContainer">
+          <div className="resultsHeader hasAction">
             <div>
-              <span className={styles.preTitle}>Top obsah</span>
-              <h1 className={styles.sectionTitle}>
-                Najnovšie a najdôležitejšie články
+              <span className="preTitle">Top obsah</span>
+              <h1 className="sectionTitle">
+                Najdôležitejšie novinky 
               </h1>
             </div>
 
-            <Link href="/clanky" className={styles.sectionLink}>
+            <Link href="/clanky" className="sectionLink">
               Všetky články
             </Link>
           </div>
@@ -210,11 +210,11 @@ export default async function HomePage() {
         </section>
 
         {/* # OVERVIEW */}
-        <section className={styles.overviewSection}>
-          <div className={styles.resultsHeader}>
+        <section className="overviewSection">
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>Liga</span>
-              <h2 className={styles.sectionTitle}>Výsledky</h2>
+              <span className="preTitle">Liga</span>
+              <h2 className="sectionTitle">Výsledky</h2>
             </div>
           </div>
 
@@ -352,11 +352,11 @@ export default async function HomePage() {
         </section>
 
         {/* # CLUB CONTENT */}
-        <section className={styles.sectionContainer}>
-          <div className={`${styles.resultsHeader} ${styles.clubContentHeader}`}>
+        <section className="sectionContainer">
+          <div className={`resultsHeader ${styles.clubContentHeader}`}>
             <div>
-              <span className={styles.preTitle}>Klubový obsah</span>
-              <h2 className={styles.sectionTitle}>Ďalšie novinky a články</h2>
+              <span className="preTitle">Klubový obsah</span>
+              <h2 className="sectionTitle">Ďalšie novinky a články</h2>
             </div>
           </div>
 
@@ -463,11 +463,11 @@ export default async function HomePage() {
         <PollSection />
 
         {/* # PARTNERS */}
-        <section className={`${styles.sectionContainer} ${styles.partnersSection}`}>
-          <div className={styles.resultsHeader}>
+        <section className={`sectionContainer ${styles.partnersSection}`}>
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>Partneri</span>
-              <h2 className={styles.sectionTitle}>Podporujú náš klub</h2>
+              <span className="preTitle">Partneri</span>
+              <h2 className="sectionTitle">Podporujú náš klub</h2>
             </div>
           </div>
 

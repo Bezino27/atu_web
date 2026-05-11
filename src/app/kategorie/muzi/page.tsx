@@ -181,7 +181,7 @@ export default async function MuziPage() {
           />
         </section>
 
-        <section id="zapasy" className={styles.sectionContainer}>
+        <section id="zapasy" className="sectionContainer">
           <NasledujuceZapasy
             upcomingMatches={upcomingMatches}
             resultMatches={resultMatches}
@@ -190,23 +190,25 @@ export default async function MuziPage() {
           />
         </section>
 
-        <section id="novinky" className={styles.sectionContainer}>
-          <div className={styles.resultsHeader}>
-            <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-            <h2 className={styles.sectionTitle}>
-              Najnovšie a najdôležitejšie články
+        <section id="novinky" className="sectionContainer">
+          <div className="resultsHeader">
+            <div>
+              <span className="preTitle">AKTUÁLNE DIANIE</span>
+              <h2 className="sectionTitle">
+              Najdôležitejšie novinky
             </h2>
+            </div>
           </div>
 
           <Novinky posts={muziPosts} />
         </section>
 
         {/* # OVERVIEW */}
-        <section id="tabulka" className={styles.overviewSection}>
-          <div className={styles.resultsHeader}>
+        <section id="tabulka" className="overviewSection">
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>Liga</span>
-              <h2 className={styles.sectionTitle}>Výsledky</h2>
+              <span className="preTitle">Liga</span>
+              <h2 className="sectionTitle">Výsledky</h2>
             </div>
           </div>
 
@@ -224,10 +226,12 @@ export default async function MuziPage() {
           </div>
         </section>
 
-        <section id="hraci" className={styles.bottomSection}>
-          <div className={styles.resultsHeader}>
-            <span className={styles.preTitle}>Štatistiky tímu</span>
-            <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
+        <section id="hraci" className="bottomSection">
+          <div className="resultsHeader">
+            <div>
+              <span className="preTitle">Štatistiky tímu</span>
+              <h2 className="sectionTitle">Lídri sezóny</h2>
+            </div>
           </div>
 
           <TopPlayer players={playerStats} />

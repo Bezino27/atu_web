@@ -59,8 +59,8 @@ export default function NasledujuceZapasy({
   return (
     <section className={styles.featuredMatchesSection}>
       <div className={styles.featuredMatchesHeading}>
-        <span className={styles.preTitle}>Zápasy</span>
-        <h2 className={styles.sectionTitle}>Featured zápasy</h2>
+        <span className="preTitle">Zápasy</span>
+        <h2 className="sectionTitle">Featured zápasy</h2>
       </div>
 
       {!hasAnyMatch ? (

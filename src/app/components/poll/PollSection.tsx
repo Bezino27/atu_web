@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import pageStyles from "../../page.module.css";
 import PollCard from "./PollCard";
 import PollResultsCard from "./PollResultsCard";
 import styles from "./PollCard.module.css";
@@ -190,11 +189,11 @@ export default function PollSection() {
   const hasAnyContent = hasOpenPolls || hasLatestResult;
 
   return (
-    <section className={pageStyles.sectionContainer}>
-      <div className={pageStyles.resultsHeader}>
+    <section className="sectionContainer">
+      <div className="resultsHeader">
         <div>
-          <span className={pageStyles.preTitle}>Anketa</span>
-          <h2 className={pageStyles.sectionTitle}>Hlasovanie fanúšikov</h2>
+          <span className="preTitle">Anketa</span>
+          <h2 className="sectionTitle">Hlasovanie fanúšikov</h2>
         </div>
       </div>
 

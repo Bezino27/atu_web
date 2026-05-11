@@ -45,9 +45,10 @@ type BackendCategory = {
   name: string;
   slug?: string | null;
   season?: string | null;
-  description?: string | null;
   birth_year_from: number;
   birth_year_to: number;
+  category_subname?: string | null;
+  display_years?: string | null;
   order?: number;
   is_active?: boolean;
   coach_name?: string;
@@ -88,11 +89,47 @@ function getCategoryHref(category: BackendCategory) {
   return categoryHrefMap[slug] || `/kategorie/${slug}`;
 }
 
-function getCategoryYears(category: BackendCategory) {
+function getCategoryFallbackYears(category: BackendCategory) {
   const minYear = Math.min(category.birth_year_from, category.birth_year_to);
   const maxYear = Math.max(category.birth_year_from, category.birth_year_to);
+  const slug = getCategorySlug(category);
 
-  return `ročníky ${minYear} – ${maxYear}`;
+  if (slug === "muzi") {
+    return `> ${maxYear}`;
+  }
+
+  if (slug === "pripravka") {
+    return `< ${minYear}`;
+  }
+
+  if (minYear === maxYear) {
+    return `${minYear}`;
+  }
+
+  return `${minYear}-${maxYear}`;
+}
+
+function getCategoryFallbackSubname(category: BackendCategory) {
+  const slug = getCategorySlug(category);
+
+  if (slug === "muzi") return "MEX";
+  if (slug === "juniori") return "U19";
+  if (slug === "dorast") return "U17";
+  if (slug === "starsi-ziaci") return "U15";
+  if (slug === "mladsi-ziaci") return "U13";
+  if (slug === "pripravka") return "U11-U9";
+
+  return category.name.slice(0, 4).toUpperCase();
+}
+
+function getCategoryDisplayYears(category: BackendCategory) {
+  return category.display_years?.trim() || getCategoryFallbackYears(category);
+}
+
+function getCategorySubname(category: BackendCategory) {
+  return (
+    category.category_subname?.trim() || getCategoryFallbackSubname(category)
+  );
 }
 
 function sortCategoriesFromYoungestToOldest(categories: BackendCategory[]) {
@@ -220,17 +257,17 @@ export default async function PridajSaPage() {
           </div>
         </section>
 
-        <section className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Prečo ATU</h2>
+        <section className="sectionContainer">
+          <div className="sectionHeader">
+            <h2 className="sectionTitle">Prečo ATU</h2>
           </div>
 
           <BenefitsCarouselSection items={benefits} />
         </section>
 
-        <section id="kategorie" className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Kategórie</h2>
+        <section id="kategorie" className="sectionContainer">
+          <div className="sectionHeader">
+            <h2 className="sectionTitle">Kategórie</h2>
           </div>
 
           {sortedCategories.length > 0 ? (
@@ -241,21 +278,22 @@ export default async function PridajSaPage() {
                   href={getCategoryHref(category)}
                   className={styles.categoryCard}
                 >
-                  <div className={styles.categoryTop}>
-                    <h3 className={styles.categoryTitle}>{category.name}</h3>
+                  <div className={styles.categoryCardContent}>
+                    <div className={styles.categoryTop}>
+                      <h3 className={styles.categoryTitle}>{category.name}</h3>
 
-                    <span className={styles.categoryMeta}>
-                      {getCategoryYears(category)}
+                      <span className={styles.categoryMeta}>
+                        {getCategoryDisplayYears(category)}
+                      </span>
+                    </div>
+
+                    <span className={styles.categoryWatermark}>
+                      {getCategorySubname(category)}
                     </span>
-                  </div>
 
-                  <p className={styles.categoryText}>
-                    {category.description?.trim() ||
-                      "Viac informácií o kategórii nájdeš po rozkliknutí."}
-                  </p>
-
-                  <div className={styles.categoryArrow}>
-                    <span>→</span>
+                    <span className={styles.categoryArrow} aria-hidden="true">
+                      →
+                    </span>
                   </div>
                 </Link>
               ))}
@@ -267,10 +305,10 @@ export default async function PridajSaPage() {
           )}
         </section>
 
-        <section className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>FAQ</span>
-            <h2 className={styles.sectionTitle}>Časté otázky</h2>
+        <section className="sectionContainer">
+          <div className="sectionHeader">
+            <span className="preTitle">FAQ</span>
+            <h2 className="sectionTitle">Časté otázky</h2>
           </div>
 
           <div className={styles.faqList}>
@@ -299,12 +337,10 @@ export default async function PridajSaPage() {
           </div>
         </section>
 
-        <section id="kontakt" className={styles.sectionContainer}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.preTitle}>KONTAKT</span>
-            <h2 className={styles.sectionTitle}>
-              Príďte si vyskúšať tréning
-            </h2>
+        <section id="kontakt" className="sectionContainer">
+          <div className="sectionHeader">
+            <span className="preTitle">KONTAKT</span>
+            <h2 className="sectionTitle">Príďte si vyskúšať tréning</h2>
           </div>
 
           <RecruitmentForm />

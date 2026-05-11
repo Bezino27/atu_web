@@ -18,10 +18,12 @@ export default function KontaktPage() {
       <Header />
 
       <main className={styles.content}>
-        <section className={styles.sectionContainer}>
-          <div className={styles.resultsHeader}>
-            <span className={styles.preTitle}>Kontakt</span>
-            <h1 className={styles.sectionTitle}>FaBK ATU Košice</h1>
+        <section className="sectionContainer">
+          <div className="resultsHeader">
+            <div>
+              <span className="preTitle">Kontakt</span>
+              <h1 className="sectionTitle">FaBK ATU Košice</h1>
+            </div>
           </div>
 
           <div className={styles.contactGrid}>

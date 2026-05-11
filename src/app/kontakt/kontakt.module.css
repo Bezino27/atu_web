@@ -28,33 +28,8 @@
   box-sizing: border-box;
 }
 
-.resultsHeader {
-  margin-bottom: 18px;
-}
-
 /* # SHARED SECTION TITLES */
-.preTitle {
-  display: block;
-  margin: 0 0 8px 18px;
-  color: var(--color-text-muted);
-  font-weight: 700;
-  font-size: var(--font-section-eyebrow);
-  letter-spacing: 0.75px;
-  text-transform: uppercase;
-}
 
-.sectionTitle {
-  margin: 0;
-  padding-left: 12px;
-  border-left: 6px solid var(--color-text-subtle);
-  color: var(--color-text);
-  font-family: var(--font-geist-sans);
-  font-weight: 850;
-  font-size: var(--font-section-title);
-  line-height: 1.08;
-  letter-spacing: -1.4px;
-  text-align: left;
-}
 
 /* # CONTACT GRID */
 .contactGrid {
@@ -431,21 +406,7 @@
     padding: 24px 10px 0;
   }
 
-  .preTitle {
-    margin: 0 0 6px 12px;
-    letter-spacing: 1.4px;
-  }
 
-  .sectionTitle {
-    padding-left: 10px;
-    border-left: 4px solid var(--color-text-subtle);
-    line-height: 1.15;
-    letter-spacing: -0.8px;
-  }
-
-  .resultsHeader {
-    margin-bottom: 18px;
-  }
 
   .contactGrid {
     gap: 18px;
@@ -518,21 +479,7 @@
     padding: 18px 8px 0;
   }
 
-  .preTitle {
-    margin: 0 0 5px 10px;
-    letter-spacing: 1.1px;
-  }
 
-  .sectionTitle {
-    padding-left: 8px;
-    border-left: 3px solid var(--color-text-subtle);
-    line-height: 1.2;
-    letter-spacing: -0.4px;
-  }
-
-  .resultsHeader {
-    margin-bottom: 14px;
-  }
 
   .contactGrid {
     gap: 16px;

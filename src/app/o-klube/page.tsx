@@ -42,19 +42,19 @@ export default function OKlubePage() {
       <Header />
 
       <div className={styles.content}>
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>O klube</span>
-            <h1 className={styles.sectionTitle}>ATU Košice</h1>
+        <section className="section">
+          <div className="sectionHeading">
+            <span className="preTitle">O klube</span>
+            <h1 className="sectionTitle">ATU Košice</h1>
           </div>
 
           <ClubHero />
         </section>
 
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span className={styles.preTitle}>História</span>
-            <h2 className={styles.sectionTitle}>Príbeh ATU Košice</h2>
+        <section className="section">
+          <div className="sectionHeading">
+            <span className="preTitle">História</span>
+            <h2 className="sectionTitle">Príbeh ATU Košice</h2>
           </div>
 
           <div className={styles.textSectionCard}>
@@ -109,17 +109,17 @@ export default function OKlubePage() {
           </div>
         </section>
 
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <h2 className={styles.sectionTitle}>Klubové úspechy</h2>
+        <section className="section">
+          <div className="sectionHeading">
+            <h2 className="sectionTitle">Klubové úspechy</h2>
           </div>
 
           <AchievementsSection />
         </section>
 
-        <section className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <h2 className={styles.sectionTitle}>
+        <section className="section">
+          <div className="sectionHeading">
+            <h2 className="sectionTitle">
               Hráči, na ktorých je klub hrdý
             </h2>
           </div>
