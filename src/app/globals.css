@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Unison Pro";
   src: url("/fonts/unison-pro-bold-italic.otf") format("opentype");
-  font-weight: 700 1000;
+  font-weight: 700;
   font-style: italic;
   font-display: swap;
 }

@@ -24,7 +24,6 @@ type SocialItem = {
   href?: string;
   icon?: ReactNode;
   color?: string;
-  placeholder?: boolean;
 };
 
 const clubLinks: NavItem[] = [
@@ -83,13 +82,15 @@ const socialItems: SocialItem[] = [
     color: "#111111",
   },
   {
-    label: "Placeholder",
-    placeholder: true,
+    label: "Obchod",
+    href: "https://www.florbalexpert.cz",
+    icon: <FaShoppingBag />,
+    color: "#111111",
   },
   {
-    label: "Fanshop",
-    href: "https://fanzone.sk/kategoria-produktu/florbal/atu-kosice/",
-    icon: <FaShoppingBag />,
+    label: "Ludimus",
+    href: "https://www.ludimus.sk",
+    icon: <span className={styles.textIcon}>LU</span>,
     color: "#111111",
   },
 ];
@@ -177,6 +178,11 @@ export default function Footer() {
                   className={`${styles.shareMenu} ${
                     isMenuOpen ? styles.shareMenuOpen : ""
                   }`}
+                  style={
+                    {
+                      "--items": socialItems.length,
+                    } as CSSProperties
+                  }
                 >
                   <button
                     type="button"
@@ -194,20 +200,9 @@ export default function Footer() {
                       "--clr": item.color ?? "#ffffff",
                     } as CSSProperties;
 
-                    if (item.placeholder) {
-                      return (
-                        <span
-                          key={`${item.label}-${index}`}
-                          className={`${styles.shareItem} ${styles.sharePlaceholder}`}
-                          style={customStyle}
-                          aria-hidden="true"
-                        />
-                      );
-                    }
-
                     return (
                       <a
-                        key={item.label}
+                        key={item.href}
                         href={item.href}
                         target="_blank"
                         rel="noreferrer"

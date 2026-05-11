@@ -1,6 +1,4 @@
 .pageContainer {
-  --font-section-eyebrow: 16px;
-  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
   --font-panel-title: clamp(1.25rem, 1.8vw, 1.7rem);
 
   --font-card-title: 20px;
@@ -191,7 +189,7 @@
   animation: titleEntrance 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 
   font-family: "Unison Pro", var(--font-banner), sans-serif !important;
-  font-weight: 700chce !important;
+  font-weight: 700 !important;
   font-style: italic !important;
 
   text-shadow:
@@ -1557,8 +1555,6 @@
 
 @media (max-width: 1024px) {
   .pageContainer {
-    --font-section-eyebrow: 15px;
-    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
     --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
 
     --font-card-title: 19px;
@@ -1835,8 +1831,6 @@
 
 @media (max-width: 768px) {
   .pageContainer {
-    --font-section-eyebrow: 12px;
-    --font-section-title: clamp(1.5rem, 5vw, 2rem);
     --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
 
     --font-card-title: 18px;
@@ -2344,8 +2338,6 @@
 
 @media (max-width: 480px) {
   .pageContainer {
-    --font-section-eyebrow: 11px;
-    --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
     --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
 
     --font-card-title: 16px;

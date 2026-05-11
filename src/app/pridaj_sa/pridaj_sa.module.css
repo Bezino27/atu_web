@@ -1,6 +1,4 @@
 .pageContainer {
-  --font-section-eyebrow: 16px;
-  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
   --font-body: 1rem;
   --font-body-sm: 0.95rem;
   --font-meta: 0.88rem;
@@ -611,8 +609,6 @@
 
 @media (max-width: 1024px) {
   .pageContainer {
-    --font-section-eyebrow: 15px;
-    --font-section-title: clamp(1.9rem, 3.4vw, 2.45rem);
     --font-body: 0.96rem;
     --font-body-sm: 0.92rem;
     --font-meta: 0.84rem;
@@ -744,8 +740,6 @@
 
 @media (max-width: 768px) {
   .pageContainer {
-    --font-section-eyebrow: 12px;
-    --font-section-title: clamp(1.5rem, 5vw, 2rem);
     --font-body: 0.92rem;
     --font-body-sm: 0.86rem;
     --font-meta: 0.8rem;
@@ -901,8 +895,6 @@
 
 @media (max-width: 480px) {
   .pageContainer {
-    --font-section-eyebrow: 11px;
-    --font-section-title: clamp(1.2rem, 6vw, 1.55rem);
     --font-body: 0.86rem;
     --font-body-sm: 0.82rem;
     --font-meta: 0.74rem;

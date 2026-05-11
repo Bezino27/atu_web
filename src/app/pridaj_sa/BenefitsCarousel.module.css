@@ -1,22 +1,21 @@
 .section {
-  position: relative;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 16px;
   box-sizing: border-box;
 }
 
 .headerRow {
-  position: absolute;
-  top: -68px;
-  right: 16px;
-  width: auto;
-  max-width: none;
-  margin: 0;
+  width: 100%;
+  margin: 0 0 18px;
   display: flex;
-  justify-content: flex-end;
-  z-index: 70;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headerRow :global(.sectionHeader) {
+  margin-bottom: 0;
 }
 
 .controls {
@@ -209,13 +208,8 @@
 
 /* # 1024 */
 @media (max-width: 1024px) {
-  .section {
-    padding: 0 12px;
-  }
-
   .headerRow {
-    top: -64px;
-    right: 12px;
+    margin-bottom: 16px;
   }
 
   .controls {
@@ -279,13 +273,8 @@
 
 /* # 768 */
 @media (max-width: 768px) {
-  .section {
-    padding: 0 8px;
-  }
-
   .headerRow {
-    top: -58px;
-    right: 8px;
+    margin-bottom: 14px;
   }
 
   .controls {
@@ -374,16 +363,8 @@
 
 /* # 480 */
 @media (max-width: 480px) {
-  .section {
-    padding: 0 6px;
-  }
-
   .headerRow {
-    position: absolute;
-    top: -50px;
-    right: 8px;
-    width: auto;
-    margin: 0;
+    margin-bottom: 12px;
   }
 
   .controls {

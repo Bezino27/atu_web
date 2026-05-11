@@ -258,10 +258,6 @@ export default async function PridajSaPage() {
         </section>
 
         <section className="sectionContainer">
-          <div className="sectionHeader">
-            <h2 className="sectionTitle">Prečo ATU</h2>
-          </div>
-
           <BenefitsCarouselSection items={benefits} />
         </section>
 
