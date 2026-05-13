@@ -1,6 +1,8 @@
 import styles from "./o-klube.module.css";
+import Image from "next/image";
 
 type MedalType = "gold" | "silver" | "bronze";
+
 
 type MedalItem = {
   count: string;
@@ -10,12 +12,14 @@ type MedalItem = {
 
 type Group = {
   title: string;
+  code: string;
   items: MedalItem[];
 };
 
 const achievementGroups: Group[] = [
   {
     title: "Muži",
+    code: "MEX",
     items: [
       {
         count: "1x",
@@ -43,6 +47,7 @@ const achievementGroups: Group[] = [
   },
   {
     title: "Juniori",
+    code: "U19",
     items: [
       {
         count: "4x",
@@ -58,8 +63,22 @@ const achievementGroups: Group[] = [
   },
 ];
 
+const medalIcons: Record<MedalType, string> = {
+  gold: "/images/medals/medal1.svg",
+  silver: "/images/medals/medal2.svg",
+  bronze: "/images/medals/medal3.svg",
+};
+
 function MedalDot({ type }: { type: MedalType }) {
-  return <span className={`${styles.medalDot} ${styles[type]}`} />;
+  return (
+    <Image
+      src={medalIcons[type]}
+      alt={`${type} medal`}
+      width={55}
+      height={55}
+      className={styles.medalIcon}
+    />
+  );
 }
 
 export default function AchievementsSection() {
@@ -69,6 +88,9 @@ export default function AchievementsSection() {
         {achievementGroups.map((group) => (
           <article key={group.title} className={styles.groupCard}>
             <div className={styles.groupHeader}>
+              <span className={styles.groupCode} aria-hidden="true">
+                {group.code}
+              </span>
               <h3 className={styles.groupTitle}>{group.title}</h3>
             </div>
 

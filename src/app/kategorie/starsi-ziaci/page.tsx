@@ -224,7 +224,7 @@ const StarsiZiaciPage = async () => {
             <div>
               <span className="preTitle">AKTUÁLNE DIANIE</span>
               <h2 className="sectionTitle">
-              Najnovšie a najdôležitejšie články
+              Najdôležitejšie novinky
             </h2>
             </div>
           </div>

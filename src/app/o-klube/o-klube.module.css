@@ -34,6 +34,18 @@
   background: var(--color-surface);
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.06);
   align-items: stretch;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.heroCard:hover {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .heroLeft {
@@ -59,22 +71,24 @@
   background: var(--color-page);
   border: 1px solid rgba(17, 17, 17, 0.05);
   transition:
-    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.28s ease,
-    background 0.28s ease;
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .infoCard:hover {
-  transform: none;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+  background: var(--color-surface-soft);
+  border-color: var(--color-border-strong);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .infoCardHighlight:hover {
-  background: var(--color-surface);
+  background: var(--color-surface-soft);
   border-color: var(--color-border-strong);
-  transform: translateX(8px);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .infoCardLabel {
@@ -291,6 +305,18 @@
   box-shadow:
     0 20px 50px rgba(17, 17, 17, 0.06),
     0 2px 10px rgba(17, 17, 17, 0.03);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.textSectionCard:hover {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .textColumns {
@@ -326,21 +352,57 @@
     0 22px 50px rgba(17, 17, 17, 0.06),
     0 4px 14px rgba(17, 17, 17, 0.03);
   overflow: hidden;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.groupCard:hover {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .groupHeader {
+  position: relative;
+  min-height: 74px;
+  display: flex;
+  align-items: flex-end;
   margin-bottom: 22px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  overflow: hidden;
 }
 
 .groupTitle {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: var(--color-text);
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 1.65rem;
+  font-weight: 900;
   line-height: 1.05;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.groupCode {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  z-index: 0;
+  color: var(--color-surface-strong);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: clamp(3rem, 4.5vw, 4.35rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 0.78;
+  letter-spacing: 0.02em;
+  opacity: 0.72;
+  pointer-events: none;
 }
 
 .itemsList {
@@ -359,22 +421,22 @@
   padding: 20px;
   border: 1px solid rgba(17, 17, 17, 0.06);
   border-radius: var(--radius-xl);
-  background: var(--color-surface);
+  background: var(--color-surface-soft);
   box-shadow:
     0 10px 24px rgba(17, 17, 17, 0.035),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
   transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease;
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .achievementItem:hover {
-  transform: translateY(-3px);
+  background: var(--color-surface-soft);
   border-color: var(--color-border-strong);
-  box-shadow:
-    0 16px 32px rgba(17, 17, 17, 0.055),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .itemLeft {
@@ -391,68 +453,16 @@
 
 .itemCount {
   color: var(--color-text);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
   font-size: 2.3rem;
-  font-weight: 900;
+  font-weight: 700;
+  font-style: italic;
   line-height: 0.95;
-  letter-spacing: -0.06em;
+  letter-spacing: 0.02em;
 }
 
-.medalDot {
-  width: 24px;
-  height: 28px;
-  flex-shrink: 0;
-  position: relative;
-  display: inline-block;
-}
+/* # MEDAL ICON */
 
-.medalDot::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 6px;
-  width: 12px;
-  height: 12px;
-  background:
-    linear-gradient(135deg, var(--color-black) 0 48%, transparent 49%),
-    linear-gradient(225deg, var(--color-text-muted) 0 48%, transparent 49%);
-  clip-path: polygon(0 0, 100% 0, 82% 100%, 50% 70%, 18% 100%);
-  opacity: 0.9;
-}
-
-.medalDot::after {
-  content: "";
-  position: absolute;
-  left: 1px;
-  bottom: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: var(--radius-pill);
-  background:
-    radial-gradient(circle at 33% 30%, rgba(255, 255, 255, 0.8) 0 12%, transparent 13%),
-    linear-gradient(135deg, var(--medal-light), var(--medal-base) 58%, var(--medal-dark));
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.34),
-    inset 0 -3px 5px rgba(17, 17, 17, 0.14),
-    0 6px 14px rgba(17, 17, 17, 0.16);
-}
-
-.gold {
-  --medal-base: var(--color-gold);
-  --medal-light: #f5d36d;
-  --medal-dark: #9d6c12;
-}
-
-.silver {
-  --medal-base: #a7adb4;
-  --medal-light: #e6e8ea;
-  --medal-dark: #6e747a;
-}
-
-.bronze {
-  --medal-base: var(--color-warning);
-  --medal-light: #d79254;
-  --medal-dark: #7d421d;
-}
 
 .itemRight {
   min-width: 0;
@@ -474,8 +484,11 @@
   min-height: 34px;
   padding: 0 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-surface-soft);
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  box-shadow:
+    0 4px 10px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   color: var(--color-text-muted);
   font-size: 0.9rem;
   font-weight: 700;
@@ -510,17 +523,17 @@
     0 16px 36px rgba(17, 17, 17, 0.05),
     0 3px 12px rgba(17, 17, 17, 0.025);
   transition:
-    transform 0.24s ease,
-    box-shadow 0.24s ease,
-    border-color 0.24s ease;
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
 
 .alumniCard:hover {
-  transform: translateY(-4px);
+  background: var(--color-surface-soft);
   border-color: var(--color-border-strong);
-  box-shadow:
-    0 22px 42px rgba(17, 17, 17, 0.065),
-    0 6px 18px rgba(17, 17, 17, 0.035);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
 }
 
 .alumniCardHeader {
@@ -679,15 +692,9 @@
     font-size: 2rem;
   }
 
-  .medalDot {
-    width: 22px;
-    height: 26px;
-  }
-
-  .medalDot::after {
-    left: 1px;
-    width: 20px;
-    height: 20px;
+  .medalIcon {
+    width: 32px;
+    height: 32px;
   }
 
   .seasonChip {
@@ -740,8 +747,6 @@
   .section {
     padding: 0 16px;
   }
-
-
 
   .heroCard,
   .textSectionCard {
@@ -821,12 +826,22 @@
     width: 100%;
     max-width: none;
     justify-self: stretch;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
+    padding: 16px;
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow:
+      0 12px 30px rgba(15, 23, 42, 0.06),
+      0 2px 8px rgba(15, 23, 42, 0.03);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .groupCard:hover {
+    background: var(--color-surface);
+    border-color: var(--color-border-strong);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+    transform: translateY(-3px);
   }
 
   .groupCard::before {
@@ -834,13 +849,20 @@
   }
 
   .groupHeader {
+    min-height: 58px;
     margin-bottom: 14px;
     padding: 0 0 12px;
     border-bottom: 1px solid rgba(17, 17, 17, 0.08);
   }
 
   .groupTitle {
-    font-size: 1.6rem;
+    font-size: 1.02rem;
+  }
+
+  .groupCode {
+    right: 8px;
+    bottom: 6px;
+    font-size: 2.7rem;
   }
 
   .itemsList {
@@ -937,7 +959,6 @@
     padding: 0 12px;
   }
 
-
   .heroCard,
   .textSectionCard {
     padding: 14px;
@@ -989,12 +1010,22 @@
     width: 100%;
     max-width: none;
     justify-self: stretch;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
+    padding: 14px;
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow:
+      0 12px 30px rgba(15, 23, 42, 0.06),
+      0 2px 8px rgba(15, 23, 42, 0.03);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .groupCard:hover {
+    background: var(--color-surface);
+    border-color: var(--color-border-strong);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+    transform: translateY(-3px);
   }
 
   .groupCard::before {
@@ -1002,12 +1033,19 @@
   }
 
   .groupHeader {
+    min-height: 52px;
     margin-bottom: 12px;
     padding: 0 0 10px;
   }
 
   .groupTitle {
-    font-size: 1.4rem;
+    font-size: 0.92rem;
+  }
+
+  .groupCode {
+    right: 6px;
+    bottom: 5px;
+    font-size: 2.3rem;
   }
 
   .itemsList {
@@ -1031,15 +1069,9 @@
     font-size: 1.6rem;
   }
 
-  .medalDot {
-    width: 20px;
-    height: 24px;
-  }
-
-  .medalDot::after {
-    left: 1px;
-    width: 18px;
-    height: 18px;
+  .medalIcon {
+    width: 28px;
+    height: 28px;
   }
 
   .itemSeasons {

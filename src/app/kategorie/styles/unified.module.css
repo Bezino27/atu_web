@@ -1871,6 +1871,8 @@
 
   .bannerOverlay {
     min-height: auto;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 12px;
   }
 
@@ -1879,7 +1881,9 @@
   }
 
   .heroTextContent {
-    max-width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 108px);
     gap: 8px;
     padding-right: 0;
   }
@@ -1895,7 +1899,8 @@
 
   .bannerTitle {
     margin: 32px 0 0;
-    font-size: clamp(2.7rem, 12vw, 4.4rem);
+    max-width: 100%;
+    font-size: clamp(2.35rem, 10vw, 3.35rem);
     line-height: 0.95;
     letter-spacing: 0.015em;
   }
@@ -1933,21 +1938,22 @@
   .heroMiniInfo {
     display: inline-flex;
     flex: 0 0 auto;
+    align-self: flex-end;
     min-width: unset;
-    min-height: 32px;
-    padding: 0 13px;
-    gap: 7px;
+    min-height: 28px;
+    padding: 0 10px;
+    gap: 6px;
     border-radius: var(--radius-pill);
     font-size: 0.72rem;
     white-space: nowrap;
   }
 
   .heroMiniLabel {
-    font-size: 0.64rem;
+    font-size: 0.56rem;
   }
 
   .heroMiniValue {
-    font-size: 0.72rem;
+    font-size: 0.64rem;
   }
 
   .countdownWrapper {
@@ -2385,6 +2391,8 @@
 
   .bannerOverlay {
     min-height: auto;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 10px;
   }
 
@@ -2393,6 +2401,9 @@
   }
 
   .heroTextContent {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 92px);
     gap: 0;
     padding-right: 0;
   }
@@ -2408,7 +2419,8 @@
 
   .bannerTitle {
     margin: 26px 0 -10px;
-    font-size: clamp(2.45rem, 13vw, 3rem);
+    max-width: 100%;
+    font-size: clamp(1.95rem, 10vw, 2.35rem);
     line-height: 0.98;
     letter-spacing: 0.01em;
   }
@@ -2443,20 +2455,22 @@
   }
 
   .heroMiniInfo {
-    min-height: 28px;
-    padding: 0 10px;
-    gap: 5px;
+    flex: 0 0 auto;
+    align-self: flex-end;
+    min-height: 24px;
+    padding: 0 8px;
+    gap: 4px;
     border-radius: var(--radius-pill);
     font-size: 0.64rem;
     white-space: nowrap;
   }
 
   .heroMiniLabel {
-    font-size: 0.56rem;
+    font-size: 0.48rem;
   }
 
   .heroMiniValue {
-    font-size: 0.64rem;
+    font-size: 0.56rem;
   }
 
   .countdownWrapper {

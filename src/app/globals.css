@@ -199,6 +199,11 @@ body {
 /* # RESPONSIVE - 640 */
 
 @media (max-width: 640px) {
+  :root {
+    --font-section-eyebrow: 12px;
+    --font-section-title: clamp(1.5rem, 5vw, 2rem);
+  }
+
   .sectionContainer,
   .bottomSection,
   .overviewSection,
@@ -218,6 +223,17 @@ body {
     margin-bottom: 18px;
   }
 
+  .resultsHeader.hasAction {
+    flex-direction: column;
+  }
+
+  .resultsHeader > div,
+  .sectionHeader > div,
+  .sectionHeading > div {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .preTitle {
     margin: 0 0 6px 12px;
     letter-spacing: 1.4px;
@@ -227,9 +243,12 @@ body {
     padding-left: 10px;
     border-left-width: 4px;
     line-height: 1.15;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 
   .sectionLink {
+    margin-left: 14px;
     font-size: 0.92rem;
   }
 }
@@ -237,6 +256,11 @@ body {
 /* # RESPONSIVE - 480 */
 
 @media (max-width: 480px) {
+  :root {
+    --font-section-eyebrow: 11px;
+    --font-section-title: clamp(1rem, 4.7vw, 1.18rem);
+  }
+
   .sectionContainer,
   .bottomSection,
   .overviewSection,
@@ -263,6 +287,7 @@ body {
     padding-left: 8px;
     border-left-width: 3px;
     line-height: 1.2;
+    letter-spacing: 0;
   }
 
   .sectionLink {

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Medaila 1">
+  <defs>
+    <style>
+      .medal-fill { fill: #d4af37; }
+      .ribbon-fill { fill: #000000; }
+      .medal-number {
+        fill: #ffffff;
+        font-family: UnisonPro-BoldItalic, "Unison Pro", Arial, sans-serif;
+        font-size: 46px;
+        font-weight: 700;
+        font-style: italic;
+      }
+    </style>
+  </defs>
+
+  <g id="ribbon" transform="translate(100 60) scale(0.78) translate(-100 -60)">
+    <polygon class="ribbon-fill" points="142.4 6.79 124.02 35.49 75.86 35.49 57.48 6.79 142.4 6.79"/>
+    <path class="ribbon-fill" d="M89.2,106.47a45.94,45.94,0,0,0-14.38,6.09l-44.19-69,4.24-6.62,4.91-7.67,4.91,7.67,39.67,62,3.86,6Z"/>
+    <polygon class="ribbon-fill" points="157.51 23.85 150.06 35.49 122.1 79.15 112.96 93.45 109.08 87.4 103.81 79.15 112.96 64.87 131.75 35.49 148.37 9.55 153.64 17.8 157.51 23.85"/>
+    <path class="ribbon-fill" d="M113.13,107.07A46.48,46.48,0,0,0,100,105.21a49.13,49.13,0,0,0-6.11.38l-3.51-5.47-3.87-6L49,35.49,41.94,24.43l9.15-14.29L67.32,35.49,95.67,79.78l3.87,6,5.27,8.25,3.87,6,2.66,4.16Z"/>
+    <polygon class="ribbon-fill" points="169.31 42.28 133.9 97.6 124.76 111.9 115.61 97.6 124.76 83.31 155.36 35.49 160.17 28 164.97 35.49 169.31 42.28"/>
+  </g>
+
+  <g id="medal">
+    <circle class="medal-fill" cx="100.01" cy="152.09" r="32.39"/>
+    <path class="medal-fill" d="M100,193.44a41.35,41.35,0,1,1,41.36-41.35A41.4,41.4,0,0,1,100,193.44ZM100,115a37.06,37.06,0,1,0,37.06,37.06A37.1,37.1,0,0,0,100,115Z"/>
+    <text class="medal-number" x="100" y="154" text-anchor="middle" dominant-baseline="central">1</text>
+  </g>
+</svg>

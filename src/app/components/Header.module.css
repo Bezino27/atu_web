@@ -137,7 +137,7 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 5px;
   min-width: 0;
   flex-shrink: 0;
   text-decoration: none;
@@ -159,9 +159,11 @@
 
 .logoText strong {
   color: var(--color-surface);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
   font-size: 1.05rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
@@ -587,6 +589,7 @@
     padding-top: 14px;
     padding-bottom: 18px;
   }
+
 }
 
 /* # SMALL TABLET / BIG MOBILE */

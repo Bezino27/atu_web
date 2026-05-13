@@ -120,6 +120,48 @@ export default async function HomePage() {
   const featuredMatchTeams = featuredMatch
     ? getMatchTeams(featuredMatch, ownTeamName)
     : null;
+  const renderUpcomingMatchesContent = () =>
+    featuredMatch && featuredMatchTeams ? (
+      <div className={styles.simpleMatchCard}>
+        <div className={styles.simpleMatchHeaderRow}>
+          <span className={styles.simpleLeagueBadge}>{competitionName}</span>
+
+          <span className={styles.simpleMatchTimeTop}>
+            {formatTime(featuredMatch.match_time)}
+          </span>
+        </div>
+
+        <div className={styles.simpleMatchTeamsRow}>
+          <span className={styles.simpleTeamName}>
+            {featuredMatchTeams.leftTeam}
+          </span>
+          <span className={styles.simpleVs}>VS</span>
+          <span className={styles.simpleTeamName}>
+            {featuredMatchTeams.rightTeam}
+          </span>
+        </div>
+
+        <div className={styles.simpleMatchMetaRow}>
+          <div className={styles.simpleMatchMetaItem}>
+            <span className={styles.simpleMatchMetaValue}>
+              {formatDate(featuredMatch.match_date)}
+            </span>
+          </div>
+
+          <div
+            className={`${styles.simpleMatchMetaItem} ${styles.simpleMatchMetaItemRight}`}
+          >
+            <span className={styles.simpleMatchMetaValueRight}>
+              {featuredMatch.venue || "Miesto zatiaľ nie je uvedené"}
+            </span>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className={styles.compactEmptyState}>
+        Momentálne nie sú naplánované najbližšie zápasy.
+      </div>
+    );
 
   return (
     <div className={styles.pageContainer}>
@@ -347,12 +389,25 @@ export default async function HomePage() {
                   )}
                 </div>
               </div>
+
+              <div className={styles.mobileUpcomingMatches}>
+                <div className={styles.upcomingMatchesCard}>
+                  <div className={styles.panelHeader}>
+                    <div>
+                      <span className={styles.panelEyebrow}>Program</span>
+                      <h3 className={styles.panelTitle}>Najbližšie zápasy</h3>
+                    </div>
+                  </div>
+
+                  {renderUpcomingMatchesContent()}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* # CLUB CONTENT */}
-        <section className="sectionContainer">
+        <section className={`sectionContainer ${styles.clubContentSection}`}>
           <div className={`resultsHeader ${styles.clubContentHeader}`}>
             <div>
               <span className="preTitle">Klubový obsah</span>
@@ -412,49 +467,7 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {featuredMatch && featuredMatchTeams ? (
-                  <div className={styles.simpleMatchCard}>
-                    <div className={styles.simpleMatchHeaderRow}>
-                      <span className={styles.simpleLeagueBadge}>
-                        {competitionName}
-                      </span>
-
-                      <span className={styles.simpleMatchTimeTop}>
-                        {formatTime(featuredMatch.match_time)}
-                      </span>
-                    </div>
-
-                    <div className={styles.simpleMatchTeamsRow}>
-                      <span className={styles.simpleTeamName}>
-                        {featuredMatchTeams.leftTeam}
-                      </span>
-                      <span className={styles.simpleVs}>VS</span>
-                      <span className={styles.simpleTeamName}>
-                        {featuredMatchTeams.rightTeam}
-                      </span>
-                    </div>
-
-                    <div className={styles.simpleMatchMetaRow}>
-                      <div className={styles.simpleMatchMetaItem}>
-                        <span className={styles.simpleMatchMetaValue}>
-                          {formatDate(featuredMatch.match_date)}
-                        </span>
-                      </div>
-
-                      <div
-                        className={`${styles.simpleMatchMetaItem} ${styles.simpleMatchMetaItemRight}`}
-                      >
-                        <span className={styles.simpleMatchMetaValueRight}>
-                          {featuredMatch.venue || "Miesto zatiaľ nie je uvedené"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={styles.compactEmptyState}>
-                    Momentálne nie sú naplánované najbližšie zápasy.
-                  </div>
-                )}
+                {renderUpcomingMatchesContent()}
               </div>
             </aside>
           </div>

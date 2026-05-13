@@ -8,7 +8,6 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_pripravka";
 import Nabor from "./components/nabor";
-import { getClubSeason } from "../../lib/season";
 import { API_URL } from "@/app/lib/api";
 
 type BackendCategory = {
@@ -89,9 +88,8 @@ async function getCategories(): Promise<BackendCategory[]> {
 }
 
 const PripravkaPage = async () => {
-  const [posts, clubSeason, categories] = await Promise.all([
+  const [posts, categories] = await Promise.all([
     getHomepagePosts(CLUB_SLUG),
-    getClubSeason(CLUB_SLUG),
     getCategories(),
   ]);
 
@@ -100,9 +98,6 @@ const PripravkaPage = async () => {
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
 
   const mladezPosts = posts.filter(isYouthPost);
-
-  const currentSeason =
-    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
   const szfbLinks = [
     {
@@ -146,11 +141,6 @@ const PripravkaPage = async () => {
                     Novinky
                   </a>
                 </div>
-              </div>
-
-              <div className={styles.heroMiniInfo}>
-                <span className={styles.heroMiniLabel}>Sezóna</span>
-                <span className={styles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>
@@ -212,7 +202,7 @@ const PripravkaPage = async () => {
             <div>
               <span className="preTitle">AKTUÁLNE DIANIE</span>
               <h2 className="sectionTitle">
-              Najnovšie a najdôležitejšie články
+              Najdôležitejšie novinky
             </h2>
             </div>
           </div>
