@@ -235,7 +235,7 @@ export default function RecruitmentForm() {
 
           <div className={styles.formField}>
             <label htmlFor="birth_date">
-              Dátum narodenia <span>*</span>
+              Dátum narodenia dieťaťa <span>*</span>
             </label>
 
             <div className={styles.inputWrap}>
