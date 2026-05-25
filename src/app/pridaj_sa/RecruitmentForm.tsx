@@ -6,6 +6,7 @@ import { flip } from "@floating-ui/dom";
 import { sk } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./RecruitmentForm.module.css";
+import { API_URL } from "@/app/lib/api";
 
 type FormData = {
   child_full_name: string;
@@ -33,7 +34,7 @@ const initialFormData: FormData = {
 };
 
 const RECRUITMENT_FORM_ENDPOINT =
-  "/backend-api/guli/recruitment-forms/create/";
+  `${API_URL}/guli/recruitment-forms/create/`;
 
 const monthNames = [
   "január",

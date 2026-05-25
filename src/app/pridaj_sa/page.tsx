@@ -231,6 +231,7 @@ export default async function PridajSaPage() {
               alt="Deti na tréningu ATU Košice"
               fill
               priority
+              unoptimized
               sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroBackgroundImage}
             />

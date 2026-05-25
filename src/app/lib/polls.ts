@@ -1,6 +1,8 @@
 import { API_URL } from "./api";
 import type { ApiPoll, ApiPollResults } from "@/app/components/poll/poll.types";
 
+const POLLS_API_URL = `${API_URL}/polls`;
+
 async function readErrorMessage(response: Response, fallback: string) {
   try {
     const data = await response.json();
@@ -24,7 +26,7 @@ async function readErrorMessage(response: Response, fallback: string) {
 }
 
 export async function getPolls(): Promise<ApiPoll[]> {
-  const response = await fetch(`${API_URL}/polls/`, {
+  const response = await fetch(`${POLLS_API_URL}/`, {
     method: "GET",
     credentials: "include",
     cache: "no-store",
@@ -43,7 +45,7 @@ export async function getPolls(): Promise<ApiPoll[]> {
 }
 
 export async function getPollDetail(pollId: number): Promise<ApiPoll> {
-  const response = await fetch(`${API_URL}/polls/${pollId}/`, {
+  const response = await fetch(`${POLLS_API_URL}/${pollId}/`, {
     method: "GET",
     credentials: "include",
     cache: "no-store",
@@ -64,7 +66,7 @@ export async function getPollDetail(pollId: number): Promise<ApiPoll> {
 export async function getPollResults(
   pollId: number
 ): Promise<ApiPollResults> {
-  const response = await fetch(`${API_URL}/polls/${pollId}/results/`, {
+  const response = await fetch(`${POLLS_API_URL}/${pollId}/results/`, {
     method: "GET",
     credentials: "include",
     cache: "no-store",
@@ -83,7 +85,7 @@ export async function getPollResults(
 }
 
 export async function getLatestPollResult() {
-  const response = await fetch(`${API_URL}/public/polls/latest-result/`, {
+  const response = await fetch(`${POLLS_API_URL}/latest-result/`, {
     cache: "no-store",
   });
 
@@ -108,7 +110,7 @@ export async function voteInPoll(
   pollId: number,
   optionId: number
 ): Promise<{ message: string; has_voted: boolean }> {
-  const response = await fetch(`${API_URL}/polls/${pollId}/vote/`, {
+  const response = await fetch(`${POLLS_API_URL}/${pollId}/vote/`, {
     method: "POST",
     credentials: "include",
     headers: {
