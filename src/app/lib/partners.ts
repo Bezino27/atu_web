@@ -1,4 +1,4 @@
-import { API_URL, getImageUrl } from "./api";
+import { API_URL, getImageUrl, normalizeMediaUrl } from "./api";
 
 export type Partner = {
   id: number;
@@ -13,8 +13,8 @@ export type Partner = {
 };
 
 export function getPartnerImageUrl(partner: Partner): string {
-  if (partner.image_url) return partner.image_url;
-  if (partner.logo_url) return partner.logo_url;
+  if (partner.image_url) return normalizeMediaUrl(partner.image_url, "");
+  if (partner.logo_url) return normalizeMediaUrl(partner.logo_url, "");
   if (partner.logo) return getImageUrl(partner.logo);
 
   return "";

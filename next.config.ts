@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "atukosice.sk",
+        pathname: "/media/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.atukosice.sk",
+        pathname: "/media/**",
+      },
+      {
+        protocol: "https",
         hostname: "api.ludimus.sk",
         pathname: "/media/**",
       },

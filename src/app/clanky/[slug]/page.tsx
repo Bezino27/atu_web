@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
-import { getImageUrl } from "@/app/lib/api";
+import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
 
 export const dynamic = "force-dynamic";
@@ -114,7 +114,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
             <div
               className={styles.articleContent}
-              dangerouslySetInnerHTML={{ __html: post.content || "" }}
+              dangerouslySetInnerHTML={{
+                __html: normalizeHtmlMediaUrls(post.content),
+              }}
             />
           </article>
         </section>
