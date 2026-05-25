@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
+const apiUrl =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
+  "http://178.104.54.84:8000/api";
 
 const nextConfig: NextConfig = {
   images: {
@@ -30,6 +33,14 @@ const nextConfig: NextConfig = {
         pathname: "/media/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/backend-api/:path*",
+        destination: `${apiUrl}/:path*`,
+      },
+    ];
   },
 };
 

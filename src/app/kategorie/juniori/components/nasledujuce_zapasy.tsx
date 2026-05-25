@@ -46,6 +46,23 @@ function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
   };
 }
 
+function TeamLogo({ teamName }: { teamName: string }) {
+  const logo = getTeamLogo(teamName);
+  const isAtuLogo = logo === "/logo/znak_atu_nove.svg";
+
+  return (
+    <div
+      className={`${styles.featuredMatchTeamLogo} ${
+        isAtuLogo ? styles.featuredMatchTeamLogoAtu : ""
+      }`}
+    >
+      {logo ? (
+        <Image src={logo} alt={`${teamName} logo`} width={56} height={56} />
+      ) : null}
+    </div>
+  );
+}
+
 export default function NasledujuceZapasy({
   upcomingMatches,
   resultMatches,
@@ -91,14 +108,7 @@ export default function NasledujuceZapasy({
 
                   <div className={styles.featuredMatchTeamsRow}>
                     <div className={styles.featuredMatchTeamInfo}>
-                      <div className={styles.featuredMatchTeamLogo}>
-                        <Image
-                          src={getTeamLogo(homeTeam)}
-                          alt={homeTeam}
-                          width={56}
-                          height={56}
-                        />
-                      </div>
+                      <TeamLogo teamName={homeTeam} />
                       <span className={styles.featuredMatchTeam}>
                         {homeTeam}
                       </span>
@@ -107,14 +117,7 @@ export default function NasledujuceZapasy({
                     <div className={styles.featuredMatchVsDivider}>VS</div>
 
                     <div className={styles.featuredMatchTeamInfo}>
-                      <div className={styles.featuredMatchTeamLogo}>
-                        <Image
-                          src={getTeamLogo(awayTeam)}
-                          alt={awayTeam}
-                          width={56}
-                          height={56}
-                        />
-                      </div>
+                      <TeamLogo teamName={awayTeam} />
                       <span className={styles.featuredMatchTeam}>
                         {awayTeam}
                       </span>
@@ -156,14 +159,7 @@ export default function NasledujuceZapasy({
 
                   <div className={styles.featuredMatchTeamsRow}>
                     <div className={styles.featuredMatchTeamInfo}>
-                      <div className={styles.featuredMatchTeamLogo}>
-                        <Image
-                          src={getTeamLogo(homeTeam)}
-                          alt={homeTeam}
-                          width={56}
-                          height={56}
-                        />
-                      </div>
+                      <TeamLogo teamName={homeTeam} />
                       <span className={styles.featuredMatchTeam}>
                         {homeTeam}
                       </span>
@@ -174,14 +170,7 @@ export default function NasledujuceZapasy({
                     </div>
 
                     <div className={styles.featuredMatchTeamInfo}>
-                      <div className={styles.featuredMatchTeamLogo}>
-                        <Image
-                          src={getTeamLogo(awayTeam)}
-                          alt={awayTeam}
-                          width={56}
-                          height={56}
-                        />
-                      </div>
+                      <TeamLogo teamName={awayTeam} />
                       <span className={styles.featuredMatchTeam}>
                         {awayTeam}
                       </span>

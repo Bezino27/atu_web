@@ -7,6 +7,8 @@ import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
 import { API_URL } from "@/app/lib/api";
 
+export const dynamic = "force-dynamic";
+
 const benefits = [
   {
     id: 1,
@@ -31,7 +33,7 @@ const benefits = [
   {
     id: 5,
     title: "Klubové prostredie",
-    text: "Poriadok, systém a kvalitné fungovanie.",
+    text: "Nie sme len klub. Sme rodina, ktorá drží spolu na ihrisku aj mimo neho.",
   },
   {
     id: 6,

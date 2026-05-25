@@ -14,6 +14,8 @@ import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
 import { API_URL } from "@/app/lib/api";
 
+export const dynamic = "force-dynamic";
+
 type BackendCategory = {
   id: number;
   name: string;

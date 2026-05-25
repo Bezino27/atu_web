@@ -302,10 +302,6 @@
   line-height: 1;
 }
 
-:global(html) {
-  scroll-behavior: smooth;
-}
-
 /* # COUNTDOWN */
 
 .countdownWrapper {
@@ -642,8 +638,8 @@
 }
 
 .featuredMatchTeamLogo {
-  width: 74px;
-  height: 74px;
+  width: 92px;
+  height: 92px;
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   display: flex;
@@ -653,7 +649,7 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--color-border);
   overflow: hidden;
-  padding: 10px;
+  padding: 12px;
   flex-shrink: 0;
 }
 
@@ -661,6 +657,14 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.featuredMatchTeamLogoAtu {
+  padding: 6px;
+}
+
+.featuredMatchTeamLogoAtu img {
+  transform: scale(1.24);
 }
 
 .featuredMatchTeam {
@@ -1813,10 +1817,10 @@
   }
 
   .featuredMatchTeamLogo {
-    width: 60px;
-    height: 60px;
+    width: 72px;
+    height: 72px;
     border-radius: var(--radius-lg);
-    padding: 7px;
+    padding: 8px;
     margin-bottom: 10px;
   }
 
@@ -2076,10 +2080,10 @@
   }
 
   .featuredMatchTeamLogo {
-    width: 42px;
-    height: 42px;
+    width: 52px;
+    height: 52px;
     border-radius: 11px;
-    padding: 4px;
+    padding: 5px;
     margin-bottom: 6px;
   }
 
@@ -2566,10 +2570,10 @@
   }
 
   .featuredMatchTeamLogo {
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     border-radius: 10px;
-    padding: 4px;
+    padding: 5px;
     margin-bottom: 5px;
   }
 

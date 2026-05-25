@@ -71,7 +71,7 @@ const Nabor = async () => {
               <div className={styles.naborInfoValue}>
                 {category?.coach_name || "Tréner"}
                 <br />
-                {category?.coach_email || "petobeziboss@6767.sk"}
+                {category?.coach_email || "tomikbez@gmail.com"}
                 {category?.coach_phone ? (
                   <>
                     <br />

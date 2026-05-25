@@ -11,6 +11,8 @@ import Nabor from "./components/nabor";
 import { getClubSeason } from "../../lib/season";
 import { API_URL } from "@/app/lib/api";
 
+export const dynamic = "force-dynamic";
+
 type BackendCategory = {
   id: number;
   name: string;
@@ -211,7 +213,7 @@ const MladsiZiaciPage = async () => {
             <div>
               <span className="preTitle">NÁBOR</span>
               <h2 className="sectionTitle">
-              Chceš hrať za {categoryName.toLowerCase()}?
+              Chceš hrať za kategóriu {categoryName.toLowerCase()}?
             </h2>
             </div>
           </div>

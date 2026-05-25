@@ -15,6 +15,8 @@ import { getClubSeason } from "./lib/season";
 import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:
@@ -495,7 +497,6 @@ export default async function HomePage() {
                       width={260}
                       height={110}
                       className={styles.partnerLogo}
-                      unoptimized
                     />
                   );
 

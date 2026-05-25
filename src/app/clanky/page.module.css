@@ -27,7 +27,10 @@
 
 .heroInner h1 {
   margin: 0 0 18px;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
   font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-style: italic;
+  font-weight: var(--font-title-weight);
   line-height: 1.05;
 }
 

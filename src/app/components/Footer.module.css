@@ -150,6 +150,42 @@
     drop-shadow(0 0 14px rgba(210, 215, 222, 0.52));
 }
 
+.ludimusImageIcon {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition:
+    transform 0.28s ease,
+    filter 0.28s ease;
+}
+
+.shareItem:hover .ludimusImageIcon {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
+}
+
+.florbalexpertImageIcon {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition:
+    transform 0.28s ease,
+    filter 0.28s ease;
+}
+
+.shareItem:hover .florbalexpertImageIcon {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
+}
+
 /* # SHARE SECTION */
 .shareSection {
   min-width: 0;
@@ -495,6 +531,16 @@
     height: 48px;
   }
 
+  .ludimusImageIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .florbalexpertImageIcon {
+    width: 32px;
+    height: 32px;
+  }
+
   .shareMenuOpen .shareItem {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
@@ -594,6 +640,16 @@
   .socialImageIcon {
     width: 42px;
     height: 42px;
+  }
+
+  .ludimusImageIcon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .florbalexpertImageIcon {
+    width: 29px;
+    height: 29px;
   }
 
   .shareMenuOpen .shareItem {

@@ -8,6 +8,8 @@ import styles from "./page.module.css";
 import { getImageUrl } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{
     slug: string;

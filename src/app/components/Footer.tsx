@@ -8,7 +8,6 @@ import {
   FaFacebookF,
   FaFlickr,
   FaInstagram,
-  FaShoppingBag,
   FaYoutube,
 } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
@@ -84,13 +83,29 @@ const socialItems: SocialItem[] = [
   {
     label: "Obchod",
     href: "https://www.florbalexpert.cz",
-    icon: <FaShoppingBag />,
+    icon: (
+      <Image
+        src="/partners/florbalexpert.png"
+        alt="Florbalexpert"
+        width={36}
+        height={36}
+        className={styles.florbalexpertImageIcon}
+      />
+    ),
     color: "#111111",
   },
   {
     label: "Ludimus",
     href: "https://www.ludimus.sk",
-    icon: <span className={styles.textIcon}>LU</span>,
+    icon: (
+      <Image
+        src="/partners/Ludimus.png"
+        alt="Ludimus"
+        width={36}
+        height={36}
+        className={styles.ludimusImageIcon}
+      />
+    ),
     color: "#111111",
   },
 ];

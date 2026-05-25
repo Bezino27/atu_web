@@ -82,25 +82,28 @@ export async function getPollResults(
   return response.json();
 }
 
-export async function getLatestPollResult(): Promise<ApiPollResults | null> {
-  const response = await fetch(`${API_URL}/polls/latest-result/`, {
-    method: "GET",
-    credentials: "include",
+export async function getLatestPollResult() {
+  const response = await fetch(`${API_URL}/public/polls/latest-result/`, {
     cache: "no-store",
   });
 
   if (!response.ok) {
-    const message = await readErrorMessage(
-      response,
-      "Posledný výsledok ankety sa nepodarilo načítať."
-    );
-
-    throw new Error(message);
+    return null;
   }
 
-  return response.json();
-}
+  const text = await response.text();
 
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.error("Nepodarilo sa spracovať výsledok ankety:", error);
+    return null;
+  }
+}
 export async function voteInPoll(
   pollId: number,
   optionId: number

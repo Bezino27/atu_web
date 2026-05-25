@@ -1,4 +1,9 @@
-const DEFAULT_TEAM_LOGO = "/logo/teams/default.svg";
+const ATU_TEAM_LOGO = "/logo/znak_atu_nove.svg";
+const VISIBLE_TEAM_LOGOS = new Set([
+  "atu-kosice",
+  "grasshoppers-zilina",
+  "presov",
+]);
 
 const TEAM_ALIASES: Record<string, string> = {
   "fabk atu kosice": "atu-kosice",
@@ -15,6 +20,11 @@ const TEAM_ALIASES: Record<string, string> = {
 
   "fbc grasshoppers ac uniza zilina": "grasshoppers-zilina",
   "grasshoppers zilina": "grasshoppers-zilina",
+
+  "fbc mikulas academy presov": "presov",
+  "mikulas academy presov": "presov",
+  "fbc presov": "presov",
+  "presov": "presov",
 
   "fk florko kosice": "florko-kosice",
   "fk florko": "florko-kosice",
@@ -37,11 +47,12 @@ const TEAM_ALIASES: Record<string, string> = {
 };
 
 const TEAM_LOGOS: Record<string, string> = {
-  "atu-kosice": "/logo/teams/atu-kosice.png",
+  "atu-kosice": ATU_TEAM_LOGO,
   "fbc-trencin": "/logo/teams/fbc-trencin.png",
   "sk-lido-bratislava": "/logo/teams/sk-lido-bratislava.png",
   "tsunami-zahorska-bystrica": "/logo/teams/tsunami-zahorska-bystrica.png",
   "grasshoppers-zilina": "/logo/teams/grasshoppers-zilina.png",
+  "presov": "/logo/teams/presov.png",
   "florko-kosice": "/logo/teams/florko-kosice.png",
   "snipers-bratislava": "/logo/teams/snipers-bratislava.png",
   "fbk-nizna": "/logo/teams/fbk-nizna.png",
@@ -61,10 +72,12 @@ function normalizeTeamName(name: string) {
 }
 
 export function getTeamLogo(teamName?: string | null) {
-  if (!teamName) return DEFAULT_TEAM_LOGO;
+  if (!teamName) return null;
 
   const normalized = normalizeTeamName(teamName);
   const teamKey = TEAM_ALIASES[normalized];
 
-  return teamKey ? TEAM_LOGOS[teamKey] : DEFAULT_TEAM_LOGO;
+  if (!teamKey || !VISIBLE_TEAM_LOGOS.has(teamKey)) return null;
+
+  return TEAM_LOGOS[teamKey];
 }
