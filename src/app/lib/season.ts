@@ -11,7 +11,7 @@ export async function getClubSeason(
 ): Promise<ClubSeasonResponse | null> {
   try {
     const res = await fetch(`${API_URL}/public/teams/${clubSlug}/season/`, {
-      cache: "no-store",
+      next: { revalidate: 3600 },
     });
 
     if (!res.ok) {

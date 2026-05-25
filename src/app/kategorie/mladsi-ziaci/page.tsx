@@ -1,4 +1,5 @@
 import React from "react";
+import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
 import Header from "@/app/components/Header";
@@ -11,7 +12,7 @@ import Nabor from "./components/nabor";
 import { getClubSeason } from "../../lib/season";
 import { API_URL } from "@/app/lib/api";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 type BackendCategory = {
   id: number;
@@ -79,7 +80,7 @@ function isYouthPost(post: Post) {
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
-      cache: "no-store",
+      next: { revalidate: 600 },
     });
 
     if (!res.ok) {
@@ -99,6 +100,8 @@ async function getCategories(): Promise<BackendCategory[]> {
 }
 
 const MladsiZiaciPage = async () => {
+  await connection();
+
   const [posts, clubSeason, categories] = await Promise.all([
     getHomepagePosts(CLUB_SLUG),
     getClubSeason(CLUB_SLUG),

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { connection } from "next/server";
 import BenefitsCarouselSection from "./BenefitsCarousel";
 import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
@@ -7,7 +8,7 @@ import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
 import { API_URL } from "@/app/lib/api";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const benefits = [
   {
@@ -153,7 +154,7 @@ function sortCategoriesFromYoungestToOldest(categories: BackendCategory[]) {
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/atu-kosice/`, {
-      cache: "no-store",
+      next: { revalidate: 600 },
     });
 
     if (!res.ok) {
@@ -213,6 +214,8 @@ const faqItems: FaqItem[] = [
 ];
 
 export default async function PridajSaPage() {
+  await connection();
+
   const categories = await getCategories();
   const sortedCategories = sortCategoriesFromYoungestToOldest(categories);
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
@@ -15,7 +16,7 @@ import { getClubSeason } from "./lib/season";
 import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
@@ -94,8 +95,10 @@ function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
 }
 
 export default async function HomePage() {
+  await connection();
+
   const [posts, szfbDashboard, clubSeason, partners] = await Promise.all([
-    getHomepagePosts("atu-kosice"),
+    getHomepagePosts("atu-kosice", 7),
     getSzfbDashboard(1),
     getClubSeason("atu-kosice"),
     getClubPartners("atu-kosice"),

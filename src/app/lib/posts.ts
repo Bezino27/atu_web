@@ -20,10 +20,19 @@ export type Post = {
   category?: PostCategory | null;
 };
 
-export async function getHomepagePosts(clubSlug: string): Promise<Post[]> {
+export async function getHomepagePosts(
+  clubSlug: string,
+  limit?: number,
+): Promise<Post[]> {
   try {
-    const res = await fetch(`${API_URL}/public/posts/${clubSlug}/`, {
-      cache: "no-store",
+    const url = new URL(`${API_URL}/public/posts/${clubSlug}/`);
+
+    if (limit) {
+      url.searchParams.set("limit", String(limit));
+    }
+
+    const res = await fetch(url, {
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
@@ -53,7 +62,7 @@ export async function getPostDetail(
   slug: string,
 ): Promise<Post> {
   const res = await fetch(`${API_URL}/public/posts/${clubSlug}/${slug}/`, {
-    cache: "no-store",
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {

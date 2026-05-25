@@ -18,7 +18,7 @@ type CategoryBirthYears = {
 async function getCategoryBirthYears(): Promise<CategoryBirthYears | null> {
   try {
     const res = await fetch(`${API_URL}/public/teams/atu-kosice/dorast/`, {
-      cache: "no-store",
+      next: { revalidate: 600 },
     });
 
     if (!res.ok) {

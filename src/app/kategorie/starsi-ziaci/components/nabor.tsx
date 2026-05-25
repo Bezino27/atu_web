@@ -20,7 +20,7 @@ async function getCategoryBirthYears(): Promise<CategoryBirthYears | null> {
     const res = await fetch(
       `${API_URL}/public/teams/atu-kosice/starsi-ziaci/`,
       {
-        cache: "no-store",
+        next: { revalidate: 600 },
       }
     );
 

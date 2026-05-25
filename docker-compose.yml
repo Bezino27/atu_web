@@ -5,10 +5,12 @@ services:
     build:
       context: .
       args:
-        NEXT_PUBLIC_API_URL: http://178.104.54.84:8000/api
+        NEXT_PUBLIC_API_URL: http://host.docker.internal:8000/api
     container_name: atu_frontend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "3000:3000"
     restart: always
     environment:
-      NEXT_PUBLIC_API_URL: http://178.104.54.84:8000/api
+      NEXT_PUBLIC_API_URL: http://host.docker.internal:8000/api

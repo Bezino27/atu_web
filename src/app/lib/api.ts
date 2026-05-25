@@ -1,7 +1,7 @@
 const rawApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const SERVER_API_URL =
-  rawApiUrl?.replace(/\/$/, "") ?? "http://178.104.54.84:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ?? "http://host.docker.internal:8000/api";
 
 const CLIENT_API_URL =
   process.env.NEXT_PUBLIC_CLIENT_API_URL?.replace(/\/$/, "") ?? "/backend-api";

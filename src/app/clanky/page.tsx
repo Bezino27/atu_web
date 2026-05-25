@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Články | ATU Košice",
@@ -31,6 +32,8 @@ function formatDate(dateString?: string | null) {
 }
 
 export default async function ArticlesPage() {
+  await connection();
+
   const posts: Post[] = await getHomepagePosts("atu-kosice");
 
   return (

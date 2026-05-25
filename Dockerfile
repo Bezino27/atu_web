@@ -2,7 +2,7 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL=http://178.104.54.84:8000/api
+ARG NEXT_PUBLIC_API_URL=http://host.docker.internal:8000/api
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 COPY package*.json ./
@@ -15,7 +15,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL=http://178.104.54.84:8000/api
+ARG NEXT_PUBLIC_API_URL=http://host.docker.internal:8000/api
 ENV NODE_ENV=production
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
