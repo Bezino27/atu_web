@@ -2,8 +2,13 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL=http://host.docker.internal:8000/api
+ARG NEXT_PUBLIC_API_URL=https://atukosice.sk/api
+ARG NEXT_PUBLIC_CLIENT_API_URL=https://atukosice.sk/api
+ARG NEXT_PUBLIC_MEDIA_ORIGIN=https://atukosice.sk
+
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_CLIENT_API_URL=$NEXT_PUBLIC_CLIENT_API_URL
+ENV NEXT_PUBLIC_MEDIA_ORIGIN=$NEXT_PUBLIC_MEDIA_ORIGIN
 
 COPY package*.json ./
 RUN npm ci
@@ -11,13 +16,20 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:20-alpine
+
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL=http://host.docker.internal:8000/api
 ENV NODE_ENV=production
+
+ARG NEXT_PUBLIC_API_URL=https://atukosice.sk/api
+ARG NEXT_PUBLIC_CLIENT_API_URL=https://atukosice.sk/api
+ARG NEXT_PUBLIC_MEDIA_ORIGIN=https://atukosice.sk
+
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_CLIENT_API_URL=$NEXT_PUBLIC_CLIENT_API_URL
+ENV NEXT_PUBLIC_MEDIA_ORIGIN=$NEXT_PUBLIC_MEDIA_ORIGIN
 
 COPY package*.json ./
 RUN npm ci --omit=dev
