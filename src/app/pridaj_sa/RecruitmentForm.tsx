@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import { flip } from "@floating-ui/dom";
 import { sk } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import { API_URL } from "@/app/lib/api";
 import styles from "./RecruitmentForm.module.css";
 
 type FormData = {
@@ -32,6 +31,9 @@ const initialFormData: FormData = {
   phone: "",
   note: "",
 };
+
+const RECRUITMENT_FORM_ENDPOINT =
+  "/backend-api/guli/recruitment-forms/create/";
 
 const monthNames = [
   "január",
@@ -119,7 +121,7 @@ export default function RecruitmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const endpoint = useMemo(() => {
-    return `${API_URL}/guli/recruitment-forms/create/`;
+    return RECRUITMENT_FORM_ENDPOINT;
   }, []);
 
   function handleChange(
