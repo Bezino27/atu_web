@@ -13,7 +13,11 @@ import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
-import { API_URL } from "@/app/lib/api";
+import {
+  API_URL,
+  normalizeMediaUrl,
+  withDevMediaCacheBuster,
+} from "@/app/lib/api";
 
 export const revalidate = 300;
 
@@ -23,6 +27,8 @@ type BackendCategory = {
   slug?: string | null;
   season?: string | null;
   description?: string | null;
+  league_name?: string | null;
+  hero_image_url?: string | null;
   birth_year_from: number;
   birth_year_to: number;
   order?: number;
@@ -79,7 +85,7 @@ function isCurrentCategoryPost(post: Post) {
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
-      next: { revalidate: 600 },
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -112,6 +118,15 @@ export default async function JunioriPage() {
 
   const currentCategory = categories.find(isCurrentCategory);
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+  const categoryLeague =
+    currentCategory?.league_name || "Slovenská florbalová juniorská extraliga";
+  const heroImage = withDevMediaCacheBuster(
+    normalizeMediaUrl(
+      currentCategory?.hero_image_url,
+      "/images/kategorie/juniori_kader.jpg",
+    ),
+    Boolean(currentCategory?.hero_image_url),
+  );
   const junioriPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
@@ -134,7 +149,7 @@ export default async function JunioriPage() {
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/juniori_kader.jpg"
+              src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority
@@ -144,9 +159,7 @@ export default async function JunioriPage() {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <span className={styles.heroSubtitle}>
-                  Slovenská florbalová juniorská extraliga
-                </span>
+                <span className={styles.heroSubtitle}>{categoryLeague}</span>
 
                 <h1 className={styles.bannerTitle}>{categoryName}</h1>
 

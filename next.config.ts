@@ -3,9 +3,12 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 const apiUrl =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
-  "http://host.docker.internal:8000/api";
+  "http://atukosice.sk:8000/api";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverComponentsHmrCache: false,
+  },
   images: {
     dangerouslyAllowLocalIP: isDev,
     remotePatterns: [
@@ -18,6 +21,18 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "127.0.0.1",
+        port: "8000",
+        pathname: "/media/**",
+      },
+      {
+        protocol: "http",
+        hostname: "atukosice.sk",
+        port: "8000",
+        pathname: "/media/**",
+      },
+      {
+        protocol: "http",
+        hostname: "www.atukosice.sk",
         port: "8000",
         pathname: "/media/**",
       },

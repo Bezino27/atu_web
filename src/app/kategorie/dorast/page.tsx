@@ -10,7 +10,11 @@ import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_dorast";
 import Nabor from "./components/nabor";
 import { getClubSeason } from "../../lib/season";
-import { API_URL } from "@/app/lib/api";
+import {
+  API_URL,
+  normalizeMediaUrl,
+  withDevMediaCacheBuster,
+} from "@/app/lib/api";
 
 export const revalidate = 300;
 
@@ -20,6 +24,7 @@ type BackendCategory = {
   slug?: string | null;
   season?: string | null;
   description?: string | null;
+  hero_image_url?: string | null;
   birth_year_from: number;
   birth_year_to: number;
   order?: number;
@@ -74,7 +79,7 @@ function isDorastOrYouthPost(post: Post) {
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
-      next: { revalidate: 600 },
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -105,6 +110,13 @@ const DorastPage = async () => {
   const dorastCategory = categories.find(isDorastCategory);
 
   const categoryName = dorastCategory?.name ?? CATEGORY_FALLBACK_NAME;
+  const heroImage = withDevMediaCacheBuster(
+    normalizeMediaUrl(
+      dorastCategory?.hero_image_url,
+      "/images/kategorie/dorast_kader.jpg",
+    ),
+    Boolean(dorastCategory?.hero_image_url),
+  );
 
   const mladezPosts = posts.filter(isDorastOrYouthPost);
 
@@ -134,7 +146,7 @@ const DorastPage = async () => {
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/dorast_kader.jpg"
+              src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority

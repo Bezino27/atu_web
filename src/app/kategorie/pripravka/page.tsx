@@ -9,7 +9,11 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_pripravka";
 import Nabor from "./components/nabor";
-import { API_URL } from "@/app/lib/api";
+import {
+  API_URL,
+  normalizeMediaUrl,
+  withDevMediaCacheBuster,
+} from "@/app/lib/api";
 
 export const revalidate = 300;
 
@@ -19,6 +23,7 @@ type BackendCategory = {
   slug?: string | null;
   season?: string | null;
   description?: string | null;
+  hero_image_url?: string | null;
   birth_year_from: number;
   birth_year_to: number;
   order?: number;
@@ -71,7 +76,7 @@ function isYouthPost(post: Post) {
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
-      next: { revalidate: 600 },
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -101,6 +106,13 @@ const PripravkaPage = async () => {
   const currentCategory = categories.find(isCurrentCategory);
 
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+  const heroImage = withDevMediaCacheBuster(
+    normalizeMediaUrl(
+      currentCategory?.hero_image_url,
+      "/images/kategorie/pripravka.jpg",
+    ),
+    Boolean(currentCategory?.hero_image_url),
+  );
 
   const mladezPosts = posts.filter(isYouthPost);
 
@@ -123,7 +135,7 @@ const PripravkaPage = async () => {
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/pripravka.jpg"
+              src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority

@@ -1,14 +1,16 @@
 const rawApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const SERVER_API_URL =
-  rawApiUrl?.replace(/\/$/, "") ?? "http://host.docker.internal:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ?? "http://atukosice.sk:8000/api";
 
 const CLIENT_API_URL =
   process.env.NEXT_PUBLIC_CLIENT_API_URL?.replace(/\/$/, "") ?? "/backend-api";
 
 const PUBLIC_MEDIA_ORIGIN =
   process.env.NEXT_PUBLIC_MEDIA_ORIGIN?.replace(/\/$/, "") ??
-  "https://atukosice.sk";
+  "http://atukosice.sk";
+
+const IS_DEV = process.env.NODE_ENV !== "production";
 
 const LEGACY_MEDIA_HOSTS = new Set([
   "178.104.54.84",
@@ -91,6 +93,19 @@ export function normalizeMediaUrl(
 
 export function getImageUrl(image?: string | null): string {
   return normalizeMediaUrl(image);
+}
+
+export function withDevMediaCacheBuster(
+  imageUrl: string,
+  shouldBustCache: boolean,
+) {
+  if (!IS_DEV || !shouldBustCache) {
+    return imageUrl;
+  }
+
+  const separator = imageUrl.includes("?") ? "&" : "?";
+
+  return `${imageUrl}${separator}v=${Date.now()}`;
 }
 
 export function normalizeHtmlMediaUrls(html?: string | null) {

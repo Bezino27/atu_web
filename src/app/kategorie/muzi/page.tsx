@@ -13,7 +13,11 @@ import NextMatchCountdown from "./components/NextMatchCountdown";
 import { getSzfbDashboard } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
-import { API_URL } from "@/app/lib/api";
+import {
+  API_URL,
+  normalizeMediaUrl,
+  withDevMediaCacheBuster,
+} from "@/app/lib/api";
 
 export const revalidate = 300;
 
@@ -23,6 +27,8 @@ type BackendCategory = {
   slug?: string | null;
   season?: string | null;
   description?: string | null;
+  league_name?: string | null;
+  hero_image_url?: string | null;
   birth_year_from: number;
   birth_year_to: number;
   order?: number;
@@ -84,9 +90,10 @@ function isCurrentCategoryPost(post: Post) {
 
 async function getCategories(): Promise<BackendCategory[]> {
   try {
-    const res = await fetch(`${API_URL}/public/teams/${CLUB_SLUG}/`, {
-      next: { revalidate: 600 },
-    });
+    const res = await fetch(
+      `${API_URL}/public/teams/${CLUB_SLUG}/`,
+      { cache: "no-store" },
+    );
 
     if (!res.ok) {
       return [];
@@ -117,6 +124,17 @@ export default async function MuziPage() {
   const currentCategory = categories.find(isCurrentCategory);
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
 
+  const categoryLeague =
+    currentCategory?.league_name || "Slovenská florbalová extraliga";
+
+  const heroImage: string = withDevMediaCacheBuster(
+    normalizeMediaUrl(
+      currentCategory?.hero_image_url,
+      "/images/kategorie/muzi_kader.jpg",
+    ),
+    Boolean(currentCategory?.hero_image_url),
+  );
+
   const muziPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
@@ -141,8 +159,8 @@ export default async function MuziPage() {
         <section className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
-              src="/images/kategorie/muzi_kader.jpg"
-              alt={`ATU Košice ${categoryName}`}
+              src={heroImage}
+              alt=""
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1300px"
@@ -151,9 +169,7 @@ export default async function MuziPage() {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <span className={styles.heroSubtitle}>
-                  Slovenská florbalová extraliga
-                </span>
+                <span className={styles.heroSubtitle}>{categoryLeague}</span>
 
                 <h1 className={styles.bannerTitle}>{categoryName}</h1>
 
@@ -161,9 +177,11 @@ export default async function MuziPage() {
                   <a href="#novinky" className={styles.heroQuickLink}>
                     Novinky
                   </a>
+
                   <a href="#tabulka" className={styles.heroQuickLink}>
                     Tabuľka
                   </a>
+
                   <a href="#hraci" className={styles.heroQuickLink}>
                     Hráči
                   </a>
@@ -186,7 +204,7 @@ export default async function MuziPage() {
           />
         </section>
 
-        <section id="zapasy" className="sectionContainer">
+        <section id="zapasy" className={styles.sectionContainer}>
           <NasledujuceZapasy
             upcomingMatches={upcomingMatches}
             resultMatches={resultMatches}
@@ -195,13 +213,11 @@ export default async function MuziPage() {
           />
         </section>
 
-        <section id="novinky" className="sectionContainer">
-          <div className="resultsHeader">
+        <section id="novinky" className={styles.sectionContainer}>
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">AKTUÁLNE DIANIE</span>
-              <h2 className="sectionTitle">
-              Najdôležitejšie novinky
-            </h2>
+              <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
+              <h2 className={styles.sectionTitle}>Najdôležitejšie novinky</h2>
             </div>
           </div>
 
@@ -209,11 +225,11 @@ export default async function MuziPage() {
         </section>
 
         {/* # OVERVIEW */}
-        <section id="tabulka" className="overviewSection">
-          <div className="resultsHeader">
+        <section id="tabulka" className={styles.overviewSection}>
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Liga</span>
-              <h2 className="sectionTitle">Výsledky</h2>
+              <span className={styles.preTitle}>Liga</span>
+              <h2 className={styles.sectionTitle}>Výsledky</h2>
             </div>
           </div>
 
@@ -231,11 +247,11 @@ export default async function MuziPage() {
           </div>
         </section>
 
-        <section id="hraci" className="bottomSection">
-          <div className="resultsHeader">
+        <section id="hraci" className={styles.bottomSection}>
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Štatistiky tímu</span>
-              <h2 className="sectionTitle">Lídri sezóny</h2>
+              <span className={styles.preTitle}>Štatistiky tímu</span>
+              <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
             </div>
           </div>
 
