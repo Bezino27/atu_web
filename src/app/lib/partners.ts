@@ -1,4 +1,9 @@
-import { API_URL, getImageUrl, normalizeMediaUrl } from "./api";
+import {
+  API_URL,
+  getApiFetchOptions,
+  getImageUrl,
+  normalizeMediaUrl,
+} from "./api";
 
 export type Partner = {
   id: number;
@@ -22,9 +27,10 @@ export function getPartnerImageUrl(partner: Partner): string {
 
 export async function getClubPartners(clubSlug: string): Promise<Partner[]> {
   try {
-    const response = await fetch(`${API_URL}/public/partners/${clubSlug}/`, {
-      next: { revalidate: 300 },
-    });
+    const response = await fetch(
+      `${API_URL}/public/partners/${clubSlug}/`,
+      getApiFetchOptions(300)
+    );
 
     if (!response.ok) {
       console.error("Nepodarilo sa načítať partnerov:", response.status);

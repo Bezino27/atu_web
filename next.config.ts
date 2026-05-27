@@ -3,14 +3,16 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 const apiUrl =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
-  "http://atukosice.sk:8000/api";
+  "http://127.0.0.1:8000/api";
 
 const nextConfig: NextConfig = {
   experimental: {
     serverComponentsHmrCache: false,
   },
+  skipTrailingSlashRedirect: true,
   images: {
     dangerouslyAllowLocalIP: isDev,
+    qualities: [75, 85, 90],
     remotePatterns: [
       {
         protocol: "http",
@@ -61,6 +63,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
+      {
+        source: "/backend-api/:path*/",
+        destination: `${apiUrl}/:path*/`,
+      },
       {
         source: "/backend-api/:path*",
         destination: `${apiUrl}/:path*`,

@@ -1,4 +1,4 @@
-import { API_URL } from "./api";
+import { API_URL, getApiFetchOptions } from "./api";
 
 export type PostCategory = {
   id: number;
@@ -31,9 +31,7 @@ export async function getHomepagePosts(
       url.searchParams.set("limit", String(limit));
     }
 
-    const res = await fetch(url, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(url, getApiFetchOptions(60));
 
     if (!res.ok) {
       console.error(`Nepodarilo sa načítať články: ${res.status}`);
@@ -61,9 +59,10 @@ export async function getPostDetail(
   clubSlug: string,
   slug: string,
 ): Promise<Post> {
-  const res = await fetch(`${API_URL}/public/posts/${clubSlug}/${slug}/`, {
-    next: { revalidate: 60 },
-  });
+  const res = await fetch(
+    `${API_URL}/public/posts/${clubSlug}/${slug}/`,
+    getApiFetchOptions(60)
+  );
 
   if (!res.ok) {
     throw new Error(`Nepodarilo sa načítať detail článku: ${res.status}`);

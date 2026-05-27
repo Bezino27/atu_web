@@ -1,5 +1,5 @@
 import "server-only";
-import { API_URL } from "./api";
+import { API_URL, getApiFetchOptions } from "./api";
 
 export type SzfbStandingRow = {
   position: number;
@@ -52,9 +52,7 @@ export async function getSzfbDashboard(
   try {
     const url = `${API_URL.replace(/\/$/, "")}/public/szfb/watch/${watchId}/dashboard/`;
 
-    const response = await fetch(url, {
-      next: { revalidate: 300 },
-    });
+    const response = await fetch(url, getApiFetchOptions(300));
 
     if (!response.ok) {
       console.error("SZFB dashboard fetch failed:", response.status, url);
@@ -90,9 +88,7 @@ export async function getSzfbNextMatch(
   try {
     const url = `${API_URL.replace(/\/$/, "")}/public/szfb/watch/${watchId}/next-match/`;
 
-    const response = await fetch(url, {
-      next: { revalidate: 300 },
-    });
+    const response = await fetch(url, getApiFetchOptions(300));
 
     if (!response.ok) {
       console.error("SZFB next match fetch failed:", response.status, url);

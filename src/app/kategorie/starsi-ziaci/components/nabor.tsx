@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "@/app/kategorie/styles/unified.module.css";
-import { API_URL } from "@/app/lib/api";
+import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 
 type CategoryBirthYears = {
   id: number;
@@ -19,9 +19,7 @@ async function getCategoryBirthYears(): Promise<CategoryBirthYears | null> {
   try {
     const res = await fetch(
       `${API_URL}/public/teams/atu-kosice/starsi-ziaci/`,
-      {
-        next: { revalidate: 600 },
-      }
+      getApiFetchOptions(600)
     );
 
     if (!res.ok) {

@@ -8,8 +8,6 @@ import styles from "./page.module.css";
 import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
 
-export const revalidate = 300;
-
 type PageProps = {
   params: Promise<{
     slug: string;

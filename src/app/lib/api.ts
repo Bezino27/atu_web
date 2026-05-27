@@ -1,16 +1,22 @@
 const rawApiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const SERVER_API_URL =
-  rawApiUrl?.replace(/\/$/, "") ?? "http://atukosice.sk:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ?? "http://127.0.0.1:8000/api";
 
-const CLIENT_API_URL =
-  process.env.NEXT_PUBLIC_CLIENT_API_URL?.replace(/\/$/, "") ?? "/backend-api";
+const CLIENT_API_URL = "/backend-api";
 
 const PUBLIC_MEDIA_ORIGIN =
   process.env.NEXT_PUBLIC_MEDIA_ORIGIN?.replace(/\/$/, "") ??
-  "http://atukosice.sk";
+  "https://atukosice.sk";
 
 const IS_DEV = process.env.NODE_ENV !== "production";
+
+type NextFetchOptions = RequestInit & {
+  cache?: "no-store";
+  next?: {
+    revalidate?: number;
+  };
+};
 
 const LEGACY_MEDIA_HOSTS = new Set([
   "178.104.54.84",
@@ -26,6 +32,14 @@ export const API_URL =
 export const BACKEND_URL = SERVER_API_URL.endsWith("/api")
   ? SERVER_API_URL.slice(0, -4)
   : SERVER_API_URL;
+
+export function getApiFetchOptions(revalidateSeconds: number): NextFetchOptions {
+  if (IS_DEV) {
+    return { cache: "no-store" };
+  }
+
+  return { next: { revalidate: revalidateSeconds } };
+}
 
 function isMediaPath(pathname: string) {
   return pathname === "/media" || pathname.startsWith("/media/");

@@ -6,9 +6,7 @@ import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
-import { API_URL } from "@/app/lib/api";
-
-export const revalidate = 300;
+import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 
 const benefits = [
   {
@@ -153,9 +151,10 @@ function sortCategoriesFromYoungestToOldest(categories: BackendCategory[]) {
 
 async function getCategories(): Promise<BackendCategory[]> {
   try {
-    const res = await fetch(`${API_URL}/public/teams/atu-kosice/`, {
-      next: { revalidate: 600 },
-    });
+    const res = await fetch(
+      `${API_URL}/public/teams/atu-kosice/`,
+      getApiFetchOptions(600)
+    );
 
     if (!res.ok) {
       return [];

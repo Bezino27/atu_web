@@ -15,8 +15,6 @@ import {
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
 
-export const revalidate = 300;
-
 type BackendCategory = {
   id: number;
   name: string;

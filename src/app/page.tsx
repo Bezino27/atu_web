@@ -16,8 +16,6 @@ import { getClubSeason } from "./lib/season";
 import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
 
-export const revalidate = 300;
-
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:

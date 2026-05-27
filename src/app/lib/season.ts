@@ -1,4 +1,4 @@
-import { API_URL } from "@/app/lib/api";
+import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 
 export type ClubSeasonResponse = {
   id: number;
@@ -10,9 +10,10 @@ export async function getClubSeason(
   clubSlug: string
 ): Promise<ClubSeasonResponse | null> {
   try {
-    const res = await fetch(`${API_URL}/public/teams/${clubSlug}/season/`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(
+      `${API_URL}/public/teams/${clubSlug}/season/`,
+      getApiFetchOptions(3600)
+    );
 
     if (!res.ok) {
       return null;

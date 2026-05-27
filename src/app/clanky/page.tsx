@@ -8,8 +8,6 @@ import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
 
-export const revalidate = 300;
-
 export const metadata: Metadata = {
   title: "Články | ATU Košice",
   description: "Novinky, reporty, klubové informácie a všetky články florbalového klubu ATU Košice.",
