@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "../../styles/unified.module.css";
+import styles from "../../styles/categories.module.css";
 import type { Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import styles from "../../styles/unified.module.css";
+import styles from "../../styles/categories.module.css";
 
 type NextMatchCountdownProps = {
   matchDate: string | null;

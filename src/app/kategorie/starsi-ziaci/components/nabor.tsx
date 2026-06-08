@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import styles from "@/app/kategorie/styles/unified.module.css";
+import styles from "@/app/kategorie/styles/categories.module.css";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 
 type CategoryBirthYears = {

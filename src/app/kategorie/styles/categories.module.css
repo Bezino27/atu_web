@@ -1829,6 +1829,53 @@
     font-size: 1rem;
     padding: 0 4px;
   }
+
+  .leadersContentGrid {
+    gap: 20px;
+  }
+
+  .topPlayersPodium {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "center"
+      "left"
+      "right";
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .playerCardMain,
+  .playerCardSide,
+  .playerCardRank1,
+  .playerCardRank2,
+  .playerCardRank3 {
+    min-height: auto;
+    padding: 22px;
+    transform: none;
+  }
+
+  .playerCard:hover,
+  .playerCardRank1:hover,
+  .playerCardRank2:hover,
+  .playerCardRank3:hover {
+    transform: translateY(-3px);
+  }
+
+  .playerCardBody {
+    grid-template-columns: minmax(0, 1fr) minmax(170px, 0.42fr);
+    gap: 18px;
+  }
+
+  .playerPhotoWrap,
+  .playerCardMain .playerPhotoWrap {
+    min-height: 220px;
+  }
+
+  .playerName,
+  .statLabel {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
 }
 
 /* # 768 */
@@ -1902,10 +1949,10 @@
   }
 
   .bannerTitle {
-    margin: 32px 0 0;
+    margin: 28px 0 0;
     max-width: 100%;
-    font-size: clamp(2.35rem, 10vw, 3.35rem);
-    line-height: 0.95;
+    font-size: clamp(3.05rem, 13vw, 4.7rem);
+    line-height: 0.9;
     letter-spacing: 0.015em;
   }
 
@@ -2322,7 +2369,7 @@
   }
 
   .bannerTitle {
-    font-size: clamp(2.5rem, 15vw, 3.8rem);
+    font-size: clamp(3.3rem, 16vw, 4.9rem);
   }
 
   .bannerTitleziaci {
@@ -2422,10 +2469,10 @@
   }
 
   .bannerTitle {
-    margin: 26px 0 -10px;
+    margin: 24px 0 -8px;
     max-width: 100%;
-    font-size: clamp(1.95rem, 10vw, 2.35rem);
-    line-height: 0.98;
+    font-size: clamp(3rem, 15.5vw, 4.4rem);
+    line-height: 0.9;
     letter-spacing: 0.01em;
   }
 
@@ -2809,8 +2856,8 @@
   }
 
   .bannerTitle {
-    margin-top: 22px;
-    font-size: clamp(1.8rem, 14vw, 2.7rem);
+    margin-top: 20px;
+    font-size: clamp(2.45rem, 16vw, 3.45rem);
   }
 
   .bannerTitleziaci {

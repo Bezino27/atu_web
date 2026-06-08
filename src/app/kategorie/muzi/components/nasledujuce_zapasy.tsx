@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../../styles/unified.module.css";
+import styles from "../../styles/categories.module.css";
 import type { SzfbMatch } from "@/app/lib/szfb";
 import { getTeamLogo } from "@/app/lib/teamLogos";
 

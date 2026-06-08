@@ -1,6 +1,6 @@
 import React from "react";
 import { connection } from "next/server";
-import styles from "../styles/unified.module.css";
+import styles from "../styles/categories.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";

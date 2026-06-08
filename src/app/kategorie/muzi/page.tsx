@@ -1,6 +1,6 @@
 import React from "react";
 import { connection } from "next/server";
-import styles from "../styles/unified.module.css";
+import styles from "../styles/categories.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
@@ -212,10 +212,10 @@ export default async function MuziPage() {
         </section>
 
         <section id="novinky" className={styles.sectionContainer}>
-          <div className={styles.resultsHeader}>
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>AKTUÁLNE DIANIE</span>
-              <h2 className={styles.sectionTitle}>Najdôležitejšie novinky</h2>
+              <span className="preTitle">AKTUÁLNE DIANIE</span>
+              <h2 className="sectionTitle">Najdôležitejšie novinky</h2>
             </div>
           </div>
 
@@ -224,10 +224,10 @@ export default async function MuziPage() {
 
         {/* # OVERVIEW */}
         <section id="tabulka" className={styles.overviewSection}>
-          <div className={styles.resultsHeader}>
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>Liga</span>
-              <h2 className={styles.sectionTitle}>Výsledky</h2>
+              <span className="preTitle">Liga</span>
+              <h2 className="sectionTitle">Výsledky</h2>
             </div>
           </div>
 
@@ -246,10 +246,10 @@ export default async function MuziPage() {
         </section>
 
         <section id="hraci" className={styles.bottomSection}>
-          <div className={styles.resultsHeader}>
+          <div className="resultsHeader">
             <div>
-              <span className={styles.preTitle}>Štatistiky tímu</span>
-              <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
+              <span className="preTitle">Štatistiky tímu</span>
+              <h2 className="sectionTitle">Lídri sezóny</h2>
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import styles from "../../styles/unified.module.css";
+import styles from "../../styles/categories.module.css";
 import type { SzfbStandingRow } from "@/app/lib/szfb";
 
 type TabulkaProps = {
