@@ -202,7 +202,7 @@ export default async function HomePage() {
                     src={getImageUrl(heroArticle.featured_image)}
                     alt={heroArticle.title}
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 768px) 100vw, 66vw"
                     className={styles.cardImage}
                   />

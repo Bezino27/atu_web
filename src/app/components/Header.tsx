@@ -132,7 +132,7 @@ export default function Header() {
                 width={72}
                 height={72}
                 className={styles.logo}
-                priority
+                preload
               />
               <div className={styles.logoText}>
                 <strong>FaBK ATU Košice</strong>

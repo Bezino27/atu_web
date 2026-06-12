@@ -1,5 +1,9 @@
 import "server-only";
-import { API_URL, getApiFetchOptions } from "./api";
+import {
+  API_URL,
+  getApiFetchOptions,
+  shouldSilenceDevBackendError,
+} from "./api";
 
 export type SzfbStandingRow = {
   position: number;
@@ -61,7 +65,10 @@ export async function getSzfbDashboard(
 
     return await response.json();
   } catch (error) {
-    console.error("SZFB dashboard fetch error:", error);
+    if (!shouldSilenceDevBackendError(error)) {
+      console.error("SZFB dashboard fetch error:", error);
+    }
+
     return null;
   }
 }
@@ -97,7 +104,10 @@ export async function getSzfbNextMatch(
 
     return await response.json();
   } catch (error) {
-    console.error("SZFB next match fetch error:", error);
+    if (!shouldSilenceDevBackendError(error)) {
+      console.error("SZFB next match fetch error:", error);
+    }
+
     return null;
   }
 }

@@ -41,6 +41,63 @@ export function getApiFetchOptions(revalidateSeconds: number): NextFetchOptions 
   return { next: { revalidate: revalidateSeconds } };
 }
 
+function getErrorCode(error: unknown): string | undefined {
+  if (!error || typeof error !== "object") return undefined;
+
+  const { code } = error as { code?: unknown };
+
+  return typeof code === "string" ? code : undefined;
+}
+
+function collectNestedErrors(error: unknown): unknown[] {
+  if (!error || typeof error !== "object") return [];
+
+  const nestedErrors: unknown[] = [];
+  const { cause } = error as { cause?: unknown };
+  const { errors } = error as { errors?: unknown };
+
+  if (cause) {
+    nestedErrors.push(cause);
+  }
+
+  if (Array.isArray(errors)) {
+    nestedErrors.push(...errors);
+  }
+
+  return nestedErrors;
+}
+
+export function isBackendConnectionError(error: unknown): boolean {
+  const stack = [error];
+  const checked = new Set<unknown>();
+
+  while (stack.length > 0) {
+    const currentError = stack.pop();
+
+    if (!currentError || checked.has(currentError)) continue;
+    checked.add(currentError);
+
+    const code = getErrorCode(currentError);
+
+    if (
+      code === "ECONNREFUSED" ||
+      code === "ECONNRESET" ||
+      code === "ENOTFOUND" ||
+      code === "ETIMEDOUT"
+    ) {
+      return true;
+    }
+
+    stack.push(...collectNestedErrors(currentError));
+  }
+
+  return false;
+}
+
+export function shouldSilenceDevBackendError(error: unknown): boolean {
+  return IS_DEV && isBackendConnectionError(error);
+}
+
 function isMediaPath(pathname: string) {
   return pathname === "/media" || pathname.startsWith("/media/");
 }

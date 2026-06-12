@@ -3,6 +3,7 @@ import {
   getApiFetchOptions,
   getImageUrl,
   normalizeMediaUrl,
+  shouldSilenceDevBackendError,
 } from "./api";
 
 export type Partner = {
@@ -39,7 +40,10 @@ export async function getClubPartners(clubSlug: string): Promise<Partner[]> {
 
     return response.json();
   } catch (error) {
-    console.error("Nepodarilo sa načítať partnerov:", error);
+    if (!shouldSilenceDevBackendError(error)) {
+      console.error("Nepodarilo sa načítať partnerov:", error);
+    }
+
     return [];
   }
 }

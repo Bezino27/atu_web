@@ -238,7 +238,7 @@ export default async function PridajSaPage() {
               src="/images/nabor-hero.jpg"
               alt="Deti na tréningu ATU Košice"
               fill
-              priority
+              preload
               unoptimized
               sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroBackgroundImage}

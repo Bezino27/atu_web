@@ -148,7 +148,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   alt={post.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 1200px"
-                  priority
+                  preload
                   quality={90}
                   className={styles.heroImage}
                 />

@@ -1,4 +1,8 @@
-import { API_URL, getApiFetchOptions } from "./api";
+import {
+  API_URL,
+  getApiFetchOptions,
+  shouldSilenceDevBackendError,
+} from "./api";
 
 export type PostCategory = {
   id: number;
@@ -50,7 +54,10 @@ export async function getHomepagePosts(
 
     return [];
   } catch (error) {
-    console.error("Chyba pri načítaní článkov:", error);
+    if (!shouldSilenceDevBackendError(error)) {
+      console.error("Chyba pri načítaní článkov:", error);
+    }
+
     return [];
   }
 }

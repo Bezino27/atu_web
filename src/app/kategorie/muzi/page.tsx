@@ -169,7 +169,7 @@ export default async function MuziPage() {
               src={heroImage}
               alt=""
               fill
-              priority
+              preload
               sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroImg}
             />

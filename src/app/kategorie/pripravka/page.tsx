@@ -145,7 +145,7 @@ const PripravkaPage = async () => {
               src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
-              priority
+              preload
               sizes="(max-width: 768px) 100vw, 1300px"
               className={styles.heroImg}
             />
