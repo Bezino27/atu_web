@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -15,12 +14,13 @@ import {
 import { getClubSeason } from "./lib/season";
 import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, createPageMetadata } from "./lib/seo";
 
-export const metadata: Metadata = {
-  title: "ATU Košice – Florbalový klub",
-  description:
-    "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
-};
+export const metadata = createPageMetadata({
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+});
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";

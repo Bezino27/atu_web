@@ -7,6 +7,15 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Pridaj sa k nám | ATU Košice",
+  description:
+    "Nábor do florbalového klubu ATU Košice pre deti, mládež aj nových hráčov. Zisti kategóriu a pošli prihlášku.",
+  path: "/pridaj_sa",
+  image: "/images/nabor-hero.jpg",
+});
 
 const benefits = [
   {

@@ -18,6 +18,15 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Muži | ATU Košice",
+  description:
+    "A tím ATU Košice: novinky, zápasy, výsledky, tabuľka a informácie o mužskej kategórii.",
+  path: "/kategorie/muzi",
+  image: "/images/kategorie/muzi_kader.jpg",
+});
 
 type BackendCategory = {
   id: number;

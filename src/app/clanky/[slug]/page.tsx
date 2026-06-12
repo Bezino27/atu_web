@@ -7,6 +7,15 @@ import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
+import {
+  CLUB_SLUG,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  getCanonicalUrl,
+  stripHtml,
+  truncateSeoText,
+} from "@/app/lib/seo";
 
 type PageProps = {
   params: Promise<{
@@ -32,26 +41,62 @@ function formatDate(dateString?: string | null) {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const canonicalUrl = getCanonicalUrl(`/clanky/${slug}`);
+  const fallbackTitle = "Článok | ATU Košice";
 
   try {
-    const post = await getPostDetail("atu-kosice", slug);
+    const post = await getPostDetail(CLUB_SLUG, slug);
+    const plainContent = stripHtml(post.excerpt) || stripHtml(post.content);
+    const title = post.meta_title || post.title || fallbackTitle;
+    const description = truncateSeoText(
+      stripHtml(post.meta_description) ||
+        plainContent ||
+        "Detail článku florbalového klubu ATU Košice.",
+    );
+    const imageUrl = post.featured_image ? getImageUrl(post.featured_image) : undefined;
 
     return {
-      title: post.meta_title || post.title || "Článok | ATU Košice",
-      description:
-        post.meta_description ||
-        post.excerpt ||
-        "Detail článku florbalového klubu ATU Košice.",
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
       openGraph: {
-        title: post.meta_title || post.title,
-        description: post.meta_description || post.excerpt || "",
-        images: post.featured_image ? [getImageUrl(post.featured_image)] : [],
+        type: "article",
+        locale: "sk_SK",
+        url: canonicalUrl,
+        siteName: SITE_NAME,
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : [],
+      },
+      twitter: {
+        card: imageUrl ? "summary_large_image" : "summary",
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : undefined,
       },
     };
   } catch {
     return {
-      title: "Článok | ATU Košice",
-      description: "Detail článku florbalového klubu ATU Košice.",
+      title: fallbackTitle,
+      description: DEFAULT_DESCRIPTION,
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        type: "article",
+        locale: "sk_SK",
+        url: canonicalUrl,
+        siteName: SITE_NAME,
+        title: fallbackTitle,
+        description: DEFAULT_DESCRIPTION,
+      },
+      twitter: {
+        card: "summary",
+        title: DEFAULT_TITLE,
+        description: DEFAULT_DESCRIPTION,
+      },
     };
   }
 }
@@ -62,7 +107,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
   let post: Post;
 
   try {
-    post = await getPostDetail("atu-kosice", slug);
+    post = await getPostDetail(CLUB_SLUG, slug);
   } catch {
     notFound();
   }

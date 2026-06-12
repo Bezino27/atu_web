@@ -2,6 +2,14 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ContactMap from "./ContactMap";
 import styles from "./kontakt.module.css";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Kontakt | ATU Košice",
+  description:
+    "Kontaktné údaje, adresa a mapa florbalového klubu ATU Košice.",
+  path: "/kontakt",
+});
 
 const contactLocations = {
   jedlikova: {

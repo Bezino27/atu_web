@@ -15,6 +15,15 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Starší žiaci | ATU Košice",
+  description:
+    "Starší žiaci ATU Košice: tréningy, nábor, novinky a informácie o mládežníckej kategórii.",
+  path: "/kategorie/starsi-ziaci",
+  image: "/images/kategorie/starsi_ziaci.jpg",
+});
 
 type BackendCategory = {
   id: number;

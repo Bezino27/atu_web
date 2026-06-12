@@ -18,6 +18,15 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Juniori | ATU Košice",
+  description:
+    "Juniorská kategória ATU Košice: novinky, zápasy, výsledky, tabuľka a informácie o tíme.",
+  path: "/kategorie/juniori",
+  image: "/images/kategorie/juniori_kader.jpg",
+});
 
 type BackendCategory = {
   id: number;

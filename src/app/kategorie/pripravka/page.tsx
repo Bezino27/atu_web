@@ -14,6 +14,15 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Prípravka | ATU Košice",
+  description:
+    "Prípravka ATU Košice: tréningy, nábor, novinky a informácie pre najmladších florbalistov.",
+  path: "/kategorie/pripravka",
+  image: "/images/kategorie/pripravka.jpg",
+});
 
 type BackendCategory = {
   id: number;

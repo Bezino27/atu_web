@@ -1,17 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
+import { createPageMetadata } from "@/app/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Články | ATU Košice",
   description: "Novinky, reporty, klubové informácie a všetky články florbalového klubu ATU Košice.",
-};
+  path: "/clanky",
+});
 
 function formatDate(dateString?: string | null) {
   if (!dateString) return "";

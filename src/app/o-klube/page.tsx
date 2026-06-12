@@ -4,6 +4,15 @@ import ClubHero from "./ClubHero";
 import AchievementsSection from "./AchievementsSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { createPageMetadata } from "@/app/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "O klube | ATU Košice",
+  description:
+    "História, úspechy, osobnosti a klubové zázemie florbalového klubu ATU Košice.",
+  path: "/o-klube",
+  image: "/logo/znak_atu_nove.svg",
+});
 
 const alumni = [
   {
