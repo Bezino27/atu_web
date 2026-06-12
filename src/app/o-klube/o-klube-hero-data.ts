@@ -13,7 +13,7 @@ export const heroInfoCards = [
   {
     id: "founded",
     label: "Rok založenia",
-    value: "2000",
+    value: "2001",
     description: "Začiatok florbalovej histórie klubu Akademik TU Košice.",
   },
   {

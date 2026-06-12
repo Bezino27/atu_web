@@ -56,14 +56,17 @@ function getStandingsRowClass(
   return classNames.join(" ");
 }
 
-function getRecentResultMeta(result?: string | null) {
-  if (!result || !result.includes(":")) {
+function getRecentResultMeta(match: SzfbMatch) {
+  if (!match.result || !match.result.includes(":")) {
     return {
       scoreClass: styles.lossScore,
     };
   }
 
-  const [leftScore, rightScore] = result.split(":").map(Number);
+  const [leftScore, rightScore] = match.result
+    .replace(/\s+/g, "")
+    .split(":")
+    .map(Number);
 
   if (Number.isNaN(leftScore) || Number.isNaN(rightScore)) {
     return {
@@ -71,7 +74,9 @@ function getRecentResultMeta(result?: string | null) {
     };
   }
 
-  const isWin = leftScore > rightScore;
+  const ownTeamScore = match.is_home === false ? rightScore : leftScore;
+  const opponentScore = match.is_home === false ? leftScore : rightScore;
+  const isWin = ownTeamScore > opponentScore;
 
   return {
     scoreClass: isWin ? styles.winScore : styles.lossScore,
@@ -336,7 +341,7 @@ export default async function HomePage() {
                 <div className={styles.recentMatchesList}>
                   {results.length > 0 ? (
                     results.slice(0, 4).map((result) => {
-                      const resultMeta = getRecentResultMeta(result.result);
+                      const resultMeta = getRecentResultMeta(result);
                       const resultTeams = getMatchTeams(result, ownTeamName);
 
                       return (

@@ -8,7 +8,7 @@ import styles from "./Header.module.css";
 const navItems = [
   { href: "/", label: "Domov" },
   { href: "/o-klube", label: "O klube" },
-  { href: "/kategorie/muzi", label: "A tím" },
+  { href: "/kategorie/muzi", label: "A-tím" },
   { href: "/kategorie", label: "Mládež" },
   { href: "/kontakt", label: "Kontakt" },
 ];

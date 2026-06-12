@@ -446,9 +446,10 @@
 }
 
 .itemCountRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: 92px 55px;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .itemCount {
@@ -463,6 +464,11 @@
 
 /* # MEDAL ICON */
 
+.medalIcon {
+  width: 55px;
+  height: 55px;
+  justify-self: center;
+}
 
 .itemRight {
   min-width: 0;
@@ -688,6 +694,11 @@
     box-sizing: border-box;
   }
 
+  .itemCountRow {
+    grid-template-columns: 78px 32px;
+    gap: 8px;
+  }
+
   .itemCount {
     font-size: 2rem;
   }
@@ -888,6 +899,11 @@
     font-size: 1.85rem;
   }
 
+  .itemCountRow {
+    grid-template-columns: 72px 32px;
+    gap: 8px;
+  }
+
   .itemRight {
     gap: 10px;
   }
@@ -1062,7 +1078,8 @@
   }
 
   .itemCountRow {
-    gap: 10px;
+    grid-template-columns: 64px 28px;
+    gap: 8px;
   }
 
   .itemCount {
