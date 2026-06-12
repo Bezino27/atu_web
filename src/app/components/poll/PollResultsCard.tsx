@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import styles from "./PollCard.module.css";
 import type { ApiPollResults } from "./poll.types";
 
@@ -20,9 +21,14 @@ function formatDateTime(value: string | null) {
 }
 
 export default function PollResultsCard({ result }: PollResultsCardProps) {
+  const [showEndedNotice, setShowEndedNotice] = useState(false);
   const sortedOptions = [...result.options].sort((a, b) => b.votes - a.votes);
   const winner = sortedOptions[0] ?? null;
   const endedAtLabel = formatDateTime(result.ends_at);
+
+  function highlightEndedPoll() {
+    setShowEndedNotice(true);
+  }
 
   return (
     <div className={styles.pollResultsCard}>
@@ -32,7 +38,11 @@ export default function PollResultsCard({ result }: PollResultsCardProps) {
             <span className={styles.pollMiniLabel}>Posledná anketa</span>
 
             {endedAtLabel ? (
-              <span className={styles.pollDeadline}>
+              <span
+                className={`${styles.pollDeadline} ${
+                  showEndedNotice ? styles.pollDeadlineEndedActive : ""
+                }`}
+              >
                 Ukončená {endedAtLabel}
               </span>
             ) : null}
@@ -47,7 +57,17 @@ export default function PollResultsCard({ result }: PollResultsCardProps) {
           </div>
 
           {winner ? (
-            <div className={styles.previousWinnerCard}>
+            <div
+              className={styles.previousWinnerCard}
+              role="button"
+              tabIndex={0}
+              onClick={highlightEndedPoll}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  highlightEndedPoll();
+                }
+              }}
+            >
               <span className={styles.previousWinnerSubtitle}>
                 Víťaz hlasovania
               </span>
@@ -76,7 +96,18 @@ export default function PollResultsCard({ result }: PollResultsCardProps) {
 
           <div className={styles.previousRankingList}>
             {sortedOptions.slice(1, 3).map((item, index) => (
-              <div key={item.id} className={styles.previousRankingItem}>
+              <div
+                key={item.id}
+                className={styles.previousRankingItem}
+                role="button"
+                tabIndex={0}
+                onClick={highlightEndedPoll}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    highlightEndedPoll();
+                  }
+                }}
+              >
                 <span className={styles.previousRankingOrder}>{index + 2}.</span>
                 <span className={styles.previousRankingName}>{item.text}</span>
                 <span className={styles.previousRankingPercent}>

@@ -1,9 +1,28 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import styles from "./o-klube.module.css";
 import ClubHero from "./ClubHero";
 import AchievementsSection from "./AchievementsSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
+
+export const metadata: Metadata = {
+  title: "O klube",
+  description:
+    "Spoznajte históriu florbalového klubu ATU Košice, klubové úspechy, medaily a odchovancov, ktorí sa presadili doma aj v zahraničí.",
+  alternates: {
+    canonical: absoluteUrl("/o-klube"),
+  },
+  openGraph: {
+    title: `O klube | ${SITE_NAME}`,
+    description:
+      "História, úspechy, medaily a významní odchovanci florbalového klubu ATU Košice.",
+    url: absoluteUrl("/o-klube"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 const alumni = [
   {

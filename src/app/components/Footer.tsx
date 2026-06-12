@@ -237,7 +237,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <p>© {new Date().getFullYear()} ATU Košice / Martin Guľaš , Ludimus / všetky práva</p>
+          <p>© {new Date().getFullYear()} ATU Košice / Ludimus / všetky práva</p>
         </div>
       </div>
     </footer>

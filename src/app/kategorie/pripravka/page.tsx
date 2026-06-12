@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
@@ -14,6 +15,24 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Prípravka",
+  description:
+    "Prípravka ATU Košice pre najmladších florbalistov. Informácie o tréningoch, nábore, kategórii, súťažných odkazoch a novinkách.",
+  alternates: {
+    canonical: absoluteUrl("/kategorie/pripravka"),
+  },
+  openGraph: {
+    title: `Prípravka | ${SITE_NAME}`,
+    description:
+      "Prípravka ATU Košice, tréningy, nábor a novinky najmladšej florbalovej kategórie.",
+    url: absoluteUrl("/kategorie/pripravka"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 type BackendCategory = {
   id: number;

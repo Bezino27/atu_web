@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import Header from "@/app/components/Header";
@@ -18,6 +19,24 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Juniori",
+  description:
+    "Juniorská kategória florbalového klubu ATU Košice. Sledujte novinky, zápasy, výsledky, tabuľku, lídrov sezóny a informácie o junioroch.",
+  alternates: {
+    canonical: absoluteUrl("/kategorie/juniori"),
+  },
+  openGraph: {
+    title: `Juniori | ${SITE_NAME}`,
+    description:
+      "Novinky, zápasy, výsledky, tabuľka a štatistiky juniorského tímu ATU Košice.",
+    url: absoluteUrl("/kategorie/juniori"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 type BackendCategory = {
   id: number;
@@ -132,8 +151,7 @@ export default async function JunioriPage() {
   const resultMatches = szfbDashboard?.results ?? [];
   const playerStats = szfbDashboard?.player_stats ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const competitionName =
-    szfbDashboard?.watch?.competition_name || "Macron Extraliga juniorov";
+  const competitionName = "Extraliga";
   const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
 
   const currentSeason =
@@ -191,10 +209,10 @@ export default async function JunioriPage() {
         </section>
 
         <section id="zapasy" className="sectionContainer">
-          <div className="resultsHeader">
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Zápasy</span>
-              <h2 className="sectionTitle">Najbližší zápas a výsledok</h2>
+              <span className={styles.preTitle}>Zápasy</span>
+              <h2 className={styles.sectionTitle}>Najbližší zápas a výsledok</h2>
             </div>
           </div>
 
@@ -207,12 +225,12 @@ export default async function JunioriPage() {
         </section>
 
         <section id="novinky" className="sectionContainer">
-          <div className="resultsHeader">
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Aktuálne dianie</span>
-              <h2 className="sectionTitle">
-              Najdôležitejšie novinky
-            </h2>
+              <span className={styles.preTitle}>Aktuálne dianie</span>
+              <h2 className={styles.sectionTitle}>
+                Najdôležitejšie novinky
+              </h2>
             </div>
           </div>
 
@@ -220,10 +238,10 @@ export default async function JunioriPage() {
         </section>
 
         <section id="tabulka" className="overviewSection">
-          <div className="resultsHeader">
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Liga</span>
-              <h2 className="sectionTitle">Výsledky</h2>
+              <span className={styles.preTitle}>Extraliga</span>
+              <h2 className={styles.sectionTitle}>Výsledky</h2>
             </div>
           </div>
 
@@ -239,10 +257,10 @@ export default async function JunioriPage() {
         </section>
 
         <section id="hraci" className="bottomSection">
-          <div className="resultsHeader">
+          <div className={styles.resultsHeader}>
             <div>
-              <span className="preTitle">Štatistiky tímu</span>
-              <h2 className="sectionTitle">Lídri sezóny</h2>
+              <span className={styles.preTitle}>Štatistiky tímu</span>
+              <h2 className={styles.sectionTitle}>Lídri sezóny</h2>
             </div>
           </div>
 

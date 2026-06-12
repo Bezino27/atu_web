@@ -7,10 +7,23 @@ import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Články | ATU Košice",
-  description: "Novinky, reporty, klubové informácie a všetky články florbalového klubu ATU Košice.",
+  title: "Články",
+  description:
+    "Novinky, reporty, klubové informácie a všetky články florbalového klubu ATU Košice na jednom mieste.",
+  alternates: {
+    canonical: absoluteUrl("/clanky"),
+  },
+  openGraph: {
+    title: `Články | ${SITE_NAME}`,
+    description:
+      "Novinky, reporty a klubové informácie florbalového klubu ATU Košice.",
+    url: absoluteUrl("/clanky"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
 };
 
 function formatDate(dateString?: string | null) {

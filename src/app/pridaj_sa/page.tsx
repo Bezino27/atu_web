@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import BenefitsCarouselSection from "./BenefitsCarousel";
 import styles from "./pridaj_sa.module.css";
@@ -7,6 +8,24 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Pridaj sa",
+  description:
+    "Pridajte sa k florbalovému klubu ATU Košice. Informácie o nábore, kategóriách, tréningoch, prvom tréningu zdarma a prihláške pre nových hráčov.",
+  alternates: {
+    canonical: absoluteUrl("/pridaj_sa"),
+  },
+  openGraph: {
+    title: `Pridaj sa | ${SITE_NAME}`,
+    description:
+      "Nábor do ATU Košice, kategórie, tréningy a prihláška pre nových florbalistov.",
+    url: absoluteUrl("/pridaj_sa"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 const benefits = [
   {

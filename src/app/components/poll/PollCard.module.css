@@ -65,10 +65,28 @@
 }
 
 .pollDeadline {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
   color: var(--color-text-subtle);
   font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.pollDeadlineEndedActive {
+  color: var(--color-red-dark);
+  background: var(--color-red-soft);
+  border-color: var(--color-red-border);
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.08);
 }
 
 /* ─── QUESTION + DESC ────────────────────────────────────────── */
@@ -379,6 +397,7 @@
   background: var(--color-surface-soft);
   animation: fadeSlideIn 0.4s ease both;
   overflow: hidden;
+  cursor: pointer;
   transition:
     background 0.18s ease,
     border-color 0.18s ease,
@@ -386,11 +405,13 @@
     transform 0.18s ease;
 }
 
-.previousWinnerCard:hover {
+.previousWinnerCard:hover,
+.previousWinnerCard:focus-visible {
   background: var(--color-surface-soft);
   border-color: var(--color-border-strong);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
   transform: translateY(-3px);
+  outline: none;
 }
 
 .previousWinnerCard::before {
@@ -491,6 +512,7 @@
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-md);
   background: var(--color-surface-soft);
+  cursor: pointer;
   transition:
     background 0.18s ease,
     border-color 0.18s ease,
@@ -498,11 +520,13 @@
     transform 0.18s ease;
 }
 
-.previousRankingItem:hover {
+.previousRankingItem:hover,
+.previousRankingItem:focus-visible {
   background: var(--color-surface-soft);
   border-color: var(--color-border-strong);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
   transform: translateY(-3px);
+  outline: none;
 }
 
 .previousRankingOrder {

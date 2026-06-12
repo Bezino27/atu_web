@@ -446,7 +446,8 @@
 }
 
 .itemCountRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: 86px 55px;
   align-items: center;
   gap: 12px;
 }
@@ -463,6 +464,11 @@
 
 /* # MEDAL ICON */
 
+.medalIcon {
+  width: 55px;
+  height: 55px;
+  justify-self: center;
+}
 
 .itemRight {
   min-width: 0;
@@ -690,6 +696,10 @@
 
   .itemCount {
     font-size: 2rem;
+  }
+
+  .itemCountRow {
+    grid-template-columns: 72px 32px;
   }
 
   .medalIcon {
@@ -1062,6 +1072,7 @@
   }
 
   .itemCountRow {
+    grid-template-columns: 62px 28px;
     gap: 10px;
   }
 

@@ -15,11 +15,23 @@ import {
 import { getClubSeason } from "./lib/season";
 import { getClubPartners, getPartnerImageUrl } from "./lib/partners";
 import PollSection from "./components/poll/PollSection";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "./lib/seo";
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
   description:
     "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy, hráč mesiaca a klubové články na jednom mieste.",
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: `${SITE_NAME} – Florbalový klub`,
+    description:
+      "Oficiálna stránka florbalového klubu ATU Košice. Novinky, výsledky, tabuľky, najbližšie zápasy a klubové články.",
+    url: absoluteUrl("/"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
 };
 
 function formatDate(dateString?: string | null) {
@@ -41,6 +53,27 @@ function formatTime(timeString?: string | null) {
   return timeString.slice(0, 5);
 }
 
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function isOwnTeam(teamName: string, ownTeamName: string) {
+  const normalizedTeamName = normalizeText(teamName);
+  const normalizedOwnTeamName = normalizeText(ownTeamName);
+
+  return (
+    normalizedTeamName.includes(normalizedOwnTeamName) ||
+    normalizedOwnTeamName.includes(normalizedTeamName) ||
+    normalizedTeamName.includes("atu kosice")
+  );
+}
+
 function getStandingsRowClass(
   position: number,
   teamName: string,
@@ -51,30 +84,36 @@ function getStandingsRowClass(
   if (position <= 8) classNames.push(styles.playoffRow);
   if (position === 10 || position === 11) classNames.push(styles.playoutRow);
   if (position === 12) classNames.push(styles.relegationRow);
-  if (teamName === ownTeamName) classNames.push(styles.highlightRow);
+  if (isOwnTeam(teamName, ownTeamName)) classNames.push(styles.highlightRow);
 
   return classNames.join(" ");
 }
 
-function getRecentResultMeta(result?: string | null) {
-  if (!result || !result.includes(":")) {
+function getRecentResultMeta(match: SzfbMatch, ownTeamName: string) {
+  if (!match.result || !match.result.includes(":")) {
     return {
       scoreClass: styles.lossScore,
     };
   }
 
-  const [leftScore, rightScore] = result.split(":").map(Number);
+  const [homeScore, awayScore] = match.result
+    .replace(/\s+/g, "")
+    .split(":")
+    .map(Number);
 
-  if (Number.isNaN(leftScore) || Number.isNaN(rightScore)) {
+  if (Number.isNaN(homeScore) || Number.isNaN(awayScore)) {
     return {
       scoreClass: styles.lossScore,
     };
   }
 
-  const isWin = leftScore > rightScore;
+  const { leftTeam } = getMatchTeams(match, ownTeamName);
+  const ownTeamIsHome = isOwnTeam(leftTeam, ownTeamName);
+  const ownTeamScore = ownTeamIsHome ? homeScore : awayScore;
+  const opponentScore = ownTeamIsHome ? awayScore : homeScore;
 
   return {
-    scoreClass: isWin ? styles.winScore : styles.lossScore,
+    scoreClass: ownTeamScore >= opponentScore ? styles.winScore : styles.lossScore,
   };
 }
 
@@ -336,8 +375,11 @@ export default async function HomePage() {
                 <div className={styles.recentMatchesList}>
                   {results.length > 0 ? (
                     results.slice(0, 4).map((result) => {
-                      const resultMeta = getRecentResultMeta(result.result);
                       const resultTeams = getMatchTeams(result, ownTeamName);
+                      const resultMeta = getRecentResultMeta(
+                        result,
+                        ownTeamName
+                      );
 
                       return (
                         <div key={result.id} className={styles.recentMatchCard}>
@@ -351,7 +393,7 @@ export default async function HomePage() {
                             <div className={styles.recentTeamRow}>
                               <span
                                 className={`${styles.recentTeamName} ${
-                                  resultTeams.leftTeam === ownTeamName
+                                  isOwnTeam(resultTeams.leftTeam, ownTeamName)
                                     ? styles.atuTeam
                                     : ""
                                 }`}
@@ -365,7 +407,7 @@ export default async function HomePage() {
                             <div className={styles.recentTeamRow}>
                               <span
                                 className={`${styles.recentTeamName} ${
-                                  resultTeams.rightTeam === ownTeamName
+                                  isOwnTeam(resultTeams.rightTeam, ownTeamName)
                                     ? styles.atuTeam
                                     : ""
                                 }`}

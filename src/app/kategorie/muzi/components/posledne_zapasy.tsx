@@ -22,8 +22,25 @@ function formatDate(dateString?: string | null) {
   });
 }
 
-function isAtuTeam(team: string) {
-  return team.toLowerCase().includes("atu košice");
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function isOwnTeam(team: string, ownTeamName: string) {
+  const normalizedTeam = normalizeText(team);
+  const normalizedOwnTeam = normalizeText(ownTeamName);
+
+  return (
+    normalizedTeam.includes(normalizedOwnTeam) ||
+    normalizedOwnTeam.includes(normalizedTeam) ||
+    normalizedTeam.includes("atu kosice")
+  );
 }
 
 function getTeams(match: SzfbMatch, ownTeamName: string) {
@@ -58,11 +75,11 @@ function getMatchOutcome(match: SzfbMatch, ownTeamName: string) {
   const { homeTeam } = getTeams(match, ownTeamName);
   const { homeScore, awayScore } = getScore(match);
 
-  const atuIsHome = isAtuTeam(homeTeam);
-  const atuScore = atuIsHome ? homeScore : awayScore;
-  const opponentScore = atuIsHome ? awayScore : homeScore;
+  const ownTeamIsHome = isOwnTeam(homeTeam, ownTeamName);
+  const ownTeamScore = ownTeamIsHome ? homeScore : awayScore;
+  const opponentScore = ownTeamIsHome ? awayScore : homeScore;
 
-  if (atuScore > opponentScore) {
+  if (ownTeamScore >= opponentScore) {
     return {
       scoreClassName: styles.winScore,
     };
@@ -102,7 +119,7 @@ export default function RecentMatches({
                   <div className={styles.recentTeamRow}>
                     <span
                       className={`${styles.recentTeamName} ${
-                        isAtuTeam(homeTeam) ? styles.atuTeam : ""
+                        isOwnTeam(homeTeam, ownTeamName) ? styles.atuTeam : ""
                       }`}
                     >
                       {homeTeam}
@@ -114,7 +131,7 @@ export default function RecentMatches({
                   <div className={styles.recentTeamRow}>
                     <span
                       className={`${styles.recentTeamName} ${
-                        isAtuTeam(awayTeam) ? styles.atuTeam : ""
+                        isOwnTeam(awayTeam, ownTeamName) ? styles.atuTeam : ""
                       }`}
                     >
                       {awayTeam}

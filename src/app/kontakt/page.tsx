@@ -1,7 +1,26 @@
+import type { Metadata } from "next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ContactMap from "./ContactMap";
 import styles from "./kontakt.module.css";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Kontakt",
+  description:
+    "Kontakt na florbalový klub FaBK ATU Košice. Nájdite adresu haly, email, telefón, IBAN a mapu športoviska na Jedlíkovej ulici v Košiciach.",
+  alternates: {
+    canonical: absoluteUrl("/kontakt"),
+  },
+  openGraph: {
+    title: `Kontakt | ${SITE_NAME}`,
+    description:
+      "Kontakt na florbalový klub FaBK ATU Košice – adresa, email, telefón, IBAN a mapa športoviska.",
+    url: absoluteUrl("/kontakt"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 const contactLocations = {
   jedlikova: {

@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
@@ -15,6 +16,24 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Dorast",
+  description:
+    "Dorastenecká kategória ATU Košice. Informácie o tíme, tréningoch, nábore, odkazy na súťaž a novinky mladých florbalistov.",
+  alternates: {
+    canonical: absoluteUrl("/kategorie/dorast"),
+  },
+  openGraph: {
+    title: `Dorast | ${SITE_NAME}`,
+    description:
+      "Dorast ATU Košice, tréningy, nábor, súťažné odkazy a novinky kategórie.",
+    url: absoluteUrl("/kategorie/dorast"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 type BackendCategory = {
   id: number;

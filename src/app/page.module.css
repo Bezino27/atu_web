@@ -372,7 +372,7 @@
 }
 
 .relegationRow td:first-child {
-  box-shadow: inset 5px 0 0 var(--color-warning);
+  box-shadow: inset 5px 0 0 var(--color-red);
 }
 
 .highlightRow td {

@@ -7,6 +7,11 @@ import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
+import {
+  absoluteUrl,
+  DEFAULT_OG_IMAGE_URL,
+  SITE_NAME,
+} from "@/app/lib/seo";
 
 type PageProps = {
   params: Promise<{
@@ -30,28 +35,60 @@ function formatDate(dateString?: string | null) {
   });
 }
 
+function getSeoTitle(post?: Post | null) {
+  return post?.meta_title || post?.title || "Článok";
+}
+
+function getSeoDescription(post?: Post | null) {
+  return (
+    post?.meta_description ||
+    post?.excerpt ||
+    "Detail článku florbalového klubu ATU Košice."
+  );
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const canonicalUrl = absoluteUrl(`/clanky/${slug}`);
 
   try {
     const post = await getPostDetail("atu-kosice", slug);
+    const title = getSeoTitle(post);
+    const description = getSeoDescription(post);
+    const imageUrl = post.featured_image
+      ? getImageUrl(post.featured_image)
+      : DEFAULT_OG_IMAGE_URL;
 
     return {
-      title: post.meta_title || post.title || "Článok | ATU Košice",
-      description:
-        post.meta_description ||
-        post.excerpt ||
-        "Detail článku florbalového klubu ATU Košice.",
+      title,
+      description,
+      alternates: {
+        canonical: canonicalUrl,
+      },
       openGraph: {
-        title: post.meta_title || post.title,
-        description: post.meta_description || post.excerpt || "",
-        images: post.featured_image ? [getImageUrl(post.featured_image)] : [],
+        title: `${title} | ${SITE_NAME}`,
+        description,
+        url: canonicalUrl,
+        type: "article",
+        publishedTime: post.published_at || undefined,
+        authors: post.author_username ? [post.author_username] : undefined,
+        images: [imageUrl],
       },
     };
   } catch {
     return {
-      title: "Článok | ATU Košice",
+      title: "Článok",
       description: "Detail článku florbalového klubu ATU Košice.",
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: `Článok | ${SITE_NAME}`,
+        description: "Detail článku florbalového klubu ATU Košice.",
+        url: canonicalUrl,
+        type: "article",
+        images: [DEFAULT_OG_IMAGE_URL],
+      },
     };
   }
 }

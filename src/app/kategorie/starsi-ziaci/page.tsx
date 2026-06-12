@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import szfbStyle from "../styles/szfb_cards.module.css";
@@ -15,6 +16,24 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Starší žiaci",
+  description:
+    "Kategória starší žiaci ATU Košice. Informácie o tíme, tréningoch, nábore, súťažných odkazoch a novinkách mladých florbalistov.",
+  alternates: {
+    canonical: absoluteUrl("/kategorie/starsi-ziaci"),
+  },
+  openGraph: {
+    title: `Starší žiaci | ${SITE_NAME}`,
+    description:
+      "Starší žiaci ATU Košice, tréningy, nábor, súťažné odkazy a klubové novinky.",
+    url: absoluteUrl("/kategorie/starsi-ziaci"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 type BackendCategory = {
   id: number;

@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import styles from "../styles/unified.module.css";
 import Header from "@/app/components/Header";
@@ -18,6 +19,24 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+
+export const metadata: Metadata = {
+  title: "Muži",
+  description:
+    "Mužská kategória florbalového klubu ATU Košice. Pozrite si novinky, zápasy, výsledky, tabuľku, lídrov sezóny a informácie o tíme mužov.",
+  alternates: {
+    canonical: absoluteUrl("/kategorie/muzi"),
+  },
+  openGraph: {
+    title: `Muži | ${SITE_NAME}`,
+    description:
+      "Novinky, zápasy, výsledky, tabuľka a štatistiky mužského tímu ATU Košice.",
+    url: absoluteUrl("/kategorie/muzi"),
+    type: "website",
+    images: [DEFAULT_OG_IMAGE_URL],
+  },
+};
 
 type BackendCategory = {
   id: number;
@@ -141,8 +160,7 @@ export default async function MuziPage() {
   const playerStats = szfbDashboard?.player_stats ?? [];
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const competitionName =
-    szfbDashboard?.watch?.competition_name || "EXTRALIGA MUŽOV";
+  const competitionName = "Extraliga";
 
   const nextMatch = upcomingMatches[0] ?? null;
 
@@ -226,7 +244,7 @@ export default async function MuziPage() {
         <section id="tabulka" className={styles.overviewSection}>
           <div className={styles.resultsHeader}>
             <div>
-              <span className={styles.preTitle}>Liga</span>
+              <span className={styles.preTitle}>Extraliga</span>
               <h2 className={styles.sectionTitle}>Výsledky</h2>
             </div>
           </div>
