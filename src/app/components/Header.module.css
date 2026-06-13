@@ -188,6 +188,11 @@
   min-width: 0;
 }
 
+.desktopNav > a:not(:last-child)::after,
+.desktopNav > .dropdown::before {
+  content: none;
+}
+
 .navLink {
   position: relative;
   display: inline-flex;
@@ -219,6 +224,36 @@
 .navLink[aria-expanded="true"] {
   color: var(--color-surface);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.navIcon {
+  display: none;
+  width: 18px;
+  height: 18px;
+  color: var(--color-red);
+  flex-shrink: 0;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navLink:hover .navIcon,
+.navLink[aria-expanded="true"] .navIcon {
+  color: #ef4444;
+  transform: translateY(-1px);
+}
+
+.navChevron {
+  display: none;
+  width: 13px;
+  height: 13px;
+  color: rgba(255, 255, 255, 0.62);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.navChevronOpen {
+  color: var(--color-red);
+  transform: rotate(180deg);
 }
 
 /* # DROPDOWN */
@@ -307,6 +342,15 @@
   transform: translateX(2px);
 }
 
+.dropdownDot {
+  display: none;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--color-red);
+  flex-shrink: 0;
+}
+
 /* # ACTIONS */
 
 .actions {
@@ -320,6 +364,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 9px;
   min-height: 48px;
   padding: 0 18px;
   border-radius: var(--radius-md);
@@ -333,6 +378,12 @@
     transform 0.2s ease,
     box-shadow 0.2s ease,
     opacity 0.2s ease;
+}
+
+.ctaIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .ctaButton:hover {
@@ -393,35 +444,60 @@
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
 }
 
 .mobileNavLink {
   display: flex;
   align-items: center;
+  gap: 14px;
   min-height: 52px;
-  padding: 0 16px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 0 4px;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--color-surface);
   text-decoration: none;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-style: italic;
   font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .mobileNavToggle {
   width: 100%;
   min-height: 52px;
-  padding: 0 16px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.04);
+  padding: 0 4px;
+  border-radius: 0;
+  background: transparent;
   color: var(--color-surface);
   border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-style: italic;
   font-weight: 700;
   font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
+}
+
+.mobileNavLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.mobileNavIcon {
+  width: 25px;
+  height: 25px;
+  color: var(--color-red);
+  flex-shrink: 0;
 }
 
 .mobileDropdown {
@@ -445,8 +521,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 0 6px;
+  gap: 0;
+  margin-left: 0;
+  padding: 0 0 0 42px;
   transition:
     max-height 0.25s ease,
     padding 0.25s ease;
@@ -454,31 +531,48 @@
 
 .mobileSubmenuOpen {
   max-height: 400px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .mobileSubmenuLink {
+  position: relative;
   display: flex;
   align-items: center;
+  gap: 12px;
   min-height: 46px;
-  padding: 0 14px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 0 0 0 50px;
+  border-radius: 0;
+  background: transparent;
   color: rgba(255, 255, 255, 0.92);
   text-decoration: none;
-  font-weight: 600;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .mobileSubmenuLink:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
+}
+
+.mobileSubmenuDot {
+  position: absolute;
+  left: 16px;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-pill);
+  background: var(--color-red);
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.12);
 }
 
 .mobileCta {
-  margin-top: 8px;
+  margin-top: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   min-height: 52px;
   padding: 0 18px;
   border-radius: var(--radius-md);
@@ -487,12 +581,17 @@
   text-decoration: none;
   font-weight: 800;
 }
+
+.mobileCta svg {
+  width: 20px;
+  height: 20px;
+}
 .mobileSocialRow {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 0px 0 0px;
+  margin: 22px 0 0;
 }
 
 .mobileSocialIcon {
@@ -760,8 +859,8 @@
   }
 
   .mobileSubmenuLink {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 50px;
+    padding-right: 0;
   }
 }
 

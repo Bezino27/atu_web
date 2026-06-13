@@ -3,14 +3,30 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { IconType } from "react-icons";
+import {
+  PiArrowRightBold,
+  PiCaretDownBold,
+  PiEnvelopeSimple,
+  PiHouse,
+  PiShieldCheck,
+  PiUserCircle,
+  PiUsersThree,
+} from "react-icons/pi";
 import styles from "./Header.module.css";
 
-const navItems = [
-  { href: "/", label: "Domov" },
-  { href: "/o-klube", label: "O klube" },
-  { href: "/kategorie/muzi", label: "A-tím" },
-  { href: "/kategorie", label: "Mládež" },
-  { href: "/kontakt", label: "Kontakt" },
+type NavItem = {
+  href: string;
+  label: string;
+  icon: IconType;
+};
+
+const navItems: NavItem[] = [
+  { href: "/", label: "Domov", icon: PiHouse },
+  { href: "/o-klube", label: "O klube", icon: PiShieldCheck },
+  { href: "/kategorie/muzi", label: "A-tím", icon: PiUsersThree },
+  { href: "/kategorie", label: "Mládež", icon: PiUserCircle },
+  { href: "/kontakt", label: "Kontakt", icon: PiEnvelopeSimple },
 ];
 
 const categoryItems = [
@@ -142,6 +158,8 @@ export default function Header() {
 
             <nav className={styles.desktopNav}>
               {navItems.map((item) => {
+                const Icon = item.icon;
+
                 if (item.label === "Mládež") {
                   return (
                     <div
@@ -156,7 +174,14 @@ export default function Header() {
                         onClick={handleCategoriesToggle}
                         aria-expanded={categoriesOpen}
                       >
-                        {item.label}
+                        <Icon className={styles.navIcon} aria-hidden="true" />
+                        <span>{item.label}</span>
+                        <PiCaretDownBold
+                          className={`${styles.navChevron} ${
+                            categoriesOpen ? styles.navChevronOpen : ""
+                          }`}
+                          aria-hidden="true"
+                        />
                       </button>
 
                       <div
@@ -175,6 +200,7 @@ export default function Header() {
                               href={category.href}
                               onClick={() => setCategoriesOpen(false)}
                             >
+                              <span className={styles.dropdownDot} />
                               {category.label}
                             </Link>
                           ))}
@@ -191,7 +217,8 @@ export default function Header() {
                     className={styles.navLink}
                     onClick={closeMenu}
                   >
-                    {item.label}
+                    <Icon className={styles.navIcon} aria-hidden="true" />
+                    <span>{item.label}</span>
                   </Link>
                 );
               })}
@@ -199,7 +226,8 @@ export default function Header() {
 
             <div className={styles.actions}>
               <Link href="/pridaj_sa" className={styles.ctaButton}>
-                Pridaj sa k nám
+                <span>Pridaj sa k nám</span>
+                <PiArrowRightBold className={styles.ctaIcon} aria-hidden="true" />
               </Link>
 
               <button
@@ -229,6 +257,8 @@ export default function Header() {
         <div className={styles.container}>
           <nav className={styles.mobileNav}>
             {navItems.map((item) => {
+              const Icon = item.icon;
+
               if (item.label === "Mládež") {
                 return (
                   <div key={item.href} className={styles.mobileDropdown}>
@@ -238,7 +268,13 @@ export default function Header() {
                       onClick={handleMobileCategoriesToggle}
                       aria-expanded={mobileCategoriesOpen}
                     >
-                      <span>{item.label}</span>
+                      <span className={styles.mobileNavLabel}>
+                        <Icon
+                          className={styles.mobileNavIcon}
+                          aria-hidden="true"
+                        />
+                        <span>{item.label}</span>
+                      </span>
                       <span
                         className={`${styles.mobileChevron} ${
                           mobileCategoriesOpen ? styles.mobileChevronOpen : ""
@@ -260,6 +296,7 @@ export default function Header() {
                           className={styles.mobileSubmenuLink}
                           onClick={closeMenu}
                         >
+                          <span className={styles.mobileSubmenuDot} />
                           {category.label}
                         </Link>
                       ))}
@@ -275,7 +312,8 @@ export default function Header() {
                   className={styles.mobileNavLink}
                   onClick={closeMenu}
                 >
-                  {item.label}
+                  <Icon className={styles.mobileNavIcon} aria-hidden="true" />
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
@@ -285,7 +323,8 @@ export default function Header() {
               className={styles.mobileCta}
               onClick={closeMenu}
             >
-              Pridaj sa k nám
+              <span>Pridaj sa k nám</span>
+              <PiArrowRightBold aria-hidden="true" />
             </Link>
 
             <div className={styles.mobileSocialRow}>
