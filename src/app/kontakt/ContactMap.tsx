@@ -18,7 +18,7 @@ type ContactMapProps = {
 const ContactMapClient = dynamic<ContactMapProps>(
   () => import("./ContactMapClient"),
   {
-  ssr: false,
+    ssr: false,
     loading: () => (
       <div className={styles.mapLoading}>Pripravujem mapu...</div>
     ),
