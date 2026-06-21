@@ -1,28 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaFlickr,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { getClub, getClubLinkLogoUrl, type ClubLink } from "@/app/lib/club";
+import {
+  getActiveClubLinks,
+  getClubLinkColor,
+  getClubLinkIcon,
+} from "@/app/lib/clubLinks";
 import styles from "./Footer.module.css";
 
 type NavItem = {
   label: string;
   href: string;
-};
-
-type SocialItem = {
-  label: string;
-  href?: string;
-  icon?: ReactNode;
-  color?: string;
 };
 
 const clubLinks: NavItem[] = [
@@ -41,78 +34,10 @@ const categoryLinks: NavItem[] = [
   { label: "Prípravka", href: "/kategorie/pripravka" },
 ];
 
-const socialItems: SocialItem[] = [
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/atukosice/",
-    icon: <FaFacebookF />,
-    color: "#1877f2",
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/@FaBKATUKosice",
-    icon: <FaYoutube />,
-    color: "#ff0000",
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/atu_kosice/",
-    icon: <FaInstagram />,
-    color: "#e4405f",
-  },
-  {
-    label: "Flickr",
-    href: "https://www.flickr.com/photos/155654294@N03/",
-    icon: <FaFlickr />,
-    color: "#ff0084",
-  },
-  {
-    label: "SZFB",
-    href: "https://www.szfb.sk/sk/stats/teams/1164/florbalova-extraliga-muzov/team/669426/fabk-atu-kosice",
-    icon: (
-      <Image
-        src="/logo/szfb_badge.png"
-        alt="SZFB"
-        width={30}
-        height={30}
-        className={styles.socialImageIcon}
-      />
-    ),
-    color: "#111111",
-  },
-  {
-    label: "Obchod",
-    href: "https://www.florbalexpert.cz",
-    icon: (
-      <Image
-        src="/partners/florbalexpert.png"
-        alt="Florbalexpert"
-        width={36}
-        height={36}
-        className={styles.florbalexpertImageIcon}
-      />
-    ),
-    color: "#111111",
-  },
-  {
-    label: "Ludimus",
-    href: "https://www.ludimus.sk",
-    icon: (
-      <Image
-        src="/partners/Ludimus.png"
-        alt="Ludimus"
-        width={36}
-        height={36}
-        className={styles.ludimusImageIcon}
-      />
-    ),
-    color: "#111111",
-  },
-];
-
 export default function Footer() {
   const shareSectionRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [socialItems, setSocialItems] = useState<ClubLink[]>([]);
 
   useEffect(() => {
     const shareSectionElement = shareSectionRef.current;
@@ -135,6 +60,24 @@ export default function Footer() {
 
     return () => {
       observer.disconnect();
+    };
+  }, [socialItems.length]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadClubLinks() {
+      const club = await getClub("atu-kosice");
+
+      if (!isMounted) return;
+
+      setSocialItems(getActiveClubLinks(club?.links));
+    }
+
+    loadClubLinks();
+
+    return () => {
+      isMounted = false;
     };
   }, []);
 
@@ -184,56 +127,75 @@ export default function Footer() {
             </div>
           </nav>
 
-          <div ref={shareSectionRef} className={styles.shareSection}>
-            <h3 className={styles.navTitle}>Odkazy</h3>
+          {socialItems.length > 0 && (
+            <div ref={shareSectionRef} className={styles.shareSection}>
+              <h3 className={styles.navTitle}>Odkazy</h3>
 
-            <div className={styles.shareBlock}>
-              <div className={styles.shareBlockInner}>
-                <div
-                  className={`${styles.shareMenu} ${
-                    isMenuOpen ? styles.shareMenuOpen : ""
-                  }`}
-                  style={
-                    {
-                      "--items": socialItems.length,
-                    } as CSSProperties
-                  }
-                >
-                  <button
-                    type="button"
-                    className={styles.shareToggle}
-                    aria-label="Sociálne odkazy"
-                    aria-expanded={isMenuOpen}
-                    tabIndex={-1}
+              <div className={styles.shareBlock}>
+                <div className={styles.shareBlockInner}>
+                  <div
+                    className={`${styles.shareMenu} ${
+                      isMenuOpen ? styles.shareMenuOpen : ""
+                    }`}
+                    style={
+                      {
+                        "--items": socialItems.length,
+                      } as CSSProperties
+                    }
                   >
-                    <IoShareSocialOutline />
-                  </button>
+                    <button
+                      type="button"
+                      className={styles.shareToggle}
+                      aria-label="Sociálne odkazy"
+                      aria-expanded={isMenuOpen}
+                      tabIndex={-1}
+                    >
+                      <IoShareSocialOutline />
+                    </button>
 
-                  {socialItems.map((item, index) => {
-                    const customStyle = {
-                      "--i": index,
-                      "--clr": item.color ?? "#ffffff",
-                    } as CSSProperties;
+                    {socialItems.map((item, index) => {
+                      const logoUrl = getClubLinkLogoUrl(item);
+                      const customStyle = {
+                        "--i": index,
+                        "--clr": getClubLinkColor(item.icon_type),
+                      } as CSSProperties;
 
-                    return (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={styles.shareItem}
-                        style={customStyle}
-                        aria-label={item.label}
-                        title={item.label}
-                      >
-                        <span className={styles.shareItemIcon}>{item.icon}</span>
-                      </a>
-                    );
-                  })}
+                      return (
+                        <a
+                          key={item.id}
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.shareItem}
+                          style={customStyle}
+                          aria-label={item.title}
+                          title={item.title}
+                        >
+                          <span className={styles.shareItemIcon}>
+                            {logoUrl ? (
+                              <Image
+                                src={logoUrl}
+                                alt=""
+                                width={36}
+                                height={36}
+                                className={`${styles.clubLinkImageIcon} ${
+                                  item.icon_type === "ludimus"
+                                    ? styles.ludimusClubLinkImageIcon
+                                    : ""
+                                }`}
+                              />
+                            ) : (
+                              getClubLinkIcon(item.icon_type)
+                            )}
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className={styles.bottom}>

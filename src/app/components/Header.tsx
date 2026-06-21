@@ -13,6 +13,9 @@ import {
   PiUserCircle,
   PiUsersThree,
 } from "react-icons/pi";
+import { getClub, getClubLinkLogoUrl, type ClubLink } from "@/app/lib/club";
+import { getActiveClubLinks, getClubLinkIcon } from "@/app/lib/clubLinks";
+import { getClubContact } from "@/app/lib/contact";
 import styles from "./Header.module.css";
 
 type NavItem = {
@@ -37,11 +40,15 @@ const categoryItems = [
   { href: "/kategorie/juniori", label: "Juniori" },
 ];
 
+const headerLinkIconTypes = new Set(["instagram", "youtube", "facebook"]);
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
+  const [contactEmail, setContactEmail] = useState("");
+  const [clubLinks, setClubLinks] = useState<ClubLink[]>([]);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -63,6 +70,32 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadClubInfo() {
+      const [club, contact] = await Promise.all([
+        getClub("atu-kosice"),
+        getClubContact("atu-kosice"),
+      ]);
+
+      if (!isMounted) return;
+
+      setClubLinks(
+        getActiveClubLinks(club?.links).filter((link) =>
+          headerLinkIconTypes.has(link.icon_type)
+        )
+      );
+      setContactEmail(contact?.email ?? "");
+    }
+
+    loadClubInfo();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -92,46 +125,40 @@ export default function Header() {
             </div>
 
             <div className={styles.topRight}>
-              <a href="mailto:info@atukosice.sk">info@atukosice.sk</a>
+              {contactEmail && (
+                <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+              )}
 
-              <div className={styles.socialLinks}>
-                <a
-                  href="https://www.facebook.com/atukosice/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Facebook ATU Košice"
-                  className={styles.socialLink}
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M22 12.07C22 6.49 17.52 2 12 2S2 6.49 2 12.07C2 17.1 5.66 21.27 10.44 22v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47H15.2c-1.24 0-1.63.78-1.63 1.57v1.89h2.77l-.44 2.9h-2.33V22C18.34 21.27 22 17.1 22 12.07Z" />
-                  </svg>
-                </a>
+              {clubLinks.length > 0 && (
+                <div className={styles.socialLinks}>
+                  {clubLinks.map((link) => {
+                    const logoUrl = getClubLinkLogoUrl(link);
 
-                <a
-                  href="https://www.instagram.com/atu_kosice/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Instagram ATU Košice"
-                  className={styles.socialLink}
-                >
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.9 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z" />
-                  </svg>
-                </a>
-                <a
-                  href="https://www.flickr.com/photos/155654294@N03/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Flickr ATU Košice"
-                  className={styles.socialLink}
-                >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <circle cx="7" cy="12" r="4" />
-                  <circle cx="17" cy="12" r="4" />
-                </svg>
-
-              </a>
-              </div>
+                    return (
+                      <a
+                        key={link.id}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={link.title}
+                        className={styles.socialLink}
+                      >
+                        {logoUrl ? (
+                          <Image
+                            src={logoUrl}
+                            alt=""
+                            width={22}
+                            height={22}
+                            className={styles.socialLogo}
+                          />
+                        ) : (
+                          getClubLinkIcon(link.icon_type)
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -327,43 +354,36 @@ export default function Header() {
               <PiArrowRightBold aria-hidden="true" />
             </Link>
 
-            <div className={styles.mobileSocialRow}>
-              <a
-                href="https://www.facebook.com/atukosice/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook ATU Košice"
-                className={styles.mobileSocialIcon}
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M22 12.07C22 6.49 17.52 2 12 2S2 6.49 2 12.07C2 17.1 5.66 21.27 10.44 22v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47H15.2c-1.24 0-1.63.78-1.63 1.57v1.89h2.77l-.44 2.9h-2.33V22C18.34 21.27 22 17.1 22 12.07Z" />
-                </svg>
-              </a>
+            {clubLinks.length > 0 && (
+              <div className={styles.mobileSocialRow}>
+                {clubLinks.map((link) => {
+                  const logoUrl = getClubLinkLogoUrl(link);
 
-              <a
-                href="https://www.instagram.com/atu_kosice/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram ATU Košice"
-                className={styles.mobileSocialIcon}
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm8.9 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.flickr.com/photos/155654294@N03/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Flickr ATU Košice"
-                className={styles.mobileSocialIcon}
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <circle cx="7" cy="12" r="4" />
-                  <circle cx="17" cy="12" r="4" />
-                </svg>
-              </a>
-            </div>
+                  return (
+                    <a
+                      key={link.id}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={link.title}
+                      className={styles.mobileSocialIcon}
+                    >
+                      {logoUrl ? (
+                        <Image
+                          src={logoUrl}
+                          alt=""
+                          width={26}
+                          height={26}
+                          className={styles.mobileSocialLogo}
+                        />
+                      ) : (
+                        getClubLinkIcon(link.icon_type)
+                      )}
+                    </a>
+                  );
+                })}
+              </div>
+            )}
 
           </nav>
         </div>

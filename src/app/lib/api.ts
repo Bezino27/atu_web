@@ -134,3 +134,63 @@ export function normalizeHtmlMediaUrls(html?: string | null) {
     },
   );
 }
+export type PageSection = {
+  id: number;
+  section_type:
+    | "hero"
+    | "top_posts"
+    | "posts"
+    | "matches_overview"
+    | "next_match"
+    | "recent_matches"
+    | "standings"
+    | "partners"
+    | "poll"
+    | "recruitment"
+    | "links"
+    | "contact"
+    | "documents"
+    | "gallery"
+    | "achievements"
+    | "custom_text";
+  title: string;
+  pre_title: string;
+  order: number;
+  is_active: boolean;
+  hide_when_empty: boolean;
+  config: Record<string, unknown>;
+};
+
+export type ClubHomePage = {
+  id: number;
+  title: string;
+  slug: string;
+  menu_title: string;
+  page_type: string;
+  is_homepage: boolean;
+  meta_title: string;
+  meta_description: string;
+  club_slug: string;
+  sections: PageSection[];
+};
+
+export async function getClubHomePage(
+  clubSlug: string,
+): Promise<ClubHomePage | null> {
+  try {
+    const res = await fetch(
+      `${API_URL}/public/pages/${clubSlug}/home/`,
+      getApiFetchOptions(60),
+    );
+
+    if (!res.ok) {
+      console.error(`Nepodarilo sa načítať homepage: ${res.status}`);
+      return null;
+    }
+
+    return (await res.json()) as ClubHomePage;
+  } catch (error) {
+    console.error("Chyba pri načítaní homepage:", error);
+    return null;
+  }
+}

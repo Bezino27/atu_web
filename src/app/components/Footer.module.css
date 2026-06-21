@@ -186,6 +186,30 @@
     drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
 }
 
+.clubLinkImageIcon {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition:
+    transform 0.28s ease,
+    filter 0.28s ease;
+}
+
+.shareItem:hover .clubLinkImageIcon {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
+}
+
+.ludimusClubLinkImageIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+}
+
 /* # SHARE SECTION */
 .shareSection {
   min-width: 0;
@@ -541,6 +565,16 @@
     height: 32px;
   }
 
+  .clubLinkImageIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .ludimusClubLinkImageIcon {
+    width: 42px;
+    height: 42px;
+  }
+
   .shareMenuOpen .shareItem {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
@@ -650,6 +684,16 @@
   .florbalexpertImageIcon {
     width: 29px;
     height: 29px;
+  }
+
+  .clubLinkImageIcon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .ludimusClubLinkImageIcon {
+    width: 38px;
+    height: 38px;
   }
 
   .shareMenuOpen .shareItem {

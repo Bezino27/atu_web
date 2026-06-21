@@ -49,6 +49,19 @@
   height: 17px;
 }
 
+.socialLink span {
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.socialLogo {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
 .socialLink:hover {
   transform: translateY(-1px);
   background: var(--color-text-soft);
@@ -611,6 +624,19 @@
 .mobileSocialIcon svg {
   width: 19px;
   height: 19px;
+}
+
+.mobileSocialIcon span {
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.mobileSocialLogo {
+  display: block;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
 
 .mobileSocialIcon:hover {

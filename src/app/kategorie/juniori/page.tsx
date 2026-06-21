@@ -212,7 +212,7 @@ export default async function JunioriPage() {
           <div className={styles.resultsHeader}>
             <div>
               <span className={styles.preTitle}>Zápasy</span>
-              <h2 className={styles.sectionTitle}>Najbližší zápas a výsledok</h2>
+              <h2 className={styles.sectionTitle}>Featured Zápasy</h2>
             </div>
           </div>
 
