@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   },
 };
 
+const CLUB_SLUG = "atu-kosice";
+const PAGE_SLUG = "pridaj-sa";
+
 const benefits = [
   {
     id: 1,
@@ -80,6 +83,81 @@ type FaqItem = {
   question: string;
   answer: string | string[];
 };
+
+type PageSection = {
+  id: number;
+  section_type: string;
+  title: string;
+  pre_title: string;
+  order: number;
+  is_active: boolean;
+  hide_when_empty: boolean;
+  config: Record<string, unknown>;
+};
+
+type ClubPage = {
+  id: number;
+  title: string;
+  slug: string;
+  menu_title: string;
+  page_type: string;
+  is_published: boolean;
+  club_slug: string;
+  sections: PageSection[];
+};
+
+const fallbackSections: PageSection[] = [
+  {
+    id: -1,
+    section_type: "hero",
+    title: "Poď hrať florbal",
+    pre_title: "ATU KOŠICE / MLÁDEŽ",
+    order: 1,
+    is_active: true,
+    hide_when_empty: false,
+    config: {},
+  },
+  {
+    id: -2,
+    section_type: "benefits",
+    title: "Prečo ATU",
+    pre_title: "",
+    order: 2,
+    is_active: true,
+    hide_when_empty: false,
+    config: {},
+  },
+  {
+    id: -3,
+    section_type: "team_categories",
+    title: "Kategórie",
+    pre_title: "",
+    order: 3,
+    is_active: true,
+    hide_when_empty: false,
+    config: {},
+  },
+  {
+    id: -4,
+    section_type: "faq",
+    title: "Časté otázky",
+    pre_title: "FAQ",
+    order: 4,
+    is_active: true,
+    hide_when_empty: false,
+    config: {},
+  },
+  {
+    id: -5,
+    section_type: "contact",
+    title: "Príďte si vyskúšať tréning",
+    pre_title: "KONTAKT",
+    order: 5,
+    is_active: true,
+    hide_when_empty: false,
+    config: {},
+  },
+];
 
 const categoryHrefMap: Record<string, string> = {
   pripravka: "/kategorie/pripravka",
@@ -168,10 +246,18 @@ function sortCategoriesFromYoungestToOldest(categories: BackendCategory[]) {
   });
 }
 
+function getSectionPreTitle(section: PageSection, fallback: string) {
+  return section.pre_title?.trim() || fallback;
+}
+
+function getSectionTitle(section: PageSection, fallback: string) {
+  return section.title?.trim() || fallback;
+}
+
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const res = await fetch(
-      `${API_URL}/public/teams/atu-kosice/`,
+      `${API_URL}/public/teams/${CLUB_SLUG}/`,
       getApiFetchOptions(600)
     );
 
@@ -188,6 +274,25 @@ async function getCategories(): Promise<BackendCategory[]> {
     return data;
   } catch {
     return [];
+  }
+}
+
+async function getRecruitmentPage(): Promise<ClubPage | null> {
+  try {
+    const res = await fetch(
+      `${API_URL}/public/pages/${CLUB_SLUG}/by-slug/${PAGE_SLUG}/`,
+      getApiFetchOptions(60)
+    );
+
+    if (!res.ok) {
+      console.error(`Nepodarilo sa načítať stránku Pridaj sa: ${res.status}`);
+      return null;
+    }
+
+    return (await res.json()) as ClubPage;
+  } catch (error) {
+    console.error("Chyba pri načítaní stránky Pridaj sa:", error);
+    return null;
   }
 }
 
@@ -234,137 +339,235 @@ const faqItems: FaqItem[] = [
 export default async function PridajSaPage() {
   await connection();
 
-  const categories = await getCategories();
+  const [recruitmentPage, categories] = await Promise.all([
+    getRecruitmentPage(),
+    getCategories(),
+  ]);
+
+  const sections =
+    recruitmentPage?.sections && recruitmentPage.sections.length > 0
+      ? [...recruitmentPage.sections]
+          .filter((section) => section.is_active)
+          .sort((a, b) => a.order - b.order || a.id - b.id)
+      : fallbackSections;
+
   const sortedCategories = sortCategoriesFromYoungestToOldest(categories);
+
+  const renderHeroSection = (section: PageSection) => {
+    return (
+      <section key={section.id} className={styles.heroSection}>
+        <div className={styles.heroCard}>
+          <Image
+            src="/images/nabor-hero.jpg"
+            alt="Deti na tréningu ATU Košice"
+            fill
+            priority
+            unoptimized
+            sizes="(max-width: 768px) 100vw, 1300px"
+            className={styles.heroBackgroundImage}
+          />
+          <div className={styles.heroOverlay} />
+
+          <div className={styles.heroInner}>
+            <div className={styles.heroGlassBadge}>
+              <span>
+                {getSectionPreTitle(section, "ATU KOŠICE / MLÁDEŽ")}
+              </span>
+            </div>
+
+            <div className={styles.heroContent}>
+              <h1 className={styles.heroTitle}>
+                {getSectionTitle(section, "Poď hrať florbal")}
+              </h1>
+
+              <p className={styles.heroText}>
+                Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom
+                klubovom prostredí s osobným prístupom.
+              </p>
+
+              <div className={styles.heroActions}>
+                <a href="#kontakt" className={styles.primaryButton}>
+                  Chcem skúsiť tréning
+                </a>
+                <a href="#kategorie" className={styles.secondaryButton}>
+                  Pozrieť kategórie
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
+  const renderBenefitsSection = (section: PageSection) => {
+    if (section.hide_when_empty && benefits.length === 0) {
+      return null;
+    }
+
+    return (
+      <section key={section.id} className="sectionContainer">
+        <BenefitsCarouselSection items={benefits} />
+      </section>
+    );
+  };
+
+  const renderTeamCategoriesSection = (section: PageSection) => {
+    if (section.hide_when_empty && sortedCategories.length === 0) {
+      return null;
+    }
+
+    return (
+      <section key={section.id} id="kategorie" className="sectionContainer">
+        <div className="sectionHeader">
+          {section.pre_title?.trim() && (
+            <span className="preTitle">{section.pre_title}</span>
+          )}
+          <h2 className="sectionTitle">
+            {getSectionTitle(section, "Kategórie")}
+          </h2>
+        </div>
+
+        {sortedCategories.length > 0 ? (
+          <div className={styles.categoriesGrid}>
+            {sortedCategories.map((category) => (
+              <Link
+                key={category.id}
+                href={getCategoryHref(category)}
+                className={styles.categoryCard}
+              >
+                <div className={styles.categoryCardContent}>
+                  <div className={styles.categoryTop}>
+                    <h3 className={styles.categoryTitle}>{category.name}</h3>
+
+                    <span className={styles.categoryMeta}>
+                      {getCategoryDisplayYears(category)}
+                    </span>
+                  </div>
+
+                  <span className={styles.categoryWatermark}>
+                    {getCategorySubname(category)}
+                  </span>
+
+                  <span className={styles.categoryArrow} aria-hidden="true">
+                    →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className={styles.emptyText}>
+            Momentálne nie sú dostupné žiadne kategórie.
+          </p>
+        )}
+      </section>
+    );
+  };
+
+  const renderFaqSection = (section: PageSection) => {
+    if (section.hide_when_empty && faqItems.length === 0) {
+      return null;
+    }
+
+    return (
+      <section key={section.id} className="sectionContainer">
+        <div className="sectionHeader">
+          <span className="preTitle">
+            {getSectionPreTitle(section, "FAQ")}
+          </span>
+          <h2 className="sectionTitle">
+            {getSectionTitle(section, "Časté otázky")}
+          </h2>
+        </div>
+
+        <div className={styles.faqList}>
+          {faqItems.map((item) => (
+            <details key={item.question} className={styles.faqItem}>
+              <summary className={styles.faqQuestion}>
+                <span className={styles.faqQuestionText}>
+                  {item.question}
+                </span>
+                <span className={styles.faqChevron}>+</span>
+              </summary>
+
+              <div className={styles.faqAnswer}>
+                {Array.isArray(item.answer) ? (
+                  <div className={styles.faqAnswerList}>
+                    {item.answer.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <p>{item.answer}</p>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    );
+  };
+
+  const renderContactSection = (section: PageSection) => {
+    return (
+      <section key={section.id} id="kontakt" className="sectionContainer">
+        <div className="sectionHeader">
+          <span className="preTitle">
+            {getSectionPreTitle(section, "KONTAKT")}
+          </span>
+          <h2 className="sectionTitle">
+            {getSectionTitle(section, "Príďte si vyskúšať tréning")}
+          </h2>
+        </div>
+
+        <RecruitmentForm />
+      </section>
+    );
+  };
+
+  const renderUnsupportedSection = (section: PageSection) => {
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        `[Pridaj sa] Section "${section.section_type}" is configured but not implemented.`
+      );
+    }
+
+    return null;
+  };
+
+  const renderSection = (section: PageSection) => {
+    switch (section.section_type) {
+      case "hero":
+        return renderHeroSection(section);
+
+      case "benefits":
+        return renderBenefitsSection(section);
+
+      case "team_categories":
+        return renderTeamCategoriesSection(section);
+
+      case "faq":
+        return renderFaqSection(section);
+
+      case "contact":
+      case "recruitment":
+        return renderContactSection(section);
+
+      case "documents":
+      case "links":
+      case "custom_text":
+      default:
+        return renderUnsupportedSection(section);
+    }
+  };
 
   return (
     <main className={styles.pageContainer}>
       <Header />
 
       <div className={styles.content}>
-        <section className={styles.heroSection}>
-          <div className={styles.heroCard}>
-            <Image
-              src="/images/nabor-hero.jpg"
-              alt="Deti na tréningu ATU Košice"
-              fill
-              priority
-              unoptimized
-              sizes="(max-width: 768px) 100vw, 1300px"
-              className={styles.heroBackgroundImage}
-            />
-            <div className={styles.heroOverlay} />
-
-            <div className={styles.heroInner}>
-              <div className={styles.heroGlassBadge}>
-                <span>ATU KOŠICE / MLÁDEŽ</span>
-              </div>
-
-              <div className={styles.heroContent}>
-                <h1 className={styles.heroTitle}>Poď hrať florbal</h1>
-
-                <p className={styles.heroText}>
-                  Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom
-                  klubovom prostredí s osobným prístupom.
-                </p>
-
-                <div className={styles.heroActions}>
-                  <a href="#kontakt" className={styles.primaryButton}>
-                    Chcem skúsiť tréning
-                  </a>
-                  <a href="#kategorie" className={styles.secondaryButton}>
-                    Pozrieť kategórie
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="sectionContainer">
-          <BenefitsCarouselSection items={benefits} />
-        </section>
-
-        <section id="kategorie" className="sectionContainer">
-          <div className="sectionHeader">
-            <h2 className="sectionTitle">Kategórie</h2>
-          </div>
-
-          {sortedCategories.length > 0 ? (
-            <div className={styles.categoriesGrid}>
-              {sortedCategories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={getCategoryHref(category)}
-                  className={styles.categoryCard}
-                >
-                  <div className={styles.categoryCardContent}>
-                    <div className={styles.categoryTop}>
-                      <h3 className={styles.categoryTitle}>{category.name}</h3>
-
-                      <span className={styles.categoryMeta}>
-                        {getCategoryDisplayYears(category)}
-                      </span>
-                    </div>
-
-                    <span className={styles.categoryWatermark}>
-                      {getCategorySubname(category)}
-                    </span>
-
-                    <span className={styles.categoryArrow} aria-hidden="true">
-                      →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className={styles.emptyText}>
-              Momentálne nie sú dostupné žiadne kategórie.
-            </p>
-          )}
-        </section>
-
-        <section className="sectionContainer">
-          <div className="sectionHeader">
-            <span className="preTitle">FAQ</span>
-            <h2 className="sectionTitle">Časté otázky</h2>
-          </div>
-
-          <div className={styles.faqList}>
-            {faqItems.map((item) => (
-              <details key={item.question} className={styles.faqItem}>
-                <summary className={styles.faqQuestion}>
-                  <span className={styles.faqQuestionText}>
-                    {item.question}
-                  </span>
-                  <span className={styles.faqChevron}>+</span>
-                </summary>
-
-                <div className={styles.faqAnswer}>
-                  {Array.isArray(item.answer) ? (
-                    <div className={styles.faqAnswerList}>
-                      {item.answer.map((line) => (
-                        <p key={line}>{line}</p>
-                      ))}
-                    </div>
-                  ) : (
-                    <p>{item.answer}</p>
-                  )}
-                </div>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <section id="kontakt" className="sectionContainer">
-          <div className="sectionHeader">
-            <span className="preTitle">KONTAKT</span>
-            <h2 className="sectionTitle">Príďte si vyskúšať tréning</h2>
-          </div>
-
-          <RecruitmentForm />
-        </section>
+        {sections.map((section) => renderSection(section))}
       </div>
 
       <Footer />

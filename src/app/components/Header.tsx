@@ -16,6 +16,12 @@ import {
 import { getClub, getClubLinkLogoUrl, type ClubLink } from "@/app/lib/club";
 import { getActiveClubLinks, getClubLinkIcon } from "@/app/lib/clubLinks";
 import { getClubContact } from "@/app/lib/contact";
+import {
+  getClubNavigation,
+  getNavigationLabel,
+  type NavigationDropdown,
+  type NavigationPage,
+} from "@/app/lib/pages";
 import styles from "./Header.module.css";
 
 type NavItem = {
@@ -41,6 +47,64 @@ const categoryItems = [
 ];
 
 const headerLinkIconTypes = new Set(["instagram", "youtube", "facebook"]);
+const CLUB_SLUG = "atu-kosice";
+
+type CategoryItem = {
+  href: string;
+  label: string;
+};
+
+type HeaderCta = {
+  href: string;
+  label: string;
+};
+
+function getNavigationIcon(page: NavigationPage): IconType {
+  if (page.url === "/") return PiHouse;
+  if (page.page_type === "about" || page.slug === "o-klube") return PiShieldCheck;
+  if (page.page_type === "contact" || page.slug === "kontakt") {
+    return PiEnvelopeSimple;
+  }
+  if (page.page_type === "category" || page.page_type === "team_category") {
+    return PiUsersThree;
+  }
+
+  return PiUserCircle;
+}
+
+function mapNavigationPages(pages: NavigationPage[]): NavItem[] {
+  return pages.map((page) => ({
+    href: page.url,
+    label: getNavigationLabel(page),
+    icon: getNavigationIcon(page),
+  }));
+}
+
+function mapDropdown(dropdown: NavigationDropdown): CategoryItem[] {
+  return dropdown.items.map((item) => ({
+    href: item.url,
+    label: getNavigationLabel(item),
+  }));
+}
+
+function addYouthDropdownItem(items: NavItem[], title: string): NavItem[] {
+  if (items.some((item) => item.label === title)) {
+    return items;
+  }
+
+  const dropdownItem = { href: "/kategorie", label: title, icon: PiUserCircle };
+  const teamIndex = items.findIndex((item) => item.href === "/kategorie/muzi");
+
+  if (teamIndex === -1) {
+    return [...items, dropdownItem];
+  }
+
+  return [
+    ...items.slice(0, teamIndex + 1),
+    dropdownItem,
+    ...items.slice(teamIndex + 1),
+  ];
+}
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,6 +113,13 @@ export default function Header() {
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
   const [contactEmail, setContactEmail] = useState("");
   const [clubLinks, setClubLinks] = useState<ClubLink[]>([]);
+  const [navigationItems, setNavigationItems] = useState<NavItem[]>(navItems);
+  const [youthDropdownTitle, setYouthDropdownTitle] = useState("Mládež");
+  const [youthItems, setYouthItems] = useState<CategoryItem[]>(categoryItems);
+  const [ctaItem, setCtaItem] = useState<HeaderCta>({
+    href: "/pridaj_sa",
+    label: "Pridaj sa k nám",
+  });
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -76,9 +147,10 @@ export default function Header() {
     let isMounted = true;
 
     async function loadClubInfo() {
-      const [club, contact] = await Promise.all([
-        getClub("atu-kosice"),
-        getClubContact("atu-kosice"),
+      const [club, contact, navigation] = await Promise.all([
+        getClub(CLUB_SLUG),
+        getClubContact(CLUB_SLUG),
+        getClubNavigation(CLUB_SLUG),
       ]);
 
       if (!isMounted) return;
@@ -89,6 +161,34 @@ export default function Header() {
         )
       );
       setContactEmail(contact?.email ?? "");
+
+      if (navigation) {
+        const mappedMain = mapNavigationPages(navigation.main);
+
+        const youthDropdown = navigation.dropdowns.find(
+          (dropdown) => dropdown.group === "youth" || dropdown.title === "Mládež",
+        );
+
+        if (mappedMain.length) {
+          setNavigationItems(
+            youthDropdown
+              ? addYouthDropdownItem(mappedMain, youthDropdown.title || "Mládež")
+              : mappedMain,
+          );
+        }
+
+        if (youthDropdown?.items.length) {
+          setYouthDropdownTitle(youthDropdown.title || "Mládež");
+          setYouthItems(mapDropdown(youthDropdown));
+        }
+
+        if (navigation.cta) {
+          setCtaItem({
+            href: navigation.cta.url,
+            label: getNavigationLabel(navigation.cta),
+          });
+        }
+      }
     }
 
     loadClubInfo();
@@ -184,10 +284,10 @@ export default function Header() {
             </Link>
 
             <nav className={styles.desktopNav}>
-              {navItems.map((item) => {
+              {navigationItems.map((item) => {
                 const Icon = item.icon;
 
-                if (item.label === "Mládež") {
+                if (item.label === youthDropdownTitle) {
                   return (
                     <div
                       key={item.href}
@@ -221,7 +321,7 @@ export default function Header() {
                             Výber kategórie
                           </span>
 
-                          {categoryItems.map((category) => (
+                          {youthItems.map((category) => (
                             <Link
                               key={category.href}
                               href={category.href}
@@ -252,8 +352,8 @@ export default function Header() {
             </nav>
 
             <div className={styles.actions}>
-              <Link href="/pridaj_sa" className={styles.ctaButton}>
-                <span>Pridaj sa k nám</span>
+              <Link href={ctaItem.href} className={styles.ctaButton}>
+                <span>{ctaItem.label}</span>
                 <PiArrowRightBold className={styles.ctaIcon} aria-hidden="true" />
               </Link>
 
@@ -283,10 +383,10 @@ export default function Header() {
       >
         <div className={styles.container}>
           <nav className={styles.mobileNav}>
-            {navItems.map((item) => {
+            {navigationItems.map((item) => {
               const Icon = item.icon;
 
-              if (item.label === "Mládež") {
+              if (item.label === youthDropdownTitle) {
                 return (
                   <div key={item.href} className={styles.mobileDropdown}>
                     <button
@@ -316,7 +416,7 @@ export default function Header() {
                         mobileCategoriesOpen ? styles.mobileSubmenuOpen : ""
                       }`}
                     >
-                      {categoryItems.map((category) => (
+                      {youthItems.map((category) => (
                         <Link
                           key={category.href}
                           href={category.href}
@@ -346,11 +446,11 @@ export default function Header() {
             })}
             
             <Link
-              href="/pridaj_sa"
+              href={ctaItem.href}
               className={styles.mobileCta}
               onClick={closeMenu}
             >
-              <span>Pridaj sa k nám</span>
+              <span>{ctaItem.label}</span>
               <PiArrowRightBold aria-hidden="true" />
             </Link>
 

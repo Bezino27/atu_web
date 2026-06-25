@@ -15,6 +15,14 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import {
+  getActiveSortedSections,
+  getClubPageBySlug,
+  getSectionPreTitle,
+  getSectionTitle,
+  warnUnsupportedSection,
+  type PageSection,
+} from "@/app/lib/pages";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
 
 export const metadata: Metadata = {
@@ -53,6 +61,14 @@ type BackendCategory = {
 const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "pripravka";
 const CATEGORY_FALLBACK_NAME = "Prípravka";
+
+const fallbackSections: PageSection[] = [
+  { id: -1, section_type: "hero", title: "", pre_title: "", order: 1, is_active: true, hide_when_empty: false, config: {} },
+  { id: -2, section_type: "links", title: "Odkazy", pre_title: "SZFB", order: 2, is_active: true, hide_when_empty: false, config: {} },
+  { id: -3, section_type: "trainings", title: "Kde trénujeme", pre_title: "TRÉNINGY", order: 3, is_active: true, hide_when_empty: false, config: {} },
+  { id: -4, section_type: "recruitment", title: "", pre_title: "NÁBOR", order: 4, is_active: true, hide_when_empty: false, config: {} },
+  { id: -5, section_type: "posts", title: "Najdôležitejšie novinky", pre_title: "AKTUÁLNE DIANIE", order: 5, is_active: true, hide_when_empty: false, config: {} },
+];
 
 function normalizeText(value?: string | null) {
   return (
@@ -115,7 +131,8 @@ async function getCategories(): Promise<BackendCategory[]> {
 const PripravkaPage = async () => {
   await connection();
 
-  const [posts, categories] = await Promise.all([
+  const [categoryPage, posts, categories] = await Promise.all([
+    getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
     getHomepagePosts(CLUB_SLUG),
     getCategories(),
   ]);
@@ -132,6 +149,7 @@ const PripravkaPage = async () => {
   );
 
   const mladezPosts = posts.filter(isYouthPost);
+  const sections = getActiveSortedSections(categoryPage?.sections, fallbackSections);
 
   const szfbLinks = [
     {
@@ -149,7 +167,11 @@ const PripravkaPage = async () => {
       <Header />
 
       <main className={styles.content}>
-        <section className={styles.heroSection}>
+        {sections.map((section) => {
+          switch (section.section_type) {
+            case "hero":
+              return (
+        <section key={section.id} className={styles.heroSection}>
           <div className={styles.bannerContainer}>
             <Image
               src={heroImage}
@@ -162,7 +184,9 @@ const PripravkaPage = async () => {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>{categoryName}</h1>
+                <h1 className={styles.bannerTitleziaci}>
+                  {getSectionTitle(section, categoryName)}
+                </h1>
 
                 <div className={styles.heroQuickNav}>
                   <a href="#odkazy" className={styles.heroQuickLink}>
@@ -179,12 +203,14 @@ const PripravkaPage = async () => {
             </div>
           </div>
         </section>
-
-        <section id="odkazy" className="sectionContainer">
+              );
+            case "links":
+              return (
+        <section key={section.id} id="odkazy" className="sectionContainer">
           <div className="resultsHeader">
             <div>
-              <span className="preTitle">SZFB</span>
-              <h2 className="sectionTitle">Odkazy</h2>
+              <span className="preTitle">{getSectionPreTitle(section, "SZFB")}</span>
+              <h2 className="sectionTitle">{getSectionTitle(section, "Odkazy")}</h2>
             </div>
           </div>
 
@@ -213,36 +239,54 @@ const PripravkaPage = async () => {
             </div>
           </div>
         </section>
-
-        <section id="treningy" className="sectionContainer">
+              );
+            case "trainings":
+              return (
+        <section key={section.id} id="treningy" className="sectionContainer">
           <KdeTrenujeme />
         </section>
-
-        <section id="nabor" className="sectionContainer">
+              );
+            case "recruitment":
+              return (
+        <section key={section.id} id="nabor" className="sectionContainer">
           <div className="resultsHeader">
             <div>
-              <span className="preTitle">NÁBOR</span>
+              <span className="preTitle">{getSectionPreTitle(section, "NÁBOR")}</span>
               <h2 className="sectionTitle">
-              Chceš hrať za kategóriu {categoryName.toLowerCase()}?
+              {getSectionTitle(section, `Chceš hrať za kategóriu ${categoryName.toLowerCase()}?`)}
             </h2>
             </div>
           </div>
 
           <Nabor />
         </section>
+              );
+            case "posts":
+              if (section.hide_when_empty && mladezPosts.length === 0) {
+                return null;
+              }
 
-        <section id="novinky" className="sectionContainer">
+              return (
+        <section key={section.id} id="novinky" className="sectionContainer">
           <div className="resultsHeader">
             <div>
-              <span className="preTitle">AKTUÁLNE DIANIE</span>
+              <span className="preTitle">
+                {getSectionPreTitle(section, "AKTUÁLNE DIANIE")}
+              </span>
               <h2 className="sectionTitle">
-              Najdôležitejšie novinky
+              {getSectionTitle(section, "Najdôležitejšie novinky")}
             </h2>
             </div>
           </div>
 
           <Novinky posts={mladezPosts} />
         </section>
+              );
+            default:
+              warnUnsupportedSection("/kategorie/pripravka", section.section_type);
+              return null;
+          }
+        })}
       </main>
 
       <Footer />

@@ -1,8 +1,7 @@
-import styles from "./o-klube.module.css";
 import Image from "next/image";
+import styles from "./o-klube.module.css";
 
 type MedalType = "gold" | "silver" | "bronze";
-
 
 type MedalItem = {
   count: string;

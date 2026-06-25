@@ -13,4 +13,4 @@ services:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: http://atukosice.sk:8000/api
       NEXT_PUBLIC_MEDIA_ORIGIN: https://atukosice.sk
-
+      REVALIDATE_SECRET: ${REVALIDATE_SECRET}

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import styles from "./o-klube.module.css";
-import { heroInfoCards, heroLocations } from "./o-klube-hero-data";
+import { heroInfoCards, heroLocations } from "@/app/lib/o-klube-hero-data";
 
 const ClubVenueMap = dynamic(() => import("./ClubVenueMap"), {
   ssr: false,

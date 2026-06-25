@@ -11,6 +11,7 @@ import {
   getClubLinkColor,
   getClubLinkIcon,
 } from "@/app/lib/clubLinks";
+import { getClubNavigation, getNavigationLabel } from "@/app/lib/pages";
 import styles from "./Footer.module.css";
 
 type NavItem = {
@@ -19,6 +20,7 @@ type NavItem = {
 };
 
 const clubLinks: NavItem[] = [
+  { label: "Domov", href: "/" },
   { label: "O klube", href: "/o-klube" },
   { label: "Kontakt", href: "/kontakt" },
   { label: "Pridaj sa", href: "/pridaj_sa" },
@@ -26,7 +28,7 @@ const clubLinks: NavItem[] = [
 ];
 
 const categoryLinks: NavItem[] = [
-  { label: "Muži", href: "/kategorie/muzi" },
+  { label: "A-tím", href: "/kategorie/muzi" },
   { label: "Juniori", href: "/kategorie/juniori" },
   { label: "Dorastenci", href: "/kategorie/dorast" },
   { label: "Starší žiaci", href: "/kategorie/starsi-ziaci" },
@@ -34,10 +36,45 @@ const categoryLinks: NavItem[] = [
   { label: "Prípravka", href: "/kategorie/pripravka" },
 ];
 
+const CLUB_SLUG = "atu-kosice";
+
+function isCategoryHref(href: string) {
+  return href.startsWith("/kategorie/");
+}
+
+function removeDuplicatesByHref(items: NavItem[]) {
+  return items.filter((item, index, array) => {
+    return array.findIndex((arrayItem) => arrayItem.href === item.href) === index;
+  });
+}
+
+function normalizeFooterLinks(items: NavItem[], categories: NavItem[]) {
+  const categoryHrefs = new Set(categories.map((item) => item.href));
+
+  const cleanedItems = items.filter((item) => {
+    if (isCategoryHref(item.href)) {
+      return false;
+    }
+
+    return !categoryHrefs.has(item.href);
+  });
+
+  const hasHome = cleanedItems.some((item) => item.href === "/");
+
+  const withHome = hasHome
+    ? cleanedItems
+    : [{ label: "Domov", href: "/" }, ...cleanedItems];
+
+  return removeDuplicatesByHref(withHome);
+}
+
 export default function Footer() {
   const shareSectionRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [socialItems, setSocialItems] = useState<ClubLink[]>([]);
+  const [footerLinks, setFooterLinks] = useState<NavItem[]>(clubLinks);
+  const [footerCategoryLinks, setFooterCategoryLinks] =
+    useState<NavItem[]>(categoryLinks);
 
   useEffect(() => {
     const shareSectionElement = shareSectionRef.current;
@@ -66,15 +103,60 @@ export default function Footer() {
   useEffect(() => {
     let isMounted = true;
 
-    async function loadClubLinks() {
-      const club = await getClub("atu-kosice");
+    async function loadFooterData() {
+      const [club, navigation] = await Promise.all([
+        getClub(CLUB_SLUG),
+        getClubNavigation(CLUB_SLUG),
+      ]);
 
       if (!isMounted) return;
 
       setSocialItems(getActiveClubLinks(club?.links));
+
+      const youthDropdown = navigation?.dropdowns.find(
+        (dropdown) => dropdown.group === "youth" || dropdown.title === "Mládež"
+      );
+
+      const youthCategoryLinks = youthDropdown?.items.length
+        ? youthDropdown.items.map((page) => ({
+            label: getNavigationLabel(page),
+            href: page.url,
+          }))
+        : categoryLinks.filter((item) => item.href !== "/kategorie/muzi");
+
+      const mainTeamPage = navigation?.main.find(
+        (page) => page.url === "/kategorie/muzi"
+      );
+
+      const mainTeamLink: NavItem = mainTeamPage
+        ? {
+            label: getNavigationLabel(mainTeamPage),
+            href: mainTeamPage.url,
+          }
+        : { label: "A-tím", href: "/kategorie/muzi" };
+
+      const backendCategoryLinks = removeDuplicatesByHref([
+        mainTeamLink,
+        ...youthCategoryLinks,
+      ]);
+
+      setFooterCategoryLinks(backendCategoryLinks);
+
+      if (navigation?.footer.length) {
+        const backendFooterLinks = navigation.footer.map((page) => ({
+          label: getNavigationLabel(page),
+          href: page.url,
+        }));
+
+        setFooterLinks(
+          normalizeFooterLinks(backendFooterLinks, backendCategoryLinks)
+        );
+      } else {
+        setFooterLinks(normalizeFooterLinks(clubLinks, backendCategoryLinks));
+      }
     }
 
-    loadClubLinks();
+    loadFooterData();
 
     return () => {
       isMounted = false;
@@ -99,10 +181,10 @@ export default function Footer() {
         <div className={styles.topRow}>
           <nav className={styles.navArea} aria-label="Pätičková navigácia">
             <div className={styles.navColumn}>
-              <h3 className={styles.navTitle}>O klube</h3>
+              <h3 className={styles.navTitle}>Klub</h3>
 
               <ul className={styles.navList}>
-                {clubLinks.map((item) => (
+                {footerLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={styles.navLink}>
                       {item.label}
@@ -116,7 +198,7 @@ export default function Footer() {
               <h3 className={styles.navTitle}>Kategórie</h3>
 
               <ul className={`${styles.navList} ${styles.navListDense}`}>
-                {categoryLinks.map((item) => (
+                {footerCategoryLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={styles.navLink}>
                       {item.label}
