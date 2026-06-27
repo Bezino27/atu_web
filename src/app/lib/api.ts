@@ -155,10 +155,27 @@ export type PageSection = {
     | "custom_text";
   title: string;
   pre_title: string;
+  content?: string;
+  image?: string | null;
+  image_url?: string | null;
+  url?: string;
+  file?: string | null;
+  file_url?: string | null;
   order: number;
   is_active: boolean;
   hide_when_empty: boolean;
   config: Record<string, unknown>;
+  items?: PageSectionItem[];
+};
+
+export type PageSectionItem = {
+  id: number;
+  title: string;
+  url: string;
+  file?: string | null;
+  file_url?: string | null;
+  order: number;
+  is_active: boolean;
 };
 
 export type ClubHomePage = {

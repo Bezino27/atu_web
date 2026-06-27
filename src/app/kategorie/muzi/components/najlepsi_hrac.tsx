@@ -76,20 +76,52 @@ function formatStatValue(value?: number | null) {
   return typeof value === "number" ? value : null;
 }
 
+function getPlayerNumber(player: SzfbPlayerStat) {
+  if (typeof player.jersey_number !== "number") {
+    return null;
+  }
+
+  return String(player.jersey_number);
+}
+
+function getPlayerPhotoSrc(player: SzfbPlayerStat) {
+  return player.photo_url || player.photo || null;
+}
+
+function renderPlayerName(name: string) {
+  const trimmed = name.trim();
+  const parts = trimmed.split(/\s+/);
+
+  if (parts.length <= 1) {
+    return <span className={styles.playerNameLine}>{trimmed}</span>;
+  }
+
+  const firstLine = parts[0];
+  const secondLine = parts.slice(1).join(" ");
+
+  return (
+    <>
+      <span className={styles.playerNameLine}>{firstLine}</span>
+      <span className={styles.playerNameLine}>{secondLine}</span>
+    </>
+  );
+}
+
 function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
-  const topPlayers = players.slice(0, 3);
+  const activePlayers = players.filter((player) => player.is_active !== false);
+  const topPlayers = activePlayers.slice(0, 3);
 
   if (topPlayers.length === 0) {
     return placeholderPlayers;
   }
 
-  return topPlayers.map((player, index) => ({
+  const mappedPlayers = topPlayers.map((player, index) => ({
     id: player.id,
     rank: (index + 1) as 1 | 2 | 3,
     displayRank: player.rank,
-    number: null,
+    number: getPlayerNumber(player),
     name: player.player_name || null,
-    photoSrc: null,
+    photoSrc: getPlayerPhotoSrc(player),
     stats: [
       { label: "Góly", value: formatStatValue(player.goals) },
       { label: "Asist.", value: formatStatValue(player.assists) },
@@ -97,6 +129,15 @@ function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
       { label: "Zápasy", value: formatStatValue(player.games) },
     ],
   }));
+
+  if (mappedPlayers.length === 3) {
+    return mappedPlayers;
+  }
+
+  return [
+    ...mappedPlayers,
+    ...placeholderPlayers.slice(mappedPlayers.length),
+  ];
 }
 
 function PlayerCard({ player }: { player: Player }) {
@@ -106,14 +147,19 @@ function PlayerCard({ player }: { player: Player }) {
   return (
     <article className={getPlayerCardClassName(player.rank)}>
       <div className={styles.playerCardTop}>
-        <div className={styles.rankBadge}>{player.displayRank ?? player.rank}.</div>
+        <div className={styles.rankBadge}>
+          {player.displayRank ?? player.rank}.
+        </div>
+
         <div className={styles.playerNumber}>{displayNumber}</div>
       </div>
 
       <div className={styles.playerCardBody}>
         <div className={styles.playerContent}>
           <div className={styles.playerHeading}>
-            <h3 className={styles.playerName}>{displayName}</h3>
+            <h3 className={styles.playerName}>
+              {renderPlayerName(displayName)}
+            </h3>
           </div>
 
           <div className={styles.statsGrid}>

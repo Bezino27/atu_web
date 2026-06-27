@@ -26,10 +26,27 @@ export type SzfbPlayerStat = {
   birth_year: number | null;
   team_short_name: string;
   player_position: string;
+
   games: number;
   goals: number;
   assists: number;
   points: number;
+
+  points_avg?: string | number | null;
+  esp?: number;
+  ppp?: number;
+  shp?: number;
+  pim?: number;
+
+  // # CUSTOM CLUB DATA
+  photo?: string | null;
+  photo_url?: string | null;
+  jersey_number?: number | null;
+  display_position?: string | null;
+  bio?: string | null;
+  is_active?: boolean;
+  is_featured?: boolean;
+  display_order?: number;
 };
 
 export type SzfbDashboardResponse = {

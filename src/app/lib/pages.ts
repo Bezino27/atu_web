@@ -5,10 +5,27 @@ export type PageSection = {
   section_type: string;
   title: string;
   pre_title: string;
+  content?: string;
+  image?: string | null;
+  image_url?: string | null;
+  url?: string;
+  file?: string | null;
+  file_url?: string | null;
   order: number;
   is_active: boolean;
   hide_when_empty: boolean;
   config: Record<string, unknown>;
+  items?: PageSectionItem[];
+};
+
+export type PageSectionItem = {
+  id: number;
+  title: string;
+  url: string;
+  file?: string | null;
+  file_url?: string | null;
+  order: number;
+  is_active: boolean;
 };
 
 export type ClubPage = {
@@ -20,6 +37,9 @@ export type ClubPage = {
   is_published: boolean;
   club_slug: string;
   public_path?: string;
+  meta_title?: string;
+  meta_description?: string;
+  og_image?: string | null;
   sections: PageSection[];
 };
 
@@ -69,10 +89,21 @@ type ClubNavigationResponse = {
 function getPageUrl(page: NavigationPageResponse) {
   if (page.url) return page.url;
   if (page.page_type === "home" || page.slug === "home") return "/";
+  if (page.page_type === "about" || page.slug === "about" || page.slug === "o-klube") {
+    return "/o-klube";
+  }
+  if (page.page_type === "contact" || page.slug === "kontakt") return "/kontakt";
+  if (
+    page.page_type === "recruitment" ||
+    page.slug === "pridaj-sa" ||
+    page.slug === "pridaj_sa"
+  ) {
+    return "/pridaj_sa";
+  }
   if (page.page_type === "category" || page.page_type === "team_category") {
     return `/kategorie/${page.slug}`;
   }
-  if (page.slug === "pridaj-sa") return "/pridaj_sa";
+  if (page.page_type === "custom") return `/stranka/${page.slug}`;
 
   return `/${page.slug}`;
 }

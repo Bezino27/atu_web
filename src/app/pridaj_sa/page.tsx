@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 const CLUB_SLUG = "atu-kosice";
-const PAGE_SLUG = "pridaj-sa";
+const PAGE_SLUGS = ["pridaj-sa", "pridaj_sa"];
 
 const benefits = [
   {
@@ -278,22 +278,31 @@ async function getCategories(): Promise<BackendCategory[]> {
 }
 
 async function getRecruitmentPage(): Promise<ClubPage | null> {
-  try {
-    const res = await fetch(
-      `${API_URL}/public/pages/${CLUB_SLUG}/by-slug/${PAGE_SLUG}/`,
-      getApiFetchOptions(60)
-    );
+  for (const pageSlug of PAGE_SLUGS) {
+    try {
+      const res = await fetch(
+        `${API_URL}/public/pages/${CLUB_SLUG}/by-slug/${pageSlug}/`,
+        getApiFetchOptions(60)
+      );
 
-    if (!res.ok) {
-      console.error(`Nepodarilo sa načítať stránku Pridaj sa: ${res.status}`);
+      if (!res.ok) {
+        continue;
+      }
+
+      return (await res.json()) as ClubPage;
+    } catch (error) {
+      console.error("Chyba pri načítaní stránky Pridaj sa:", error);
       return null;
     }
-
-    return (await res.json()) as ClubPage;
-  } catch (error) {
-    console.error("Chyba pri načítaní stránky Pridaj sa:", error);
-    return null;
   }
+
+  if (process.env.NODE_ENV === "development") {
+    console.error(
+      `Nepodarilo sa načítať stránku Pridaj sa pre slugy: ${PAGE_SLUGS.join(", ")}`
+    );
+  }
+
+  return null;
 }
 
 const faqItems: FaqItem[] = [
