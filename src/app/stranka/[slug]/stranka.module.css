@@ -355,19 +355,15 @@
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
   transition:
-    transform 0.22s ease,
     box-shadow 0.22s ease,
     border-color 0.22s ease,
     background 0.22s ease;
 }
 
 .documentCard:hover {
-  transform: translateY(-3px);
-  background: #f7f7f7;
-  border-color: rgba(17, 24, 39, 0.18);
-  box-shadow:
-    0 16px 30px rgba(15, 23, 42, 0.075),
-    0 6px 14px rgba(15, 23, 42, 0.05);
+  background: #f4f4f4;
+  border-color: rgba(17, 24, 39, 0.16);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.055);
 }
 
 .documentBadge {
@@ -380,9 +376,9 @@
   justify-content: center;
   padding-bottom: 8px;
   border-radius: 14px 14px 12px 12px;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
-  border: 1px solid #dbe3eb;
-  color: var(--color-red-dark);
+  background: #f3f4f6;
+  border: 1px solid #d9dee6;
+  color: #6b7280;
   font-size: 0.63rem;
   font-weight: 950;
   letter-spacing: 0.06em;
@@ -398,7 +394,7 @@
   width: 16px;
   height: 16px;
   border-radius: 0 14px 0 8px;
-  background: linear-gradient(135deg, #ffffff 0%, #dbe3eb 100%);
+  background: #e5e7eb;
   border-left: 1px solid #dbe3eb;
   border-bottom: 1px solid #dbe3eb;
 }
@@ -438,7 +434,7 @@
 }
 
 .documentCard:hover .cardArrow {
-  transform: translateX(3px) scale(1.08);
+  transform: translateX(3px);
   color: #111111;
 }
 
