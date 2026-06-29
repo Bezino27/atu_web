@@ -16,6 +16,7 @@ export type PageSection = {
   hide_when_empty: boolean;
   config: Record<string, unknown>;
   items?: PageSectionItem[];
+  contact_items?: PageSectionContactItem[];
 };
 
 export type PageSectionItem = {
@@ -24,6 +25,15 @@ export type PageSectionItem = {
   url: string;
   file?: string | null;
   file_url?: string | null;
+  order: number;
+  is_active: boolean;
+};
+
+export type PageSectionContactItem = {
+  id: number;
+  contact_type: "phone" | "email" | "iban" | "address" | "person" | "web" | "text";
+  value: string;
+  url: string;
   order: number;
   is_active: boolean;
 };

@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { IconType } from "react-icons";
+import {
+  PiBank,
+  PiEnvelopeSimple,
+  PiGlobe,
+  PiMapPin,
+  PiNotePencil,
+  PiPhone,
+  PiUser,
+} from "react-icons/pi";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import ContactMap from "@/app/kontakt/ContactMap";
 import { getClub, getClubLinkLogoUrl } from "@/app/lib/club";
 import { getActiveClubLinks, getClubLinkIcon } from "@/app/lib/clubLinks";
-import { getClubContact } from "@/app/lib/contact";
 import {
   getClubDocuments,
   getClubDocumentUrl,
@@ -21,6 +31,7 @@ import {
 } from "@/app/lib/pages";
 import { normalizeMediaUrl } from "@/app/lib/api";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
+import contactStyles from "@/app/kontakt/kontakt.module.css";
 import styles from "./stranka.module.css";
 
 const CLUB_SLUG = "atu-kosice";
@@ -41,6 +52,63 @@ type ManualLinkItem = {
 type ManualDocumentItem = ManualLinkItem & {
   meta: string;
 };
+
+type ContactSectionData = {
+  address: string;
+  chairmanName: string;
+  email: string;
+  phone: string;
+  iban: string;
+  note: string;
+  mapLabel: string;
+  mapAddress: string;
+  latitude: number | null;
+  longitude: number | null;
+};
+
+type ContactDisplayItem = {
+  id: string | number;
+  type: string;
+  label: string;
+  value: string;
+  href: string;
+};
+
+function getConfigString(config: Record<string, unknown>, keys: string[]) {
+  for (const key of keys) {
+    const value = config[key];
+
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+
+    if (typeof value === "number" && Number.isFinite(value)) {
+      return String(value);
+    }
+  }
+
+  return "";
+}
+
+function getConfigNumber(config: Record<string, unknown>, keys: string[]) {
+  for (const key of keys) {
+    const value = config[key];
+
+    if (typeof value === "number" && Number.isFinite(value)) {
+      return value;
+    }
+
+    if (typeof value === "string" && value.trim()) {
+      const parsed = Number.parseFloat(value.replace(",", "."));
+
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+  }
+
+  return null;
+}
 
 function getConfiguredIds(config: Record<string, unknown>, key: string) {
   const value = config[key];
@@ -101,6 +169,154 @@ function getPhoneHref(phone: string) {
   return `tel:${phone.replace(/\s/g, "")}`;
 }
 
+function getContactSectionData(section: PageSection): ContactSectionData {
+  const { config } = section;
+
+  return {
+    address: getConfigString(config, ["address", "adresa"]),
+    chairmanName: getConfigString(config, [
+      "chairman_name",
+      "chairmanName",
+      "predseda",
+    ]),
+    email: getConfigString(config, ["email", "mail"]),
+    phone: getConfigString(config, ["phone", "telefon", "telefón"]),
+    iban: getConfigString(config, ["iban", "IBAN"]),
+    note:
+      getConfigString(config, ["note", "poznamka", "poznámka"]) ||
+      section.content?.trim() ||
+      "",
+    mapLabel: getConfigString(config, ["map_label", "mapLabel", "map_name"]),
+    mapAddress: getConfigString(config, [
+      "map_address",
+      "mapAddress",
+      "map_adresa",
+    ]),
+    latitude: getConfigNumber(config, ["latitude", "lat"]),
+    longitude: getConfigNumber(config, ["longitude", "lng", "lon"]),
+  };
+}
+
+function hasContactSectionData(contact: ContactSectionData) {
+  return Boolean(
+    contact.address ||
+      contact.chairmanName ||
+      contact.email ||
+      contact.phone ||
+      contact.iban ||
+      contact.note,
+  );
+}
+
+function hasContactMap(contact: ContactSectionData) {
+  return contact.latitude !== null && contact.longitude !== null;
+}
+
+function getContactTypeLabel(type: string) {
+  if (type === "phone") return "Telefón";
+  if (type === "email") return "Email";
+  if (type === "iban") return "IBAN";
+  if (type === "address") return "Adresa";
+  if (type === "person") return "Osoba";
+  if (type === "web") return "Web";
+  return "Poznámka";
+}
+
+function getContactIcon(type: string): IconType {
+  if (type === "phone") return PiPhone;
+  if (type === "email") return PiEnvelopeSimple;
+  if (type === "iban") return PiBank;
+  if (type === "address") return PiMapPin;
+  if (type === "person") return PiUser;
+  if (type === "web") return PiGlobe;
+  return PiNotePencil;
+}
+
+function getContactHref(type: string, value: string, url: string) {
+  if (url) return url;
+  if (type === "phone") return getPhoneHref(value);
+  if (type === "email") return `mailto:${value}`;
+  if (type === "web" && value) return value;
+
+  return "";
+}
+
+function getFallbackContactItems(contact: ContactSectionData): ContactDisplayItem[] {
+  return [
+    {
+      id: "address",
+      type: "address",
+      label: "Adresa",
+      value: contact.address,
+      href: "",
+    },
+    {
+      id: "chairman",
+      type: "person",
+      label: "Predseda",
+      value: contact.chairmanName,
+      href: "",
+    },
+    {
+      id: "email",
+      type: "email",
+      label: "Email",
+      value: contact.email,
+      href: getContactHref("email", contact.email, ""),
+    },
+    {
+      id: "phone",
+      type: "phone",
+      label: "Telefón",
+      value: contact.phone,
+      href: getContactHref("phone", contact.phone, ""),
+    },
+    {
+      id: "iban",
+      type: "iban",
+      label: "IBAN",
+      value: contact.iban,
+      href: "",
+    },
+    {
+      id: "note",
+      type: "text",
+      label: "Poznámka",
+      value: contact.note,
+      href: "",
+    },
+  ].filter((item) => item.value);
+}
+
+function getContactDisplayItems(section: PageSection) {
+  const contactItems = [...(section.contact_items ?? [])]
+    .filter((item) => item.is_active)
+    .sort((a, b) => a.order - b.order || Number(a.id) - Number(b.id))
+    .map((item) => {
+      const value = item.value?.trim() || item.url?.trim() || "";
+      const url = item.url?.trim() || "";
+
+      if (!value && !url) {
+        return null;
+      }
+
+      return {
+        id: item.id,
+        type: item.contact_type,
+        label: getContactTypeLabel(item.contact_type),
+        value,
+        href: getContactHref(item.contact_type, value, url),
+      };
+    })
+    .filter(Boolean) as ContactDisplayItem[];
+
+  if (contactItems.length > 0) {
+    return contactItems;
+  }
+
+  return getFallbackContactItems(getContactSectionData(section));
+}
+
 function getDocumentMeta(document: ClubDocument) {
   const fileUrl = document.file_url || document.file || "";
   const cleanUrl = fileUrl.split("?")[0]?.split("#")[0] || "";
@@ -131,6 +347,28 @@ function getActiveItems(section: PageSection) {
   return [...(section.items ?? [])]
     .filter((item) => item.is_active)
     .sort((a, b) => a.order - b.order || Number(a.id) - Number(b.id));
+}
+
+function hasSectionHeaderText(section: PageSection) {
+  return Boolean(section.pre_title?.trim() || section.title?.trim());
+}
+
+function renderOptionalSectionHeader(section: PageSection) {
+  const preTitle = section.pre_title?.trim();
+  const title = section.title?.trim();
+
+  if (!hasSectionHeaderText(section)) {
+    return null;
+  }
+
+  return (
+    <div className="sectionHeader">
+      <div>
+        {preTitle && <span className="preTitle">{preTitle}</span>}
+        {title && <h2 className="sectionTitle">{title}</h2>}
+      </div>
+    </div>
+  );
 }
 
 function getCustomDocumentItems(section: PageSection) {
@@ -207,10 +445,9 @@ export default async function CustomPage({ params }: PageProps) {
     notFound();
   }
 
-  const [club, documents, contact] = await Promise.all([
+  const [club, documents] = await Promise.all([
     getClub(CLUB_SLUG),
     getClubDocuments(CLUB_SLUG),
-    getClubContact(CLUB_SLUG),
   ]);
 
   const activeDocuments = documents
@@ -229,7 +466,11 @@ export default async function CustomPage({ params }: PageProps) {
 
     return (
       <section key={section.id} className={styles.heroSection}>
-        <div className={styles.heroInner}>
+        <div
+          className={`${styles.heroInner} ${
+            imageUrl ? styles.heroInnerWithImage : ""
+          }`}
+        >
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -241,7 +482,7 @@ export default async function CustomPage({ params }: PageProps) {
             />
           )}
 
-          <div className={styles.heroShade} />
+          {!imageUrl && <div className={styles.heroShade} />}
 
           {!imageUrl && (
             <Image
@@ -254,12 +495,14 @@ export default async function CustomPage({ params }: PageProps) {
             />
           )}
 
-          <div className={styles.heroContent}>
-            {section.pre_title?.trim() && (
-              <span className="preTitle">{section.pre_title}</span>
-            )}
-            <h1 className={styles.heroTitle}>{title}</h1>
-          </div>
+          {!imageUrl && (
+            <div className={styles.heroContent}>
+              {section.pre_title?.trim() && (
+                <span className="preTitle">{section.pre_title}</span>
+              )}
+              <h1 className={styles.heroTitle}>{title}</h1>
+            </div>
+          )}
         </div>
       </section>
     );
@@ -299,26 +542,18 @@ export default async function CustomPage({ params }: PageProps) {
   const renderLinksSection = (section: PageSection) => {
     const selectedIds = getConfiguredIds(section.config, "link_ids");
     const links =
-      selectedIds.length > 0
-        ? filterByConfiguredIds(activeLinks, selectedIds)
-        : activeLinks;
+      selectedIds.length > 0 ? filterByConfiguredIds(activeLinks, selectedIds) : [];
 
-    if (section.hide_when_empty && links.length === 0) {
+    if (
+      links.length === 0 &&
+      (section.hide_when_empty || !hasSectionHeaderText(section))
+    ) {
       return null;
     }
 
     return (
       <section key={section.id} className="sectionContainer">
-        <div className="sectionHeader">
-          <div>
-            <span className="preTitle">
-              {getSectionPreTitle(section, "Odkazy")}
-            </span>
-            <h2 className="sectionTitle">
-              {getSectionTitle(section, "Klubové odkazy")}
-            </h2>
-          </div>
-        </div>
+        {renderOptionalSectionHeader(section)}
 
         {links.length > 0 ? (
           <div className={styles.linkGrid}>
@@ -367,22 +602,16 @@ export default async function CustomPage({ params }: PageProps) {
     const manualLinks = getManualItems(section.config, "links").slice(0, 30);
     const links = itemLinks.length > 0 ? itemLinks : manualLinks;
 
-    if (section.hide_when_empty && links.length === 0) {
+    if (
+      links.length === 0 &&
+      (section.hide_when_empty || !hasSectionHeaderText(section))
+    ) {
       return null;
     }
 
     return (
       <section key={section.id} className="sectionContainer">
-        <div className="sectionHeader">
-          <div>
-            <span className="preTitle">
-              {getSectionPreTitle(section, "Odkazy")}
-            </span>
-            <h2 className="sectionTitle">
-              {getSectionTitle(section, "Vlastné odkazy")}
-            </h2>
-          </div>
-        </div>
+        {renderOptionalSectionHeader(section)}
 
         {links.length > 0 ? (
           <div className={styles.linkGrid}>
@@ -526,7 +755,22 @@ export default async function CustomPage({ params }: PageProps) {
   };
 
   const renderContactSection = (section: PageSection) => {
-    if (section.hide_when_empty && !contact) {
+    const contact = getContactSectionData(section);
+    const contactItems = getContactDisplayItems(section);
+    const hasContact = contactItems.length > 0 || hasContactSectionData(contact);
+    const hasMap = hasContactMap(contact);
+    const contactLocations = hasMap
+      ? {
+          main: {
+            name: contact.mapLabel || getSectionTitle(section, "Kontakt"),
+            address: contact.mapAddress || contact.address,
+            lat: contact.latitude as number,
+            lng: contact.longitude as number,
+          },
+        }
+      : {};
+
+    if (section.hide_when_empty && !hasContact) {
       return null;
     }
 
@@ -535,49 +779,55 @@ export default async function CustomPage({ params }: PageProps) {
         <div className="sectionHeader">
           <div>
             <span className="preTitle">
-              {getSectionPreTitle(section, contact?.section_label || "Kontakt")}
+              {getSectionPreTitle(section, "Kontakt")}
             </span>
             <h2 className="sectionTitle">
-              {getSectionTitle(section, contact?.title || "Kontakt")}
+              {getSectionTitle(section, "Kontakt")}
             </h2>
           </div>
         </div>
 
-        <div className={styles.contactPanel}>
-          {contact ? (
-            <div className={styles.contactList}>
-              {contact.address && (
-                <div className={styles.contactItem}>
-                  <span>Adresa</span>
-                  <p>{contact.address}</p>
-                </div>
-              )}
+        <div className={hasMap ? styles.contactGrid : undefined}>
+          <div className={styles.contactInfoCard}>
+            {hasContact ? (
+              <div className={styles.contactInfoList}>
+                {contactItems.map((item) => (
+                  <div key={item.id} className={styles.contactInfoItem}>
+                    <div className={styles.contactInfoContent}>
+                      <span className={styles.contactInfoLabel}>{item.label}</span>
+                      {item.href ? (
+                        <a className={styles.contactInfoLink} href={item.href}>
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className={styles.contactInfoText}>{item.value}</p>
+                      )}
+                    </div>
+                    <span className={styles.contactInfoIcon} aria-hidden="true">
+                      {(() => {
+                        const Icon = getContactIcon(item.type);
+                        return <Icon />;
+                      })()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.emptyText}>
+                Kontaktné údaje budú doplnené čoskoro.
+              </p>
+            )}
+          </div>
 
-              {contact.email && (
-                <div className={styles.contactItem}>
-                  <span>Email</span>
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                </div>
-              )}
-
-              {contact.phone && (
-                <div className={styles.contactItem}>
-                  <span>Telefón</span>
-                  <a href={getPhoneHref(contact.phone)}>{contact.phone}</a>
-                </div>
-              )}
-
-              {contact.note && (
-                <div className={styles.contactItem}>
-                  <span>Poznámka</span>
-                  <p>{contact.note}</p>
-                </div>
-              )}
+          {hasMap && (
+            <div className={styles.contactMapCard}>
+              <div className={contactStyles.contactMapWrap}>
+                <ContactMap
+                  locations={contactLocations}
+                  activeLocation="main"
+                />
+              </div>
             </div>
-          ) : (
-            <p className={styles.emptyText}>
-              Kontaktné údaje sa momentálne nepodarilo načítať.
-            </p>
           )}
         </div>
       </section>

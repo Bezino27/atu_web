@@ -45,6 +45,13 @@
     0 5px 16px rgba(15, 23, 42, 0.05);
 }
 
+.heroInnerWithImage {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  padding: 0;
+  background: #0b0b0c;
+}
+
 .heroImage {
   object-fit: contain;
   object-position: center;
@@ -146,8 +153,7 @@
 
 /* # PANELS */
 
-.textPanel,
-.contactPanel {
+.textPanel {
   width: 100%;
   max-width: 1060px;
   padding: 30px;
@@ -440,78 +446,134 @@
 
 /* # CONTACT */
 
-.contactPanel {
-  padding: 8px 30px;
-}
-
-.contactList {
+.contactGrid {
+  width: 100%;
   display: grid;
-  gap: 0;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 22px;
+  align-items: stretch;
 }
 
-.contactItem {
+.contactInfoCard {
   position: relative;
-  min-height: 78px;
+  width: 100%;
+  max-width: 1060px;
+  padding: 22px;
+  background: var(--color-surface);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.contactGrid .contactInfoCard {
+  max-width: none;
+}
+
+.contactMapCard {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.06),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.contactInfoList {
+  position: relative;
+  display: grid;
+}
+
+.contactInfoItem {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--color-border-soft);
+  padding: 18px 0 20px;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  transition: transform 0.22s ease;
 }
 
-.contactItem::after {
-  content: "â†’";
-  color: var(--color-text-subtle);
-  font-size: 1.3rem;
-  font-weight: 950;
-  line-height: 1;
-  transition:
-    color 0.18s ease,
-    transform 0.18s ease;
+.contactInfoItem:first-child {
+  padding-top: 0;
 }
 
-.contactItem:first-child {
-  padding-top: 18px;
+.contactInfoItem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
-.contactItem:last-child {
-  padding-bottom: 18px;
-  border-bottom: 0;
+.contactInfoItem:hover {
+  transform: translateX(4px);
 }
 
-.contactItem span {
+.contactInfoContent {
+  min-width: 0;
+}
+
+.contactInfoLabel {
   display: block;
   margin-bottom: 8px;
   color: var(--color-text-muted);
-  font-size: 0.74rem;
-  font-weight: 850;
-  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  line-height: 1.2;
 }
 
-.contactItem p,
-.contactItem a,
+.contactInfoText,
+.contactInfoLink,
 .emptyText {
+  display: block;
   margin: 0;
   color: var(--color-text);
-  font-size: 1rem;
-  line-height: 1.58;
-  font-weight: 650;
+  font-size: 1.04rem;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
-.contactItem a {
+.contactInfoIcon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-red-dark);
+}
+
+.contactInfoIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.contactInfoLink {
   text-decoration: none;
-  transition: color 0.18s ease;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.contactItem:hover::after {
-  color: var(--color-text);
-  transform: translateX(3px);
-}
-
-.contactItem a:hover {
-  color: var(--color-text);
+.contactInfoLink:hover {
+  color: var(--color-red-dark);
+  opacity: 0.96;
 }
 
 .emptyText {
@@ -536,6 +598,12 @@
     border-radius: 28px;
   }
 
+  .heroInnerWithImage {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    padding: 0;
+  }
+
   .heroTitle {
     font-size: clamp(2.6rem, 8.6vw, 5.5rem);
   }
@@ -543,6 +611,14 @@
   .linkGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactMapCard {
+    padding: 20px;
   }
 }
 
@@ -560,6 +636,12 @@
     min-height: 280px;
     padding: 24px 20px;
     border-radius: 24px;
+  }
+
+  .heroInnerWithImage {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    padding: 0;
   }
 
   .heroTitle {
@@ -586,9 +668,38 @@
     border-radius: 22px;
   }
 
-  .contactPanel {
-    padding: 6px 22px;
-    border-radius: 22px;
+  .contactInfoCard {
+    padding: 16px;
+    border-radius: var(--radius-xl);
+  }
+
+  .contactGrid {
+    gap: 18px;
+  }
+
+  .contactMapCard {
+    padding: 16px;
+    border-radius: var(--radius-xl);
+  }
+
+  .contactInfoItem {
+    gap: 14px;
+    padding: 15px 0 16px;
+  }
+
+  .contactInfoIcon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .contactInfoIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .contactInfoText,
+  .contactInfoLink {
+    font-size: 0.98rem;
   }
 
   .documentGrid {
@@ -642,6 +753,12 @@
     border-radius: 20px;
   }
 
+  .heroInnerWithImage {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+    padding: 0;
+  }
+
   .heroTitle {
     font-size: clamp(1.9rem, 12.5vw, 3rem);
     line-height: 0.92;
@@ -652,9 +769,39 @@
     border-radius: 20px;
   }
 
-  .contactPanel {
-    padding: 4px 18px;
-    border-radius: 20px;
+  .contactInfoCard {
+    padding: 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .contactGrid {
+    gap: 16px;
+  }
+
+  .contactMapCard {
+    padding: 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .contactInfoItem {
+    gap: 12px;
+    padding: 12px 0 14px;
+  }
+
+  .contactInfoIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .contactInfoIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contactInfoText,
+  .contactInfoLink {
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .documentGrid {
@@ -669,11 +816,6 @@
     min-height: 86px;
     padding: 14px;
     border-radius: 18px;
-  }
-
-  .contactItem {
-    min-height: 76px;
-    gap: 12px;
   }
 
   .documentCard {
