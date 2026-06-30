@@ -50,6 +50,13 @@ export type ClubPage = {
   meta_title?: string;
   meta_description?: string;
   og_image?: string | null;
+  team_category?: {
+    id: number;
+    name: string;
+    slug: string;
+    category_subname?: string;
+    league_name?: string;
+  } | null;
   sections: PageSection[];
 };
 
