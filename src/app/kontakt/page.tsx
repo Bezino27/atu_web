@@ -134,7 +134,7 @@ export default async function KontaktPage() {
   const contactLocations: Record<string, ContactLocation> = contact
     ? {
         main: {
-          name: contact.map_label || contact.title,
+          name: contact.map_label || "FaBK ATU Košice",
           address: contact.map_address || contact.address,
           lat: Number(contact.latitude),
           lng: Number(contact.longitude),
@@ -152,10 +152,10 @@ export default async function KontaktPage() {
         <div className="resultsHeader">
           <div>
             <span className="preTitle">
-              {getSectionPreTitle(section, contact?.section_label || "Kontakt")}
+              {getSectionPreTitle(section, "Kontakt")}
             </span>
             <h1 className="sectionTitle">
-              {getSectionTitle(section, contact?.title || "FaBK ATU Košice")}
+              {getSectionTitle(section, "FaBK ATU Košice")}
             </h1>
           </div>
         </div>

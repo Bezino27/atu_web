@@ -22,11 +22,14 @@ export type PageSection = {
 export type PageSectionItem = {
   id: number;
   title: string;
-  url: string;
+  url?: string;
   file?: string | null;
   file_url?: string | null;
-  order: number;
-  is_active: boolean;
+  logo?: string | null;
+  logo_url?: string | null;
+  icon_type?: string;
+  order?: number;
+  is_active?: boolean;
 };
 
 export type PageSectionContactItem = {

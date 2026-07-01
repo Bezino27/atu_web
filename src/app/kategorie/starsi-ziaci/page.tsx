@@ -186,7 +186,9 @@ const StarsiZiaciPage = async () => {
       <main className={styles.content}>
         {sections.map((section) => {
           switch (section.section_type) {
-            case "hero":
+            case "hero": {
+              const heroTitle = getSectionTitle(section, categoryName);
+
               return (
         <section key={section.id} className={styles.heroSection}>
           <div className={styles.bannerContainer}>
@@ -201,8 +203,14 @@ const StarsiZiaciPage = async () => {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>
-                  {getSectionTitle(section, categoryName)}
+                <h1
+                  className={`${styles.bannerTitleziaci} ${
+                    heroTitle.replace(/\s+/g, "").length > 8
+                      ? styles.bannerTitleziaciLong
+                      : ""
+                  }`}
+                >
+                  {heroTitle}
                 </h1>
 
                 <div className={styles.heroQuickNav}>
@@ -226,6 +234,7 @@ const StarsiZiaciPage = async () => {
           </div>
         </section>
               );
+            }
             case "links":
               return (
         <section key={section.id} id="odkazy" className="sectionContainer">

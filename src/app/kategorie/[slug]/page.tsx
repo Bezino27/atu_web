@@ -22,6 +22,8 @@ import {
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { getClub, type ClubLink } from "@/app/lib/club";
+import { getActiveClubLinks } from "@/app/lib/clubLinks";
 import {
   getActiveSortedSections,
   getClubPageBySlug,
@@ -29,16 +31,33 @@ import {
   getSectionTitle,
   warnUnsupportedSection,
   type PageSection,
+  type PageSectionItem,
 } from "@/app/lib/pages";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getHomepagePosts, getPostsByCategory, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
+import PripravkaTrainings from "../pripravka/components/treningy_pripravka";
+import DorastTrainings from "../dorast/components/treningy_dorast";
+import StarsiZiaciTrainings from "../starsi-ziaci/components/treningy_starsi_ziaci";
+import MladsiZiaciTrainings from "../mladsi-ziaci/components/treningy_mladsi_ziaci";
+import PripravkaRecruitment from "../pripravka/components/nabor";
+import DorastRecruitment from "../dorast/components/nabor";
+import StarsiZiaciRecruitment from "../starsi-ziaci/components/nabor";
+import MladsiZiaciRecruitment from "../mladsi-ziaci/components/nabor";
 
 import styles from "../styles/unified.module.css";
+import szfbStyle from "../styles/szfb_cards.module.css";
 
 type SzfbDashboardData = Awaited<ReturnType<typeof getSzfbDashboard>>;
 type SzfbNextMatchData = Awaited<ReturnType<typeof getSzfbNextMatch>>;
+
+type SectionLink = {
+  id: string | number;
+  title: string;
+  url: string;
+  badge?: string;
+};
 
 type BackendCategory = {
   id: number;
@@ -178,6 +197,195 @@ function isCategoryPost(
   );
 }
 
+function getConfiguredIds(config: Record<string, unknown>, key: string) {
+  const value = config[key];
+
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item) => Number(item))
+    .filter((item) => Number.isInteger(item) && item > 0);
+}
+
+function filterByConfiguredIds<T extends { id: number }>(
+  items: T[],
+  ids: number[],
+) {
+  if (ids.length === 0) {
+    return items;
+  }
+
+  const allowedIds = new Set(ids);
+  return items.filter((item) => allowedIds.has(item.id));
+}
+
+function getManualLinks(config: Record<string, unknown>) {
+  const value = config.links;
+
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .map((item, index) => {
+      if (!item || typeof item !== "object") {
+        return null;
+      }
+
+      const record = item as Record<string, unknown>;
+      const title = typeof record.title === "string" ? record.title.trim() : "";
+      const url = typeof record.url === "string" ? record.url.trim() : "";
+
+      if (!title || !url) {
+        return null;
+      }
+
+      return {
+        id: `manual-${index}-${title}`,
+        title,
+        url,
+        badge: "ODKAZ",
+      };
+    })
+    .filter(Boolean) as SectionLink[];
+}
+
+function mapSectionItemsToLinks(items?: PageSectionItem[]) {
+  return [...(items ?? [])]
+    .filter((item) => item.is_active !== false && item.url)
+    .sort(
+      (a, b) =>
+        (a.order ?? 0) - (b.order ?? 0) || a.title.localeCompare(b.title, "sk"),
+    )
+    .map((item) => ({
+      id: item.id,
+      title: item.title,
+      url: item.url || "",
+      badge: "ODKAZ",
+    }));
+}
+
+function mapClubLinksToSectionLinks(links: ClubLink[]) {
+  return links.map((link) => ({
+    id: link.id,
+    title: link.title,
+    url: link.url,
+    badge: link.icon_type?.toUpperCase() || "ODKAZ",
+  }));
+}
+
+function getDefaultSzfbLinks(dataCategorySlug: string): SectionLink[] {
+  const linksBySlug: Record<string, Array<{ title: string; url: string }>> = {
+    pripravka: [
+      {
+        title: "Detail tímu",
+        url: "https://www.szfb.sk/sk/stats/teams/1177/liga-starsej-pripravky-vychod/team/669796/fabk-atu-kosice",
+      },
+      {
+        title: "Výsledky a program",
+        url: "https://www.szfb.sk/sk/stats/results/1177/liga-starsej-pripravky-vychod",
+      },
+    ],
+    "mladsi-ziaci": [
+      {
+        title: "Detail tímu",
+        url: "https://www.szfb.sk/sk/stats/teams/1178/liga-mladsich-ziakov-vychod/team/669483/fabk-atu-kosice",
+      },
+      {
+        title: "Tabuľka",
+        url: "https://www.szfb.sk/sk/stats/standings/1178/liga-mladsich-ziakov-vychod",
+      },
+      {
+        title: "Výsledky a program",
+        url: "https://www.szfb.sk/sk/stats/results-date/1178",
+      },
+    ],
+    "starsi-ziaci": [
+      {
+        title: "Detail tímu",
+        url: "https://www.szfb.sk/sk/stats/teams/1179/liga-starsich-ziakov-vychod/team/669500/fabk-atu-kosice",
+      },
+      {
+        title: "Tabuľka",
+        url: "https://www.szfb.sk/sk/stats/standings/1179/liga-starsich-ziakov-vychod?StatsType=overall&TournamentPartID=4528",
+      },
+      {
+        title: "Výsledky a program",
+        url: "https://www.szfb.sk/sk/stats/results-date/1179/1-liga-starsich-ziakov-vychod",
+      },
+    ],
+    dorast: [
+      {
+        title: "Detail tímu",
+        url: "https://www.szfb.sk/sk/stats/teams/1171/1-liga-dorastencov-divizia-vychod/team/669890/fabk-atu-kosice",
+      },
+      {
+        title: "Tabuľka",
+        url: "https://www.szfb.sk/sk/stats/standings/1171/1-liga-dorastencov-divizia-vychod",
+      },
+      {
+        title: "Výsledky a program",
+        url: "https://www.szfb.sk/sk/stats/results-date/1171/1-liga-dorastencov-divizia-vychod",
+      },
+    ],
+  };
+
+  return (linksBySlug[dataCategorySlug] ?? []).map((link, index) => ({
+    id: `${dataCategorySlug}-szfb-${index}`,
+    title: link.title,
+    url: link.url,
+    badge: "SZFB",
+  }));
+}
+
+function getTrainingComponent(dataCategorySlug: string) {
+  if (dataCategorySlug === "pripravka") {
+    return PripravkaTrainings;
+  }
+
+  if (dataCategorySlug === "dorast") {
+    return DorastTrainings;
+  }
+
+  if (dataCategorySlug === "starsi-ziaci") {
+    return StarsiZiaciTrainings;
+  }
+
+  if (dataCategorySlug === "mladsi-ziaci") {
+    return MladsiZiaciTrainings;
+  }
+
+  return null;
+}
+
+function getRecruitmentComponent(dataCategorySlug: string) {
+  if (dataCategorySlug === "pripravka") {
+    return PripravkaRecruitment;
+  }
+
+  if (dataCategorySlug === "dorast") {
+    return DorastRecruitment;
+  }
+
+  if (dataCategorySlug === "starsi-ziaci") {
+    return StarsiZiaciRecruitment;
+  }
+
+  if (dataCategorySlug === "mladsi-ziaci") {
+    return MladsiZiaciRecruitment;
+  }
+
+  return null;
+}
+
+function usesYouthHeroTitle(dataCategorySlug: string) {
+  return ["pripravka", "mladsi-ziaci", "starsi-ziaci"].includes(
+    dataCategorySlug,
+  );
+}
+
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const response = await fetch(
@@ -295,15 +503,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     );
   }
 
-  const [posts, clubSeason, categories] = await Promise.all([
+  const categoryDataSlug = dataCategorySlug;
+
+  const [allPosts, postsByCategory, clubSeason, categories, club] = await Promise.all([
     getHomepagePosts(CLUB_SLUG),
+    getPostsByCategory(CLUB_SLUG, categoryDataSlug),
     getClubSeason(CLUB_SLUG),
     getCategories(),
+    getClub(CLUB_SLUG),
   ]);
 
   const backendCategory = categories.find(
     (category) =>
-      normalizeText(getCategorySlug(category)) === normalizeText(dataCategorySlug),
+      normalizeText(getCategorySlug(category)) === normalizeText(categoryDataSlug),
   );
 
   const category: BackendCategory = backendCategory ?? linkedCategory;
@@ -319,9 +531,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     getNextMatchSafe(watchId),
   ]);
 
-  const categoryPosts = posts.filter((post) =>
-    isCategoryPost(post, dataCategorySlug, category.name),
-  );
+  const categoryPosts =
+    postsByCategory.length > 0
+      ? postsByCategory
+      : allPosts.filter((post) =>
+          isCategoryPost(post, categoryDataSlug, category.name),
+        );
+  const activeClubLinks = getActiveClubLinks(club?.links);
 
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
@@ -332,6 +548,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const competitionName = categoryLeague || "Liga";
   const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
   const currentSeason = category.season ?? clubSeason?.season ?? "2025 / 2026";
+  const hasSzfbDashboard = Boolean(watchId);
+  const hasYouthHeroTitle = usesYouthHeroTitle(categoryDataSlug);
 
   const sections = getActiveSortedSections(page.sections, fallbackSections);
 
@@ -340,7 +558,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     Boolean(category.hero_image_url),
   );
 
-  const renderHeroSection = (section: PageSection) => (
+  const renderHeroSection = (section: PageSection) => {
+    const heroTitle = getSectionTitle(section, categoryName);
+
+    return (
     <section key={section.id} className={styles.heroSection}>
       <div className={styles.bannerContainer}>
         <Image
@@ -354,29 +575,57 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         <div className={styles.bannerOverlay}>
           <div className={styles.heroTextContent}>
-            <span className={styles.heroSubtitle}>
-              {getSectionPreTitle(
-                section,
-                category.category_subname ||
-                  linkedCategory.category_subname ||
-                  categoryLeague,
-              )}
-            </span>
+            {hasSzfbDashboard ? (
+              <span className={styles.heroSubtitle}>
+                {getSectionPreTitle(
+                  section,
+                  category.category_subname ||
+                    linkedCategory.category_subname ||
+                    categoryLeague,
+                )}
+              </span>
+            ) : null}
 
-            <h1 className={styles.bannerTitle}>
-              {getSectionTitle(section, categoryName)}
+            <h1
+              className={
+                hasYouthHeroTitle
+                  ? `${styles.bannerTitleziaci} ${
+                      heroTitle.replace(/\s+/g, "").length > 8
+                        ? styles.bannerTitleziaciLong
+                        : ""
+                    }`
+                  : styles.bannerTitle
+              }
+            >
+              {heroTitle}
             </h1>
 
             <div className={styles.heroQuickNav}>
-              <a href="#zapasy" className={styles.heroQuickLink}>
-                Zápasy
-              </a>
-              <a href="#tabulka" className={styles.heroQuickLink}>
-                Tabuľka
-              </a>
-              <a href="#hraci" className={styles.heroQuickLink}>
-                Hráči
-              </a>
+              {hasSzfbDashboard ? (
+                <>
+                  <a href="#zapasy" className={styles.heroQuickLink}>
+                    Zápasy
+                  </a>
+                  <a href="#tabulka" className={styles.heroQuickLink}>
+                    Tabuľka
+                  </a>
+                  <a href="#hraci" className={styles.heroQuickLink}>
+                    Hráči
+                  </a>
+                </>
+              ) : (
+                <>
+                  <a href="#odkazy" className={styles.heroQuickLink}>
+                    Odkazy
+                  </a>
+                  <a href="#treningy" className={styles.heroQuickLink}>
+                    Tréningy
+                  </a>
+                  <a href="#novinky" className={styles.heroQuickLink}>
+                    Novinky
+                  </a>
+                </>
+              )}
             </div>
           </div>
 
@@ -387,15 +636,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       </div>
 
-      <NextMatchCountdown
-        matchDate={nextMatch?.match_date ?? null}
-        matchTime={nextMatch?.match_time ?? null}
-        opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
-        ownTeamName={ownTeamName}
-        isHome={nextMatch?.is_home ?? null}
-      />
+      {hasSzfbDashboard ? (
+        <NextMatchCountdown
+          matchDate={nextMatch?.match_date ?? null}
+          matchTime={nextMatch?.match_time ?? null}
+          opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
+          ownTeamName={ownTeamName}
+          isHome={nextMatch?.is_home ?? null}
+        />
+      ) : null}
     </section>
-  );
+    );
+  };
 
   const renderCustomTextSection = (section: PageSection) => {
     if (section.hide_when_empty && !section.content) {
@@ -455,6 +707,144 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           competitionName={competitionName}
         />
       </section>
+    );
+  };
+
+  const renderTrainingsSection = (section: PageSection) => {
+    const TrainingComponent = getTrainingComponent(categoryDataSlug);
+
+    if (section.hide_when_empty && !TrainingComponent && !section.content) {
+      return null;
+    }
+
+    const contentHtml = normalizeHtmlMediaUrls(section.content);
+
+    if (TrainingComponent) {
+      return (
+        <section key={section.id} id="treningy" className="sectionContainer">
+          <TrainingComponent />
+        </section>
+      );
+    }
+
+    return (
+      <section key={section.id} id="treningy" className="sectionContainer">
+        <div className={styles.resultsHeader}>
+          <div>
+            <span className={styles.preTitle}>
+              {getSectionPreTitle(section, "Tréningy")}
+            </span>
+            <h2 className={styles.sectionTitle}>
+              {getSectionTitle(section, "Kde trénujeme")}
+            </h2>
+          </div>
+        </div>
+
+        {contentHtml ? (
+          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+        ) : null}
+
+        {!contentHtml ? <p>Tréningy budú doplnené.</p> : null}
+      </section>
+    );
+  };
+
+  const renderRecruitmentSection = (section: PageSection) => {
+    const RecruitmentComponent = getRecruitmentComponent(categoryDataSlug);
+    const contentHtml = normalizeHtmlMediaUrls(section.content);
+
+    if (section.hide_when_empty && !RecruitmentComponent && !contentHtml) {
+      return null;
+    }
+
+    if (RecruitmentComponent) {
+      return (
+        <section key={section.id} id="nabor" className="sectionContainer">
+          <div className={styles.resultsHeader}>
+            <div>
+              <span className={styles.preTitle}>
+                {getSectionPreTitle(section, "Nábor")}
+              </span>
+              <h2 className={styles.sectionTitle}>
+                {getSectionTitle(
+                  section,
+                  `Chceš hrať za kategóriu ${category.name.toLowerCase()}?`,
+                )}
+              </h2>
+            </div>
+          </div>
+
+          <RecruitmentComponent />
+        </section>
+      );
+    }
+
+    return (
+      <section key={section.id} id="nabor" className="sectionContainer">
+        <div className={styles.naborSection}>
+          <div className={styles.naborCard}>
+            <div className={styles.naborContent}>
+              <div className={styles.naborTopRow}>
+                <div className={styles.naborTextWrap}>
+                  <span className={styles.preTitle}>
+                    {getSectionPreTitle(section, "Nábor")}
+                  </span>
+                  <h2 className={styles.sectionTitle}>
+                    {getSectionTitle(section, "Pridaj sa k nám")}
+                  </h2>
+                  <div className={styles.naborDescription}>
+                    {contentHtml ? (
+                      <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+                    ) : (
+                      <p>
+                        Máš záujem o tréning v kategórii {category.name}? Vyplň
+                        náborový formulár alebo nás kontaktuj.
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <Link href="/pridaj_sa" className={styles.naborPrimaryButton}>
+                  Získať viac informácií
+                </Link>
+              </div>
+
+              <div className={styles.naborInfoGrid}>
+                <div className={styles.naborInfoItem}>
+                  <div className={styles.naborInfoLabel}>Ročník</div>
+                  <div className={styles.naborInfoValue}>
+                    {category.birth_year_from && category.birth_year_to
+                      ? `${Math.min(category.birth_year_from, category.birth_year_to)} – ${Math.max(
+                          category.birth_year_from,
+                          category.birth_year_to,
+                        )}`
+                      : "Bude doplnené"}
+                  </div>
+                </div>
+
+                <div className={styles.naborInfoItem}>
+                  <div className={styles.naborInfoLabel}>Kontakt na trénera</div>
+                  <div className={styles.naborInfoValue}>
+                    {category.coach_name || "Tréner"}
+                    {category.coach_email ? (
+                      <>
+                        <br />
+                        {category.coach_email}
+                      </>
+                    ) : null}
+                    {category.coach_phone ? (
+                      <>
+                        <br />
+                        {category.coach_phone}
+                      </>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
     );
   };
 
@@ -540,12 +930,30 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   };
 
   const renderLinksSection = (section: PageSection) => {
-    if (!section.items?.length && section.hide_when_empty) {
+    const selectedLinkIds = getConfiguredIds(section.config, "link_ids");
+    const itemLinks = mapSectionItemsToLinks(section.items);
+    const manualLinks = getManualLinks(section.config);
+    const configuredClubLinks =
+      selectedLinkIds.length > 0
+        ? filterByConfiguredIds(activeClubLinks, selectedLinkIds)
+        : [];
+    const links =
+      itemLinks.length > 0
+        ? itemLinks
+        : manualLinks.length > 0
+          ? manualLinks
+          : configuredClubLinks.length > 0
+            ? mapClubLinksToSectionLinks(configuredClubLinks)
+            : section.section_type === "links"
+              ? getDefaultSzfbLinks(categoryDataSlug)
+              : [];
+
+    if (links.length === 0 && section.hide_when_empty) {
       return null;
     }
 
     return (
-      <section key={section.id} className={styles.sectionContainer}>
+      <section key={section.id} id="odkazy" className={styles.sectionContainer}>
         <div className={styles.resultsHeader}>
           <div>
             <span className={styles.preTitle}>
@@ -557,14 +965,30 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
 
-        {section.items?.length ? (
-          <ul>
-            {section.items.map((item) => (
-              <li key={item.id}>
-                <Link href={item.url || "#"}>{item.title}</Link>
-              </li>
-            ))}
-          </ul>
+        {links.length > 0 ? (
+          <div className={szfbStyle.szfbSection}>
+            <div className={szfbStyle.szfbGrid}>
+              {links.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={szfbStyle.szfbCard}
+                >
+                  <div className={szfbStyle.szfbCardTop}>
+                    <span className={szfbStyle.szfbBadge}>
+                      {link.badge || "ODKAZ"}
+                    </span>
+                    <span className={szfbStyle.szfbArrow}>↗</span>
+                  </div>
+
+                  <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
+                  <span className={szfbStyle.szfbCardLink}>Otvoriť odkaz</span>
+                </a>
+              ))}
+            </div>
+          </div>
         ) : (
           <p>Odkazy zatiaľ nie sú dostupné.</p>
         )}
@@ -599,12 +1023,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         return renderLinksSection(section);
 
       case "trainings":
-      case "recruitment":
-        if (section.hide_when_empty) {
-          return null;
-        }
+        return renderTrainingsSection(section);
 
-        return renderCustomTextSection(section);
+      case "recruitment":
+        return renderRecruitmentSection(section);
 
       default:
         warnUnsupportedSection(`/kategorie/${pageSlug}`, section.section_type);

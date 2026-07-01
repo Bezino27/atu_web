@@ -8,8 +8,6 @@ export type ClubContact = {
     slug: string;
     short_name: string;
   };
-  section_label: string;
-  title: string;
   address: string;
   chairman_name: string;
   email: string;

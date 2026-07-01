@@ -154,11 +154,11 @@ const PripravkaPage = async () => {
   const szfbLinks = [
     {
       title: "Detail tímu",
-      href: "https://www.szfb.sk/sk/stats/teams/1178/liga-mladsich-ziakov-vychod/team/669483/fabk-atu-kosice",
+      href: "https://www.szfb.sk/sk/stats/teams/1177/liga-starsej-pripravky-vychod/team/669796/fabk-atu-kosice",
     },
     {
       title: "Výsledky a program",
-      href: "https://www.szfb.sk/sk/stats/results-date/1178",
+      href: "https://www.szfb.sk/sk/stats/results/1177/liga-starsej-pripravky-vychod",
     },
   ];
 
@@ -169,7 +169,9 @@ const PripravkaPage = async () => {
       <main className={styles.content}>
         {sections.map((section) => {
           switch (section.section_type) {
-            case "hero":
+            case "hero": {
+              const heroTitle = getSectionTitle(section, categoryName);
+
               return (
         <section key={section.id} className={styles.heroSection}>
           <div className={styles.bannerContainer}>
@@ -184,8 +186,14 @@ const PripravkaPage = async () => {
 
             <div className={styles.bannerOverlay}>
               <div className={styles.heroTextContent}>
-                <h1 className={styles.bannerTitleziaci}>
-                  {getSectionTitle(section, categoryName)}
+                <h1
+                  className={`${styles.bannerTitleziaci} ${
+                    heroTitle.replace(/\s+/g, "").length > 8
+                      ? styles.bannerTitleziaciLong
+                      : ""
+                  }`}
+                >
+                  {heroTitle}
                 </h1>
 
                 <div className={styles.heroQuickNav}>
@@ -204,6 +212,7 @@ const PripravkaPage = async () => {
           </div>
         </section>
               );
+            }
             case "links":
               return (
         <section key={section.id} id="odkazy" className="sectionContainer">

@@ -248,6 +248,12 @@
   letter-spacing: 0.015em;
   white-space: nowrap;
 }
+
+.bannerTitleziaciLong {
+  font-size: clamp(3.2rem, 6.2vw, 5.4rem);
+  letter-spacing: 0.005em;
+}
+
 .heroQuickNav {
   position: relative;
   z-index: 6;
@@ -1869,6 +1875,10 @@
     white-space: normal;
   }
 
+  .bannerTitleziaciLong {
+    font-size: clamp(2.35rem, 6vw, 4.2rem);
+  }
+
   .heroDescription {
     max-width: 620px;
     font-size: 0.95rem;
@@ -2318,6 +2328,10 @@
     white-space: normal;
     overflow: visible;
     text-overflow: unset;
+  }
+
+  .bannerTitleziaciLong {
+    font-size: clamp(1.75rem, 7.6vw, 3rem);
   }
 
   .heroDescription {
@@ -2956,6 +2970,10 @@
     white-space: normal;
     overflow: visible;
     text-overflow: unset;
+  }
+
+  .bannerTitleziaciLong {
+    font-size: clamp(1.3rem, 7.2vw, 2rem);
   }
 
   .heroDescription {

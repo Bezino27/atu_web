@@ -14,13 +14,9 @@ import {
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import ContactMap from "@/app/kontakt/ContactMap";
-import { getClub, getClubLinkLogoUrl } from "@/app/lib/club";
-import { getActiveClubLinks, getClubLinkIcon } from "@/app/lib/clubLinks";
-import {
-  getClubDocuments,
-  getClubDocumentUrl,
-  type ClubDocument,
-} from "@/app/lib/documents";
+import { getClubLinkLogoUrl, type ClubLink } from "@/app/lib/club";
+import { getClubLinkIcon } from "@/app/lib/clubLinks";
+import { getClubDocumentUrl, type ClubDocument } from "@/app/lib/documents";
 import {
   getClubPageBySlug,
   getSectionPreTitle,
@@ -29,7 +25,7 @@ import {
   type ClubPage,
   type PageSection,
 } from "@/app/lib/pages";
-import { normalizeMediaUrl } from "@/app/lib/api";
+import { normalizeHtmlMediaUrls, normalizeMediaUrl } from "@/app/lib/api";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
 import contactStyles from "@/app/kontakt/kontakt.module.css";
 import styles from "./stranka.module.css";
@@ -72,6 +68,13 @@ type ContactDisplayItem = {
   label: string;
   value: string;
   href: string;
+};
+
+type ContactMapLocation = {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
 };
 
 function getConfigString(config: Record<string, unknown>, keys: string[]) {
@@ -345,8 +348,11 @@ function getSectionImageUrl(section: PageSection) {
 
 function getActiveItems(section: PageSection) {
   return [...(section.items ?? [])]
-    .filter((item) => item.is_active)
-    .sort((a, b) => a.order - b.order || Number(a.id) - Number(b.id));
+    .filter((item) => item.is_active !== false)
+    .sort(
+      (a, b) =>
+        (a.order ?? 0) - (b.order ?? 0) || Number(a.id) - Number(b.id),
+    );
 }
 
 function hasSectionHeaderText(section: PageSection) {
@@ -392,6 +398,35 @@ function getCustomDocumentItems(section: PageSection) {
       };
     })
     .filter(Boolean) as ManualDocumentItem[];
+}
+
+function getClubLinkItems(section: PageSection): ClubLink[] {
+  return getActiveItems(section)
+    .filter((item) => item.url)
+    .map((item) => ({
+      id: item.id,
+      title: item.title,
+      url: item.url || "",
+      icon_type: item.icon_type || "custom",
+      logo: item.logo ?? null,
+      logo_url: item.logo_url ?? null,
+      order: item.order ?? 0,
+      is_active: item.is_active !== false,
+    }));
+}
+
+function getClubDocumentItems(section: PageSection): ClubDocument[] {
+  return getActiveItems(section)
+    .filter((item) => item.file_url || item.file)
+    .map((item) => ({
+      id: item.id,
+      title: item.title,
+      file: item.file || "",
+      file_url: item.file_url ?? null,
+      order: item.order ?? 0,
+      is_active: item.is_active !== false,
+      updated_at: "",
+    }));
 }
 
 async function getCustomPage(slug: string): Promise<ClubPage | null> {
@@ -444,17 +479,6 @@ export default async function CustomPage({ params }: PageProps) {
   if (!page) {
     notFound();
   }
-
-  const [club, documents] = await Promise.all([
-    getClub(CLUB_SLUG),
-    getClubDocuments(CLUB_SLUG),
-  ]);
-
-  const activeDocuments = documents
-    .filter((document) => document.is_active)
-    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, "sk"));
-
-  const activeLinks = getActiveClubLinks(club?.links);
 
   const sections = [...page.sections]
     .filter((section) => section.is_active)
@@ -509,7 +533,7 @@ export default async function CustomPage({ params }: PageProps) {
   };
 
   const renderCustomTextSection = (section: PageSection) => {
-    const content = section.content?.trim();
+    const content = normalizeHtmlMediaUrls(section.content?.trim() || "");
 
     if (section.hide_when_empty && !content) {
       return null;
@@ -530,7 +554,10 @@ export default async function CustomPage({ params }: PageProps) {
 
         <div className={styles.textPanel}>
           {content ? (
-            <div className={styles.textContent}>{content}</div>
+            <div
+              className={styles.textContent}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           ) : (
             <p className={styles.emptyText}>Obsah bude doplnený čoskoro.</p>
           )}
@@ -541,8 +568,11 @@ export default async function CustomPage({ params }: PageProps) {
 
   const renderLinksSection = (section: PageSection) => {
     const selectedIds = getConfiguredIds(section.config, "link_ids");
+    const sectionLinks = getClubLinkItems(section);
     const links =
-      selectedIds.length > 0 ? filterByConfiguredIds(activeLinks, selectedIds) : [];
+      selectedIds.length > 0
+        ? filterByConfiguredIds(sectionLinks, selectedIds)
+        : sectionLinks;
 
     if (
       links.length === 0 &&
@@ -558,8 +588,7 @@ export default async function CustomPage({ params }: PageProps) {
         {links.length > 0 ? (
           <div className={styles.linkGrid}>
             {links.map((link) => {
-              const isBackendLink = "icon_type" in link;
-              const logoUrl = isBackendLink ? getClubLinkLogoUrl(link) : "";
+              const logoUrl = getClubLinkLogoUrl(link);
 
               return (
                 <a
@@ -573,7 +602,7 @@ export default async function CustomPage({ params }: PageProps) {
                     {logoUrl ? (
                       <Image src={logoUrl} alt="" width={34} height={34} />
                     ) : (
-                      getClubLinkIcon(isBackendLink ? link.icon_type : "custom")
+                      getClubLinkIcon(link.icon_type || "custom")
                     )}
                   </span>
                   <span className={styles.linkContent}>
@@ -645,10 +674,11 @@ export default async function CustomPage({ params }: PageProps) {
 
   const renderDocumentsSection = (section: PageSection) => {
     const selectedIds = getConfiguredIds(section.config, "document_ids");
+    const sectionDocuments = getClubDocumentItems(section);
     const documentsToRender =
       selectedIds.length > 0
-        ? filterByConfiguredIds(activeDocuments, selectedIds)
-        : activeDocuments;
+        ? filterByConfiguredIds(sectionDocuments, selectedIds)
+        : sectionDocuments;
 
     if (section.hide_when_empty && documentsToRender.length === 0) {
       return null;
@@ -759,7 +789,7 @@ export default async function CustomPage({ params }: PageProps) {
     const contactItems = getContactDisplayItems(section);
     const hasContact = contactItems.length > 0 || hasContactSectionData(contact);
     const hasMap = hasContactMap(contact);
-    const contactLocations = hasMap
+    const contactLocations: Record<string, ContactMapLocation> = hasMap
       ? {
           main: {
             name: contact.mapLabel || getSectionTitle(section, "Kontakt"),
@@ -835,7 +865,7 @@ export default async function CustomPage({ params }: PageProps) {
   };
 
   const renderGallerySection = (section: PageSection) => {
-    const content = section.content?.trim();
+    const content = normalizeHtmlMediaUrls(section.content?.trim() || "");
 
     if (section.hide_when_empty && !content) {
       return null;
@@ -856,7 +886,10 @@ export default async function CustomPage({ params }: PageProps) {
 
         <div className={styles.textPanel}>
           {content ? (
-            <div className={styles.textContent}>{content}</div>
+            <div
+              className={styles.textContent}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           ) : (
             <p className={styles.emptyText}>Galéria bude doplnená čoskoro.</p>
           )}

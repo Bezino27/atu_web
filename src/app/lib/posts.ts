@@ -55,6 +55,43 @@ export async function getHomepagePosts(
   }
 }
 
+function normalizeText(value?: string | null) {
+  return (
+    value
+      ?.toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") ?? ""
+  );
+}
+
+function isPostInCategory(post: Post, categorySlug: string) {
+  const normalizedCategorySlug = normalizeText(categorySlug);
+  const postCategorySlug = normalizeText(post.category?.slug);
+  const postCategoryName = normalizeText(post.category?.name);
+  const youthCategorySlugs = new Set([
+    "juniori",
+    "dorast",
+    "starsi-ziaci",
+    "mladsi-ziaci",
+    "pripravka",
+  ]);
+
+  return (
+    postCategorySlug === normalizedCategorySlug ||
+    postCategoryName === normalizedCategorySlug ||
+    (youthCategorySlugs.has(normalizedCategorySlug) && postCategoryName === "mladez")
+  );
+}
+
+export async function getPostsByCategory(
+  clubSlug: string,
+  categorySlug: string,
+): Promise<Post[]> {
+  const posts = await getHomepagePosts(clubSlug);
+  return posts.filter((post) => isPostInCategory(post, categorySlug));
+}
+
 export async function getPostDetail(
   clubSlug: string,
   slug: string,
