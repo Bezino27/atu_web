@@ -416,7 +416,11 @@ export default async function PridajSaPage() {
 
     return (
       <section key={section.id} className="sectionContainer">
-        <BenefitsCarouselSection items={benefits} />
+        <BenefitsCarouselSection
+          items={benefits}
+          preTitle={getSectionPreTitle(section, "")}
+          title={getSectionTitle(section, "Prečo ATU")}
+        />
       </section>
     );
   };
@@ -429,9 +433,9 @@ export default async function PridajSaPage() {
     return (
       <section key={section.id} id="kategorie" className="sectionContainer">
         <div className="sectionHeader">
-          {section.pre_title?.trim() && (
-            <span className="preTitle">{section.pre_title}</span>
-          )}
+          {getSectionPreTitle(section, "") ? (
+            <span className="preTitle">{getSectionPreTitle(section, "")}</span>
+          ) : null}
           <h2 className="sectionTitle">
             {getSectionTitle(section, "Kategórie")}
           </h2>

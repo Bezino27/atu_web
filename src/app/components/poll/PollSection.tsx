@@ -50,7 +50,15 @@ function storeVotedPollId(pollId: number) {
   );
 }
 
-export default function PollSection() {
+type PollSectionProps = {
+  preTitle?: string;
+  title?: string;
+};
+
+export default function PollSection({
+  preTitle = "Anketa",
+  title = "Hlasovanie fanúšikov",
+}: PollSectionProps) {
   const [polls, setPolls] = useState<PollState[]>([]);
   const [latestResult, setLatestResult] = useState<ApiPollResults | null>(null);
   const [loading, setLoading] = useState(true);
@@ -192,8 +200,8 @@ export default function PollSection() {
     <section className="sectionContainer">
       <div className="resultsHeader">
         <div>
-          <span className="preTitle">Anketa</span>
-          <h2 className="sectionTitle">Hlasovanie fanúšikov</h2>
+          <span className="preTitle">{preTitle}</span>
+          <h2 className="sectionTitle">{title}</h2>
         </div>
       </div>
 

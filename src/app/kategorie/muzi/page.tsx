@@ -353,6 +353,8 @@ export default async function MuziPage() {
           resultMatches={resultMatches}
           ownTeamName={ownTeamName}
           competitionName={competitionName}
+          preTitle={getSectionPreTitle(section, "Zápasy")}
+          title={getSectionTitle(section, "Featured zápasy")}
         />
       </section>
     );

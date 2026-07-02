@@ -11,13 +11,19 @@ type WhyAtuItem = {
 
 type WhyAtuCarouselProps = {
   items: WhyAtuItem[];
+  preTitle?: string;
+  title?: string;
 };
 
 function mod(n: number, m: number) {
   return ((n % m) + m) % m;
 }
 
-export default function WhyAtuCarousel({ items }: WhyAtuCarouselProps) {
+export default function WhyAtuCarousel({
+  items,
+  preTitle,
+  title = "Prečo ATU",
+}: WhyAtuCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(items.length / 2)
   );
@@ -88,7 +94,8 @@ export default function WhyAtuCarousel({ items }: WhyAtuCarouselProps) {
     <div className={styles.section}>
       <div className={styles.headerRow}>
         <div className="sectionHeader">
-          <h2 className="sectionTitle">Prečo ATU</h2>
+          {preTitle ? <span className="preTitle">{preTitle}</span> : null}
+          <h2 className="sectionTitle">{title}</h2>
         </div>
 
         <div className={styles.controls}>

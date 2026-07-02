@@ -218,7 +218,9 @@ export default async function HomePage() {
 
   const sections =
     homePage?.sections && homePage.sections.length > 0
-      ? [...homePage.sections].sort((a, b) => a.order - b.order || a.id - b.id)
+      ? [...homePage.sections]
+          .filter((section) => section.is_active)
+          .sort((a, b) => a.order - b.order || a.id - b.id)
       : fallbackSections;
 
   const currentSeason = clubSeason?.season ?? "2025 / 2026";
@@ -234,6 +236,18 @@ export default async function HomePage() {
   const featuredMatch: SzfbMatch | null = szfbDashboard?.upcoming?.[0] ?? null;
 
   const hasPostsSection = sections.some((section) => section.section_type === "posts");
+  const nextMatchSection =
+    sections.find((section) => section.section_type === "next_match") ??
+    fallbackSections.find((section) => section.section_type === "next_match") ?? {
+      id: -6,
+      section_type: "next_match",
+      title: "Najbližšie zápasy",
+      pre_title: "Program",
+      order: 6,
+      is_active: true,
+      hide_when_empty: false,
+      config: {},
+    };
 
   const partnersWithLogos = partners
     .map((partner) => ({
@@ -531,8 +545,12 @@ export default async function HomePage() {
               <div className={styles.upcomingMatchesCard}>
                 <div className={styles.panelHeader}>
                   <div>
-                    <span className={styles.panelEyebrow}>Program</span>
-                    <h3 className={styles.panelTitle}>Najbližšie zápasy</h3>
+                    <span className={styles.panelEyebrow}>
+                      {getSectionPreTitle(nextMatchSection, "Program")}
+                    </span>
+                    <h3 className={styles.panelTitle}>
+                      {getSectionTitle(nextMatchSection, "Najbližšie zápasy")}
+                    </h3>
                   </div>
                 </div>
 
@@ -611,8 +629,12 @@ export default async function HomePage() {
             <div className={styles.upcomingMatchesCard}>
               <div className={styles.panelHeader}>
                 <div>
-                  <span className={styles.panelEyebrow}>Program</span>
-                  <h3 className={styles.panelTitle}>Najbližšie zápasy</h3>
+                  <span className={styles.panelEyebrow}>
+                    {getSectionPreTitle(nextMatchSection, "Program")}
+                  </span>
+                  <h3 className={styles.panelTitle}>
+                    {getSectionTitle(nextMatchSection, "Najbližšie zápasy")}
+                  </h3>
                 </div>
               </div>
 
@@ -649,7 +671,13 @@ export default async function HomePage() {
   };
 
   const renderPollSection = (section: PageSection) => {
-    return <PollSection key={section.id} />;
+    return (
+      <PollSection
+        key={section.id}
+        preTitle={getSectionPreTitle(section, "Anketa")}
+        title={getSectionTitle(section, "Hlasovanie fanúšikov")}
+      />
+    );
   };
 
   const renderPartnersSection = (section: PageSection) => {

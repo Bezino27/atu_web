@@ -8,6 +8,8 @@ type NasledujuceZapasyProps = {
   resultMatches: SzfbMatch[];
   ownTeamName: string;
   competitionName: string;
+  preTitle?: string;
+  title?: string;
 };
 
 function formatDate(dateString?: string | null) {
@@ -67,6 +69,8 @@ export default function NasledujuceZapasy({
   resultMatches,
   ownTeamName,
   competitionName,
+  preTitle = "Zápasy",
+  title = "Featured zápasy",
 }: NasledujuceZapasyProps) {
   const nextMatch = upcomingMatches[0];
   const lastResult = resultMatches[0];
@@ -76,8 +80,8 @@ export default function NasledujuceZapasy({
   return (
     <section className={styles.featuredMatchesSection}>
       <div className={styles.featuredMatchesHeading}>
-        <span className="preTitle">Zápasy</span>
-        <h2 className="sectionTitle">Featured zápasy</h2>
+        <span className="preTitle">{preTitle}</span>
+        <h2 className="sectionTitle">{title}</h2>
       </div>
 
       {!hasAnyMatch ? (
