@@ -155,7 +155,7 @@
 
 .textPanel {
   width: 100%;
-  max-width: 1060px;
+  max-width: none;
   padding: 30px;
   border-radius: 26px;
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
@@ -165,9 +165,10 @@
 }
 
 .textContent {
-  max-width: 900px;
+  max-width: none;
+  text-align: center;
   color: var(--color-text);
-  font-size: 1.04rem;
+  font-size: 1.12rem;
   font-weight: 560;
   line-height: 1.72;
   overflow-wrap: anywhere;
@@ -189,7 +190,7 @@
 .textContent :global(p) {
   margin: 0 0 12px;
   color: var(--color-text);
-  font-size: 1.04rem;
+  font-size: 1.12rem;
   font-weight: 560;
   line-height: 1.72;
 }
@@ -266,7 +267,7 @@
   margin: 6px 0;
   padding-left: 6px;
   color: var(--color-text);
-  font-size: 1.04rem;
+  font-size: 1.12rem;
   font-weight: 560;
   line-height: 1.65;
 }
