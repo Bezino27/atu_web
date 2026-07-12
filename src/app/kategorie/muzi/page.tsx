@@ -11,7 +11,7 @@ import TopPlayer from "./components/najlepsi_hrac";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
-import { getSzfbDashboard } from "@/app/lib/szfb";
+import { getSzfbDashboard, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
 import {
@@ -82,7 +82,6 @@ type ClubPage = {
 const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "muzi";
 const CATEGORY_FALLBACK_NAME = "Muži";
-const SZFB_WATCH_ID = 1;
 
 const fallbackSections: PageSection[] = [
   {
@@ -236,14 +235,16 @@ async function getCategoryPage(): Promise<ClubPage | null> {
 export default async function MuziPage() {
   await connection();
 
-  const [categoryPage, szfbDashboard, posts, clubSeason, categories] =
+  const [categoryPage, posts, clubSeason, categories, watchId] =
     await Promise.all([
       getCategoryPage(),
-      getSzfbDashboard(SZFB_WATCH_ID),
       getHomepagePosts(CLUB_SLUG),
       getClubSeason(CLUB_SLUG),
       getCategories(),
+      getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
+
+  const szfbDashboard = watchId ? await getSzfbDashboard(watchId) : null;
 
   const sections =
     categoryPage?.sections && categoryPage.sections.length > 0

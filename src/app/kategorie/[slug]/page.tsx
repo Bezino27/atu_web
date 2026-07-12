@@ -172,8 +172,8 @@ function getCategoryWatchId(category: BackendCategory | null) {
   }
 
   return (
-    category.szfb_watch_id ??
     category.szfb_team_watch_id ??
+    category.szfb_watch_id ??
     category.watch_id ??
     null
   );

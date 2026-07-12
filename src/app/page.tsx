@@ -9,6 +9,7 @@ import { getHomepagePosts, type Post } from "./lib/posts";
 import { getClubHomePage, getImageUrl, type PageSection } from "./lib/api";
 import {
   getSzfbDashboard,
+  getSzfbWatchIdForCategory,
   type SzfbMatch,
   type SzfbStandingRow,
 } from "./lib/szfb";
@@ -18,7 +19,6 @@ import PollSection from "./components/poll/PollSection";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "./lib/seo";
 
 const CLUB_SLUG = "atu-kosice";
-const SZFB_WATCH_ID = 1;
 
 export const metadata: Metadata = {
   title: "ATU Košice – Florbalový klub",
@@ -208,13 +208,15 @@ const fallbackSections: PageSection[] = [
 export default async function HomePage() {
   await connection();
 
-  const [homePage, posts, szfbDashboard, clubSeason, partners] = await Promise.all([
+  const [homePage, posts, clubSeason, partners, watchId] = await Promise.all([
     getClubHomePage(CLUB_SLUG),
     getHomepagePosts(CLUB_SLUG, 7),
-    getSzfbDashboard(SZFB_WATCH_ID),
     getClubSeason(CLUB_SLUG),
     getClubPartners(CLUB_SLUG),
+    getSzfbWatchIdForCategory(CLUB_SLUG, "muzi"),
   ]);
+
+  const szfbDashboard = watchId ? await getSzfbDashboard(watchId) : null;
 
   const sections =
     homePage?.sections && homePage.sections.length > 0

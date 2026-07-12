@@ -63,6 +63,55 @@ export type SzfbDashboardResponse = {
   player_stats: SzfbPlayerStat[];
 };
 
+
+export type SzfbLinkedCategory = {
+  id: number;
+  name: string;
+  slug?: string | null;
+  szfb_team_watch_id?: number | null;
+  szfb_watch_id?: number | null;
+  watch_id?: number | null;
+};
+
+function getLinkedCategoryWatchId(category: SzfbLinkedCategory | null) {
+  if (!category) return null;
+
+  return (
+    category.szfb_team_watch_id ??
+    category.szfb_watch_id ??
+    category.watch_id ??
+    null
+  );
+}
+
+export async function getSzfbWatchIdForCategory(
+  clubSlug: string,
+  categorySlug: string,
+): Promise<number | null> {
+  try {
+    const url = `${API_URL.replace(/\/$/, "")}/public/teams/${clubSlug}/`;
+    const response = await fetch(url, getApiFetchOptions(300));
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      return null;
+    }
+
+    const category = data.find(
+      (item: SzfbLinkedCategory) => item.slug === categorySlug,
+    );
+
+    return getLinkedCategoryWatchId(category ?? null);
+  } catch {
+    return null;
+  }
+}
+
 export async function getSzfbDashboard(
   watchId: number
 ): Promise<SzfbDashboardResponse | null> {

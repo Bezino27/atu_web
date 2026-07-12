@@ -11,7 +11,7 @@ import TopPlayer from "./components/najlepsi_hrac";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
-import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
+import { getSzfbDashboard, getSzfbNextMatch, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
 import {
@@ -66,10 +66,6 @@ type BackendCategory = {
 const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "juniori";
 const CATEGORY_FALLBACK_NAME = "Juniori";
-
-// Toto je ID z Django adminu pre SzfbTeamWatch juniorov.
-// Ak bude mať junior team watch iné ID, zmeň iba túto hodnotu.
-const SZFB_WATCH_ID = 2;
 
 const fallbackSections: PageSection[] = [
   {
@@ -185,15 +181,21 @@ async function getCategories(): Promise<BackendCategory[]> {
 export default async function JunioriPage() {
   await connection();
 
-  const [categoryPage, szfbDashboard, nextMatchResponse, posts, clubSeason, categories] =
+  const [categoryPage, posts, clubSeason, categories, watchId] =
     await Promise.all([
       getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
-      getSzfbDashboard(SZFB_WATCH_ID),
-      getSzfbNextMatch(SZFB_WATCH_ID),
       getHomepagePosts(CLUB_SLUG),
       getClubSeason(CLUB_SLUG),
       getCategories(),
+      getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
+
+  const [szfbDashboard, nextMatchResponse] = watchId
+    ? await Promise.all([
+        getSzfbDashboard(watchId),
+        getSzfbNextMatch(watchId),
+      ])
+    : [null, null];
 
   const currentCategory = categories.find(isCurrentCategory);
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;

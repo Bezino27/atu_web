@@ -59,6 +59,11 @@ export type ClubPage = {
     slug: string;
     category_subname?: string;
     league_name?: string;
+    szfb_team_watch_id?: number | null;
+    szfb_team_watch_label?: string | null;
+    szfb_team_watch_competition_name?: string | null;
+    szfb_team_watch_competition_season?: string | null;
+    szfb_watch_id?: number | null;
   } | null;
   sections: PageSection[];
 };
