@@ -391,7 +391,7 @@
 
 .table tbody td[colspan] {
   text-align: center !important;
-  padding: 28px 18px;
+  padding: 9px 12px;
   color: var(--color-text-subtle);
   font-size: 0.96rem;
   font-weight: 600;
@@ -716,7 +716,7 @@
   color: var(--color-text-subtle);
   font-size: 0.92rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   line-height: 1;
 }
@@ -759,33 +759,62 @@
   width: 100%;
 }
 
-.partnersCard {
-  width: 100%;
-  padding: 32px;
-  border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
-  box-sizing: border-box;
+.partnerGroups {
+  display: grid;
+  gap: 30px;
 }
 
-.partnersGrid {
+.partnerGroup {
   display: grid;
+  gap: 12px;
+}
+
+.partnerGroupTitle {
+  margin: 0;
+  padding: 9px 12px;
+  border-radius: 0;
+  background: var(--color-page-soft);
+  color: var(--color-text-muted);
+  font-size: clamp(0.82rem, 1vw, 0.95rem);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: 0.055em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.partnerGroupGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.partnerGridGeneral {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.partnerGridMain {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.partnerGridStandard,
+.partnerGridMedia {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
 }
 
 .partnerLogoCell {
   position: relative;
-  min-height: 130px;
+  min-width: 0;
+  min-height: 118px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, var(--color-surface-soft) 0%, var(--color-surface-soft) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    var(--color-page-soft) 100%
+  );
   border: 1px solid var(--color-border);
   overflow: hidden;
   transition:
@@ -797,25 +826,47 @@
 
 .partnerLogoCell:hover {
   transform: scale(1.035);
-  background: var(--color-surface-soft);
+  background: var(--color-surface);
   border-color: var(--color-border-strong);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
   z-index: 1;
 }
 
+.partnerLogoCellGeneral {
+  min-height: 160px;
+  padding: 28px;
+}
+
+.partnerLogoCellMain {
+  min-height: 130px;
+  padding: 24px;
+}
+
+.partnerLogoCellMedia {
+  min-height: 100px;
+  padding: 16px;
+}
+
 .partnerLogo {
   width: auto;
   max-width: 100%;
-  max-height: 100px;
+  max-height: 82px;
   object-fit: contain;
 }
 
-.partnerLogoLarge {
-  max-height: 110px;
+.partnerLogoGeneral {
+  max-height: 118px;
+}
+
+.partnerLogoMain {
+  max-height: 96px;
+}
+
+.partnerLogoMedia {
+  max-height: 66px;
 }
 
 .partnerGrantBannerCell {
-  height: 130px;
   padding: 0;
   background: var(--color-surface);
 }
@@ -1549,5 +1600,98 @@
 
   .mobileUpcomingMatches {
     padding-top: 22px;
+  }
+}
+
+/* # PARTNERS RESPONSIVE */
+@media (max-width: 1024px) {
+  .partnerGroups {
+    gap: 26px;
+  }
+
+  .partnerGridStandard,
+  .partnerGridMedia {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partnerLogoCellGeneral {
+    min-height: 145px;
+  }
+
+  .partnerLogoGeneral {
+    max-height: 104px;
+  }
+}
+
+@media (max-width: 768px) {
+  .partnerGroups {
+    gap: 24px;
+  }
+
+  .partnerGridGeneral,
+  .partnerGridMain,
+  .partnerGridStandard,
+  .partnerGridMedia {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partnerGroupTitle {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .partnerLogoCellGeneral,
+  .partnerLogoCellMain,
+  .partnerLogoCell,
+  .partnerLogoCellMedia {
+    min-height: 108px;
+    padding: 16px;
+  }
+
+  .partnerLogoGeneral,
+  .partnerLogoMain,
+  .partnerLogo {
+    max-height: 74px;
+  }
+
+  .partnerLogoMedia {
+    max-height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partnerGroups {
+    gap: 22px;
+  }
+
+  .partnerGridGeneral,
+  .partnerGridMain,
+  .partnerGridStandard,
+  .partnerGridMedia {
+    grid-template-columns: 1fr;
+  }
+
+  .partnerGroupTitle {
+    padding: 7px 9px;
+    font-size: 0.78rem;
+    letter-spacing: 0.045em;
+  }
+
+  .partnerLogoCellGeneral,
+  .partnerLogoCellMain,
+  .partnerLogoCell,
+  .partnerLogoCellMedia {
+    min-height: 96px;
+    padding: 14px;
+  }
+
+  .partnerLogoGeneral,
+  .partnerLogoMain,
+  .partnerLogo {
+    max-height: 68px;
+  }
+
+  .partnerLogoMedia {
+    max-height: 56px;
   }
 }

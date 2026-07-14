@@ -1,0 +1,786 @@
+/* # CATEGORY HERO */
+
+/* # HERO */
+
+.heroSection {
+  width: 100%;
+  max-width: 1300px;
+  margin: 16px auto 0;
+  padding: 0 16px;
+  position: relative;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.bannerContainer {
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 42px;
+  background: var(--color-black);
+  box-sizing: border-box;
+  line-height: 1;
+  isolation: isolate;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+
+.bannerContainer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 10, 18, 0.02) 0%,
+      rgba(6, 10, 18, 0.08) 20%,
+      rgba(6, 10, 18, 0.16) 40%,
+      rgba(6, 10, 18, 0.44) 72%,
+      rgba(6, 10, 18, 0.72) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(6, 10, 18, 0.34) 0%,
+      rgba(6, 10, 18, 0.18) 26%,
+      rgba(6, 10, 18, 0.08) 54%,
+      rgba(6, 10, 18, 0) 100%
+    );
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center 34%;
+  z-index: 0;
+  transform: scale(1.01);
+}
+
+.bannerOverlay {
+  position: static;
+  z-index: 2;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.heroTextContent {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0px;
+  padding-right: 20px;
+}
+
+.heroSubtitle {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: 35px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(18, 18, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  color: var(--color-surface);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.bannerTitle,
+.bannerTitleziaci {
+  position: relative;
+  z-index: 3;
+  margin: 0 0 8px;
+  color: var(--color-surface);
+  text-transform: uppercase;
+  text-align: left;
+  opacity: 0.99;
+  animation: titleEntrance 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+
+  font-family: "Unison Pro", var(--font-banner), sans-serif !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+
+  text-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.38),
+    0 3px 10px rgba(0, 0, 0, 0.22);
+
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bannerTitle {
+  font-size: clamp(4.8rem, 12vw, 8.8rem);
+  line-height: 0.82;
+  letter-spacing: 0.00v5em;
+}
+
+.bannerTitleziaci {
+  font-size: clamp(3.4rem, 7.7vw, 6.7rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+}
+
+.bannerTitleziaciLong {
+  font-size: clamp(3.2rem, 6.2vw, 5.4rem);
+  letter-spacing: 0.005em;
+}
+
+.heroQuickNav {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+  align-items: stretch;
+}
+
+.heroQuickLink,
+.heroMiniInfo {
+  position: relative;
+  z-index: 7;
+}
+
+.heroDescription {
+  margin: 0;
+  max-width: 680px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.heroQuickNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+  align-items: stretch;
+}
+
+.heroQuickLink,
+.heroMiniInfo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 128px;
+  min-height: 35px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  color: var(--color-surface);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+  background: rgba(18, 18, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.heroQuickLink {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.heroQuickLink:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.heroMiniInfo {
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.heroMiniLabel {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.heroMiniValue {
+  color: var(--color-surface);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* # COUNTDOWN */
+
+.countdownWrapper {
+  width: 100%;
+  margin-top: -24px;
+  position: relative;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+}
+
+.countdownBar {
+  max-width: 100%;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  color: var(--color-text);
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.liveDot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-red-dark);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.countdownLabel {
+  font-weight: 800;
+  font-size: 0.92rem;
+  opacity: 0.72;
+}
+
+.timer {
+  font-weight: 900;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.nextMatchMeta {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 16px;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white);
+  font-size: var(--font-body-sm);
+  font-weight: 600;
+}
+
+.nextMatchMeta strong {
+  font-weight: 800;
+}
+
+.nextMatchMeta span {
+  opacity: 0.92;
+}
+
+/* # ANIMATIONS */
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+@keyframes titleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 0.99;
+    transform: translateY(0);
+  }
+}
+
+/* # 1024 */
+
+@media (max-width: 1024px) {
+  .heroSection {
+      margin: 14px auto 0;
+      padding: 0 14px;
+    }
+
+  .bannerContainer {
+      min-height: 500px;
+      padding: 32px 28px 30px;
+      border-radius: var(--radius-xl);
+    }
+
+  .bannerOverlay {
+      gap: 14px;
+    }
+
+  .heroTextContent {
+      max-width: 680px;
+      gap: 12px;
+      padding-right: 0;
+    }
+
+  .heroSubtitle {
+      top: 22px;
+      left: 22px;
+      min-height: 33px;
+      padding: 0 13px;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+    }
+
+  .bannerTitle {
+      margin: 0;
+      font-size: clamp(3.4rem, 9vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -3px;
+    }
+
+  .bannerTitleziaci {
+      margin: 44px 0 0;
+      font-size: clamp(2.7rem, 7vw, 4.8rem);
+      line-height: 0.92;
+      letter-spacing: -2px;
+      white-space: normal;
+    }
+
+  .bannerTitleziaciLong {
+      font-size: clamp(2.35rem, 6vw, 4.2rem);
+    }
+
+  .heroDescription {
+      max-width: 620px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+  .heroQuickNav {
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+  .heroQuickLink,
+    .heroMiniInfo {
+      min-width: 118px;
+      min-height: 36px;
+      padding: 0 16px;
+      font-size: 0.8rem;
+    }
+
+  .heroMiniLabel {
+      font-size: 0.72rem;
+    }
+
+  .heroMiniValue {
+      font-size: 0.8rem;
+    }
+
+  .heroImg {
+      object-position: center 30%;
+    }
+}
+
+/* # 768 */
+
+@media (max-width: 768px) {
+  .heroSection {
+      margin: 12px auto 0;
+      padding: 0 10px;
+    }
+
+  .bannerContainer {
+      min-height: 360px;
+      padding: 22px 18px 20px;
+      border-radius: var(--radius-xl);
+    }
+
+  .bannerOverlay {
+      min-height: auto;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+  .heroImg {
+      object-position: center 26%;
+    }
+
+  .heroTextContent {
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: calc(100% - 108px);
+      gap: 8px;
+      padding-right: 0;
+    }
+
+  .heroSubtitle {
+      top: 14px;
+      left: 14px;
+      min-height: 28px;
+      padding: 0 10px;
+      font-size: 0.56rem;
+      letter-spacing: 0.12em;
+    }
+
+  .bannerTitle {
+      margin: 32px 0 0;
+      max-width: 100%;
+      font-size: clamp(2.35rem, 10vw, 3.35rem);
+      line-height: 0.95;
+      letter-spacing: 0.015em;
+    }
+
+  .bannerTitleziaci {
+      margin: 32px 0 0;
+      max-width: 100%;
+      font-size: clamp(1.9rem, 8.8vw, 3.4rem);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+  .bannerTitleziaciLong {
+      font-size: clamp(1.75rem, 7.6vw, 3rem);
+    }
+
+  .heroDescription {
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+
+  .heroQuickNav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+  .heroQuickLink {
+      display: none;
+    }
+
+  .heroMiniInfo {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-self: flex-end;
+      min-width: unset;
+      min-height: 28px;
+      padding: 0 10px;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+  .heroMiniLabel {
+      font-size: 0.56rem;
+    }
+
+  .heroMiniValue {
+      font-size: 0.64rem;
+    }
+
+  .countdownWrapper {
+      margin-top: -14px;
+      padding: 0 10px;
+    }
+
+  .countdownBar {
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      padding: 10px 14px;
+      border-radius: var(--radius-lg);
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      white-space: normal;
+    }
+
+  .liveDot {
+      width: 9px;
+      height: 9px;
+    }
+
+  .countdownLabel {
+      font-size: 0.74rem;
+      line-height: 1.2;
+    }
+
+  .timer {
+      font-size: 0.86rem;
+      line-height: 1.2;
+    }
+}
+
+/* # 640 */
+
+@media (max-width: 640px) {
+  .heroSection {
+      margin: 10px auto 0;
+      padding: 0 8px;
+    }
+
+  .bannerContainer {
+      min-height: 270px;
+      padding: 18px 14px 20px;
+      border-radius: var(--radius-lg);
+    }
+
+  .bannerTitle {
+      font-size: clamp(2.5rem, 15vw, 3.8rem);
+    }
+
+  .bannerTitleziaci {
+      font-size: clamp(1.7rem, 9vw, 3rem);
+      letter-spacing: -0.5px;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+  .countdownWrapper {
+      margin-top: -12px;
+      padding: 0 8px;
+    }
+
+  .countdownBar {
+      padding: 10px 12px;
+      gap: 6px;
+    }
+}
+
+/* # 480 */
+
+@media (max-width: 480px) {
+  .heroSection {
+      margin: 10px auto 0;
+      padding: 0 8px;
+    }
+
+  .bannerContainer {
+      min-height: 300px;
+      padding: 16px 12px 16px;
+      border-radius: var(--radius-lg);
+    }
+
+  .bannerOverlay {
+      min-height: auto;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+  .heroImg {
+      object-position: center 24%;
+    }
+
+  .heroTextContent {
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: calc(100% - 92px);
+      gap: 0;
+      padding-right: 0;
+    }
+
+  .heroSubtitle {
+      top: 12px;
+      left: 12px;
+      min-height: 24px;
+      padding: 0 8px;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
+  .bannerTitle {
+      margin: 26px 0 -10px;
+      max-width: 100%;
+      font-size: clamp(1.95rem, 10vw, 2.35rem);
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+    }
+
+  .bannerTitleziaci {
+      margin: 26px 0 0;
+      max-width: 100%;
+      font-size: clamp(1.45rem, 8.4vw, 2.25rem);
+      line-height: 1.02;
+      letter-spacing: 0.01em;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+  .bannerTitleziaciLong {
+      font-size: clamp(1.3rem, 7.2vw, 2rem);
+    }
+
+  .heroDescription {
+      font-size: 0.76rem;
+      line-height: 1.35;
+    }
+
+  .heroQuickNav {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+  .heroQuickLink {
+      display: none;
+    }
+
+  .heroMiniInfo {
+      flex: 0 0 auto;
+      align-self: flex-end;
+      min-height: 24px;
+      padding: 0 8px;
+      gap: 4px;
+      border-radius: var(--radius-pill);
+      font-size: 0.64rem;
+      white-space: nowrap;
+    }
+
+  .heroMiniLabel {
+      font-size: 0.48rem;
+    }
+
+  .heroMiniValue {
+      font-size: 0.56rem;
+    }
+
+  .countdownWrapper {
+      margin-top: -10px;
+      padding: 0 6px;
+    }
+
+  .countdownBar {
+      padding: 10px 10px;
+      border-radius: var(--radius-lg);
+      gap: 6px;
+    }
+
+  .countdownLabel {
+      font-size: 0.7rem;
+    }
+
+  .timer {
+      font-size: 0.82rem;
+    }
+}
+
+/* # 360 */
+
+@media (max-width: 360px) {
+  .heroSection {
+      padding: 0 6px;
+    }
+
+  .bannerContainer {
+      min-height: 270px;
+      padding: 12px 10px 14px;
+      border-radius: var(--radius-lg);
+    }
+
+  .heroSubtitle {
+      top: 10px;
+      left: 10px;
+      min-height: 22px;
+      padding: 0 7px;
+      font-size: 0.46rem;
+    }
+
+  .bannerTitle {
+      margin-top: 22px;
+      font-size: clamp(1.8rem, 14vw, 2.7rem);
+    }
+
+  .bannerTitleziaci {
+      margin-top: 22px;
+      max-width: 100%;
+      font-size: clamp(1.2rem, 8vw, 1.9rem);
+      line-height: 1.02;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+  .heroDescription {
+      font-size: 0.72rem;
+      line-height: 1.32;
+    }
+
+  .heroQuickLink {
+      display: none;
+    }
+
+  .heroMiniInfo {
+      min-height: 26px;
+      padding: 0 8px;
+      font-size: 0.58rem;
+    }
+
+  .heroMiniLabel {
+      font-size: 0.52rem;
+    }
+
+  .heroMiniValue {
+      font-size: 0.58rem;
+    }
+
+  .countdownBar {
+      padding: 8px 10px;
+    }
+}

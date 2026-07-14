@@ -1,17 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../styles/TrainingTable.module.css";
-import { dorastTrainings, locations } from "@/data/treningy_starsi_ziaci";
+
+export type PublicTrainingLocation = {
+  id: number;
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+};
+
+export type PublicCategoryTraining = {
+  id: number;
+  day: string;
+  time: string;
+  order: number;
+  location: PublicTrainingLocation;
+};
 
 const TrainingMap = dynamic(() => import("./TrainingMap"), {
   ssr: false,
   loading: () => <div className={styles.mapLoading}>Načítavam mapu…</div>,
 });
 
-const KdeTrenujeme: React.FC = () => {
-  const [activeLocation, setActiveLocation] = useState<string | null>(null);
+type Props = {
+  trainings: PublicCategoryTraining[];
+};
+
+const KdeTrenujeme: React.FC<Props> = ({ trainings }) => {
+  const [activeLocation, setActiveLocation] = useState<number | null>(null);
+
+  const locations = useMemo(() => {
+    const unique = new Map<number, PublicTrainingLocation>();
+
+    trainings.forEach((training) => {
+      if (training.location) unique.set(training.location.id, training.location);
+    });
+
+    return Object.fromEntries(unique.entries());
+  }, [trainings]);
+
+  if (trainings.length === 0) return null;
 
   return (
     <div className={styles.section}>
@@ -29,30 +60,30 @@ const KdeTrenujeme: React.FC = () => {
           </div>
 
           <div className={styles.trainingList}>
-            {dorastTrainings.map((t, idx) => (
+            {trainings.map((training) => (
               <div
-                key={idx}
+                key={training.id}
                 className={`${styles.trainingRow} ${
-                  activeLocation === t.locationId ? styles.rowActive : ""
+                  activeLocation === training.location.id ? styles.rowActive : ""
                 }`}
-                onMouseEnter={() => setActiveLocation(t.locationId)}
+                onMouseEnter={() => setActiveLocation(training.location.id)}
                 onMouseLeave={() => setActiveLocation(null)}
               >
                 <div className={styles.timeBlock}>
                   <div className={styles.dayBadge}>
-                    {t.day.substring(0, 2).toUpperCase()}
+                    {training.day.substring(0, 2).toUpperCase()}
                   </div>
 
                   <div className={styles.timeInfo}>
-                    <span className={styles.dayName}>{t.day}</span>
-                    <span className={styles.timeValue}>{t.time}</span>
+                    <span className={styles.dayName}>{training.day}</span>
+                    <span className={styles.timeValue}>{training.time}</span>
                   </div>
                 </div>
 
                 <div className={styles.locationBlock}>
                   <div className={styles.locationBadge}>
                     <span className={styles.dot}></span>
-                    {locations[t.locationId]?.name}
+                    {training.location.name}
                   </div>
                 </div>
               </div>
@@ -60,9 +91,11 @@ const KdeTrenujeme: React.FC = () => {
           </div>
         </div>
 
-        <div className={styles.mapWrapper}>
-          <TrainingMap locations={locations} activeLocation={activeLocation} />
-        </div>
+        {Object.keys(locations).length > 0 ? (
+          <div className={styles.mapWrapper}>
+            <TrainingMap locations={locations} activeLocation={activeLocation} />
+          </div>
+        ) : null}
       </div>
     </div>
   );

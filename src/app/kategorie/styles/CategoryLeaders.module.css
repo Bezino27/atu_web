@@ -1,0 +1,1087 @@
+/* # CATEGORY LEADERS */
+
+/* # SEASON LEADERS */
+
+.leadersSection {
+  width: 100%;
+}
+
+.leadersContentGrid {
+  display: grid;
+  gap: 24px;
+}
+
+/* # PODIUM */
+
+.topPlayersPodium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas: "left center right";
+  align-items: start;
+  gap: 18px;
+}
+
+.playerRank1Wrap,
+.playerRank2Wrap,
+.playerRank3Wrap {
+  min-width: 0;
+}
+
+.playerRank1Wrap {
+  grid-area: center;
+  margin-top: 0;
+}
+
+.playerRank2Wrap {
+  grid-area: left;
+  margin-top: 18px;
+}
+
+.playerRank3Wrap {
+  grid-area: right;
+  margin-top: 36px;
+}
+
+/* # PLAYER CARD BASE */
+
+.playerCard {
+  --leader-accent: #b98243;
+  --leader-accent-rgb: 185, 130, 67;
+  --leader-bg: #16181b;
+  --leader-text: #f5f4f1;
+  --leader-border: rgba(var(--leader-accent-rgb), 0.82);
+  --leader-dot: rgba(255, 255, 255, 0.055);
+  --leader-sheen: rgba(var(--leader-accent-rgb), 0.18);
+
+  position: relative;
+  min-height: 390px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(0, 0, 0, 0.1)),
+    var(--leader-bg);
+  border: 1.5px solid var(--leader-border);
+  box-shadow:
+    0 18px 40px rgba(15, 18, 24, 0.14),
+    0 6px 18px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.playerCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--leader-accent-rgb), 0.96);
+  box-shadow:
+    0 24px 50px rgba(15, 18, 24, 0.18),
+    0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.playerCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: radial-gradient(
+    rgba(var(--leader-accent-rgb), 0.28) 1px,
+    transparent 1px
+  );
+  background-size: 13px 13px;
+  background-position: 0 0;
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.playerCard::after {
+  content: "";
+  position: absolute;
+  top: -6%;
+  right: 48%;
+  z-index: 1;
+  width: 1.5px;
+  height: 114%;
+  background: rgba(var(--leader-accent-rgb), 0.72);
+  transform: rotate(11deg);
+  transform-origin: center;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* # COLORS BY PLACE */
+
+.playerCardRank1 {
+  --leader-accent: #d5ad54;
+  --leader-accent-rgb: 213, 173, 84;
+  --leader-bg: #171818;
+  min-height: 410px;
+}
+
+.playerCardRank2 {
+  --leader-accent: #bfc5d0;
+  --leader-accent-rgb: 191, 197, 208;
+  --leader-bg: #161a1f;
+  min-height: 390px;
+}
+
+.playerCardRank3 {
+  --leader-accent: #b98243;
+  --leader-accent-rgb: 185, 130, 67;
+  --leader-bg: #171514;
+  min-height: 370px;
+}
+
+.playerCardMain,
+.playerCardSide {
+  padding: 18px;
+}
+
+/* # PLAYER CARD HEADER */
+
+.playerCardTop {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.rankBadge {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 40px;
+  padding: 0 13px 1px;
+  border: 1px solid rgba(var(--leader-accent-rgb), 0.95);
+  border-radius: 12px 10px 12px 12px;
+  background:
+    linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.34) 0%,
+      rgba(var(--leader-accent-rgb), 1) 30%,
+      rgba(var(--leader-accent-rgb), 0.9) 72%,
+      rgba(0, 0, 0, 0.16) 100%
+    );
+  color: #111111;
+  font-size: 0.94rem;
+  font-weight: 950;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--leader-accent-rgb), 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.18),
+    inset -10px -8px 16px rgba(0, 0, 0, 0.12),
+    0 2px 0 rgba(0, 0, 0, 0.22),
+    0 12px 22px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0 1px 0 rgba(var(--leader-accent-rgb), 0.58));
+  clip-path: polygon(0 0, 84% 0, 98% 18%, 86% 100%, 0 100%);
+}
+
+.rankBadge::before {
+  content: "";
+  position: absolute;
+  inset: 2px 3px 3px 2px;
+  border-radius: 9px 7px 9px 9px;
+  background:
+    linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 34%,
+      rgba(var(--leader-accent-rgb), 0.18) 72%,
+      rgba(0, 0, 0, 0.08) 100%
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset -1px -1px 0 rgba(var(--leader-accent-rgb), 0.28);
+  clip-path: polygon(0 0, 83% 0, 97% 18%, 85% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.rankBadge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      118deg,
+      transparent 0%,
+      transparent 43%,
+      rgba(255, 255, 255, 0.2) 49%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      transparent 45%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  opacity: 0.42;
+  clip-path: inherit;
+  pointer-events: none;
+}
+
+.playerNumber {
+  position: absolute;
+  top: 8px;
+  right: 22px;
+  z-index: 5;
+  width: auto;
+  min-width: 112px;
+  text-align: right;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(var(--leader-accent-rgb), 0.96);
+  font-family: "Unison Pro", var(--font-unison), var(--font-geist-sans), sans-serif;
+  font-style: italic;
+  font-size: clamp(2.35rem, 3vw, 3.4rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  opacity: 0.96;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* # PLAYER CARD BODY */
+
+.playerCardBody {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(190px, 0.74fr);
+  grid-template-areas: "content photo";
+  gap: 18px;
+  align-items: stretch;
+}
+
+.playerContent {
+  grid-area: content;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 34px;
+  padding-top: 86px;
+}
+
+.playerHeading {
+  min-width: 0;
+}
+
+.playerHeading::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  height: 2px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: rgba(var(--leader-accent-rgb), 0.95);
+}
+
+.playerName {
+  margin: 0;
+  color: var(--leader-text);
+  font-family: "Unison Pro", var(--font-unison), var(--font-geist-sans), sans-serif;
+  font-style: italic;
+  font-size: clamp(1.45rem, 1.85vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.playerNameLine {
+  display: block;
+}
+
+/* # PLAYER PHOTO */
+
+.playerPhotoWrap {
+  grid-area: photo;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  min-height: 310px;
+  margin-top: 52px;
+  align-self: stretch;
+  justify-self: end;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #0f1012;
+  border: 1.5px solid rgba(var(--leader-accent-rgb), 0.86);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.playerPhotoWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.09), transparent 26%),
+    linear-gradient(180deg, transparent 88%, rgba(0, 0, 0, 0.12) 100%);
+}
+
+.playerPhotoWrap::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  z-index: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.playerCardMain .playerPhotoWrap {
+  min-height: 330px;
+}
+
+.playerPhoto {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center top;
+  padding: 0;
+  transform: scale(1.08) translateY(-8px);
+}
+
+.playerPhotoPlaceholder {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #16181b;
+}
+
+.playerPhotoLogo {
+  width: min(46%, 96px);
+  height: auto;
+  opacity: 0.1;
+  object-fit: contain;
+}
+
+/* # PLAYER STATS */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.statItem {
+  position: relative;
+  min-width: 0;
+  min-height: 72px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 10px 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(var(--leader-accent-rgb), 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 8px 18px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.statItem::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  width: 24px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(var(--leader-accent-rgb), 0.92);
+}
+
+.statItem::after {
+  display: none;
+}
+
+.statItem:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--leader-accent-rgb), 0.72);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.statValue {
+  position: relative;
+  z-index: 1;
+  color: var(--leader-accent);
+  font-family: "Unison Pro", var(--font-unison), var(--font-geist-sans), sans-serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 1.55vw, 1.8rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+}
+
+.statLabel {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  color: var(--leader-text);
+  font-size: 0.74rem;
+  font-weight: 720;
+  line-height: 1.08;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* # LEADERS EMPTY STATE */
+
+.leadersEmptyState {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 22px;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: var(--font-body);
+  font-weight: 750;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* # 1024 */
+
+@media (max-width: 1024px) {
+  .topPlayersPodium {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+  .playerRank2Wrap {
+      margin-top: 16px;
+    }
+
+  .playerRank3Wrap {
+      margin-top: 32px;
+    }
+
+  .playerCard {
+      min-height: 370px;
+    }
+
+  .playerCardRank1 {
+      min-height: 390px;
+    }
+
+  .playerCardRank2 {
+      min-height: 372px;
+    }
+
+  .playerCardRank3 {
+      min-height: 354px;
+    }
+
+  .playerCardMain,
+    .playerCardSide {
+      padding: 16px;
+    }
+
+  .playerCardTop {
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      margin-bottom: 0;
+    }
+
+  .rankBadge {
+      min-width: 52px;
+      height: 36px;
+      font-size: 0.84rem;
+    }
+
+  .playerNumber {
+      top: 4px;
+      right: 14px;
+      width: auto;
+      min-width: 96px;
+      text-align: right;
+      font-size: clamp(2.25rem, 3vw, 3.35rem);
+      -webkit-text-stroke-width: 1.8px;
+    }
+
+  .playerCardBody {
+      grid-template-columns: minmax(0, 1fr) minmax(172px, 0.72fr);
+      grid-template-areas: "content photo";
+      gap: 14px;
+      align-items: stretch;
+    }
+
+  .playerContent {
+      gap: 26px;
+      padding-top: 68px;
+    }
+
+  .playerName {
+      font-size: clamp(1.2rem, 1.45vw, 1.7rem);
+      line-height: 1.05;
+    }
+
+  .playerHeading::after {
+      max-width: 138px;
+      margin-top: 8px;
+    }
+
+  .statsGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+  .statItem {
+      min-height: 66px;
+      padding: 9px 9px 8px;
+    }
+
+  .statValue {
+      font-size: clamp(1.1rem, 1.35vw, 1.45rem);
+    }
+
+  .statLabel {
+      font-size: 0.68rem;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      min-height: 272px;
+      margin-top: 42px;
+    }
+
+  .playerPhotoWrap::before {
+      display: block;
+    }
+
+  .playerPhoto {
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.1) translateY(-8px);
+    }
+
+  .goalieCard {
+      padding: 22px;
+      margin-top: 6px;
+    }
+}
+
+/* # 900 */
+
+@media (max-width: 900px) {
+  .topPlayersPodium {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "center"
+        "left"
+        "right";
+      gap: 18px;
+    }
+
+  .playerRank1Wrap,
+    .playerRank2Wrap,
+    .playerRank3Wrap {
+      margin-top: 0;
+    }
+
+  .playerCard,
+    .playerCardRank1,
+    .playerCardRank2,
+    .playerCardRank3 {
+      min-height: auto;
+      transform: none;
+    }
+
+  .playerCardMain,
+    .playerCardSide,
+    .playerCardRank1,
+    .playerCardRank2,
+    .playerCardRank3 {
+      padding: 20px;
+    }
+
+  .playerCardTop {
+      top: 16px;
+      left: 16px;
+      right: 16px;
+    }
+
+  .playerNumber {
+      top: 10px;
+      right: 20px;
+      width: auto;
+      min-width: 110px;
+      text-align: right;
+      font-size: clamp(2.8rem, 7vw, 4rem);
+    }
+
+  .playerCardBody {
+      grid-template-columns: minmax(0, 1fr) 220px;
+      grid-template-areas: "content photo";
+      gap: 16px;
+      align-items: start;
+    }
+
+  .playerContent {
+      padding-top: 68px;
+      gap: 28px;
+    }
+
+  .playerName {
+      font-size: clamp(1.7rem, 6vw, 2.8rem);
+      line-height: 1.06;
+    }
+
+  .statsGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+  .statItem {
+      min-height: 76px;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      min-height: 282px;
+      margin-top: 42px;
+    }
+
+  .playerPhotoWrap::before {
+      display: none;
+    }
+
+  .playerPhoto {
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.035) translateY(-4px);
+    }
+}
+
+/* # 768 */
+
+@media (max-width: 768px) {
+  .leadersContentGrid {
+      gap: 18px;
+    }
+
+  .topPlayersPodium {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "center"
+        "left"
+        "right";
+      gap: 18px;
+    }
+
+  .playerRank1Wrap,
+    .playerRank2Wrap,
+    .playerRank3Wrap {
+      margin-top: 0;
+    }
+
+  .playerCard {
+      min-height: auto;
+      border-radius: 24px;
+    }
+
+  .playerCard::before {
+      width: 50%;
+      opacity: 0.55;
+      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+  .playerCard::after {
+      right: 48%;
+      height: 114%;
+      opacity: 0.8;
+    }
+
+  .playerCardMain,
+    .playerCardSide,
+    .playerCardRank1,
+    .playerCardRank2,
+    .playerCardRank3 {
+      padding: 18px;
+      transform: none;
+    }
+
+  .playerCard:hover,
+    .playerCardRank1:hover,
+    .playerCardRank2:hover,
+    .playerCardRank3:hover {
+      transform: translateY(-3px);
+    }
+
+  .playerCardTop {
+      top: 12px;
+      left: 14px;
+      right: 14px;
+      margin-bottom: 0;
+    }
+
+  .rankBadge {
+      min-width: 50px;
+      height: 34px;
+      font-size: 0.8rem;
+    }
+
+  .playerNumber {
+      top: 10px;
+      right: 18px;
+      width: auto;
+      min-width: 100px;
+      text-align: right;
+      font-size: clamp(2.35rem, 10vw, 3.55rem);
+      -webkit-text-stroke-width: 1.6px;
+    }
+
+  .playerCardBody {
+      grid-template-columns: minmax(0, 1fr) clamp(172px, 34vw, 210px);
+      grid-template-areas: "content photo";
+      gap: 14px;
+      align-items: stretch;
+    }
+
+  .playerContent {
+      gap: 26px;
+      padding-top: 66px;
+    }
+
+  .playerName {
+      font-size: clamp(1.45rem, 7vw, 2.2rem);
+      line-height: 1.08;
+    }
+
+  .playerHeading::after {
+      max-width: 140px;
+      margin-top: 8px;
+    }
+
+  .statsGrid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      max-width: 190px;
+    }
+
+  .statItem {
+      min-height: 58px;
+      padding: 8px 10px 7px;
+      border-radius: 14px;
+    }
+
+  .statValue {
+      font-size: clamp(1.15rem, 5vw, 1.55rem);
+    }
+
+  .statLabel {
+      font-size: 0.7rem;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      width: 100%;
+      min-height: 292px;
+      margin-top: 68px;
+      justify-self: end;
+      border-radius: 20px;
+    }
+
+  .playerPhotoWrap::before {
+      display: block;
+    }
+
+  .playerPhoto {
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.04) translateY(-4px);
+    }
+
+  .goalieCard {
+      gap: 18px;
+      padding: 20px;
+      margin-top: 2px;
+      border-radius: var(--radius-xl);
+    }
+
+  .goalieHeader {
+      align-items: flex-start;
+    }
+
+  .goalieStats {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+}
+
+/* # 640 */
+
+@media (max-width: 640px) {
+  .playerCardBody {
+      grid-template-columns: minmax(0, 0.52fr) minmax(160px, 0.48fr);
+      gap: 12px;
+    }
+
+  .playerName {
+      font-size: clamp(1.3rem, 8vw, 1.9rem);
+    }
+
+  .statsGrid {
+      max-width: 148px;
+    }
+
+  .statItem {
+      min-height: 54px;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      min-height: 282px;
+      margin-top: 82px;
+    }
+
+  .playerNumber {
+      top: 10px;
+      right: 16px;
+      min-width: 86px;
+      font-size: clamp(2.1rem, 11vw, 3.1rem);
+    }
+}
+
+/* # 480 */
+
+@media (max-width: 480px) {
+  .leadersContentGrid,
+    .topPlayersPodium {
+      gap: 16px;
+    }
+
+  .playerCard {
+      border-radius: 22px;
+    }
+
+  .playerCard::before {
+      width: 50%;
+      opacity: 0.55;
+      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+  .playerCard::after {
+      display: block;
+      right: 48%;
+      opacity: 0.8;
+    }
+
+  .playerCardMain,
+    .playerCardSide,
+    .playerCardRank1,
+    .playerCardRank2,
+    .playerCardRank3 {
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      transform: none;
+    }
+
+  .playerCard:hover,
+    .playerCardRank1:hover,
+    .playerCardRank2:hover,
+    .playerCardRank3:hover {
+      transform: translateY(-2px);
+    }
+
+  .playerCardTop {
+      top: 10px;
+      left: 12px;
+      right: 12px;
+      margin-bottom: 0;
+    }
+
+  .rankBadge {
+      min-width: 46px;
+      height: 30px;
+      padding: 0 10px;
+      font-size: 0.74rem;
+    }
+
+  .playerNumber {
+      top: 12px;
+      right: 16px;
+      min-width: 112px;
+      text-align: right;
+      font-size: clamp(2.9rem, 14vw, 4.25rem);
+      -webkit-text-stroke-width: 1.5px;
+    }
+
+  .playerCardBody {
+      grid-template-columns: minmax(0, 1fr) clamp(126px, 36vw, 146px);
+      grid-template-areas: "content photo";
+      gap: 10px;
+      align-items: stretch;
+    }
+
+  .playerContent {
+      grid-area: content;
+      gap: 24px;
+      padding-top: 62px;
+    }
+
+  .playerName {
+      font-size: clamp(1.28rem, 8vw, 1.78rem);
+      line-height: 1.08;
+    }
+
+  .playerHeading::after {
+      max-width: 125px;
+      margin-top: 8px;
+    }
+
+  .statsGrid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      max-width: 150px;
+    }
+
+  .statItem {
+      min-height: 56px;
+      padding: 8px 9px 7px;
+      border-radius: 13px;
+    }
+
+  .statItem::before {
+      left: 8px;
+      bottom: 7px;
+      width: 20px;
+    }
+
+  .statValue {
+      font-size: clamp(1.05rem, 6vw, 1.42rem);
+    }
+
+  .statLabel {
+      font-size: 0.66rem;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      grid-area: photo;
+      width: 100%;
+      min-height: 238px;
+      margin-top: 76px;
+      justify-self: end;
+      border-radius: 18px;
+    }
+
+  .playerPhotoWrap::before {
+      display: block;
+    }
+
+  .playerPhoto {
+      object-fit: cover;
+      object-position: center top;
+      transform: scale(1.035) translateY(-4px);
+    }
+
+  .goalieCard {
+      padding: 18px;
+      margin-top: 0;
+      border-radius: var(--radius-lg);
+    }
+
+  .goalieStatItem {
+      padding: 12px;
+      border-radius: var(--radius-lg);
+    }
+}
+
+/* # 360 */
+
+@media (max-width: 360px) {
+  .playerCardMain,
+    .playerCardSide,
+    .playerCardRank1,
+    .playerCardRank2,
+    .playerCardRank3 {
+      padding: 12px;
+    }
+
+  .playerCardBody {
+      grid-template-columns: minmax(0, 0.51fr) minmax(136px, 0.49fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+  .playerNumber {
+      top: 12px;
+      right: 12px;
+      min-width: 92px;
+      font-size: clamp(2.25rem, 13vw, 3.2rem);
+    }
+
+  .playerName {
+      font-size: clamp(1.08rem, 8vw, 1.5rem);
+    }
+
+  .statsGrid {
+      max-width: 132px;
+      gap: 6px;
+    }
+
+  .statItem {
+      min-height: 50px;
+      padding: 7px;
+    }
+
+  .statValue {
+      font-size: clamp(0.92rem, 6vw, 1.22rem);
+    }
+
+  .statLabel {
+      font-size: 0.58rem;
+    }
+
+  .playerPhotoWrap,
+    .playerCardMain .playerPhotoWrap {
+      min-height: 258px;
+      margin-top: 68px;
+    }
+}

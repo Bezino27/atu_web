@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import styles from "../../styles/unified.module.css";
+import heroStyles from "../../styles/CategoryHero.module.css";
 
 type NextMatchCountdownProps = {
   matchDate: string | null;
@@ -96,12 +96,12 @@ export default function NextMatchCountdown({
 
   if (!targetDate) {
     return (
-      <div className={styles.countdownWrapper}>
-        <div className={styles.countdownBar}>
-          <span className={styles.liveDot} />
+      <div className={heroStyles.countdownWrapper}>
+        <div className={heroStyles.countdownBar}>
+          <span className={heroStyles.liveDot} />
 
-          <span className={styles.timer}>
-            <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
+          <span className={heroStyles.timer}>
+            <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
             Zatiaľ nie je k dispozícii.
           </span>
         </div>
@@ -110,10 +110,10 @@ export default function NextMatchCountdown({
   }
 
   return (
-    <div className={styles.countdownWrapper}>
-      <div className={styles.countdownBar}>
+    <div className={heroStyles.countdownWrapper}>
+      <div className={heroStyles.countdownBar}>
         <span
-          className={styles.liveDot}
+          className={heroStyles.liveDot}
           style={
             countdown.isReady && countdown.isLive
               ? {
@@ -124,10 +124,10 @@ export default function NextMatchCountdown({
           }
         />
 
-        <span className={styles.timer}>
+        <span className={heroStyles.timer}>
           {!countdown.isReady ? (
             <>
-              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
+              <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
               {targetDate.toLocaleDateString("sk-SK")} •{" "}
               {matchTime?.slice(0, 5) || "čas bude doplnený"}
             </>
@@ -137,7 +137,7 @@ export default function NextMatchCountdown({
             </span>
           ) : (
             <>
-              <span className={styles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{" "}
+              <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{" "}
               {countdown.days}d : {formatUnit(countdown.hours)}h :{" "}
               {formatUnit(countdown.minutes)}m : {formatUnit(countdown.seconds)}
               s

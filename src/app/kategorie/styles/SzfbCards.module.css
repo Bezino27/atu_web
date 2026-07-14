@@ -1,0 +1,350 @@
+.szfbSection {
+  width: 100%;
+  --szfb-red: #e04a4a;
+  --szfb-red-shadow: rgba(224, 74, 74, 0.16);
+}
+
+/* # GRID */
+.szfbGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* # CARD */
+.szfbCard {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 185px;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    var(--color-page-soft) 100%
+  );
+  border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease;
+}
+
+.szfbCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    var(--color-surface-soft) 100%
+  );
+  box-shadow: var(--shadow-card-hover);
+}
+
+.szfbCard:focus-visible {
+  outline: 3px solid var(--color-red-border);
+  outline-offset: 3px;
+}
+
+/* # WATERMARK */
+.szfbWatermark {
+  position: absolute;
+  z-index: -1;
+  top: 14px;
+  right: 16px;
+  width: 112px;
+  height: 112px;
+  pointer-events: none;
+  background-image: url("/logo/znak_atu_nove.svg");
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: contain;
+  opacity: 0.05;
+  filter: grayscale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.5s ease;
+}
+
+.szfbCard:hover .szfbWatermark {
+  opacity: 0.08;
+  transform: scale(1.04);
+}
+
+/* # CARD TOP */
+.szfbCardTop {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 22px;
+}
+
+.szfbBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 0 11px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border-soft);
+  color: var(--color-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* # CARD CONTENT */
+.szfbCardContent {
+  position: relative;
+  z-index: 2;
+  max-width: 80%;
+  margin-bottom: 14px;
+}
+
+.szfbCardTitle {
+  margin: 0 0 5px;
+  color: var(--color-text);
+  font-size: 1.08rem;
+  font-weight: 850;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+.szfbCardDescription {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 560;
+  line-height: 1.38;
+}
+
+/* # CTA LINK BAR */
+.szfbCardLink {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  margin-top: auto;
+  padding: 0 14px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--szfb-red);
+  color: var(--szfb-red);
+  box-shadow: var(--shadow-soft);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.szfbCardLink::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--szfb-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.szfbCard:hover .szfbCardLink {
+  color: var(--color-text-inverse);
+  border-color: var(--szfb-red);
+  box-shadow: 0 12px 24px var(--szfb-red-shadow);
+}
+
+.szfbCard:hover .szfbCardLink::before {
+  transform: scaleX(1);
+}
+
+.szfbCardLinkText {
+  min-width: 0;
+  padding-right: 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.szfbArrow {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.szfbCard:hover .szfbArrow {
+  transform: translateX(4px);
+}
+
+/* # REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .szfbCard,
+  .szfbWatermark,
+  .szfbCardLink,
+  .szfbCardLink::before,
+  .szfbArrow {
+    transition: none;
+  }
+}
+
+/* # 1024 */
+@media (max-width: 1024px) {
+  .szfbGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .szfbCard {
+    min-height: 162px;
+    padding: 18px;
+  }
+
+  .szfbCardTop {
+    margin-bottom: 18px;
+  }
+
+  .szfbCardContent {
+    max-width: 76%;
+    margin-bottom: 12px;
+  }
+
+  .szfbWatermark {
+    top: 13px;
+    right: 14px;
+    width: 104px;
+    height: 104px;
+  }
+}
+
+/* # 768 */
+@media (max-width: 768px) {
+  .szfbGrid {
+    gap: 12px;
+  }
+
+  .szfbCard {
+    min-height: 146px;
+    padding: 15px 13px;
+    border-radius: var(--radius-lg);
+  }
+
+  .szfbCardTop {
+    margin-bottom: 14px;
+  }
+
+  .szfbBadge {
+    min-height: 23px;
+    padding: 0 9px;
+    font-size: 0.59rem;
+  }
+
+  .szfbCardContent {
+    max-width: 80%;
+    margin-bottom: 10px;
+  }
+
+  .szfbCardTitle {
+    margin-bottom: 4px;
+    font-size: 0.94rem;
+  }
+
+  .szfbCardDescription {
+    font-size: 0.74rem;
+    line-height: 1.32;
+  }
+
+  .szfbCardLink {
+    min-height: 39px;
+    padding: 0 12px;
+  }
+
+  .szfbCardLinkText {
+    font-size: 0.72rem;
+  }
+
+  .szfbArrow {
+    width: 17px;
+    height: 17px;
+  }
+
+  .szfbWatermark {
+    top: 12px;
+    right: 12px;
+    width: 88px;
+    height: 88px;
+  }
+}
+
+/* # 480 */
+@media (max-width: 480px) {
+  .szfbGrid {
+    gap: 10px;
+  }
+
+  .szfbCard {
+    min-height: 132px;
+    padding: 13px 11px;
+  }
+
+  .szfbCardTop {
+    margin-bottom: 11px;
+  }
+
+  .szfbBadge {
+    min-height: 21px;
+    padding: 0 8px;
+    font-size: 0.55rem;
+  }
+
+  .szfbCardContent {
+    max-width: 82%;
+    margin-bottom: 9px;
+  }
+
+  .szfbCardTitle {
+    margin-bottom: 3px;
+    font-size: 0.88rem;
+  }
+
+  .szfbCardDescription {
+    font-size: 0.69rem;
+    line-height: 1.28;
+  }
+
+  .szfbCardLink {
+    min-height: 37px;
+    padding: 0 11px;
+  }
+
+  .szfbCardLinkText {
+    font-size: 0.68rem;
+  }
+
+  .szfbArrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .szfbWatermark {
+    top: 10px;
+    right: 10px;
+    width: 78px;
+    height: 78px;
+  }
+}

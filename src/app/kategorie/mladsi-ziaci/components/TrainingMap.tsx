@@ -12,7 +12,13 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "../../styles/TrainingTable.module.css";
-import { Location } from "@/data/treningy_mz";
+
+export interface Location {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+}
 
 interface TrainingMapProps {
   locations: Record<string, Location>;

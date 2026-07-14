@@ -12,12 +12,11 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "../../styles/TrainingTable.module.css";
-import { Location } from "@/data/treningy_starsi_ziaci"
-
+import type { PublicTrainingLocation } from "./treningy_starsi_ziaci";
 
 interface TrainingMapProps {
-  locations: Record<string, Location>;
-  activeLocation: string | null;
+  locations: Record<string, PublicTrainingLocation>;
+  activeLocation: number | null;
 }
 
 const MAP_CENTER: [number, number] = [48.70186, 21.2441];
@@ -37,57 +36,38 @@ function getMarkerScale(zoom: number) {
 }
 
 function getActiveLocation(
-  locations: Record<string, Location>,
-  activeLocation: string | null,
+  locations: Record<string, PublicTrainingLocation>,
+  activeLocation: number | null,
 ) {
-  if (activeLocation && locations[activeLocation]) {
-    return locations[activeLocation];
+  if (activeLocation !== null && locations[String(activeLocation)]) {
+    return locations[String(activeLocation)];
   }
 
-  const firstLocation = Object.values(locations)[0];
-
-  return firstLocation ?? null;
+  return Object.values(locations)[0] ?? null;
 }
 
-function MapAutoCenter({ location }: { location: Location | null }) {
+function MapAutoCenter({ location }: { location: PublicTrainingLocation | null }) {
   const map = useMap();
 
   useEffect(() => {
     if (!location) return;
-
-    map.setView([location.lat, location.lng], map.getZoom(), {
-      animate: true,
-    });
+    map.setView([location.lat, location.lng], map.getZoom(), { animate: true });
   }, [map, location]);
 
   return null;
 }
 
-function MapZoomWatcher({
-  onZoomChange,
-}: {
-  onZoomChange: (zoom: number) => void;
-}) {
+function MapZoomWatcher({ onZoomChange }: { onZoomChange: (zoom: number) => void }) {
   const map = useMapEvents({
-    zoom() {
-      onZoomChange(map.getZoom());
-    },
-    zoomend() {
-      onZoomChange(map.getZoom());
-    },
+    zoom() { onZoomChange(map.getZoom()); },
+    zoomend() { onZoomChange(map.getZoom()); },
   });
 
-  useEffect(() => {
-    onZoomChange(map.getZoom());
-  }, [map, onZoomChange]);
-
+  useEffect(() => { onZoomChange(map.getZoom()); }, [map, onZoomChange]);
   return null;
 }
 
-const TrainingMap: React.FC<TrainingMapProps> = ({
-  locations,
-  activeLocation,
-}) => {
+const TrainingMap: React.FC<TrainingMapProps> = ({ locations, activeLocation }) => {
   const [initialZoom] = useState(getInitialZoom);
   const [currentZoom, setCurrentZoom] = useState(initialZoom);
 
@@ -97,25 +77,20 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
   );
 
   const markerScale = getMarkerScale(currentZoom);
-
   const mapCenter: [number, number] = currentLocation
     ? [currentLocation.lat, currentLocation.lng]
     : MAP_CENTER;
 
   const markerEntries = useMemo(() => {
-    return Object.entries(locations).map(([id, loc]) => {
-      const isActive = activeLocation === id || !activeLocation;
-
+    return Object.entries(locations).map(([id, location]) => {
+      const isActive = activeLocation === location.id || activeLocation === null;
       const icon = L.divIcon({
         html: `
-          <div
-            class="${styles.customMarker} ${isActive ? styles.markerActive : ""}"
-            style="--marker-scale: ${markerScale};"
-          >
+          <div class="${styles.customMarker} ${isActive ? styles.markerActive : ""}" style="--marker-scale: ${markerScale};">
             <div class="${styles.markerDot}"></div>
             <div class="${styles.markerLabel}">
-              <strong>${loc.name}</strong>
-              <span>${loc.address}</span>
+              <strong>${location.name}</strong>
+              <span>${location.address}</span>
             </div>
           </div>
         `,
@@ -124,7 +99,7 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         iconAnchor: [21, 54],
       });
 
-      return { id, loc, icon, isActive };
+      return { id, location, icon, isActive };
     });
   }, [locations, activeLocation, markerScale]);
 
@@ -141,20 +116,17 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
       >
         <MapAutoCenter location={currentLocation} />
         <MapZoomWatcher onZoomChange={setCurrentZoom} />
-
         <TileLayer
           attribution='&copy; OpenStreetMap contributors &copy; CARTO'
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           subdomains={["a", "b", "c", "d"]}
           maxZoom={20}
         />
-
         <ZoomControl position="topleft" />
-
-        {markerEntries.map(({ id, loc, icon, isActive }) => (
+        {markerEntries.map(({ id, location, icon, isActive }) => (
           <Marker
             key={id}
-            position={[loc.lat, loc.lng]}
+            position={[location.lat, location.lng]}
             icon={icon}
             zIndexOffset={isActive ? 1000 : 0}
           />

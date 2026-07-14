@@ -46,8 +46,10 @@ import DorastRecruitment from "../dorast/components/nabor";
 import StarsiZiaciRecruitment from "../starsi-ziaci/components/nabor";
 import MladsiZiaciRecruitment from "../mladsi-ziaci/components/nabor";
 
-import styles from "../styles/unified.module.css";
-import szfbStyle from "../styles/szfb_cards.module.css";
+import pageStyles from "../styles/CategoryPage.module.css";
+import heroStyles from "../styles/CategoryHero.module.css";
+import recruitmentStyles from "../styles/CategoryRecruitment.module.css";
+import szfbStyle from "../styles/SzfbCards.module.css";
 
 type SzfbDashboardData = Awaited<ReturnType<typeof getSzfbDashboard>>;
 type SzfbNextMatchData = Awaited<ReturnType<typeof getSzfbNextMatch>>;
@@ -57,6 +59,37 @@ type SectionLink = {
   title: string;
   url: string;
   badge?: string;
+  description?: string;
+  cta?: string;
+};
+
+type PublicCategoryLink = {
+  id: number;
+  title: string;
+  description: string;
+  cta: string;
+  href: string;
+  order: number;
+};
+
+type PublicTrainingLocation = {
+  id: number;
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+};
+
+type PublicCategoryTraining = {
+  id: number;
+  day: string;
+  time: string;
+  order: number;
+  location: PublicTrainingLocation;
+};
+
+type TrainingComponentProps = {
+  trainings: PublicCategoryTraining[];
 };
 
 type BackendCategory = {
@@ -79,6 +112,8 @@ type BackendCategory = {
   szfb_watch_id?: number | null;
   szfb_team_watch_id?: number | null;
   watch_id?: number | null;
+  links?: PublicCategoryLink[];
+  trainings?: PublicCategoryTraining[];
 };
 
 type CategoryPageProps = {
@@ -221,7 +256,7 @@ function filterByConfiguredIds<T extends { id: number }>(
   return items.filter((item) => allowedIds.has(item.id));
 }
 
-function getManualLinks(config: Record<string, unknown>) {
+function getManualLinks(config: Record<string, unknown>): SectionLink[] {
   const value = config.links;
 
   if (!Array.isArray(value)) {
@@ -252,7 +287,7 @@ function getManualLinks(config: Record<string, unknown>) {
     .filter(Boolean) as SectionLink[];
 }
 
-function mapSectionItemsToLinks(items?: PageSectionItem[]) {
+function mapSectionItemsToLinks(items?: PageSectionItem[]): SectionLink[] {
   return [...(items ?? [])]
     .filter((item) => item.is_active !== false && item.url)
     .sort(
@@ -267,7 +302,7 @@ function mapSectionItemsToLinks(items?: PageSectionItem[]) {
     }));
 }
 
-function mapClubLinksToSectionLinks(links: ClubLink[]) {
+function mapClubLinksToSectionLinks(links: ClubLink[]): SectionLink[] {
   return links.map((link) => ({
     id: link.id,
     title: link.title,
@@ -276,71 +311,22 @@ function mapClubLinksToSectionLinks(links: ClubLink[]) {
   }));
 }
 
-function getDefaultSzfbLinks(dataCategorySlug: string): SectionLink[] {
-  const linksBySlug: Record<string, Array<{ title: string; url: string }>> = {
-    pripravka: [
-      {
-        title: "Detail tímu",
-        url: "https://www.szfb.sk/sk/stats/teams/1177/liga-starsej-pripravky-vychod/team/669796/fabk-atu-kosice",
-      },
-      {
-        title: "Výsledky a program",
-        url: "https://www.szfb.sk/sk/stats/results/1177/liga-starsej-pripravky-vychod",
-      },
-    ],
-    "mladsi-ziaci": [
-      {
-        title: "Detail tímu",
-        url: "https://www.szfb.sk/sk/stats/teams/1178/liga-mladsich-ziakov-vychod/team/669483/fabk-atu-kosice",
-      },
-      {
-        title: "Tabuľka",
-        url: "https://www.szfb.sk/sk/stats/standings/1178/liga-mladsich-ziakov-vychod",
-      },
-      {
-        title: "Výsledky a program",
-        url: "https://www.szfb.sk/sk/stats/results-date/1178",
-      },
-    ],
-    "starsi-ziaci": [
-      {
-        title: "Detail tímu",
-        url: "https://www.szfb.sk/sk/stats/teams/1179/liga-starsich-ziakov-vychod/team/669500/fabk-atu-kosice",
-      },
-      {
-        title: "Tabuľka",
-        url: "https://www.szfb.sk/sk/stats/standings/1179/liga-starsich-ziakov-vychod?StatsType=overall&TournamentPartID=4528",
-      },
-      {
-        title: "Výsledky a program",
-        url: "https://www.szfb.sk/sk/stats/results-date/1179/1-liga-starsich-ziakov-vychod",
-      },
-    ],
-    dorast: [
-      {
-        title: "Detail tímu",
-        url: "https://www.szfb.sk/sk/stats/teams/1171/1-liga-dorastencov-divizia-vychod/team/669890/fabk-atu-kosice",
-      },
-      {
-        title: "Tabuľka",
-        url: "https://www.szfb.sk/sk/stats/standings/1171/1-liga-dorastencov-divizia-vychod",
-      },
-      {
-        title: "Výsledky a program",
-        url: "https://www.szfb.sk/sk/stats/results-date/1171/1-liga-dorastencov-divizia-vychod",
-      },
-    ],
-  };
-
-  return (linksBySlug[dataCategorySlug] ?? []).map((link, index) => ({
-    id: `${dataCategorySlug}-szfb-${index}`,
-    title: link.title,
-    url: link.url,
-    badge: "SZFB",
-  }));
+function mapCategoryLinksToSectionLinks(links?: PublicCategoryLink[]): SectionLink[] {
+  return [...(links ?? [])]
+    .filter((link) => link.href)
+    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, "sk"))
+    .map((link) => ({
+      id: `category-link-${link.id}`,
+      title: link.title,
+      url: link.href,
+      badge: "ODKAZ",
+      description: link.description,
+      cta: link.cta,
+    }));
 }
 
-function getTrainingComponent(dataCategorySlug: string) {
+
+function getTrainingComponent(dataCategorySlug: string): React.ComponentType<TrainingComponentProps> | null {
   if (dataCategorySlug === "pripravka") {
     return PripravkaTrainings;
   }
@@ -479,15 +465,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   if (!linkedCategory || !dataCategorySlug) {
     return (
-      <div className={styles.pageContainer}>
+      <div className={pageStyles.pageContainer}>
         <Header />
 
-        <main className={styles.content}>
-          <section className={styles.sectionContainer}>
-            <div className={styles.resultsHeader}>
+        <main className={pageStyles.content}>
+          <section className={pageStyles.sectionContainer}>
+            <div className={pageStyles.resultsHeader}>
               <div>
-                <span className={styles.preTitle}>KATEGÓRIA</span>
-                <h1 className={styles.sectionTitle}>{page.title}</h1>
+                <span className={pageStyles.preTitle}>KATEGÓRIA</span>
+                <h1 className={pageStyles.sectionTitle}>{page.title}</h1>
               </div>
             </div>
 
@@ -562,21 +548,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const heroTitle = getSectionTitle(section, categoryName);
 
     return (
-    <section key={section.id} className={styles.heroSection}>
-      <div className={styles.bannerContainer}>
+    <section key={section.id} className={heroStyles.heroSection}>
+      <div className={heroStyles.bannerContainer}>
         <Image
           src={heroImage}
           alt={`ATU Košice ${categoryName}`}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 1300px"
-          className={styles.heroImg}
+          className={heroStyles.heroImg}
         />
 
-        <div className={styles.bannerOverlay}>
-          <div className={styles.heroTextContent}>
+        <div className={heroStyles.bannerOverlay}>
+          <div className={heroStyles.heroTextContent}>
             {hasSzfbDashboard ? (
-              <span className={styles.heroSubtitle}>
+              <span className={heroStyles.heroSubtitle}>
                 {getSectionPreTitle(
                   section,
                   category.category_subname ||
@@ -589,39 +575,39 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1
               className={
                 hasYouthHeroTitle
-                  ? `${styles.bannerTitleziaci} ${
+                  ? `${heroStyles.bannerTitleziaci} ${
                       heroTitle.replace(/\s+/g, "").length > 8
-                        ? styles.bannerTitleziaciLong
+                        ? heroStyles.bannerTitleziaciLong
                         : ""
                     }`
-                  : styles.bannerTitle
+                  : heroStyles.bannerTitle
               }
             >
               {heroTitle}
             </h1>
 
-            <div className={styles.heroQuickNav}>
+            <div className={heroStyles.heroQuickNav}>
               {hasSzfbDashboard ? (
                 <>
-                  <a href="#zapasy" className={styles.heroQuickLink}>
+                  <a href="#zapasy" className={heroStyles.heroQuickLink}>
                     Zápasy
                   </a>
-                  <a href="#tabulka" className={styles.heroQuickLink}>
+                  <a href="#tabulka" className={heroStyles.heroQuickLink}>
                     Tabuľka
                   </a>
-                  <a href="#hraci" className={styles.heroQuickLink}>
+                  <a href="#hraci" className={heroStyles.heroQuickLink}>
                     Hráči
                   </a>
                 </>
               ) : (
                 <>
-                  <a href="#odkazy" className={styles.heroQuickLink}>
+                  <a href="#odkazy" className={heroStyles.heroQuickLink}>
                     Odkazy
                   </a>
-                  <a href="#treningy" className={styles.heroQuickLink}>
+                  <a href="#treningy" className={heroStyles.heroQuickLink}>
                     Tréningy
                   </a>
-                  <a href="#novinky" className={styles.heroQuickLink}>
+                  <a href="#novinky" className={heroStyles.heroQuickLink}>
                     Novinky
                   </a>
                 </>
@@ -629,9 +615,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
 
-          <div className={styles.heroMiniInfo}>
-            <span className={styles.heroMiniLabel}>Sezóna</span>
-            <span className={styles.heroMiniValue}>{currentSeason}</span>
+          <div className={heroStyles.heroMiniInfo}>
+            <span className={heroStyles.heroMiniLabel}>Sezóna</span>
+            <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
           </div>
         </div>
       </div>
@@ -657,13 +643,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const contentHtml = normalizeHtmlMediaUrls(section.content);
 
     return (
-      <section key={section.id} className={styles.sectionContainer}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} className={pageStyles.sectionContainer}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "KATEGÓRIA")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Informácie o kategórii")}
             </h2>
           </div>
@@ -688,13 +674,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     }
 
     return (
-      <section key={section.id} id="zapasy" className={styles.sectionContainer}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="zapasy" className={pageStyles.sectionContainer}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Zápasy")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Featured zápasy")}
             </h2>
           </div>
@@ -712,8 +698,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const renderTrainingsSection = (section: PageSection) => {
     const TrainingComponent = getTrainingComponent(categoryDataSlug);
+    const trainings = category.trainings ?? [];
 
-    if (section.hide_when_empty && !TrainingComponent && !section.content) {
+    if (
+      section.hide_when_empty &&
+      !TrainingComponent &&
+      !section.content
+    ) {
       return null;
     }
 
@@ -722,19 +713,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     if (TrainingComponent) {
       return (
         <section key={section.id} id="treningy" className="sectionContainer">
-          <TrainingComponent />
+          <TrainingComponent trainings={trainings} />
         </section>
       );
     }
 
     return (
       <section key={section.id} id="treningy" className="sectionContainer">
-        <div className={styles.resultsHeader}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Tréningy")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Kde trénujeme")}
             </h2>
           </div>
@@ -760,12 +751,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     if (RecruitmentComponent) {
       return (
         <section key={section.id} id="nabor" className="sectionContainer">
-          <div className={styles.resultsHeader}>
+          <div className={pageStyles.resultsHeader}>
             <div>
-              <span className={styles.preTitle}>
+              <span className={pageStyles.preTitle}>
                 {getSectionPreTitle(section, "Nábor")}
               </span>
-              <h2 className={styles.sectionTitle}>
+              <h2 className={pageStyles.sectionTitle}>
                 {getSectionTitle(
                   section,
                   `Chceš hrať za kategóriu ${category.name.toLowerCase()}?`,
@@ -781,18 +772,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
     return (
       <section key={section.id} id="nabor" className="sectionContainer">
-        <div className={styles.naborSection}>
-          <div className={styles.naborCard}>
-            <div className={styles.naborContent}>
-              <div className={styles.naborTopRow}>
-                <div className={styles.naborTextWrap}>
-                  <span className={styles.preTitle}>
+        <div className={recruitmentStyles.naborSection}>
+          <div className={recruitmentStyles.naborCard}>
+            <div className={recruitmentStyles.naborContent}>
+              <div className={recruitmentStyles.naborTopRow}>
+                <div className={recruitmentStyles.naborTextWrap}>
+                  <span className={pageStyles.preTitle}>
                     {getSectionPreTitle(section, "Nábor")}
                   </span>
-                  <h2 className={styles.sectionTitle}>
+                  <h2 className={pageStyles.sectionTitle}>
                     {getSectionTitle(section, "Pridaj sa k nám")}
                   </h2>
-                  <div className={styles.naborDescription}>
+                  <div className={recruitmentStyles.naborDescription}>
                     {contentHtml ? (
                       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
                     ) : (
@@ -804,15 +795,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </div>
                 </div>
 
-                <Link href="/pridaj_sa" className={styles.naborPrimaryButton}>
+                <Link href="/pridaj_sa" className={recruitmentStyles.naborPrimaryButton}>
                   Získať viac informácií
                 </Link>
               </div>
 
-              <div className={styles.naborInfoGrid}>
-                <div className={styles.naborInfoItem}>
-                  <div className={styles.naborInfoLabel}>Ročník</div>
-                  <div className={styles.naborInfoValue}>
+              <div className={recruitmentStyles.naborInfoGrid}>
+                <div className={recruitmentStyles.naborInfoItem}>
+                  <div className={recruitmentStyles.naborInfoLabel}>Ročník</div>
+                  <div className={recruitmentStyles.naborInfoValue}>
                     {category.birth_year_from && category.birth_year_to
                       ? `${Math.min(category.birth_year_from, category.birth_year_to)} – ${Math.max(
                           category.birth_year_from,
@@ -822,9 +813,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </div>
                 </div>
 
-                <div className={styles.naborInfoItem}>
-                  <div className={styles.naborInfoLabel}>Kontakt na trénera</div>
-                  <div className={styles.naborInfoValue}>
+                <div className={recruitmentStyles.naborInfoItem}>
+                  <div className={recruitmentStyles.naborInfoLabel}>Kontakt na trénera</div>
+                  <div className={recruitmentStyles.naborInfoValue}>
                     {category.coach_name || "Tréner"}
                     {category.coach_email ? (
                       <>
@@ -854,13 +845,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     }
 
     return (
-      <section key={section.id} id="novinky" className={styles.sectionContainer}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="novinky" className={pageStyles.sectionContainer}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Aktuálne dianie")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Najdôležitejšie novinky")}
             </h2>
           </div>
@@ -881,24 +872,24 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     }
 
     return (
-      <section key={section.id} id="tabulka" className={styles.overviewSection}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="tabulka" className={pageStyles.overviewSection}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Extraliga")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Výsledky")}
             </h2>
           </div>
         </div>
 
-        <div className={styles.overviewGrid}>
-          <div className={styles.tableColumn}>
+        <div className={pageStyles.overviewGrid}>
+          <div className={pageStyles.tableColumn}>
             <Tabulka standings={standings} ownTeamName={ownTeamName} />
           </div>
 
-          <div className={styles.matchesColumn}>
+          <div className={pageStyles.matchesColumn}>
             <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
           </div>
         </div>
@@ -912,13 +903,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     }
 
     return (
-      <section key={section.id} id="hraci" className={styles.bottomSection}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="hraci" className={pageStyles.bottomSection}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Štatistiky tímu")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Lídri sezóny")}
             </h2>
           </div>
@@ -937,6 +928,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       selectedLinkIds.length > 0
         ? filterByConfiguredIds(activeClubLinks, selectedLinkIds)
         : [];
+    const categoryLinks = mapCategoryLinksToSectionLinks(category.links);
     const links =
       itemLinks.length > 0
         ? itemLinks
@@ -944,22 +936,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           ? manualLinks
           : configuredClubLinks.length > 0
             ? mapClubLinksToSectionLinks(configuredClubLinks)
-            : section.section_type === "links"
-              ? getDefaultSzfbLinks(categoryDataSlug)
-              : [];
+            : categoryLinks;
 
-    if (links.length === 0 && section.hide_when_empty) {
+    if (links.length === 0) {
       return null;
     }
 
     return (
-      <section key={section.id} id="odkazy" className={styles.sectionContainer}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="odkazy" className={pageStyles.sectionContainer}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "ODKAZY")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Odkazy")}
             </h2>
           </div>
@@ -976,15 +966,45 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   rel="noopener noreferrer"
                   className={szfbStyle.szfbCard}
                 >
+                  <div className={szfbStyle.szfbWatermark} aria-hidden="true" />
+
                   <div className={szfbStyle.szfbCardTop}>
                     <span className={szfbStyle.szfbBadge}>
                       {link.badge || "ODKAZ"}
                     </span>
-                    <span className={szfbStyle.szfbArrow}>↗</span>
                   </div>
 
-                  <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
-                  <span className={szfbStyle.szfbCardLink}>Otvoriť odkaz</span>
+                  <div className={szfbStyle.szfbCardContent}>
+                    <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
+                    {link.description ? (
+                      <p className={szfbStyle.szfbCardDescription}>
+                        {link.description}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <span className={szfbStyle.szfbCardLink}>
+                    <span className={szfbStyle.szfbCardLinkText}>
+                      {link.cta || "Otvoriť odkaz"}
+                    </span>
+
+                    <svg
+                      className={szfbStyle.szfbArrow}
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 12H19M14 7L19 12L14 17"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
                 </a>
               ))}
             </div>
@@ -1035,10 +1055,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={pageStyles.pageContainer}>
       <Header />
 
-      <main className={styles.content}>
+      <main className={pageStyles.content}>
         {sections.map((section) => renderSection(section))}
       </main>
 

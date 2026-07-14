@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../../styles/unified.module.css";
+import matchesStyles from "../../styles/CategoryMatches.module.css";
 import type { SzfbMatch } from "@/app/lib/szfb";
 import { getTeamLogo } from "@/app/lib/teamLogos";
 
@@ -52,8 +52,8 @@ function TeamLogo({ teamName }: { teamName: string }) {
 
   return (
     <div
-      className={`${styles.featuredMatchTeamLogo} ${
-        isAtuLogo ? styles.featuredMatchTeamLogoAtu : ""
+      className={`${matchesStyles.featuredMatchTeamLogo} ${
+        isAtuLogo ? matchesStyles.featuredMatchTeamLogoAtu : ""
       }`}
     >
       {logo ? (
@@ -74,20 +74,20 @@ export default function NasledujuceZapasy({
   const hasAnyMatch = nextMatch || lastResult;
 
   return (
-    <section className={styles.featuredMatchesSection}>
+    <section className={matchesStyles.featuredMatchesSection}>
       {!hasAnyMatch ? (
-        <div className={styles.featuredMatchesEmptyState}>
-          <div className={styles.featuredMatchesEmptyIcon}>📅</div>
-          <h3 className={styles.featuredMatchesEmptyTitle}>
+        <div className={matchesStyles.featuredMatchesEmptyState}>
+          <div className={matchesStyles.featuredMatchesEmptyIcon}>📅</div>
+          <h3 className={matchesStyles.featuredMatchesEmptyTitle}>
             Momentálne nie sú dostupné žiadne zápasy
           </h3>
-          <p className={styles.featuredMatchesEmptyText}>
+          <p className={matchesStyles.featuredMatchesEmptyText}>
             Sleduj túto sekciu neskôr, program doplníme hneď po zverejnení
             ďalších stretnutí.
           </p>
         </div>
       ) : (
-        <div className={styles.featuredMatchesGrid}>
+        <div className={matchesStyles.featuredMatchesGrid}>
           {nextMatch &&
             (() => {
               const { homeTeam, awayTeam } = getMatchTeams(
@@ -96,42 +96,42 @@ export default function NasledujuceZapasy({
               );
 
               return (
-                <article className={styles.featuredMatchCard}>
-                  <div className={styles.featuredMatchCardTop}>
-                    <span className={styles.featuredMatchBadge}>
+                <article className={matchesStyles.featuredMatchCard}>
+                  <div className={matchesStyles.featuredMatchCardTop}>
+                    <span className={matchesStyles.featuredMatchBadge}>
                       Najbližší zápas
                     </span>
-                    <span className={styles.featuredMatchLeague}>
+                    <span className={matchesStyles.featuredMatchLeague}>
                       {competitionName}
                     </span>
                   </div>
 
-                  <div className={styles.featuredMatchTeamsRow}>
-                    <div className={styles.featuredMatchTeamInfo}>
+                  <div className={matchesStyles.featuredMatchTeamsRow}>
+                    <div className={matchesStyles.featuredMatchTeamInfo}>
                       <TeamLogo teamName={homeTeam} />
-                      <span className={styles.featuredMatchTeam}>
+                      <span className={matchesStyles.featuredMatchTeam}>
                         {homeTeam}
                       </span>
                     </div>
 
-                    <div className={styles.featuredMatchVsDivider}>VS</div>
+                    <div className={matchesStyles.featuredMatchVsDivider}>VS</div>
 
-                    <div className={styles.featuredMatchTeamInfo}>
+                    <div className={matchesStyles.featuredMatchTeamInfo}>
                       <TeamLogo teamName={awayTeam} />
-                      <span className={styles.featuredMatchTeam}>
+                      <span className={matchesStyles.featuredMatchTeam}>
                         {awayTeam}
                       </span>
                     </div>
                   </div>
 
-                  <div className={styles.featuredMatchFooter}>
-                    <div className={styles.featuredMatchDateTime}>
+                  <div className={matchesStyles.featuredMatchFooter}>
+                    <div className={matchesStyles.featuredMatchDateTime}>
                       <strong>{formatDate(nextMatch.match_date)}</strong>
                       {nextMatch.match_time ? (
                         <> • {formatTime(nextMatch.match_time)}</>
                       ) : null}
                     </div>
-                    <div className={styles.featuredMatchPlace}>
+                    <div className={matchesStyles.featuredMatchPlace}>
                       {nextMatch.venue || "Miesto zatiaľ nie je uvedené"}
                     </div>
                   </div>
@@ -147,41 +147,41 @@ export default function NasledujuceZapasy({
               );
 
               return (
-                <article className={styles.featuredMatchCard}>
-                  <div className={styles.featuredMatchCardTop}>
-                    <span className={styles.featuredResultBadge}>
+                <article className={matchesStyles.featuredMatchCard}>
+                  <div className={matchesStyles.featuredMatchCardTop}>
+                    <span className={matchesStyles.featuredResultBadge}>
                       Posledný výsledok
                     </span>
-                    <span className={styles.featuredMatchLeague}>
+                    <span className={matchesStyles.featuredMatchLeague}>
                       {competitionName}
                     </span>
                   </div>
 
-                  <div className={styles.featuredMatchTeamsRow}>
-                    <div className={styles.featuredMatchTeamInfo}>
+                  <div className={matchesStyles.featuredMatchTeamsRow}>
+                    <div className={matchesStyles.featuredMatchTeamInfo}>
                       <TeamLogo teamName={homeTeam} />
-                      <span className={styles.featuredMatchTeam}>
+                      <span className={matchesStyles.featuredMatchTeam}>
                         {homeTeam}
                       </span>
                     </div>
 
-                    <div className={styles.featuredMatchScoreDivider}>
+                    <div className={matchesStyles.featuredMatchScoreDivider}>
                       {lastResult.result || "VS"}
                     </div>
 
-                    <div className={styles.featuredMatchTeamInfo}>
+                    <div className={matchesStyles.featuredMatchTeamInfo}>
                       <TeamLogo teamName={awayTeam} />
-                      <span className={styles.featuredMatchTeam}>
+                      <span className={matchesStyles.featuredMatchTeam}>
                         {awayTeam}
                       </span>
                     </div>
                   </div>
 
-                  <div className={styles.featuredMatchFooter}>
-                    <div className={styles.featuredMatchDateTime}>
+                  <div className={matchesStyles.featuredMatchFooter}>
+                    <div className={matchesStyles.featuredMatchDateTime}>
                       <strong>{formatDate(lastResult.match_date)}</strong>
                     </div>
-                    <div className={styles.featuredMatchPlace}>
+                    <div className={matchesStyles.featuredMatchPlace}>
                       Posledný odohraný zápas
                     </div>
                   </div>

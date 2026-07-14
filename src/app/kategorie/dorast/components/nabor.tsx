@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import styles from "@/app/kategorie/styles/unified.module.css";
+import recruitmentStyles from "@/app/kategorie/styles/CategoryRecruitment.module.css";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 
 type CategoryBirthYears = {
@@ -43,30 +43,30 @@ const Nabor = async () => {
     : "2009 – 2010";
 
   return (
-    <section className={styles.naborSection}>
-      <div className={styles.naborCard}>
-        <div className={styles.naborContent}>
-          <div className={styles.naborTopRow}>
-            <div className={styles.naborTextWrap}>
-              <p className={styles.naborDescription}>
+    <section className={recruitmentStyles.naborSection}>
+      <div className={recruitmentStyles.naborCard}>
+        <div className={recruitmentStyles.naborContent}>
+          <div className={recruitmentStyles.naborTopRow}>
+            <div className={recruitmentStyles.naborTextWrap}>
+              <p className={recruitmentStyles.naborDescription}>
                 Pridaj sa k dorastu ATU Košice.
               </p>
             </div>
 
-            <Link href="/pridaj_sa" className={styles.naborPrimaryButton}>
+            <Link href="/pridaj_sa" className={recruitmentStyles.naborPrimaryButton}>
               Získať viac informácií
             </Link>
           </div>
 
-          <div className={styles.naborInfoGrid}>
-            <div className={styles.naborInfoItem}>
-              <div className={styles.naborInfoLabel}>Ročník</div>
-              <div className={styles.naborInfoValue}>{birthYearsText}</div>
+          <div className={recruitmentStyles.naborInfoGrid}>
+            <div className={recruitmentStyles.naborInfoItem}>
+              <div className={recruitmentStyles.naborInfoLabel}>Ročník</div>
+              <div className={recruitmentStyles.naborInfoValue}>{birthYearsText}</div>
             </div>
 
-            <div className={styles.naborInfoItem}>
-              <div className={styles.naborInfoLabel}>Kontakt na trénera</div>
-              <div className={styles.naborInfoValue}>
+            <div className={recruitmentStyles.naborInfoItem}>
+              <div className={recruitmentStyles.naborInfoLabel}>Kontakt na trénera</div>
+              <div className={recruitmentStyles.naborInfoValue}>
                 {category?.coach_name || "Tréner"}
                 <br />
                 {category?.coach_email || "tomikbez@gmail.com"}

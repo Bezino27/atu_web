@@ -205,6 +205,36 @@ const fallbackSections: PageSection[] = [
   },
 ];
 
+
+type PartnerGroupKey = "general" | "main" | "partner" | "media";
+
+const PARTNER_GROUP_ORDER: PartnerGroupKey[] = [
+  "general",
+  "main",
+  "partner",
+  "media",
+];
+
+const PARTNER_GROUP_LABELS: Record<PartnerGroupKey, string> = {
+  general: "Generálni partneri",
+  main: "Hlavní partneri",
+  partner: "Partneri",
+  media: "Mediálni partneri",
+};
+
+function normalizePartnerTier(tier?: string | null): PartnerGroupKey {
+  if (
+    tier === "general" ||
+    tier === "main" ||
+    tier === "partner" ||
+    tier === "media"
+  ) {
+    return tier;
+  }
+
+  return "partner";
+}
+
 export default async function HomePage() {
   await connection();
 
@@ -255,8 +285,27 @@ export default async function HomePage() {
     .map((partner) => ({
       partner,
       imageSrc: getPartnerImageUrl(partner),
+      tier: normalizePartnerTier(partner.tier),
     }))
-    .filter(({ imageSrc }) => Boolean(imageSrc));
+    .filter(({ imageSrc }) => Boolean(imageSrc))
+    .sort((a, b) => {
+      const tierCompare =
+        PARTNER_GROUP_ORDER.indexOf(a.tier) -
+        PARTNER_GROUP_ORDER.indexOf(b.tier);
+
+      if (tierCompare !== 0) return tierCompare;
+
+      const orderCompare = (a.partner.order ?? 0) - (b.partner.order ?? 0);
+      if (orderCompare !== 0) return orderCompare;
+
+      return a.partner.name.localeCompare(b.partner.name, "sk");
+    });
+
+  const partnerGroups = PARTNER_GROUP_ORDER.map((tier) => ({
+    tier,
+    label: PARTNER_GROUP_LABELS[tier],
+    items: partnersWithLogos.filter((item) => item.tier === tier),
+  })).filter((group) => group.items.length > 0);
 
   const featuredMatchTeams = featuredMatch
     ? getMatchTeams(featuredMatch, ownTeamName)
@@ -682,11 +731,73 @@ export default async function HomePage() {
     );
   };
 
+  const renderPartnerLogo = (
+    partner: (typeof partnersWithLogos)[number]["partner"],
+    imageSrc: string,
+    tier: PartnerGroupKey
+  ) => {
+    const isGrantBanner = isGrantBannerPartner(partner.name, imageSrc);
+
+    const logoClassName = [
+      styles.partnerLogo,
+      tier === "general" ? styles.partnerLogoGeneral : "",
+      tier === "main" ? styles.partnerLogoMain : "",
+      tier === "media" ? styles.partnerLogoMedia : "",
+      isGrantBanner ? styles.partnerGrantBanner : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const cellClassName = [
+      styles.partnerLogoCell,
+      tier === "general" ? styles.partnerLogoCellGeneral : "",
+      tier === "main" ? styles.partnerLogoCellMain : "",
+      tier === "media" ? styles.partnerLogoCellMedia : "",
+      isGrantBanner ? styles.partnerGrantBannerCell : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const logo = (
+      <Image
+        src={imageSrc}
+        alt={partner.name}
+        width={tier === "general" ? 420 : tier === "main" ? 320 : 260}
+        height={tier === "general" ? 150 : tier === "main" ? 120 : 100}
+        className={logoClassName}
+      />
+    );
+
+    if (partner.website) {
+      return (
+        <a
+          key={partner.id}
+          href={partner.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cellClassName}
+          aria-label={partner.name}
+        >
+          {logo}
+        </a>
+      );
+    }
+
+    return (
+      <div key={partner.id} className={cellClassName}>
+        {logo}
+      </div>
+    );
+  };
+
   const renderPartnersSection = (section: PageSection) => {
     if (section.hide_when_empty && partnersWithLogos.length === 0) return null;
 
     return (
-      <section key={section.id} className={`sectionContainer ${styles.partnersSection}`}>
+      <section
+        key={section.id}
+        className={`sectionContainer ${styles.partnersSection}`}
+      >
         <div className="resultsHeader">
           <div>
             <span className="preTitle">
@@ -698,61 +809,42 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className={styles.partnersCard}>
-          {partnersWithLogos.length > 0 ? (
-            <div className={styles.partnersGrid}>
-              {partnersWithLogos.map(({ partner, imageSrc }) => {
-                const isGrantBanner = isGrantBannerPartner(partner.name, imageSrc);
-                const logoClassName = [
-                  styles.partnerLogo,
-                  isGrantBanner ? styles.partnerGrantBanner : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ");
-                const cellClassName = [
-                  styles.partnerLogoCell,
-                  isGrantBanner ? styles.partnerGrantBannerCell : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ");
-                const logo = (
-                  <Image
-                    src={imageSrc}
-                    alt={partner.name}
-                    width={260}
-                    height={110}
-                    className={logoClassName}
-                  />
-                );
+        {partnersWithLogos.length > 0 ? (
+          <div className={styles.partnerGroups}>
+            {partnerGroups.map((group) => {
+              const displayTier = group.tier;
 
-                if (partner.website) {
-                  return (
-                    <a
-                      key={partner.id}
-                      href={partner.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cellClassName}
-                      aria-label={partner.name}
-                    >
-                      {logo}
-                    </a>
-                  );
-                }
+              const gridClassName = [
+                styles.partnerGroupGrid,
+                displayTier === "general" ? styles.partnerGridGeneral : "",
+                displayTier === "main" ? styles.partnerGridMain : "",
+                displayTier === "partner" ? styles.partnerGridStandard : "",
+                displayTier === "media" ? styles.partnerGridMedia : "",
+              ]
+                .filter(Boolean)
+                .join(" ");
 
-                return (
-                  <div key={partner.id} className={cellClassName}>
-                    {logo}
+              return (
+                <div
+                  key={group.tier}
+                  className={styles.partnerGroup}
+                >
+                  <h3 className={styles.partnerGroupTitle}>{group.label}</h3>
+
+                  <div className={gridClassName}>
+                    {group.items.map(({ partner, imageSrc }) =>
+                      renderPartnerLogo(partner, imageSrc, displayTier)
+                    )}
                   </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className={styles.compactEmptyState}>
-              Partneri budú doplnení čoskoro.
-            </div>
-          )}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.compactEmptyState}>
+            Partneri budú doplnení čoskoro.
+          </div>
+        )}
       </section>
     );
   };

@@ -5,6 +5,8 @@ import {
   normalizeMediaUrl,
 } from "./api";
 
+export type PartnerTier = "" | "general" | "main" | "partner" | "media";
+
 export type Partner = {
   id: number;
   name: string;
@@ -12,7 +14,7 @@ export type Partner = {
   logo_url?: string | null;
   image_url?: string | null;
   website?: string | null;
-  tier?: string | null;
+  tier?: PartnerTier | null;
   order?: number;
   is_active?: boolean;
 };

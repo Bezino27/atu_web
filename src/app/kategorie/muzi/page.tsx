@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import styles from "../styles/unified.module.css";
+import pageStyles from "../styles/CategoryPage.module.css";
+import heroStyles from "../styles/CategoryHero.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
@@ -284,45 +285,45 @@ export default async function MuziPage() {
 
   const renderHeroSection = (section: PageSection) => {
     return (
-      <section key={section.id} className={styles.heroSection}>
-        <div className={styles.bannerContainer}>
+      <section key={section.id} className={heroStyles.heroSection}>
+        <div className={heroStyles.bannerContainer}>
           <Image
             src={heroImage}
             alt=""
             fill
             priority
             sizes="(max-width: 768px) 100vw, 1300px"
-            className={styles.heroImg}
+            className={heroStyles.heroImg}
           />
 
-          <div className={styles.bannerOverlay}>
-            <div className={styles.heroTextContent}>
-              <span className={styles.heroSubtitle}>
+          <div className={heroStyles.bannerOverlay}>
+            <div className={heroStyles.heroTextContent}>
+              <span className={heroStyles.heroSubtitle}>
                 {getSectionPreTitle(section, categoryLeague)}
               </span>
 
-              <h1 className={styles.bannerTitle}>
+              <h1 className={heroStyles.bannerTitle}>
                 {getSectionTitle(section, categoryName)}
               </h1>
 
-              <div className={styles.heroQuickNav}>
-                <a href="#novinky" className={styles.heroQuickLink}>
+              <div className={heroStyles.heroQuickNav}>
+                <a href="#novinky" className={heroStyles.heroQuickLink}>
                   Novinky
                 </a>
 
-                <a href="#tabulka" className={styles.heroQuickLink}>
+                <a href="#tabulka" className={heroStyles.heroQuickLink}>
                   Tabuľka
                 </a>
 
-                <a href="#hraci" className={styles.heroQuickLink}>
+                <a href="#hraci" className={heroStyles.heroQuickLink}>
                   Hráči
                 </a>
               </div>
             </div>
 
-            <div className={styles.heroMiniInfo}>
-              <span className={styles.heroMiniLabel}>Sezóna</span>
-              <span className={styles.heroMiniValue}>{currentSeason}</span>
+            <div className={heroStyles.heroMiniInfo}>
+              <span className={heroStyles.heroMiniLabel}>Sezóna</span>
+              <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
             </div>
           </div>
         </div>
@@ -348,7 +349,7 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="zapasy" className={styles.sectionContainer}>
+      <section key={section.id} id="zapasy" className={pageStyles.sectionContainer}>
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
           resultMatches={resultMatches}
@@ -367,13 +368,13 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="novinky" className={styles.sectionContainer}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="novinky" className={pageStyles.sectionContainer}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Aktuálne dianie")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Najdôležitejšie novinky")}
             </h2>
           </div>
@@ -394,24 +395,24 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="tabulka" className={styles.overviewSection}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="tabulka" className={pageStyles.overviewSection}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Extraliga")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Výsledky")}
             </h2>
           </div>
         </div>
 
-        <div className={styles.overviewGrid}>
-          <div className={styles.tableColumn}>
+        <div className={pageStyles.overviewGrid}>
+          <div className={pageStyles.tableColumn}>
             <Tabulka standings={standings} ownTeamName={ownTeamName} />
           </div>
 
-          <div className={styles.matchesColumn}>
+          <div className={pageStyles.matchesColumn}>
             <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
           </div>
         </div>
@@ -425,13 +426,13 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="hraci" className={styles.bottomSection}>
-        <div className={styles.resultsHeader}>
+      <section key={section.id} id="hraci" className={pageStyles.bottomSection}>
+        <div className={pageStyles.resultsHeader}>
           <div>
-            <span className={styles.preTitle}>
+            <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Štatistiky tímu")}
             </span>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Lídri sezóny")}
             </h2>
           </div>
@@ -473,10 +474,10 @@ export default async function MuziPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={pageStyles.pageContainer}>
       <Header />
 
-      <main className={styles.content}>
+      <main className={pageStyles.content}>
         {sections.map((section) => renderSection(section))}
       </main>
 

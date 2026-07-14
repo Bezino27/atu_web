@@ -1,4 +1,5 @@
-import styles from "../../styles/unified.module.css";
+import pageStyles from "../../styles/CategoryPage.module.css";
+import standingsStyles from "../../styles/CategoryStandings.module.css";
 import type { SzfbStandingRow } from "@/app/lib/szfb";
 
 type TabulkaProps = {
@@ -34,23 +35,23 @@ function getStandingsRowClass(
 ) {
   const classNames = [];
 
-  if (position <= 8) classNames.push(styles.playoffRow);
-  if (position === 10 || position === 11) classNames.push(styles.playoutRow);
-  if (position === 12) classNames.push(styles.relegationRow);
-  if (isOwnTeam(teamName, ownTeamName)) classNames.push(styles.highlightRow);
+  if (position <= 8) classNames.push(standingsStyles.playoffRow);
+  if (position === 10 || position === 11) classNames.push(standingsStyles.playoutRow);
+  if (position === 12) classNames.push(standingsStyles.relegationRow);
+  if (isOwnTeam(teamName, ownTeamName)) classNames.push(standingsStyles.highlightRow);
 
   return classNames.join(" ");
 }
 
 export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
   return (
-    <div className={styles.tablePanel}>
-      <div className={styles.panelHeader}>
-        <h3 className={styles.panelTitle}>Aktuálna tabuľka</h3>
+    <div className={standingsStyles.tablePanel}>
+      <div className={pageStyles.panelHeader}>
+        <h3 className={pageStyles.panelTitle}>Aktuálna tabuľka</h3>
       </div>
 
-      <div className={styles.tableWrap}>
-        <table className={styles.table}>
+      <div className={standingsStyles.tableWrap}>
+        <table className={standingsStyles.table}>
           <thead>
             <tr>
               <th>#</th>
@@ -71,15 +72,15 @@ export default function Tabulka({ standings, ownTeamName }: TabulkaProps) {
                   )}
                 >
                   <td>
-                    <span className={styles.positionBadge}>{team.position}</span>
+                    <span className={standingsStyles.positionBadge}>{team.position}</span>
                   </td>
                   <td>
-                    <div className={styles.teamCell}>
-                      <span className={styles.tableTeamName}>{team.team_name}</span>
+                    <div className={standingsStyles.teamCell}>
+                      <span className={standingsStyles.tableTeamName}>{team.team_name}</span>
                     </div>
                   </td>
                   <td>{team.played}</td>
-                  <td className={styles.pointsCell}>{team.points}</td>
+                  <td className={standingsStyles.pointsCell}>{team.points}</td>
                 </tr>
               ))
             ) : (

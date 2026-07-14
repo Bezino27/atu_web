@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../../styles/unified.module.css";
+import leadersStyles from "../../styles/CategoryLeaders.module.css";
 import type { SzfbPlayerStat } from "@/app/lib/szfb";
 
 type PlayerStat = {
@@ -60,16 +60,16 @@ const placeholderPlayers: Player[] = [
 
 function getPlayerCardClassName(rank: Player["rank"]) {
   const sizeClass =
-    rank === 1 ? styles.playerCardMain : styles.playerCardSide;
+    rank === 1 ? leadersStyles.playerCardMain : leadersStyles.playerCardSide;
 
   const rankClass =
     rank === 1
-      ? styles.playerCardRank1
+      ? leadersStyles.playerCardRank1
       : rank === 2
-        ? styles.playerCardRank2
-        : styles.playerCardRank3;
+        ? leadersStyles.playerCardRank2
+        : leadersStyles.playerCardRank3;
 
-  return `${styles.playerCard} ${sizeClass} ${rankClass}`;
+  return `${leadersStyles.playerCard} ${sizeClass} ${rankClass}`;
 }
 
 function formatStatValue(value?: number | null) {
@@ -93,7 +93,7 @@ function renderPlayerName(name: string) {
   const parts = trimmed.split(/\s+/);
 
   if (parts.length <= 1) {
-    return <span className={styles.playerNameLine}>{trimmed}</span>;
+    return <span className={leadersStyles.playerNameLine}>{trimmed}</span>;
   }
 
   const firstLine = parts[0];
@@ -101,8 +101,8 @@ function renderPlayerName(name: string) {
 
   return (
     <>
-      <span className={styles.playerNameLine}>{firstLine}</span>
-      <span className={styles.playerNameLine}>{secondLine}</span>
+      <span className={leadersStyles.playerNameLine}>{firstLine}</span>
+      <span className={leadersStyles.playerNameLine}>{secondLine}</span>
     </>
   );
 }
@@ -146,49 +146,49 @@ function PlayerCard({ player }: { player: Player }) {
 
   return (
     <article className={getPlayerCardClassName(player.rank)}>
-      <div className={styles.playerCardTop}>
-        <div className={styles.rankBadge}>
+      <div className={leadersStyles.playerCardTop}>
+        <div className={leadersStyles.rankBadge}>
           {player.displayRank ?? player.rank}.
         </div>
 
-        <div className={styles.playerNumber}>{displayNumber}</div>
+        <div className={leadersStyles.playerNumber}>{displayNumber}</div>
       </div>
 
-      <div className={styles.playerCardBody}>
-        <div className={styles.playerContent}>
-          <div className={styles.playerHeading}>
-            <h3 className={styles.playerName}>
+      <div className={leadersStyles.playerCardBody}>
+        <div className={leadersStyles.playerContent}>
+          <div className={leadersStyles.playerHeading}>
+            <h3 className={leadersStyles.playerName}>
               {renderPlayerName(displayName)}
             </h3>
           </div>
 
-          <div className={styles.statsGrid}>
+          <div className={leadersStyles.statsGrid}>
             {player.stats.map((stat) => (
-              <div key={stat.label} className={styles.statItem}>
-                <span className={styles.statValue}>{stat.value ?? "—"}</span>
-                <span className={styles.statLabel}>{stat.label}</span>
+              <div key={stat.label} className={leadersStyles.statItem}>
+                <span className={leadersStyles.statValue}>{stat.value ?? "—"}</span>
+                <span className={leadersStyles.statLabel}>{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className={styles.playerPhotoWrap}>
+        <div className={leadersStyles.playerPhotoWrap}>
           {player.photoSrc ? (
             <Image
               src={player.photoSrc}
               alt={displayName}
               fill
               sizes="(max-width: 768px) 100vw, 260px"
-              className={styles.playerPhoto}
+              className={leadersStyles.playerPhoto}
             />
           ) : (
-            <div className={styles.playerPhotoPlaceholder}>
+            <div className={leadersStyles.playerPhotoPlaceholder}>
               <Image
                 src="/logo/znak_atu_nove.svg"
                 alt=""
                 width={118}
                 height={118}
-                className={styles.playerPhotoLogo}
+                className={leadersStyles.playerPhotoLogo}
               />
             </div>
           )}
@@ -209,8 +209,8 @@ export default function SeasonLeadersSection({
 
   if (!firstPlayer || !secondPlayer || !thirdPlayer) {
     return (
-      <section className={styles.leadersSection}>
-        <div className={styles.leadersEmptyState}>
+      <section className={leadersStyles.leadersSection}>
+        <div className={leadersStyles.leadersEmptyState}>
           Štatistiky lídrov sezóny pripravujeme.
         </div>
       </section>
@@ -218,18 +218,18 @@ export default function SeasonLeadersSection({
   }
 
   return (
-    <section className={styles.leadersSection}>
-      <div className={styles.leadersContentGrid}>
-        <div className={styles.topPlayersPodium}>
-          <div className={styles.playerRank2Wrap}>
+    <section className={leadersStyles.leadersSection}>
+      <div className={leadersStyles.leadersContentGrid}>
+        <div className={leadersStyles.topPlayersPodium}>
+          <div className={leadersStyles.playerRank2Wrap}>
             <PlayerCard player={secondPlayer} />
           </div>
 
-          <div className={styles.playerRank1Wrap}>
+          <div className={leadersStyles.playerRank1Wrap}>
             <PlayerCard player={firstPlayer} />
           </div>
 
-          <div className={styles.playerRank3Wrap}>
+          <div className={leadersStyles.playerRank3Wrap}>
             <PlayerCard player={thirdPlayer} />
           </div>
         </div>

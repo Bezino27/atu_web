@@ -1,8 +1,9 @@
 import React from "react";
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import styles from "../styles/unified.module.css";
-import szfbStyle from "../styles/szfb_cards.module.css";
+import pageStyles from "../styles/CategoryPage.module.css";
+import heroStyles from "../styles/CategoryHero.module.css";
+import szfbStyle from "../styles/SzfbCards.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Image from "next/image";
@@ -57,6 +58,27 @@ type BackendCategory = {
   coach_name?: string;
   coach_email?: string;
   coach_phone?: string;
+  trainings?: Array<{
+    id: number;
+    day: string;
+    time: string;
+    order: number;
+    location: {
+      id: number;
+      name: string;
+      address: string;
+      lat: number;
+      lng: number;
+    };
+  }>;
+  links?: Array<{
+    id: number;
+    title: string;
+    description: string;
+    cta: string;
+    href: string;
+    order: number;
+  }>;
 };
 
 const CLUB_SLUG = "atu-kosice";
@@ -164,71 +186,59 @@ const StarsiZiaciPage = async () => {
   const currentSeason =
     currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
-  const szfbLinks = [
-    {
-      title: "Detail tímu",
-      href: "https://www.szfb.sk/sk/stats/teams/1179/liga-starsich-ziakov-vychod/team/669500/fabk-atu-kosice",
-    },
-    {
-      title: "Tabuľka",
-      href: "https://www.szfb.sk/sk/stats/standings/1179/liga-starsich-ziakov-vychod?StatsType=overall&TournamentPartID=4528",
-    },
-    {
-      title: "Výsledky a program",
-      href: "https://www.szfb.sk/sk/stats/results-date/1179/1-liga-starsich-ziakov-vychod",
-    },
-  ];
+  const categoryLinks = currentCategory?.links ?? [];
+  const categoryTrainings = currentCategory?.trainings ?? [];
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={pageStyles.pageContainer}>
       <Header />
 
-      <main className={styles.content}>
+      <main className={pageStyles.content}>
         {sections.map((section) => {
           switch (section.section_type) {
             case "hero": {
               const heroTitle = getSectionTitle(section, categoryName);
 
               return (
-        <section key={section.id} className={styles.heroSection}>
-          <div className={styles.bannerContainer}>
+        <section key={section.id} className={heroStyles.heroSection}>
+          <div className={heroStyles.bannerContainer}>
             <Image
               src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1300px"
-              className={styles.heroImg}
+              className={heroStyles.heroImg}
             />
 
-            <div className={styles.bannerOverlay}>
-              <div className={styles.heroTextContent}>
+            <div className={heroStyles.bannerOverlay}>
+              <div className={heroStyles.heroTextContent}>
                 <h1
-                  className={`${styles.bannerTitleziaci} ${
+                  className={`${heroStyles.bannerTitleziaci} ${
                     heroTitle.replace(/\s+/g, "").length > 8
-                      ? styles.bannerTitleziaciLong
+                      ? heroStyles.bannerTitleziaciLong
                       : ""
                   }`}
                 >
                   {heroTitle}
                 </h1>
 
-                <div className={styles.heroQuickNav}>
-                  <a href="#odkazy" className={styles.heroQuickLink}>
+                <div className={heroStyles.heroQuickNav}>
+                  <a href="#odkazy" className={heroStyles.heroQuickLink}>
                     Odkazy
                   </a>
-                  <a href="#treningy" className={styles.heroQuickLink}>
+                  <a href="#treningy" className={heroStyles.heroQuickLink}>
                     Tréningy
                   </a>
-                  <a href="#novinky" className={styles.heroQuickLink}>
+                  <a href="#novinky" className={heroStyles.heroQuickLink}>
                     Novinky
                   </a>
                 </div>
               </div>
 
-              <div className={styles.heroMiniInfo}>
-                <span className={styles.heroMiniLabel}>Sezóna</span>
-                <span className={styles.heroMiniValue}>{currentSeason}</span>
+              <div className={heroStyles.heroMiniInfo}>
+                <span className={heroStyles.heroMiniLabel}>Sezóna</span>
+                <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
               </div>
             </div>
           </div>
@@ -236,6 +246,10 @@ const StarsiZiaciPage = async () => {
               );
             }
             case "links":
+              if (categoryLinks.length === 0) {
+                return null;
+              }
+
               return (
         <section key={section.id} id="odkazy" className="sectionContainer">
           <div className="resultsHeader">
@@ -247,7 +261,7 @@ const StarsiZiaciPage = async () => {
 
           <div className={szfbStyle.szfbSection}>
             <div className={szfbStyle.szfbGrid}>
-              {szfbLinks.map((link) => (
+              {categoryLinks.map((link) => (
                 <a
                   key={link.title}
                   href={link.href}
@@ -255,15 +269,40 @@ const StarsiZiaciPage = async () => {
                   rel="noopener noreferrer"
                   className={szfbStyle.szfbCard}
                 >
+                  <div className={szfbStyle.szfbWatermark} aria-hidden="true" />
+
                   <div className={szfbStyle.szfbCardTop}>
                     <span className={szfbStyle.szfbBadge}>SZFB</span>
-                    <span className={szfbStyle.szfbArrow}>↗</span>
                   </div>
 
-                  <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
+                  <div className={szfbStyle.szfbCardContent}>
+                    <h3 className={szfbStyle.szfbCardTitle}>{link.title}</h3>
+                    <p className={szfbStyle.szfbCardDescription}>
+                      {link.description}
+                    </p>
+                  </div>
 
                   <span className={szfbStyle.szfbCardLink}>
-                    Otvoriť odkaz
+                    <span className={szfbStyle.szfbCardLinkText}>
+                      {link.cta}
+                    </span>
+
+                    <svg
+                      className={szfbStyle.szfbArrow}
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 12H19M14 7L19 12L14 17"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </span>
                 </a>
               ))}
@@ -272,9 +311,13 @@ const StarsiZiaciPage = async () => {
         </section>
               );
             case "trainings":
+              if (categoryTrainings.length === 0) {
+                return null;
+              }
+
               return (
         <section key={section.id} id="treningy" className="sectionContainer">
-          <KdeTrenujeme />
+          <KdeTrenujeme trainings={categoryTrainings} />
         </section>
               );
             case "recruitment":

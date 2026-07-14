@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "../../styles/unified.module.css";
+import newsStyles from "../../styles/CategoryNews.module.css";
 import type { Post } from "@/app/lib/posts";
 import { getImageUrl } from "@/app/lib/api";
 
@@ -28,36 +28,36 @@ export default function Novinky({ posts }: NovinkyProps) {
   const visiblePosts = posts.slice(0, 3);
 
   return (
-    <section className={styles.novinkySection}>
+    <section className={newsStyles.novinkySection}>
       {visiblePosts.length > 0 ? (
-        <div className={styles.novinkyGrid}>
+        <div className={newsStyles.novinkyGrid}>
           {visiblePosts.map((item) => (
             <Link
               key={item.id}
               href={`/clanky/${item.slug}`}
-              className={styles.novinkyCard}
+              className={newsStyles.novinkyCard}
             >
-              <div className={styles.novinkyImageWrapper}>
+              <div className={newsStyles.novinkyImageWrapper}>
                 <Image
                   src={getImageUrl(item.featured_image)}
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 92vw, 380px"
-                  className={styles.novinkyImg}
+                  className={newsStyles.novinkyImg}
                 />
-                <div className={styles.novinkyCardOverlay}>
-                  <div className={styles.novinkyMetaRow}>
-                    <span className={styles.novinkyBadge}>
+                <div className={newsStyles.novinkyCardOverlay}>
+                  <div className={newsStyles.novinkyMetaRow}>
+                    <span className={newsStyles.novinkyBadge}>
                       {item.category?.name || "Novinka"}
                     </span>
-                    <span className={styles.novinkyDate}>
+                    <span className={newsStyles.novinkyDate}>
                       {formatDate(item.published_at)}
                     </span>
                   </div>
 
-                  <h3 className={styles.novinkyCardTitle}>{item.title}</h3>
+                  <h3 className={newsStyles.novinkyCardTitle}>{item.title}</h3>
 
-                  <p className={styles.novinkyCardDescription}>
+                  <p className={newsStyles.novinkyCardDescription}>
                     {item.excerpt || ""}
                   </p>
                 </div>
@@ -66,7 +66,7 @@ export default function Novinky({ posts }: NovinkyProps) {
           ))}
         </div>
       ) : (
-        <div className={styles.novinkyEmptyState}>
+        <div className={newsStyles.novinkyEmptyState}>
           Zatiaľ nie sú dostupné žiadne články.
         </div>
       )}
