@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
+import richTextStyles from "@/app/styles/rich-text.module.css";
 import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import { getPostDetail, type Post } from "@/app/lib/posts";
 import {
@@ -148,7 +149,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             )}
 
             <div
-              className={styles.articleContent}
+              className={`${styles.articleContent} ${richTextStyles.richTextContent}`}
               dangerouslySetInnerHTML={{
                 __html: normalizeHtmlMediaUrls(post.content),
               }}

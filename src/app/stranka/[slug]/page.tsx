@@ -29,6 +29,7 @@ import { normalizeHtmlMediaUrls, normalizeMediaUrl } from "@/app/lib/api";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
 import contactStyles from "@/app/kontakt/kontakt.module.css";
 import styles from "./stranka.module.css";
+import richTextStyles from "@/app/styles/rich-text.module.css";
 
 const CLUB_SLUG = "atu-kosice";
 const SUPPORTED_PAGE_TYPES = new Set(["custom", "standard"]);
@@ -555,7 +556,7 @@ export default async function CustomPage({ params }: PageProps) {
         <div className={styles.textPanel}>
           {content ? (
             <div
-              className={styles.textContent}
+              className={`${styles.textContent} ${richTextStyles.richTextContent}`}
               dangerouslySetInnerHTML={{ __html: content }}
             />
           ) : (
@@ -887,7 +888,7 @@ export default async function CustomPage({ params }: PageProps) {
         <div className={styles.textPanel}>
           {content ? (
             <div
-              className={styles.textContent}
+              className={`${styles.textContent} ${richTextStyles.richTextContent}`}
               dangerouslySetInnerHTML={{ __html: content }}
             />
           ) : (

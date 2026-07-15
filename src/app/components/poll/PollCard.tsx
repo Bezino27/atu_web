@@ -13,6 +13,93 @@ type PollCardProps = {
   onSelect: (optionId: number) => void;
 };
 
+type VideoEmbed =
+  | { type: "youtube" | "vimeo"; src: string }
+  | { type: "file"; src: string };
+
+type VideoOption = {
+  text: string;
+  video_url?: string | null;
+  video_file_url?: string | null;
+};
+
+function getUploadedVideoEmbed(videoFileUrl?: string | null): VideoEmbed | null {
+  return videoFileUrl ? { type: "file", src: videoFileUrl } : null;
+}
+
+function getVideoEmbed(videoUrl?: string | null): VideoEmbed | null {
+  if (!videoUrl) return null;
+
+  try {
+    const url = new URL(videoUrl);
+    const hostname = url.hostname.toLowerCase();
+    const pathname = url.pathname;
+
+    if (!["http:", "https:"].includes(url.protocol)) return null;
+
+    if (hostname === "youtu.be") {
+      const id = pathname.split("/").filter(Boolean)[0];
+      return id ? { type: "youtube", src: `https://www.youtube.com/embed/${id}` } : null;
+    }
+
+    if (hostname === "youtube.com" || hostname === "www.youtube.com") {
+      const id = url.searchParams.get("v");
+      return id ? { type: "youtube", src: `https://www.youtube.com/embed/${id}` } : null;
+    }
+
+    if (hostname === "vimeo.com" || hostname === "www.vimeo.com") {
+      const id = pathname.split("/").filter(Boolean)[0];
+      return id ? { type: "vimeo", src: `https://player.vimeo.com/video/${id}` } : null;
+    }
+
+    if (hostname === "player.vimeo.com") {
+      const parts = pathname.split("/").filter(Boolean);
+      const id = parts[0] === "video" ? parts[1] : null;
+      return id ? { type: "vimeo", src: `https://player.vimeo.com/video/${id}` } : null;
+    }
+
+    if (pathname.toLowerCase().endsWith(".mp4")) {
+      return { type: "file", src: videoUrl };
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function getOptionVideo(option: VideoOption) {
+  return getUploadedVideoEmbed(option.video_file_url) ?? getVideoEmbed(option.video_url);
+}
+
+function PollVideo({ video, title }: { video: VideoEmbed; title: string }) {
+  return (
+    <div
+      className={styles.optionVideo}
+      onClick={(event) => event.stopPropagation()}
+      onKeyDown={(event) => event.stopPropagation()}
+    >
+      {video.type === "file" ? (
+        <video
+          src={video.src}
+          controls
+          playsInline
+          preload="metadata"
+        />
+      ) : (
+        <iframe
+          src={video.src}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      )}
+    </div>
+  );
+}
+
 function formatDateTime(value: string | null) {
   if (!value) return null;
 
@@ -40,6 +127,7 @@ export default function PollCard({
     !selectedOptionId || voting || hasVoted || !poll.voting_open;
 
   const endsAtLabel = formatDateTime(poll.ends_at);
+  const canSelect = !hasVoted && poll.voting_open && !voting;
 
   return (
     <div className={styles.pollCard}>
@@ -65,20 +153,41 @@ export default function PollCard({
             <div className={styles.optionsList}>
               {poll.options.map((option) => {
                 const isSelected = selectedOptionId === option.id;
+                const video = getOptionVideo(option);
 
                 return (
-                  <button
+                  <div
                     key={option.id}
-                    type="button"
+                    role="button"
+                    tabIndex={canSelect ? 0 : -1}
                     className={`${styles.optionButton} ${
                       isSelected ? styles.optionButtonActive : ""
                     }`}
-                    onClick={() => onSelect(option.id)}
-                    disabled={hasVoted || !poll.voting_open || voting}
+                    aria-disabled={!canSelect}
+                    aria-pressed={isSelected}
+                    onClick={() => {
+                      if (canSelect) onSelect(option.id);
+                    }}
+                    onKeyDown={(event) => {
+                      if (!canSelect) return;
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        onSelect(option.id);
+                      }
+                    }}
                   >
-                    <span className={styles.optionIndicator} />
-                    <span className={styles.optionLabel}>{option.text}</span>
-                  </button>
+                    {video ? (
+                      <PollVideo
+                        video={video}
+                        title={`Video možnosti: ${option.text}`}
+                      />
+                    ) : null}
+
+                    <span className={styles.optionContent}>
+                      <span className={styles.optionIndicator} />
+                      <span className={styles.optionLabel}>{option.text}</span>
+                    </span>
+                  </div>
                 );
               })}
             </div>
@@ -86,6 +195,7 @@ export default function PollCard({
             <div className={styles.pollResultsList}>
               {results?.options.map((option) => {
                 const isSelected = selectedOptionId === option.id;
+                const video = getOptionVideo(option);
 
                 return (
                   <div
@@ -109,6 +219,13 @@ export default function PollCard({
                         style={{ width: `${option.percent}%` }}
                       />
                     </div>
+
+                    {video ? (
+                      <PollVideo
+                        video={video}
+                        title={`Video možnosti: ${option.text}`}
+                      />
+                    ) : null}
                   </div>
                 );
               })}

@@ -1,6 +1,9 @@
 export type ApiPollOption = {
   id: number;
   text: string;
+  video_url?: string;
+  video_file?: string | null;
+  video_file_url?: string | null;
   order: number;
   votes_count?: number;
 };
@@ -22,6 +25,9 @@ export type ApiPoll = {
 export type ApiPollResultOption = {
   id: number;
   text: string;
+  video_url?: string;
+  video_file?: string | null;
+  video_file_url?: string | null;
   votes: number;
   percent: number;
 };
