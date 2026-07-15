@@ -1,7 +1,10 @@
 .szfbSection {
   width: 100%;
   --szfb-red: #e04a4a;
-  --szfb-red-shadow: rgba(224, 74, 74, 0.16);
+  --szfb-red-soft: rgba(224, 74, 74, 0.13);
+  --szfb-red-soft-hover: rgba(224, 74, 74, 0.2);
+  --szfb-red-border: rgba(224, 74, 74, 0.28);
+  --szfb-red-shadow: rgba(224, 74, 74, 0.1);
 }
 
 /* # GRID */
@@ -142,10 +145,11 @@
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1px solid var(--szfb-red);
-  color: var(--szfb-red);
+  border: 1px solid var(--szfb-red-border);
+  color: var(--color-text);
   box-shadow: var(--shadow-soft);
   transition:
+    background 0.3s ease,
     color 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
@@ -156,15 +160,16 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--szfb-red);
+  background: var(--szfb-red-soft-hover);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 1.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .szfbCard:hover .szfbCardLink {
-  color: var(--color-text-inverse);
-  border-color: var(--szfb-red);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-color: rgba(224, 74, 74, 0.36);
   box-shadow: 0 12px 24px var(--szfb-red-shadow);
 }
 
@@ -184,7 +189,7 @@
   flex: 0 0 auto;
   width: 18px;
   height: 18px;
-  color: currentColor;
+  color: var(--color-text);
   transition: transform 0.3s ease;
 }
 
