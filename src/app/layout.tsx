@@ -72,10 +72,6 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE_URL],
   },
-
-  icons: {
-    icon: "/icon.svg",
-  },
 };
 
 export default function RootLayout({

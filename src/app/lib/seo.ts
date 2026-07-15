@@ -1,5 +1,4 @@
-export const SITE_URL = "https://www.atukosice.sk";
-
+export const SITE_URL = "https://atukosice.sk";
 export const SITE_NAME = "ATU Košice";
 
 export const SITE_DESCRIPTION =

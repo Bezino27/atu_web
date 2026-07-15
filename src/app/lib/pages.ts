@@ -52,6 +52,8 @@ export type ClubPage = {
   public_path?: string;
   meta_title?: string;
   meta_description?: string;
+  updated_at?: string | null;
+  content_updated_at?: string | null;
   og_image?: string | null;
   team_category?: {
     id: number;
@@ -110,6 +112,31 @@ type ClubNavigationResponse = {
   header_pages?: NavigationPageResponse[];
   footer_pages?: NavigationPageResponse[];
 };
+
+export type ClubPageListItem = {
+  id: number;
+  slug: string;
+  public_path: string;
+  page_type: string;
+  is_published: boolean;
+  updated_at?: string | null;
+  content_updated_at?: string | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+};
+
+type PaginatedResponse<T> = {
+  next?: string | null;
+  results?: T[];
+};
+
+function resolveApiUrl(url: string) {
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  return new URL(url, API_URL).toString();
+}
 
 function getPageUrl(page: NavigationPageResponse) {
   if (page.url) return page.url;
@@ -239,5 +266,41 @@ export async function getClubNavigation(
   } catch (error) {
     console.error("Nepodarilo sa načítať navigáciu:", error);
     return null;
+  }
+}
+
+export async function getClubPages(clubSlug: string): Promise<ClubPageListItem[]> {
+  const pages: ClubPageListItem[] = [];
+  let nextUrl: string | null = `${API_URL}/public/pages/${clubSlug}/`;
+
+  try {
+    while (nextUrl) {
+      const response = await fetch(nextUrl, getApiFetchOptions(300));
+
+      if (!response.ok) {
+        console.error("Nepodarilo sa načítať stránky:", response.status);
+        return pages;
+      }
+
+      const data = (await response.json()) as
+        | ClubPageListItem[]
+        | PaginatedResponse<ClubPageListItem>;
+
+      if (Array.isArray(data)) {
+        pages.push(...data);
+        break;
+      }
+
+      if (Array.isArray(data.results)) {
+        pages.push(...data.results);
+      }
+
+      nextUrl = data.next ? resolveApiUrl(data.next) : null;
+    }
+
+    return pages;
+  } catch (error) {
+    console.error("Chyba pri načítaní stránok:", error);
+    return pages;
   }
 }

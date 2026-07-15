@@ -14,6 +14,7 @@ export type Post = {
   content?: string | null;
   featured_image?: string | null;
   published_at?: string | null;
+  updated_at?: string | null;
   author_username?: string | null;
   meta_title?: string | null;
   meta_description?: string | null;
