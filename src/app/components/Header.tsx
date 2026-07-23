@@ -16,6 +16,7 @@ import {
 import { getClub, getClubLinkLogoUrl, type ClubLink } from "@/app/lib/club";
 import { getActiveClubLinks, getClubLinkIcon } from "@/app/lib/clubLinks";
 import { getClubContact } from "@/app/lib/contact";
+import { ADMIN_URL } from "@/app/lib/admin";
 import {
   getClubNavigation,
   getNavigationLabel,
@@ -259,6 +260,17 @@ export default function Header() {
                   })}
                 </div>
               )}
+
+              <a
+                href={ADMIN_URL}
+                target="_blank"
+                rel="nofollow noreferrer"
+                aria-label="Otvoriť administráciu"
+                title="Administrácia"
+                className={styles.adminTopLink}
+              >
+                <PiShieldCheck aria-hidden="true" />
+              </a>
             </div>
           </div>
         </div>
@@ -454,36 +466,46 @@ export default function Header() {
               <PiArrowRightBold aria-hidden="true" />
             </Link>
 
-            {clubLinks.length > 0 && (
-              <div className={styles.mobileSocialRow}>
-                {clubLinks.map((link) => {
-                  const logoUrl = getClubLinkLogoUrl(link);
+            <div className={styles.mobileSocialRow}>
+              {clubLinks.map((link) => {
+                const logoUrl = getClubLinkLogoUrl(link);
 
-                  return (
-                    <a
-                      key={link.id}
-                      href={link.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={link.title}
-                      className={styles.mobileSocialIcon}
-                    >
-                      {logoUrl ? (
-                        <Image
-                          src={logoUrl}
-                          alt=""
-                          width={26}
-                          height={26}
-                          className={styles.mobileSocialLogo}
-                        />
-                      ) : (
-                        getClubLinkIcon(link.icon_type)
-                      )}
-                    </a>
-                  );
-                })}
-              </div>
-            )}
+                return (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.title}
+                    className={styles.mobileSocialIcon}
+                  >
+                    {logoUrl ? (
+                      <Image
+                        src={logoUrl}
+                        alt=""
+                        width={26}
+                        height={26}
+                        className={styles.mobileSocialLogo}
+                      />
+                    ) : (
+                      getClubLinkIcon(link.icon_type)
+                    )}
+                  </a>
+                );
+              })}
+
+              <a
+                href={ADMIN_URL}
+                target="_blank"
+                rel="nofollow noreferrer"
+                aria-label="Otvoriť administráciu"
+                title="Administrácia"
+                className={styles.mobileAdminIcon}
+                onClick={closeMenu}
+              >
+                <PiShieldCheck aria-hidden="true" />
+              </a>
+            </div>
 
           </nav>
         </div>

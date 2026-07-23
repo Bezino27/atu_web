@@ -28,7 +28,7 @@ const FALLBACK_CENTER: [number, number] = [48.69814880000001, 21.23390379325404]
 
 const getInitialZoom = () => {
   if (typeof window === "undefined") return 16;
-  return window.innerWidth <= 640 ? 15 : 17;
+  return window.innerWidth <= 1024 ? 17 : 17;
 };
 
 function getMarkerScale(zoom: number) {

@@ -113,7 +113,6 @@
   text-transform: uppercase;
   text-align: left;
   opacity: 0.99;
-  animation: titleEntrance 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 
   font-family: "Unison Pro", var(--font-banner), sans-serif !important;
   font-weight: 700 !important;
@@ -126,6 +125,9 @@
   display: inline-block;
   width: fit-content;
   max-width: 100%;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
   pointer-events: none;
   user-select: none;
 }
@@ -327,18 +329,6 @@
     opacity: 0.8;
   }
 }
-@keyframes titleEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-
-  100% {
-    opacity: 0.99;
-    transform: translateY(0);
-  }
-}
-
 /* # 1024 */
 
 @media (max-width: 1024px) {
@@ -349,7 +339,7 @@
 
   .bannerContainer {
       min-height: 500px;
-      padding: 32px 28px 30px;
+      padding: 34px 28px 30px;
       border-radius: var(--radius-xl);
     }
 
@@ -364,31 +354,31 @@
     }
 
   .heroSubtitle {
-      top: 22px;
+      top: 18px;
       left: 22px;
-      min-height: 33px;
-      padding: 0 13px;
-      font-size: 0.72rem;
+      min-height: 38px;
+      padding: 0 15px;
+      font-size: 0.78rem;
       letter-spacing: 0.14em;
     }
 
   .bannerTitle {
       margin: 0;
-      font-size: clamp(3.4rem, 9vw, 5.8rem);
-      line-height: 0.9;
-      letter-spacing: -3px;
+      font-size: clamp(4.8rem, 11vw, 7.2rem);
+      line-height: 0.86;
+      letter-spacing: -0.035em;
     }
 
   .bannerTitleziaci {
-      margin: 44px 0 0;
-      font-size: clamp(2.7rem, 7vw, 4.8rem);
-      line-height: 0.92;
-      letter-spacing: -2px;
-      white-space: normal;
+      margin: 46px 0 0;
+      font-size: clamp(3.1rem, 7.8vw, 5.2rem);
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+      white-space: nowrap;
     }
 
   .bannerTitleziaciLong {
-      font-size: clamp(2.35rem, 6vw, 4.2rem);
+      font-size: clamp(2.75rem, 6.6vw, 4.7rem);
     }
 
   .heroDescription {
@@ -405,17 +395,17 @@
   .heroQuickLink,
     .heroMiniInfo {
       min-width: 118px;
-      min-height: 36px;
-      padding: 0 16px;
-      font-size: 0.8rem;
+      min-height: 40px;
+      padding: 0 18px;
+      font-size: 0.84rem;
     }
 
   .heroMiniLabel {
-      font-size: 0.72rem;
+      font-size: 0.76rem;
     }
 
   .heroMiniValue {
-      font-size: 0.8rem;
+      font-size: 0.86rem;
     }
 
   .heroImg {
@@ -432,8 +422,8 @@
     }
 
   .bannerContainer {
-      min-height: 360px;
-      padding: 22px 18px 20px;
+      min-height: 390px;
+      padding: 24px 18px 20px;
       border-radius: var(--radius-xl);
     }
 
@@ -451,41 +441,42 @@
   .heroTextContent {
       flex: 1 1 auto;
       min-width: 0;
-      max-width: calc(100% - 108px);
+      max-width: 100%;
       gap: 8px;
       padding-right: 0;
     }
 
   .heroSubtitle {
-      top: 14px;
+      top: 12px;
       left: 14px;
-      min-height: 28px;
-      padding: 0 10px;
-      font-size: 0.56rem;
+      min-height: 34px;
+      padding: 0 13px;
+      font-size: 0.68rem;
       letter-spacing: 0.12em;
     }
 
   .bannerTitle {
-      margin: 32px 0 0;
+      margin: 44px 0 0;
       max-width: 100%;
-      font-size: clamp(2.35rem, 10vw, 3.35rem);
-      line-height: 0.95;
-      letter-spacing: 0.015em;
+      font-size: clamp(3.9rem, 14vw, 5.8rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
     }
 
   .bannerTitleziaci {
-      margin: 32px 0 0;
+      margin: 44px 0 0;
       max-width: 100%;
-      font-size: clamp(1.9rem, 8.8vw, 3.4rem);
-      line-height: 0.98;
-      letter-spacing: 0.01em;
-      white-space: normal;
+      font-size: clamp(2.35rem, 9.4vw, 3.75rem);
+      line-height: 0.94;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
       overflow: visible;
       text-overflow: unset;
     }
 
   .bannerTitleziaciLong {
-      font-size: clamp(1.75rem, 7.6vw, 3rem);
+      font-size: clamp(2rem, 8vw, 3.25rem);
+      white-space: normal;
     }
 
   .heroDescription {
@@ -508,24 +499,27 @@
     }
 
   .heroMiniInfo {
+      position: absolute;
+      top: 12px;
+      right: 14px;
       display: inline-flex;
       flex: 0 0 auto;
-      align-self: flex-end;
+      align-self: flex-start;
       min-width: unset;
-      min-height: 28px;
-      padding: 0 10px;
+      min-height: 34px;
+      padding: 0 12px;
       gap: 6px;
       border-radius: var(--radius-pill);
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       white-space: nowrap;
     }
 
   .heroMiniLabel {
-      font-size: 0.56rem;
+      font-size: 0.64rem;
     }
 
   .heroMiniValue {
-      font-size: 0.64rem;
+      font-size: 0.76rem;
     }
 
   .countdownWrapper {
@@ -571,19 +565,19 @@
     }
 
   .bannerContainer {
-      min-height: 270px;
+      min-height: 330px;
       padding: 18px 14px 20px;
       border-radius: var(--radius-lg);
     }
 
   .bannerTitle {
-      font-size: clamp(2.5rem, 15vw, 3.8rem);
+      font-size: clamp(3.8rem, 16vw, 5rem);
     }
 
   .bannerTitleziaci {
-      font-size: clamp(1.7rem, 9vw, 3rem);
-      letter-spacing: -0.5px;
-      white-space: normal;
+      font-size: clamp(2.05rem, 9vw, 3.35rem);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
       overflow: visible;
       text-overflow: unset;
     }
@@ -608,7 +602,7 @@
     }
 
   .bannerContainer {
-      min-height: 300px;
+      min-height: 320px;
       padding: 16px 12px 16px;
       border-radius: var(--radius-lg);
     }
@@ -627,41 +621,42 @@
   .heroTextContent {
       flex: 1 1 auto;
       min-width: 0;
-      max-width: calc(100% - 92px);
+      max-width: 100%;
       gap: 0;
       padding-right: 0;
     }
 
   .heroSubtitle {
-      top: 12px;
+      top: 10px;
       left: 12px;
-      min-height: 24px;
-      padding: 0 8px;
-      font-size: 0.5rem;
+      min-height: 30px;
+      padding: 0 10px;
+      font-size: 0.6rem;
       letter-spacing: 0.1em;
     }
 
   .bannerTitle {
-      margin: 26px 0 -10px;
+      margin: 40px 0 -10px;
       max-width: 100%;
-      font-size: clamp(1.95rem, 10vw, 2.35rem);
-      line-height: 0.98;
-      letter-spacing: 0.01em;
+      font-size: clamp(3.45rem, 16vw, 4.65rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
     }
 
   .bannerTitleziaci {
-      margin: 26px 0 0;
+      margin: 40px 0 0;
       max-width: 100%;
-      font-size: clamp(1.45rem, 8.4vw, 2.25rem);
-      line-height: 1.02;
-      letter-spacing: 0.01em;
-      white-space: normal;
+      font-size: clamp(1.85rem, 8.4vw, 2.65rem);
+      line-height: 0.98;
+      letter-spacing: -0.015em;
+      white-space: nowrap;
       overflow: visible;
       text-overflow: unset;
     }
 
   .bannerTitleziaciLong {
-      font-size: clamp(1.3rem, 7.2vw, 2rem);
+      font-size: clamp(1.55rem, 7.4vw, 2.25rem);
+      white-space: normal;
     }
 
   .heroDescription {
@@ -683,22 +678,24 @@
     }
 
   .heroMiniInfo {
+      top: 10px;
+      right: 12px;
       flex: 0 0 auto;
-      align-self: flex-end;
-      min-height: 24px;
-      padding: 0 8px;
+      align-self: flex-start;
+      min-height: 30px;
+      padding: 0 10px;
       gap: 4px;
       border-radius: var(--radius-pill);
-      font-size: 0.64rem;
+      font-size: 0.72rem;
       white-space: nowrap;
     }
 
   .heroMiniLabel {
-      font-size: 0.48rem;
+      font-size: 0.56rem;
     }
 
   .heroMiniValue {
-      font-size: 0.56rem;
+      font-size: 0.66rem;
     }
 
   .countdownWrapper {
@@ -729,7 +726,7 @@
     }
 
   .bannerContainer {
-      min-height: 270px;
+      min-height: 292px;
       padding: 12px 10px 14px;
       border-radius: var(--radius-lg);
     }
@@ -737,20 +734,20 @@
   .heroSubtitle {
       top: 10px;
       left: 10px;
-      min-height: 22px;
-      padding: 0 7px;
-      font-size: 0.46rem;
+      min-height: 28px;
+      padding: 0 9px;
+      font-size: 0.56rem;
     }
 
   .bannerTitle {
-      margin-top: 22px;
-      font-size: clamp(1.8rem, 14vw, 2.7rem);
+      margin-top: 38px;
+      font-size: clamp(3rem, 17vw, 3.9rem);
     }
 
   .bannerTitleziaci {
-      margin-top: 22px;
+      margin-top: 38px;
       max-width: 100%;
-      font-size: clamp(1.2rem, 8vw, 1.9rem);
+      font-size: clamp(1.35rem, 7.8vw, 2.05rem);
       line-height: 1.02;
       white-space: normal;
       overflow: visible;
@@ -767,9 +764,11 @@
     }
 
   .heroMiniInfo {
-      min-height: 26px;
+      top: 10px;
+      right: 10px;
+      min-height: 28px;
       padding: 0 8px;
-      font-size: 0.58rem;
+      font-size: 0.64rem;
     }
 
   .heroMiniLabel {
@@ -777,7 +776,7 @@
     }
 
   .heroMiniValue {
-      font-size: 0.58rem;
+      font-size: 0.62rem;
     }
 
   .countdownBar {

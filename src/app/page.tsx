@@ -737,6 +737,10 @@ export default async function HomePage() {
     tier: PartnerGroupKey
   ) => {
     const isGrantBanner = isGrantBannerPartner(partner.name, imageSrc);
+    const imageWidth =
+      tier === "general" ? 620 : tier === "main" ? 460 : tier === "media" ? 360 : 260;
+    const imageHeight =
+      tier === "general" ? 220 : tier === "main" ? 170 : tier === "media" ? 135 : 100;
 
     const logoClassName = [
       styles.partnerLogo,
@@ -762,8 +766,8 @@ export default async function HomePage() {
       <Image
         src={imageSrc}
         alt={partner.name}
-        width={tier === "general" ? 420 : tier === "main" ? 320 : 260}
-        height={tier === "general" ? 150 : tier === "main" ? 120 : 100}
+        width={imageWidth}
+        height={imageHeight}
         className={logoClassName}
       />
     );

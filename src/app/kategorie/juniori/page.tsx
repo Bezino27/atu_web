@@ -216,7 +216,10 @@ export default async function JunioriPage() {
   const resultMatches = szfbDashboard?.results ?? [];
   const playerStats = szfbDashboard?.player_stats ?? [];
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-  const competitionName = "Extraliga";
+  const competitionName =
+    szfbDashboard?.watch?.competition_name ||
+    currentCategory?.league_name ||
+    "Extraliga";
   const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
 
   const currentSeason =

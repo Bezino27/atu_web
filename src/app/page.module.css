@@ -833,51 +833,60 @@
 }
 
 .partnerLogoCellGeneral {
-  min-height: 160px;
-  padding: 28px;
+  min-height: 180px;
+  padding: 12px;
 }
 
 .partnerLogoCellMain {
-  min-height: 130px;
-  padding: 24px;
+  min-height: 148px;
+  padding: 12px;
 }
 
 .partnerLogoCellMedia {
-  min-height: 100px;
-  padding: 16px;
+  min-height: 118px;
+  padding: 10px;
 }
 
 .partnerLogo {
   width: auto;
   max-width: 100%;
   max-height: 82px;
+  height: auto;
   object-fit: contain;
+  object-position: center;
 }
 
 .partnerLogoGeneral {
-  max-height: 118px;
+  max-width: 98%;
+  max-height: 160px;
 }
 
 .partnerLogoMain {
-  max-height: 96px;
+  max-width: 97%;
+  max-height: 132px;
 }
 
 .partnerLogoMedia {
-  max-height: 66px;
+  max-width: 95%;
+  max-height: 102px;
 }
 
 .partnerGrantBannerCell {
-  padding: 0;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
   background: var(--color-surface);
 }
 
 .partnerGrantBanner {
   display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 98%;
+  max-height: 160px;
+  object-fit: contain;
   object-position: center;
 }
 
@@ -1615,11 +1624,34 @@
   }
 
   .partnerLogoCellGeneral {
-    min-height: 145px;
+    min-height: 160px;
+    padding: 12px;
   }
 
   .partnerLogoGeneral {
-    max-height: 104px;
+    max-height: 140px;
+  }
+
+  .partnerLogoCellMain {
+    min-height: 138px;
+    padding: 10px;
+  }
+
+  .partnerLogoMain {
+    max-height: 120px;
+  }
+
+  .partnerLogoCellMedia {
+    min-height: 112px;
+    padding: 10px;
+  }
+
+  .partnerLogoMedia {
+    max-height: 92px;
+  }
+
+  .partnerGrantBanner {
+    max-height: 140px;
   }
 }
 
@@ -1640,22 +1672,45 @@
     font-size: 0.82rem;
   }
 
-  .partnerLogoCellGeneral,
-  .partnerLogoCellMain,
   .partnerLogoCell,
   .partnerLogoCellMedia {
     min-height: 108px;
     padding: 16px;
   }
 
-  .partnerLogoGeneral,
-  .partnerLogoMain,
   .partnerLogo {
     max-height: 74px;
   }
 
+  .partnerLogoCellGeneral {
+    min-height: 148px;
+    padding: 10px;
+  }
+
+  .partnerLogoGeneral {
+    max-height: 130px;
+  }
+
+  .partnerLogoCellMain {
+    min-height: 128px;
+    padding: 10px;
+  }
+
+  .partnerLogoMain {
+    max-height: 110px;
+  }
+
+  .partnerLogoCellMedia {
+    min-height: 106px;
+    padding: 9px;
+  }
+
   .partnerLogoMedia {
-    max-height: 60px;
+    max-height: 88px;
+  }
+
+  .partnerGrantBanner {
+    max-height: 130px;
   }
 }
 
@@ -1666,9 +1721,12 @@
 
   .partnerGridGeneral,
   .partnerGridMain,
-  .partnerGridStandard,
   .partnerGridMedia {
     grid-template-columns: 1fr;
+  }
+
+  .partnerGridStandard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .partnerGroupTitle {
@@ -1677,21 +1735,45 @@
     letter-spacing: 0.045em;
   }
 
-  .partnerLogoCellGeneral,
-  .partnerLogoCellMain,
   .partnerLogoCell,
   .partnerLogoCellMedia {
     min-height: 96px;
     padding: 14px;
   }
 
-  .partnerLogoGeneral,
-  .partnerLogoMain,
   .partnerLogo {
     max-height: 68px;
   }
 
+  .partnerLogoCellGeneral {
+    min-height: 136px;
+    padding: 9px;
+  }
+
+  .partnerLogoGeneral {
+    max-height: 118px;
+  }
+
+  .partnerLogoCellMain {
+    min-height: 118px;
+    padding: 9px;
+  }
+
+  .partnerLogoMain {
+    max-height: 100px;
+  }
+
+  .partnerLogoCellMedia {
+    min-height: 100px;
+    padding: 8px;
+  }
+
   .partnerLogoMedia {
-    max-height: 56px;
+    max-height: 82px;
+  }
+
+  .partnerGrantBanner {
+    max-width: 100%;
+    max-height: 118px;
   }
 }

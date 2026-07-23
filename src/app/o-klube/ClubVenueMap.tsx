@@ -23,7 +23,7 @@ const MAP_CENTER: [number, number] = [48.70386010126878, 21.25058525154437];
 
 const getInitialZoom = () => {
   if (typeof window === "undefined") return 16;
-  return window.innerWidth <= 640 ? 16 : 17;
+  return window.innerWidth <= 1024 ? 17 : 17;
 };
 
 function getMarkerScale(zoom: number) {

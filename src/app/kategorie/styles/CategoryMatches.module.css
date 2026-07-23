@@ -668,3 +668,100 @@
       font-size: var(--font-score);
     }
 }
+
+/* # MOBILE READABILITY TUNING */
+
+@media (max-width: 768px) {
+  .featuredMatchLeague {
+    max-width: 50%;
+    font-size: 0.7rem;
+    line-height: 1.22;
+    text-align: right;
+  }
+
+  .featuredMatchTeamLogo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .featuredMatchTeam {
+    max-width: 132px;
+    min-height: 34px;
+    font-size: max(var(--font-team-name), 0.9rem);
+    line-height: 1.18;
+  }
+
+  .featuredMatchVsDivider {
+    font-size: 1.02rem;
+  }
+
+  .featuredMatchScoreDivider {
+    font-size: clamp(2rem, 8vw, 2.7rem);
+    line-height: 0.95;
+    color: var(--color-text);
+  }
+
+  .featuredMatchDateTime {
+    font-size: max(var(--font-featured-date), 0.9rem);
+  }
+
+  .featuredMatchPlace {
+    font-size: max(var(--font-featured-place), 0.82rem);
+  }
+
+  .recentTeamName {
+    font-size: max(var(--font-body), 0.92rem);
+  }
+
+  .recentMatchDate {
+    font-size: max(var(--font-meta), 0.78rem);
+  }
+
+  .recentScore {
+    font-size: max(var(--font-score), 2.05rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .featuredMatchLeague {
+    max-width: 56%;
+    font-size: 0.6rem;
+    letter-spacing: 0.075em;
+  }
+
+  .featuredMatchTeamLogo {
+    width: 54px;
+    height: 54px;
+  }
+
+  .featuredMatchTeam {
+    max-width: 104px;
+    min-height: 30px;
+    font-size: max(var(--font-team-name), 0.82rem);
+    line-height: 1.12;
+  }
+
+  .featuredMatchVsDivider {
+    font-size: 0.9rem;
+  }
+
+  .featuredMatchScoreDivider {
+    font-size: clamp(1.8rem, 10vw, 2.3rem);
+  }
+
+  .featuredMatchDateTime {
+    font-size: max(var(--font-featured-date), 0.84rem);
+  }
+
+  .featuredMatchPlace {
+    font-size: max(var(--font-featured-place), 0.76rem);
+  }
+
+  .recentTeamName {
+    font-size: max(var(--font-body), 0.86rem);
+  }
+
+  .recentScore {
+    font-size: max(var(--font-score), 1.9rem);
+  }
+}

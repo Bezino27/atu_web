@@ -515,70 +515,70 @@
   }
 
   .shareBlock {
-    min-height: 330px;
-    padding: 26px 18px 24px;
+    min-height: 370px;
+    padding: 30px 18px 28px;
     border-radius: 20px;
   }
 
   .shareMenu {
-    width: 218px;
-    height: 218px;
+    width: 270px;
+    height: 270px;
   }
 
   .shareToggle {
-    width: 58px;
-    height: 58px;
+    width: 72px;
+    height: 72px;
   }
 
   .shareToggle svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
 
   .shareItem {
-    width: 44px;
-    height: 44px;
-    margin: -22px;
+    width: 60px;
+    height: 60px;
+    margin: -30px;
   }
 
   .shareItemIcon svg {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
   }
 
   .textIcon {
-    font-size: 0.74rem;
+    font-size: 0.82rem;
   }
 
   .socialImageIcon {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
   }
 
   .ludimusImageIcon {
-    width: 32px;
-    height: 32px;
+    width: 43px;
+    height: 43px;
   }
 
   .florbalexpertImageIcon {
-    width: 32px;
-    height: 32px;
+    width: 43px;
+    height: 43px;
   }
 
   .clubLinkImageIcon {
-    width: 32px;
-    height: 32px;
+    width: 43px;
+    height: 43px;
   }
 
   .ludimusClubLinkImageIcon {
-    width: 42px;
-    height: 42px;
+    width: 56px;
+    height: 56px;
   }
 
   .shareMenuOpen .shareItem {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(80px)
+      translateX(100px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1);
   }
@@ -586,7 +586,7 @@
   .shareItem:hover {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(80px)
+      translateX(100px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1.16);
   }
@@ -594,7 +594,7 @@
   .sharePlaceholder:hover {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(80px)
+      translateX(100px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1);
   }
@@ -637,69 +637,69 @@
   }
 
   .shareBlock {
-    min-height:auto;
-    padding: 24px 14px 22px;
+    min-height: 330px;
+    padding: 26px 12px 24px;
   }
 
   .shareMenu {
-    width: 192px;
-    height: 192px;
+    width: 245px;
+    height: 245px;
   }
 
   .shareToggle {
-    width: 52px;
-    height: 52px;
+    width: 66px;
+    height: 66px;
   }
 
   .shareToggle svg {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
   }
 
   .shareItem {
-    width: 40px;
-    height: 40px;
-    margin: -20px;
+    width: 54px;
+    height: 54px;
+    margin: -27px;
   }
 
   .shareItemIcon svg {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
 
   .textIcon {
-    font-size: 0.68rem;
+    font-size: 0.76rem;
   }
 
   .socialImageIcon {
-    width: 42px;
-    height: 42px;
+    width: 58px;
+    height: 58px;
   }
 
   .ludimusImageIcon {
-    width: 29px;
-    height: 29px;
+    width: 40px;
+    height: 40px;
   }
 
   .florbalexpertImageIcon {
-    width: 29px;
-    height: 29px;
+    width: 40px;
+    height: 40px;
   }
 
   .clubLinkImageIcon {
-    width: 29px;
-    height: 29px;
+    width: 40px;
+    height: 40px;
   }
 
   .ludimusClubLinkImageIcon {
-    width: 38px;
-    height: 38px;
+    width: 52px;
+    height: 52px;
   }
 
   .shareMenuOpen .shareItem {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(70px)
+      translateX(92px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1);
   }
@@ -707,7 +707,7 @@
   .shareItem:hover {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(70px)
+      translateX(92px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1.14);
   }
@@ -715,7 +715,7 @@
   .sharePlaceholder:hover {
     transform:
       rotate(calc(360deg / 7 * var(--i)))
-      translateX(70px)
+      translateX(92px)
       rotate(calc(-360deg / 7 * var(--i)))
       scale(1);
   }

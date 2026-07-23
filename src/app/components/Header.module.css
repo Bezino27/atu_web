@@ -68,6 +68,36 @@
   border-color: var(--color-black);
 }
 
+.adminTopLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-pill);
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(211, 47, 47, 0.12);
+  border: 1px solid rgba(211, 47, 47, 0.42);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.adminTopLink svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adminTopLink:hover {
+  color: var(--color-surface);
+  background: rgba(211, 47, 47, 0.22);
+  border-color: rgba(211, 47, 47, 0.72);
+  transform: translateY(-1px);
+}
+
 
 .topBar {
   background: linear-gradient(90deg, var(--color-black) 0%, var(--color-text-soft) 100%);
@@ -115,6 +145,24 @@
 
 .topRight a:hover {
   color: var(--color-surface);
+}
+
+.topRight .adminTopLink {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(211, 47, 47, 0.12);
+  border-color: rgba(211, 47, 47, 0.42);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.topRight .adminTopLink:hover {
+  color: var(--color-surface);
+  background: rgba(211, 47, 47, 0.22);
+  border-color: rgba(211, 47, 47, 0.72);
+  transform: translateY(-1px);
 }
 
 /* # MAIN BAR */
@@ -599,6 +647,7 @@
   width: 20px;
   height: 20px;
 }
+
 .mobileSocialRow {
   display: flex;
   align-items: center;
@@ -647,6 +696,40 @@
 .mobileSocialIcon:active {
   transform: scale(0.96);
 }
+
+.mobileAdminIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-pill);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(211, 47, 47, 0.12);
+  border: 1px solid rgba(211, 47, 47, 0.42);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mobileAdminIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mobileAdminIcon:hover {
+  color: var(--color-surface);
+  background: rgba(211, 47, 47, 0.22);
+  border-color: rgba(211, 47, 47, 0.7);
+  transform: translateY(-1px);
+}
+
+.mobileAdminIcon:active {
+  transform: scale(0.96);
+}
 /* # LARGE TABLET */
 
 @media (max-width: 1180px) {
@@ -666,6 +749,7 @@
   .ctaButton {
     padding: 0 16px;
   }
+
 }
 
 /* # TABLET */
