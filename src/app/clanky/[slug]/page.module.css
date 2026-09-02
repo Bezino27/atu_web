@@ -6,7 +6,7 @@
 }
 
 .hero {
-  padding: 56px 20px 50px;
+  padding: 56px 20px 36px;
   color: var(--color-white);
 }
 
@@ -75,43 +75,92 @@
 }
 
 .articleCard {
-  max-width: 980px;
+  max-width: 1300px;
   margin: 0 auto;
-  background: var(--color-white);
   border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 22px 60px rgba(10, 16, 26, 0.08);
+  box-shadow: 0 22px 60px rgba(10, 16, 26, 0.14);
 }
 
 .heroImageWrap {
-  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 8.5;
+  overflow: hidden;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   background: #050505;
+  line-height: 0;
 }
 
 .heroImage {
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: contain;
   object-position: center;
 }
 
 .articleContent {
-  padding: 42px 42px 48px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding-block: 46px 52px;
+  padding-inline: 56px;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background: var(--color-white);
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+.articleContent :global(p) {
+  margin-bottom: 1.2em;
+}
+
+.articleContent :global(h2) {
+  margin-top: 1.55em;
+  margin-bottom: 0.62em;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
+  font-weight: var(--font-title-weight);
+  font-style: italic;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  .articleCard {
+    max-width: 980px;
+  }
 }
 
 @media (max-width: 768px) {
   .hero {
-    padding: 42px 16px 40px;
+    padding: 42px 16px 28px;
   }
 
   .articleSection {
-    padding: 0 16px 70px;
+    padding: 0 14px 70px;
+  }
+
+  .heroImageWrap {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .articleCard {
+    border-radius: var(--radius-sm);
   }
 
   .articleContent {
-    padding: 24px 18px 30px;
+    padding: 28px 20px 34px;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     font-size: 1rem;
     line-height: 1.8;
+  }
+
+  .articleContent :global(p) {
+    margin-bottom: 1.1em;
+  }
+
+  .articleContent :global(h2) {
+    margin-top: 1.4em;
   }
 
   .heroInner h1 {

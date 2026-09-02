@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -136,14 +135,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           <article className={styles.articleCard}>
             {post.featured_image && (
               <div className={styles.heroImageWrap}>
-                <Image
+                {/* The source dimensions are not part of the post payload, so a
+                    native image lets the wrapper follow its real aspect ratio. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={getImageUrl(post.featured_image)}
                   alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 1200px"
-                  priority
-                  quality={90}
                   className={styles.heroImage}
+                  fetchPriority="high"
                 />
               </div>
             )}
