@@ -6,7 +6,7 @@
 }
 
 .hero {
-  padding: 56px 20px 36px;
+  padding: 56px 20px 50px;
   color: var(--color-white);
 }
 
@@ -49,25 +49,31 @@
   min-height: 30px;
   padding: 0 13px;
   border-radius: var(--radius-pill);
-  background: var(--color-black);
+  background: var(--color-red);
   color: var(--color-white);
   font-size: 0.82rem;
   font-weight: 700;
 }
 
 .heroInner h1 {
+  max-width: 900px;
   margin: 0 0 18px;
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -1.3px;
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: var(--font-title-weight);
+  font-style: italic;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .excerpt {
   max-width: 840px;
   margin: 0;
-  font-size: 1.08rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.65;
 }
 
 .articleSection {
@@ -105,24 +111,13 @@
   padding-inline: 56px;
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   background: var(--color-white);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   font-size: 1.08rem;
   line-height: 1.85;
 }
 
 .articleContent :global(p) {
   margin-bottom: 1.2em;
-}
-
-.articleContent :global(h2) {
-  margin-top: 1.55em;
-  margin-bottom: 0.62em;
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
-  font-size: clamp(1.75rem, 2.6vw, 2.35rem);
-  font-weight: var(--font-title-weight);
-  font-style: italic;
-  line-height: 1.12;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
 }
 
 @media (min-width: 1024px) {
@@ -133,7 +128,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 42px 16px 28px;
+    padding: 42px 16px 40px;
   }
 
   .articleSection {
@@ -159,11 +154,4 @@
     margin-bottom: 1.1em;
   }
 
-  .articleContent :global(h2) {
-    margin-top: 1.4em;
-  }
-
-  .heroInner h1 {
-    letter-spacing: -0.8px;
-  }
 }
