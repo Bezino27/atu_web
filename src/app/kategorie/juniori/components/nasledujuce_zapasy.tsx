@@ -6,7 +6,6 @@ import { getTeamLogo } from "@/app/lib/teamLogos";
 
 type NasledujuceZapasyProps = {
   upcomingMatches: SzfbMatch[];
-  resultMatches: SzfbMatch[];
   ownTeamName: string;
   competitionName: string;
 };
@@ -28,7 +27,9 @@ function formatDate(dateString?: string | null) {
 }
 
 function formatTime(timeString?: string | null) {
-  if (!timeString) return "";
+  if (!timeString || timeString.slice(0, 5) === "00:00") {
+    return "čas bude doplnený";
+  }
   return timeString.slice(0, 5);
 }
 
@@ -49,6 +50,13 @@ function getMatchTeams(match: SzfbMatch, ownTeamName: string) {
 function TeamLogo({ teamName }: { teamName: string }) {
   const logo = getTeamLogo(teamName);
   const isAtuLogo = logo === "/logo/znak_atu_nove.svg";
+  const fallback = teamName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
 
   return (
     <div
@@ -58,48 +66,44 @@ function TeamLogo({ teamName }: { teamName: string }) {
     >
       {logo ? (
         <Image src={logo} alt={`${teamName} logo`} width={56} height={56} />
-      ) : null}
+      ) : (
+        <span aria-label={`Logo tímu ${teamName} nie je dostupné`}>
+          {fallback || "?"}
+        </span>
+      )}
     </div>
   );
 }
 
 export default function NasledujuceZapasy({
   upcomingMatches,
-  resultMatches,
   ownTeamName,
   competitionName,
 }: NasledujuceZapasyProps) {
-  const nextMatch = upcomingMatches[0];
-  const lastResult = resultMatches[0];
-  const hasAnyMatch = nextMatch || lastResult;
+  const nextMatches = upcomingMatches.slice(0, 2);
 
   return (
     <section className={matchesStyles.featuredMatchesSection}>
-      {!hasAnyMatch ? (
+      {nextMatches.length === 0 ? (
         <div className={matchesStyles.featuredMatchesEmptyState}>
           <div className={matchesStyles.featuredMatchesEmptyIcon}>📅</div>
           <h3 className={matchesStyles.featuredMatchesEmptyTitle}>
-            Momentálne nie sú dostupné žiadne zápasy
+            Momentálne nie sú dostupné žiadne najbližšie zápasy
           </h3>
           <p className={matchesStyles.featuredMatchesEmptyText}>
-            Sleduj túto sekciu neskôr, program doplníme hneď po zverejnení
-            ďalších stretnutí.
+            Program doplníme hneď po zverejnení ďalších stretnutí.
           </p>
         </div>
       ) : (
         <div className={matchesStyles.featuredMatchesGrid}>
-          {nextMatch &&
-            (() => {
-              const { homeTeam, awayTeam } = getMatchTeams(
-                nextMatch,
-                ownTeamName
-              );
+          {nextMatches.map((match, index) => {
+              const { homeTeam, awayTeam } = getMatchTeams(match, ownTeamName);
 
               return (
-                <article className={matchesStyles.featuredMatchCard}>
+                <article key={match.id} className={matchesStyles.featuredMatchCard}>
                   <div className={matchesStyles.featuredMatchCardTop}>
                     <span className={matchesStyles.featuredMatchBadge}>
-                      Najbližší zápas
+                      {index === 0 ? "Najbližší zápas" : "Ďalší zápas"}
                     </span>
                     <span className={matchesStyles.featuredMatchLeague}>
                       {competitionName}
@@ -126,68 +130,16 @@ export default function NasledujuceZapasy({
 
                   <div className={matchesStyles.featuredMatchFooter}>
                     <div className={matchesStyles.featuredMatchDateTime}>
-                      <strong>{formatDate(nextMatch.match_date)}</strong>
-                      {nextMatch.match_time ? (
-                        <> • {formatTime(nextMatch.match_time)}</>
-                      ) : null}
+                      <strong>{formatDate(match.match_date)}</strong>
+                      <> • {formatTime(match.match_time)}</>
                     </div>
                     <div className={matchesStyles.featuredMatchPlace}>
-                      {nextMatch.venue || "Miesto zatiaľ nie je uvedené"}
+                      {match.venue || "Miesto zatiaľ nie je uvedené"}
                     </div>
                   </div>
                 </article>
               );
-            })()}
-
-          {lastResult &&
-            (() => {
-              const { homeTeam, awayTeam } = getMatchTeams(
-                lastResult,
-                ownTeamName
-              );
-
-              return (
-                <article className={matchesStyles.featuredMatchCard}>
-                  <div className={matchesStyles.featuredMatchCardTop}>
-                    <span className={matchesStyles.featuredResultBadge}>
-                      Posledný výsledok
-                    </span>
-                    <span className={matchesStyles.featuredMatchLeague}>
-                      {competitionName}
-                    </span>
-                  </div>
-
-                  <div className={matchesStyles.featuredMatchTeamsRow}>
-                    <div className={matchesStyles.featuredMatchTeamInfo}>
-                      <TeamLogo teamName={homeTeam} />
-                      <span className={matchesStyles.featuredMatchTeam}>
-                        {homeTeam}
-                      </span>
-                    </div>
-
-                    <div className={matchesStyles.featuredMatchScoreDivider}>
-                      {lastResult.result || "VS"}
-                    </div>
-
-                    <div className={matchesStyles.featuredMatchTeamInfo}>
-                      <TeamLogo teamName={awayTeam} />
-                      <span className={matchesStyles.featuredMatchTeam}>
-                        {awayTeam}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={matchesStyles.featuredMatchFooter}>
-                    <div className={matchesStyles.featuredMatchDateTime}>
-                      <strong>{formatDate(lastResult.match_date)}</strong>
-                    </div>
-                    <div className={matchesStyles.featuredMatchPlace}>
-                      Posledný odohraný zápas
-                    </div>
-                  </div>
-                </article>
-              );
-            })()}
+          })}
         </div>
       )}
     </section>

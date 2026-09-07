@@ -8,11 +8,13 @@ import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
 import Image from "next/image";
 import Novinky from "./components/novinky";
-import TopPlayer from "./components/najlepsi_hrac";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
-import { getSzfbDashboard, getSzfbNextMatch, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
+import {
+  getSzfbDashboard,
+  getSzfbWatchIdForCategory,
+} from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
 import {
@@ -28,19 +30,23 @@ import {
   warnUnsupportedSection,
   type PageSection,
 } from "@/app/lib/pages";
-import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
+import {
+  absoluteUrl,
+  DEFAULT_OG_IMAGE_URL,
+  SITE_NAME,
+} from "../../lib/seo";
 
 export const metadata: Metadata = {
   title: "Juniori",
   description:
-    "Juniorská kategória florbalového klubu ATU Košice. Sledujte novinky, zápasy, výsledky, tabuľku, lídrov sezóny a informácie o junioroch.",
+    "Juniorská kategória florbalového klubu ATU Košice. Sledujte novinky, zápasy, výsledky, tabuľku a informácie o junioroch.",
   alternates: {
     canonical: absoluteUrl("/kategorie/juniori"),
   },
   openGraph: {
     title: `Juniori | ${SITE_NAME}`,
     description:
-      "Novinky, zápasy, výsledky, tabuľka a štatistiky juniorského tímu ATU Košice.",
+      "Novinky, zápasy, výsledky a tabuľka juniorského tímu ATU Košice.",
     url: absoluteUrl("/kategorie/juniori"),
     type: "website",
     images: [DEFAULT_OG_IMAGE_URL],
@@ -191,17 +197,19 @@ export default async function JunioriPage() {
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
 
-  const [szfbDashboard, nextMatchResponse] = watchId
-    ? await Promise.all([
-        getSzfbDashboard(watchId),
-        getSzfbNextMatch(watchId),
-      ])
-    : [null, null];
+  const szfbDashboard = watchId
+    ? await getSzfbDashboard(watchId)
+    : null;
 
   const currentCategory = categories.find(isCurrentCategory);
-  const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+
+  const categoryName =
+    currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
+
   const categoryLeague =
-    currentCategory?.league_name || "Slovenská florbalová juniorská extraliga";
+    currentCategory?.league_name ||
+    "Slovenská florbalová juniorská extraliga";
+
   const heroImage = withDevMediaCacheBuster(
     normalizeMediaUrl(
       currentCategory?.hero_image_url,
@@ -209,22 +217,32 @@ export default async function JunioriPage() {
     ),
     Boolean(currentCategory?.hero_image_url),
   );
+
   const junioriPosts = posts.filter(isCurrentCategoryPost);
 
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
-  const playerStats = szfbDashboard?.player_stats ?? [];
-  const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+
+  const ownTeamName =
+    szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+
   const competitionName =
     szfbDashboard?.watch?.competition_name ||
     currentCategory?.league_name ||
     "Extraliga";
-  const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
+
+  const nextMatch = upcomingMatches[0] ?? null;
 
   const currentSeason =
-    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
-  const sections = getActiveSortedSections(categoryPage?.sections, fallbackSections);
+    currentCategory?.season ??
+    clubSeason?.season ??
+    "2025 / 2026";
+
+  const sections = getActiveSortedSections(
+    categoryPage?.sections,
+    fallbackSections,
+  );
 
   const renderHeroSection = (section: PageSection) => (
     <section key={section.id} className={heroStyles.heroSection}>
@@ -249,21 +267,30 @@ export default async function JunioriPage() {
             </h1>
 
             <div className={heroStyles.heroQuickNav}>
-              <a href="#zapasy" className={heroStyles.heroQuickLink}>
+              <a
+                href="#zapasy"
+                className={heroStyles.heroQuickLink}
+              >
                 Zápasy
               </a>
-              <a href="#tabulka" className={heroStyles.heroQuickLink}>
+
+              <a
+                href="#tabulka"
+                className={heroStyles.heroQuickLink}
+              >
                 Tabuľka
-              </a>
-              <a href="#hraci" className={heroStyles.heroQuickLink}>
-                Hráči
               </a>
             </div>
           </div>
 
           <div className={heroStyles.heroMiniInfo}>
-            <span className={heroStyles.heroMiniLabel}>Sezóna</span>
-            <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
+            <span className={heroStyles.heroMiniLabel}>
+              Sezóna
+            </span>
+
+            <span className={heroStyles.heroMiniValue}>
+              {currentSeason}
+            </span>
           </div>
         </div>
       </div>
@@ -271,7 +298,9 @@ export default async function JunioriPage() {
       <NextMatchCountdown
         matchDate={nextMatch?.match_date ?? null}
         matchTime={nextMatch?.match_time ?? null}
-        opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
+        opponent={
+          nextMatch?.opponent ?? "Súper bude doplnený"
+        }
         ownTeamName={ownTeamName}
         isHome={nextMatch?.is_home ?? null}
       />
@@ -281,28 +310,34 @@ export default async function JunioriPage() {
   const renderMatchesSection = (section: PageSection) => {
     if (
       section.hide_when_empty &&
-      upcomingMatches.length === 0 &&
-      resultMatches.length === 0
+      upcomingMatches.length === 0
     ) {
       return null;
     }
 
     return (
-      <section key={section.id} id="zapasy" className="sectionContainer">
+      <section
+        key={section.id}
+        id="zapasy"
+        className="sectionContainer"
+      >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Zápasy")}
             </span>
+
             <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(section, "Featured zápasy")}
+              {getSectionTitle(
+                section,
+                "Featured zápasy",
+              )}
             </h2>
           </div>
         </div>
 
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
-          resultMatches={resultMatches}
           ownTeamName={ownTeamName}
           competitionName={competitionName}
         />
@@ -311,19 +346,33 @@ export default async function JunioriPage() {
   };
 
   const renderPostsSection = (section: PageSection) => {
-    if (section.hide_when_empty && junioriPosts.length === 0) {
+    if (
+      section.hide_when_empty &&
+      junioriPosts.length === 0
+    ) {
       return null;
     }
 
     return (
-      <section key={section.id} id="novinky" className="sectionContainer">
+      <section
+        key={section.id}
+        id="novinky"
+        className="sectionContainer"
+      >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(section, "Aktuálne dianie")}
+              {getSectionPreTitle(
+                section,
+                "Aktuálne dianie",
+              )}
             </span>
+
             <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(section, "Najdôležitejšie novinky")}
+              {getSectionTitle(
+                section,
+                "Najdôležitejšie novinky",
+              )}
             </h2>
           </div>
         </div>
@@ -343,12 +392,17 @@ export default async function JunioriPage() {
     }
 
     return (
-      <section key={section.id} id="tabulka" className="overviewSection">
+      <section
+        key={section.id}
+        id="tabulka"
+        className="overviewSection"
+      >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Extraliga")}
             </span>
+
             <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Výsledky")}
             </h2>
@@ -357,36 +411,19 @@ export default async function JunioriPage() {
 
         <div className={pageStyles.overviewGrid}>
           <div className={pageStyles.tableColumn}>
-            <Tabulka standings={standings} ownTeamName={ownTeamName} />
+            <Tabulka
+              standings={standings}
+              ownTeamName={ownTeamName}
+            />
           </div>
 
           <div className={pageStyles.matchesColumn}>
-            <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
+            <RecentMatches
+              results={resultMatches}
+              ownTeamName={ownTeamName}
+            />
           </div>
         </div>
-      </section>
-    );
-  };
-
-  const renderLeadersSection = (section: PageSection) => {
-    if (section.hide_when_empty && playerStats.length === 0) {
-      return null;
-    }
-
-    return (
-      <section key={section.id} id="hraci" className="bottomSection">
-        <div className={pageStyles.resultsHeader}>
-          <div>
-            <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(section, "Štatistiky tímu")}
-            </span>
-            <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(section, "Lídri sezóny")}
-            </h2>
-          </div>
-        </div>
-
-        <TopPlayer players={playerStats} />
       </section>
     );
   };
@@ -395,18 +432,32 @@ export default async function JunioriPage() {
     switch (section.section_type) {
       case "hero":
         return renderHeroSection(section);
+
       case "next_match":
+      case "matches":
+      case "category_matches":
       case "recent_matches":
         return renderMatchesSection(section);
+
       case "posts":
+      case "category_posts":
         return renderPostsSection(section);
+
       case "matches_overview":
       case "standings":
+      case "results":
         return renderOverviewSection(section);
+
       case "leaders":
-        return renderLeadersSection(section);
+      case "player_stats":
+      case "top_players":
+        return null;
+
       default:
-        warnUnsupportedSection("/kategorie/juniori", section.section_type);
+        warnUnsupportedSection(
+          "/kategorie/juniori",
+          section.section_type,
+        );
         return null;
     }
   };
@@ -416,7 +467,9 @@ export default async function JunioriPage() {
       <Header />
 
       <main className={pageStyles.content}>
-        {sections.map((section) => renderSection(section))}
+        {sections.map((section) =>
+          renderSection(section),
+        )}
       </main>
 
       <Footer />

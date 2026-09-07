@@ -8,7 +8,6 @@ import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
 import Image from "next/image";
 import Novinky from "./components/novinky";
-import TopPlayer from "./components/najlepsi_hrac";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
@@ -273,7 +272,6 @@ export default async function MuziPage() {
   const standings = szfbDashboard?.standings ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
-  const playerStats = szfbDashboard?.player_stats ?? [];
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const competitionName =
@@ -318,9 +316,6 @@ export default async function MuziPage() {
                   Tabuľka
                 </a>
 
-                <a href="#hraci" className={heroStyles.heroQuickLink}>
-                  Hráči
-                </a>
               </div>
             </div>
 
@@ -355,7 +350,6 @@ export default async function MuziPage() {
       <section key={section.id} id="zapasy" className={pageStyles.sectionContainer}>
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
-          resultMatches={resultMatches}
           ownTeamName={ownTeamName}
           competitionName={competitionName}
           preTitle={getSectionPreTitle(section, "Zápasy")}
@@ -423,29 +417,6 @@ export default async function MuziPage() {
     );
   };
 
-  const renderLeadersSection = (section: PageSection) => {
-    if (section.hide_when_empty && playerStats.length === 0) {
-      return null;
-    }
-
-    return (
-      <section key={section.id} id="hraci" className={pageStyles.bottomSection}>
-        <div className={pageStyles.resultsHeader}>
-          <div>
-            <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(section, "Štatistiky tímu")}
-            </span>
-            <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(section, "Lídri sezóny")}
-            </h2>
-          </div>
-        </div>
-
-        <TopPlayer players={playerStats} />
-      </section>
-    );
-  };
-
   const renderSection = (section: PageSection) => {
     switch (section.section_type) {
       case "hero":
@@ -468,7 +439,7 @@ export default async function MuziPage() {
       case "leaders":
       case "player_stats":
       case "top_players":
-        return renderLeadersSection(section);
+        return null;
 
       default:
         warnUnsupportedSection("/kategorie/muzi", section.section_type);

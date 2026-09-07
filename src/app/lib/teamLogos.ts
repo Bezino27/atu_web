@@ -1,11 +1,20 @@
 const ATU_TEAM_LOGO = "/logo/znak_atu_nove.svg";
 const VISIBLE_TEAM_LOGOS = new Set([
   "atu-kosice",
+  "as-trencin",
+  "detva-joxers",
+  "fbk-nizna",
+  "florko-kosice",
   "grasshoppers-zilina",
+  "hurikan-bratislava",
+  "sk-lido-bratislava",
+  "predator-sabinov",
   "presov",
+  "snipers-bratislava",
+  "tsunami-zahorska-bystrica",
 ]);
 
-const TEAM_ALIASES: Record<string, string> = {
+const RAW_TEAM_ALIASES: Record<string, string> = {
   "fabk atu kosice": "atu-kosice",
   "atu kosice": "atu-kosice",
 
@@ -14,6 +23,8 @@ const TEAM_ALIASES: Record<string, string> = {
   "1.fbc trencin": "fbc-trencin",
 
   "sk lido prirodovedec bratislava": "sk-lido-bratislava",
+  "sk lido prirodovedec ruzinov": "sk-lido-bratislava",
+  "sk lido alfa business partnership prirodovedec ruzinov": "sk-lido-bratislava",
   "sk lido bratislava": "sk-lido-bratislava",
 
   "tsunami zahorska bystrica": "tsunami-zahorska-bystrica",
@@ -30,6 +41,7 @@ const TEAM_ALIASES: Record<string, string> = {
   "fk florko": "florko-kosice",
 
   "snipers bratislava": "snipers-bratislava",
+  "oxdog snipers bratislava": "snipers-bratislava",
 
   "fbk nizna": "fbk-nizna",
 
@@ -42,6 +54,8 @@ const TEAM_ALIASES: Record<string, string> = {
 
   "dtf team detva joxers": "detva-joxers",
 
+  "fbc predator sabinov": "predator-sabinov",
+
   "tempish capitol floorball club": "tempish-capitol",
   "capitol": "tempish-capitol",
 };
@@ -49,7 +63,7 @@ const TEAM_ALIASES: Record<string, string> = {
 const TEAM_LOGOS: Record<string, string> = {
   "atu-kosice": ATU_TEAM_LOGO,
   "fbc-trencin": "/logo/teams/fbc-trencin.png",
-  "sk-lido-bratislava": "/logo/teams/sk-lido-bratislava.png",
+  "sk-lido-bratislava": "/logo/teams/lido-ruzinov.png",
   "tsunami-zahorska-bystrica": "/logo/teams/tsunami-zahorska-bystrica.png",
   "grasshoppers-zilina": "/logo/teams/grasshoppers-zilina.png",
   "presov": "/logo/teams/presov.png",
@@ -58,7 +72,8 @@ const TEAM_LOGOS: Record<string, string> = {
   "fbk-nizna": "/logo/teams/fbk-nizna.png",
   "as-trencin": "/logo/teams/as-trencin.png",
   "hurikan-bratislava": "/logo/teams/hurikan-bratislava.png",
-  "detva-joxers": "/logo/teams/detva-joxers.png",
+  "detva-joxers": "/logo/teams/detva.png",
+  "predator-sabinov": "/logo/teams/predator-sabinov.png",
   "tempish-capitol": "/logo/teams/tempish-capitol.png",
 };
 
@@ -67,9 +82,17 @@ function normalizeTeamName(name: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
     .trim()
     .replace(/\s+/g, " ");
 }
+
+const TEAM_ALIASES = Object.fromEntries(
+  Object.entries(RAW_TEAM_ALIASES).map(([alias, teamKey]) => [
+    normalizeTeamName(alias),
+    teamKey,
+  ]),
+);
 
 export function getTeamLogo(teamName?: string | null) {
   if (!teamName) return null;

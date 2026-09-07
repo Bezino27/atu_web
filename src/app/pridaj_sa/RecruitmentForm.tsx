@@ -37,7 +37,7 @@ const RECRUITMENT_FORM_ENDPOINT =
   `${API_URL}/guli/recruitment-forms/create/`;
 
 const PRIVACY_POLICY_URL =
-  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_ji8Zny0.pdf";
+  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf";
 
 const monthNames = [
   "január",

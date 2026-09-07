@@ -688,7 +688,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
-          resultMatches={resultMatches}
           ownTeamName={ownTeamName}
           competitionName={competitionName}
         />

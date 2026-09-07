@@ -489,7 +489,7 @@ export default async function HomePage() {
                     {standings.length > 0 ? (
                       standings.map((team) => (
                         <tr
-                          key={team.position}
+                          key={`${team.team_name}-${team.position}`}
                           className={getStandingsRowClass(
                             team.position,
                             team.team_name,

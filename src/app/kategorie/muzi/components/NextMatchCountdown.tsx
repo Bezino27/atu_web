@@ -15,13 +15,15 @@ function formatUnit(value: number) {
   return value < 10 ? `0${value}` : `${value}`;
 }
 
+function formatMatchDate(matchDate: string) {
+  const [year, month, day] = matchDate.split("-");
+  return day && month && year ? `${day}. ${month}. ${year}` : matchDate;
+}
+
 function buildTargetDate(matchDate: string | null, matchTime: string | null) {
-  if (!matchDate) return null;
+  if (!matchDate || !matchTime || matchTime.slice(0, 5) === "00:00") return null;
 
-  const safeTime =
-    matchTime && matchTime.length >= 5 ? matchTime.slice(0, 5) : "18:00";
-
-  const parsed = new Date(`${matchDate}T${safeTime}:00`);
+  const parsed = new Date(`${matchDate}T${matchTime.slice(0, 5)}:00`);
 
   if (Number.isNaN(parsed.getTime())) return null;
 
@@ -40,16 +42,21 @@ export default function NextMatchCountdown({
     [matchDate, matchTime]
   );
 
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
     if (!targetDate) return;
+
+    const initialTimer = window.setTimeout(() => setNow(Date.now()), 0);
 
     const timer = setInterval(() => {
       setNow(Date.now());
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(timer);
+    };
   }, [targetDate]);
 
   const matchupTitle =
@@ -58,10 +65,11 @@ export default function NextMatchCountdown({
       : `${ownTeamName} vs ${opponent}`;
 
   const countdown = useMemo(() => {
-    if (!targetDate) {
+    if (!targetDate || now === null) {
       return {
         isReady: false,
         isLive: false,
+        isFinished: false,
         days: 0,
         hours: 0,
         minutes: 0,
@@ -70,11 +78,13 @@ export default function NextMatchCountdown({
     }
 
     const distance = targetDate.getTime() - now;
+    const liveWindowMs = 3 * 60 * 60 * 1000;
 
     if (distance <= 0) {
       return {
         isReady: true,
-        isLive: true,
+        isLive: distance >= -liveWindowMs,
+        isFinished: distance < -liveWindowMs,
         days: 0,
         hours: 0,
         minutes: 0,
@@ -85,6 +95,7 @@ export default function NextMatchCountdown({
     return {
       isReady: true,
       isLive: false,
+      isFinished: false,
       days: Math.floor(distance / (1000 * 60 * 60 * 24)),
       hours: Math.floor(
         (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -93,6 +104,20 @@ export default function NextMatchCountdown({
       seconds: Math.floor((distance % (1000 * 60)) / 1000),
     };
   }, [targetDate, now]);
+
+  if (matchDate && (!matchTime || matchTime.slice(0, 5) === "00:00")) {
+    return (
+      <div className={heroStyles.countdownWrapper}>
+        <div className={heroStyles.countdownBar}>
+          <span className={heroStyles.liveDot} />
+          <span className={heroStyles.timer}>
+            <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
+            {formatMatchDate(matchDate)} • čas bude doplnený
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   if (!targetDate) {
     return (
@@ -128,13 +153,15 @@ export default function NextMatchCountdown({
           {!countdown.isReady ? (
             <>
               <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS:</span>{" "}
-              {targetDate.toLocaleDateString("sk-SK")} •{" "}
+              {formatMatchDate(matchDate!)} •{" "}
               {matchTime?.slice(0, 5) || "čas bude doplnený"}
             </>
           ) : countdown.isLive ? (
             <span style={{ color: "#d32f2f", fontWeight: 900 }}>
               SLEDUJTE LIVE ⚡ {matchupTitle}
             </span>
+          ) : countdown.isFinished ? (
+            <span>{matchupTitle} • zápas sa už začal</span>
           ) : (
             <>
               <span className={heroStyles.countdownLabel}>NAJBLIŽŠÍ ZÁPAS O:</span>{" "}

@@ -95,6 +95,12 @@ export default function RecentMatches({
   results,
   ownTeamName,
 }: RecentMatchesProps) {
+  const finishedResults = results.filter(
+    (match) =>
+      match.match_type === "finished" &&
+      /^\d+\s*:\s*\d+$/.test(match.result),
+  );
+
   return (
     <section className={matchesStyles.recentMatchesCard}>
       <div className={pageStyles.panelHeader}>
@@ -102,8 +108,8 @@ export default function RecentMatches({
       </div>
 
       <div className={matchesStyles.recentMatchesList}>
-        {results.length > 0 ? (
-          results.slice(0, 4).map((match) => {
+        {finishedResults.length > 0 ? (
+          finishedResults.slice(0, 4).map((match) => {
             const outcome = getMatchOutcome(match, ownTeamName);
             const { homeTeam, awayTeam } = getTeams(match, ownTeamName);
             const { homeScore, awayScore } = getScore(match);
