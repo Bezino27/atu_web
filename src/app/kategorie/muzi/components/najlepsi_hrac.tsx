@@ -118,7 +118,7 @@ function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
   const mappedPlayers = topPlayers.map((player, index) => ({
     id: player.id,
     rank: (index + 1) as 1 | 2 | 3,
-    displayRank: player.rank,
+    displayRank: index + 1,
     number: getPlayerNumber(player),
     name: player.player_name || null,
     photoSrc: getPlayerPhotoSrc(player),

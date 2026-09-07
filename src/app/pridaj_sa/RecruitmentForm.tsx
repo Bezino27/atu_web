@@ -36,6 +36,9 @@ const initialFormData: FormData = {
 const RECRUITMENT_FORM_ENDPOINT =
   `${API_URL}/guli/recruitment-forms/create/`;
 
+const PRIVACY_POLICY_URL =
+  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_ji8Zny0.pdf";
+
 const monthNames = [
   "január",
   "február",
@@ -224,6 +227,7 @@ export default function RecruitmentForm() {
                 value={formData.child_full_name}
                 onChange={handleChange}
               />
+
               <span className={styles.inputIcon}>
                 <UserIcon />
               </span>
@@ -351,6 +355,7 @@ export default function RecruitmentForm() {
                 value={formData.phone}
                 onChange={handleChange}
               />
+
               <span className={styles.inputIcon}>
                 <PhoneIcon />
               </span>
@@ -377,6 +382,7 @@ export default function RecruitmentForm() {
                 value={formData.email}
                 onChange={handleChange}
               />
+
               <span className={styles.inputIcon}>
                 <MailIcon />
               </span>
@@ -401,6 +407,7 @@ export default function RecruitmentForm() {
                 onChange={handleChange}
                 rows={5}
               />
+
               <span className={styles.inputIcon}>
                 <NoteIcon />
               </span>
@@ -440,8 +447,22 @@ export default function RecruitmentForm() {
           <span className={styles.safeNoticeIcon}>
             <LockIcon />
           </span>
+
           <span>Vaše údaje sú u nás v bezpečí.</span>
         </div>
+
+        <p className={styles.privacyNotice}>
+          Odoslaním formulára beriem na vedomie spracúvanie osobných údajov
+          mňa a dieťaťa podľa{" "}
+          <a
+            href={PRIVACY_POLICY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Zásad ochrany osobných údajov
+          </a>
+          .
+        </p>
       </form>
     </div>
   );
