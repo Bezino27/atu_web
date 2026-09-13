@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { IconType } from "react-icons";
@@ -108,6 +109,7 @@ function addYouthDropdownItem(items: NavItem[], title: string): NavItem[] {
 }
 
 export default function Header() {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -117,10 +119,7 @@ export default function Header() {
   const [navigationItems, setNavigationItems] = useState<NavItem[]>(navItems);
   const [youthDropdownTitle, setYouthDropdownTitle] = useState("Mládež");
   const [youthItems, setYouthItems] = useState<CategoryItem[]>(categoryItems);
-  const [ctaItem, setCtaItem] = useState<HeaderCta>({
-    href: "/pridaj_sa",
-    label: "Pridaj sa k nám",
-  });
+  const [ctaItem, setCtaItem] = useState<HeaderCta | null>(null);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -364,10 +363,12 @@ export default function Header() {
             </nav>
 
             <div className={styles.actions}>
-              <Link href={ctaItem.href} className={styles.ctaButton}>
-                <span>{ctaItem.label}</span>
-                <PiArrowRightBold className={styles.ctaIcon} aria-hidden="true" />
-              </Link>
+              {ctaItem ? (
+                <Link href={ctaItem.href} className={styles.ctaButton}>
+                  <span>{ctaItem.label}</span>
+                  <PiArrowRightBold className={styles.ctaIcon} aria-hidden="true" />
+                </Link>
+              ) : null}
 
               <button
                 type="button"
@@ -428,17 +429,28 @@ export default function Header() {
                         mobileCategoriesOpen ? styles.mobileSubmenuOpen : ""
                       }`}
                     >
-                      {youthItems.map((category) => (
-                        <Link
-                          key={category.href}
-                          href={category.href}
-                          className={styles.mobileSubmenuLink}
-                          onClick={closeMenu}
-                        >
-                          <span className={styles.mobileSubmenuDot} />
-                          {category.label}
-                        </Link>
-                      ))}
+                      {youthItems.map((category) => {
+                        const isActive = pathname === category.href;
+
+                        return (
+                          <Link
+                            key={category.href}
+                            href={category.href}
+                            className={`${styles.mobileSubmenuLink} ${
+                              isActive ? styles.mobileSubmenuLinkActive : ""
+                            }`}
+                            onClick={closeMenu}
+                          >
+                            <PiArrowRightBold
+                              className={`${styles.mobileSubmenuArrow} ${
+                                isActive ? styles.mobileSubmenuArrowActive : ""
+                              }`}
+                              aria-hidden="true"
+                            />
+                            <span>{category.label}</span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -457,14 +469,16 @@ export default function Header() {
               );
             })}
             
-            <Link
-              href={ctaItem.href}
-              className={styles.mobileCta}
-              onClick={closeMenu}
-            >
-              <span>{ctaItem.label}</span>
-              <PiArrowRightBold aria-hidden="true" />
-            </Link>
+            {ctaItem ? (
+              <Link
+                href={ctaItem.href}
+                className={styles.mobileCta}
+                onClick={closeMenu}
+              >
+                <span>{ctaItem.label}</span>
+                <PiArrowRightBold aria-hidden="true" />
+              </Link>
+            ) : null}
 
             <div className={styles.mobileSocialRow}>
               {clubLinks.map((link) => {

@@ -38,6 +38,9 @@ const categoryLinks: NavItem[] = [
 
 const CLUB_SLUG = "atu-kosice";
 
+
+const PRIVACY_POLICY_URL =
+  "https://atukosice.sk/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf";
 function isCategoryHref(href: string) {
   return href.startsWith("/kategorie/");
 }
@@ -281,7 +284,18 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <p>© {new Date().getFullYear()} ATU Košice / Ludimus / všetky práva</p>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} ATU Košice. Všetky práva vyhradené.
+          </p>
+
+          <a
+            href={PRIVACY_POLICY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.privacyLink}
+          >
+            Zásady ochrany osobných údajov
+          </a>
         </div>
       </div>
     </footer>

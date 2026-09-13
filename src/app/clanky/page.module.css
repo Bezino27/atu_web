@@ -1,148 +1,278 @@
 .page {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 28%),
-    linear-gradient(180deg, var(--color-black) 0px, var(--color-black) 520px, var(--color-surface) 520px, var(--color-surface) 100%);
+  background: #ffffff;
 }
 
 .hero {
-  padding: 72px 20px 64px;
-  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  padding: 82px 24px 160px;
+  background-color: #06080b;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(4, 6, 9, 0.72) 0%,
+      rgba(4, 6, 9, 0.48) 58%,
+      rgba(4, 6, 9, 0.58) 100%
+    ),
+    url("/atu-article-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
 }
 
 .heroInner {
-  max-width: 1200px;
+  position: relative;
+  width: min(1300px, 100%);
   margin: 0 auto;
+}
+
+.heroContent {
+  max-width: 760px;
 }
 
 .eyebrow {
   display: inline-block;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.56);
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 750;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-text-subtle);
 }
 
 .heroInner h1 {
-  margin: 0 0 18px;
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-style: italic;
+  margin: 0 0 16px;
+  font-family:
+    "ATU Unison Pro Bold",
+    var(--font-unison),
+    var(--font-sans),
+    sans-serif;
+  font-size: clamp(2.35rem, 4.8vw, 4.15rem);
+  font-style: normal;
   font-weight: var(--font-title-weight);
-  line-height: 1.05;
+  line-height: 1;
+  letter-spacing: 0.002em;
+  text-transform: uppercase;
 }
 
 .heroInner p {
   max-width: 700px;
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.78);
+  font-family:
+    var(--font-barlow),
+    "Barlow",
+    var(--font-sans),
+    sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.58;
+}
+
+.categoryLine {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 11px;
+  margin-top: 24px;
+  color: rgba(255, 255, 255, 0.42);
+  font-family:
+    var(--font-barlow),
+    "Barlow",
+    var(--font-sans),
+    sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.categoryLine i {
+  color: rgba(255, 255, 255, 0.25);
+  font-style: normal;
 }
 
 .contentSection {
-  padding: 0 20px 90px;
+  position: relative;
+  z-index: 2;
+  margin-top: -90px;
+  padding: 0 24px 92px;
 }
 
 .grid {
-  max-width: 1200px;
+  width: min(1300px, 100%);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  gap: 24px;
+  align-items: stretch;
 }
 
 .card {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: 0 18px 45px rgba(12, 18, 28, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(17, 22, 28, 0.1);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(12, 18, 28, 0.055);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 55px rgba(12, 18, 28, 0.12);
+  transform: translateY(-2px);
+  border-color: rgba(17, 22, 28, 0.15);
+  box-shadow: 0 16px 34px rgba(12, 18, 28, 0.09);
 }
 
 .imageWrap {
-  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  overflow: hidden;
   background: #050505;
 }
 
 .image {
-  object-fit: contain;
-  object-position: center;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .cardContent {
-  padding: 22px 22px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 19px 21px;
+  font-family:
+    var(--font-barlow),
+    "Barlow",
+    var(--font-sans),
+    sans-serif;
 }
 
 .meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   align-items: center;
-  margin-bottom: 14px;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 13px;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 0 12px;
-  border-radius: var(--radius-pill);
-  background: var(--color-black);
-  color: var(--color-white);
-  font-size: 0.8rem;
-  font-weight: 700;
+  justify-content: center;
+  min-height: 27px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: var(--color-red);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.055em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.date {
+  color: #8b929a;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.25;
 }
 
 .cardContent h2 {
-  margin: 0 0 12px;
-  font-size: 1.2rem;
-  line-height: 1.35;
-  color: var(--color-text);
+  margin: 0 0 9px;
+  color: #171c22;
+  font-family:
+    var(--font-barlow),
+    "Barlow",
+    var(--font-sans),
+    sans-serif;
+  font-size: 1.22rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.24;
+  text-wrap: balance;
 }
 
 .cardContent p {
   margin: 0;
-  color: var(--color-text-muted);
-  line-height: 1.65;
+  color: #6f7780;
+  font-size: 0.93rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 @media (max-width: 1024px) {
+  .hero,
+  .contentSection {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
   }
+
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 56px 16px 48px;
+    padding: 54px 16px 52px;
+    background-position: 60% center;
+  }
+
+  .heroInner h1 {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+
+  .heroInner p {
+    font-size: 0.98rem;
+    line-height: 1.52;
+  }
+
+  .categoryLine {
+    gap: 6px 8px;
+    margin-top: 20px;
+    font-size: 0.61rem;
+    letter-spacing: 0.11em;
   }
 
   .contentSection {
-    padding: 0 16px 70px;
+    margin-top: 0;
+    padding: 28px 16px 70px;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 18px;
+  }
+
+  .card {
+    border-radius: 16px;
   }
 
   .cardContent {
-    padding: 18px 18px 22px;
+    padding: 16px 17px 19px;
+  }
+
+  .cardContent h2 {
+    font-size: 1.16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
   }
 }

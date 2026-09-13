@@ -1,33 +1,57 @@
-/* # HEADER WRAPPER */
+@font-face {
+  font-family: "ATU Unison Pro Light";
+  src: url("/fonts/ATU-Unison Pro Light.otf") format("opentype");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+/* ######################################################### */
+/* # HEADER WRAPPER                                        # */
+/* ######################################################### */
 
 .header {
   position: sticky;
   top: 0;
+
   z-index: 9999;
+
   width: 100%;
+
   background: transparent;
+
   transform: translateY(0);
+
   transition: transform 0.2s ease-out;
+
   will-change: transform;
 }
 
 .container {
   width: 100%;
   max-width: 1280px;
+
   margin: 0 auto;
+
   padding: 0 20px;
+
   box-sizing: border-box;
 }
-@media (min-width: 961px) {
+
+@media (min-width: 1041px) {
   .headerShifted {
     transform: translateY(-45px);
   }
 }
 
-/* # TOP BAR */
+/* ######################################################### */
+/* # TOP BAR                                               # */
+/* ######################################################### */
+
 .socialLinks {
   display: flex;
   align-items: center;
+
   gap: 10px;
 }
 
@@ -35,12 +59,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   width: 34px;
   height: 34px;
+
   border-radius: var(--radius-pill);
+
   color: var(--color-surface);
+
   background: rgba(255, 255, 255, 0.08);
+
   border: 1px solid rgba(255, 255, 255, 0.14);
+
   transition: all 0.25s ease;
 }
 
@@ -57,14 +87,18 @@
 
 .socialLogo {
   display: block;
+
   width: 22px;
   height: 22px;
+
   object-fit: contain;
 }
 
 .socialLink:hover {
   transform: translateY(-1px);
+
   background: var(--color-text-soft);
+
   border-color: var(--color-black);
 }
 
@@ -72,13 +106,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   width: 34px;
   height: 34px;
+
   border-radius: var(--radius-pill);
+
   color: rgba(255, 255, 255, 0.88);
+
   background: rgba(211, 47, 47, 0.12);
+
   border: 1px solid rgba(211, 47, 47, 0.42);
+
   text-decoration: none;
+
   transition:
     color 0.2s ease,
     background 0.2s ease,
@@ -93,22 +134,34 @@
 
 .adminTopLink:hover {
   color: var(--color-surface);
+
   background: rgba(211, 47, 47, 0.22);
+
   border-color: rgba(211, 47, 47, 0.72);
+
   transform: translateY(-1px);
 }
 
-
 .topBar {
-  background: linear-gradient(90deg, var(--color-black) 0%, var(--color-text-soft) 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    linear-gradient(
+      90deg,
+      var(--color-black) 0%,
+      var(--color-text-soft) 100%
+    );
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.06);
 }
 
 .topBarInner {
   min-height: 42px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 18px;
 }
 
@@ -118,13 +171,20 @@
 
 .topLeft span {
   display: block;
+
   font-size: 0.79rem;
+
   color: rgba(255, 255, 255, 0.72);
+
   font-weight: 700;
+
   letter-spacing: 0.05em;
+
   text-transform: uppercase;
+
   white-space: nowrap;
   overflow: hidden;
+
   text-overflow: ellipsis;
 }
 
@@ -132,15 +192,22 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
   gap: 16px;
+
   flex-wrap: wrap;
 }
 
 .topRight a {
   font-size: 0.83rem;
+
   color: rgba(255, 255, 255, 0.76);
+
   text-decoration: none;
-  transition: color 0.2s ease, opacity 0.2s ease;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .topRight a:hover {
@@ -149,31 +216,42 @@
 
 .topRight .adminTopLink {
   color: rgba(255, 255, 255, 0.88);
+
   background: rgba(211, 47, 47, 0.12);
+
   border-color: rgba(211, 47, 47, 0.42);
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
 }
 
 .topRight .adminTopLink:hover {
   color: var(--color-surface);
+
   background: rgba(211, 47, 47, 0.22);
+
   border-color: rgba(211, 47, 47, 0.72);
+
   transform: translateY(-1px);
 }
 
-/* # MAIN BAR */
+/* ######################################################### */
+/* # MAIN BAR                                              # */
+/* ######################################################### */
 
 .mainBar {
   position: relative;
+
   background: rgba(10, 10, 11, 0.86);
+
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 14px 34px
+    rgba(0, 0, 0, 0.18);
+
   transition:
     background 0.3s ease,
     box-shadow 0.3s ease,
@@ -182,70 +260,105 @@
 
 .headerShifted .mainBar {
   background: rgba(10, 10, 11, 0.95);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+
+  box-shadow:
+    0 14px 36px
+    rgba(0, 0, 0, 0.28);
 }
 
 .mainBarInner {
   min-height: 82px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 22px;
 }
 
-/* # LOGO */
+/* ######################################################### */
+/* # LOGO                                                  # */
+/* ######################################################### */
 
 .logoWrap {
   display: flex;
   align-items: center;
+
   gap: 5px;
+
   min-width: 0;
+
   flex-shrink: 0;
+
   text-decoration: none;
 }
 
 .logo {
   width: 90px;
   height: 90px;
+
   flex-shrink: 0;
+
   object-fit: contain;
 }
 
 .logoText {
   display: flex;
   flex-direction: column;
+
   min-width: 0;
+
   line-height: 1.05;
 }
 
 .logoText strong {
   color: var(--color-surface);
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
+
+  font-family:
+    var(--font-unison),
+    var(--font-sans),
+    sans-serif;
+
   font-size: 1.05rem;
+
   font-weight: 700;
+
   font-style: italic;
+
   letter-spacing: 0.02em;
+
   white-space: nowrap;
 }
 
 .logoText span {
   margin-top: 4px;
+
   color: rgba(255, 255, 255, 0.62);
+
   font-size: 0.8rem;
+
   font-weight: 700;
+
   text-transform: uppercase;
+
   letter-spacing: 0.08em;
+
   white-space: nowrap;
 }
 
-/* # DESKTOP NAV */
+/* ######################################################### */
+/* # DESKTOP NAV                                           # */
+/* ######################################################### */
 
 .desktopNav {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 6px;
+
   flex: 1;
+
   min-width: 0;
 }
 
@@ -256,43 +369,82 @@
 
 .navLink {
   position: relative;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   min-height: 46px;
-  padding: 0 16px;
+
+  padding: 0 15px;
+
   border-radius: var(--radius-md);
-  color: rgba(255, 255, 255, 0.84);
+
+  color: rgba(255, 255, 255, 0.9);
+
   text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
+
+  font-family:
+    "ATU Unison Pro Light",
+    var(--font-sans),
+    sans-serif;
+
+  font-style: normal;
+
+  font-weight: 300;
+
+  /*
+   * Unison Light zostáva Light,
+   * ale opticky je o trochu hrubší a čitateľnejší.
+   */
+  -webkit-text-stroke:
+    0.18px
+    currentColor;
+
+  font-size: 0.78rem;
+
+  letter-spacing: 0.015em;
+
+  line-height: 1;
+
   background: transparent;
+
   border: none;
+
   cursor: pointer;
+
   transition:
     color 0.2s ease,
     background 0.2s ease,
     transform 0.2s ease;
+
   white-space: nowrap;
 }
 
 .navLink:hover {
   color: var(--color-surface);
+
   background: rgba(255, 255, 255, 0.06);
+
   transform: translateY(-1px);
 }
 
 .navLink[aria-expanded="true"] {
   color: var(--color-surface);
+
   background: rgba(255, 255, 255, 0.08);
 }
 
 .navIcon {
   display: none;
+
   width: 18px;
   height: 18px;
+
   color: var(--color-red);
+
   flex-shrink: 0;
+
   transition:
     color 0.2s ease,
     transform 0.2s ease;
@@ -301,96 +453,177 @@
 .navLink:hover .navIcon,
 .navLink[aria-expanded="true"] .navIcon {
   color: #ef4444;
+
   transform: translateY(-1px);
 }
 
 .navChevron {
   display: none;
+
   width: 13px;
   height: 13px;
+
   color: rgba(255, 255, 255, 0.62);
-  transition: transform 0.2s ease, color 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .navChevronOpen {
   color: var(--color-red);
+
   transform: rotate(180deg);
 }
 
-/* # DROPDOWN */
+/* ######################################################### */
+/* # DROPDOWN                                              # */
+/* ######################################################### */
 
 .dropdown {
   position: relative;
+
   display: flex;
   align-items: center;
 }
 
 .dropdown::after {
   content: "";
+
   position: absolute;
+
   left: 0;
   right: 0;
   top: 100%;
+
   height: 14px;
 }
 
 .dropdownMenu {
   position: absolute;
+
   top: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%) translateY(8px);
+
+  transform:
+    translateX(-50%)
+    translateY(8px);
+
   min-width: 240px;
+
   opacity: 0;
+
   visibility: hidden;
+
   pointer-events: none;
+
   transition:
     opacity 0.22s ease,
     transform 0.22s ease,
     visibility 0.22s ease;
+
   z-index: 100;
 }
 
 .show {
   opacity: 1;
+
   visibility: visible;
+
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
 
 .dropdownContent {
   display: flex;
   flex-direction: column;
+
   gap: 4px;
+
   padding: 10px;
+
   border-radius: var(--radius-lg);
+
   background: rgba(20, 20, 24, 0.94);
+
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
   box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.28),
-    0 6px 14px rgba(0, 0, 0, 0.16);
+    0 18px 40px
+      rgba(0, 0, 0, 0.28),
+    0 6px 14px
+      rgba(0, 0, 0, 0.16);
 }
 
 .dropdownLabel {
-  font-size: 0.72rem;
-  font-weight: 800;
+  font-family:
+    "ATU Unison Pro Light",
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 0.6rem;
+
+  font-style: normal;
+
+  font-weight: 300;
+
+  -webkit-text-stroke:
+    0.15px
+    currentColor;
+
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-  padding: 8px 10px 6px;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  padding:
+    8px
+    10px
+    6px;
 }
 
 .dropdownContent a {
   display: flex;
   align-items: center;
-  min-height: 42px;
-  padding: 0 12px;
+
+  min-height: 38px;
+
+  padding:
+    0
+    12px;
+
   border-radius: var(--radius-md);
+
   color: var(--color-surface-soft);
+
   text-decoration: none;
-  font-size: 0.96rem;
-  font-weight: 600;
+
+  font-family:
+    "ATU Unison Pro Light",
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 0.76rem;
+
+  font-style: normal;
+
+  font-weight: 300;
+
+  -webkit-text-stroke:
+    0.16px
+    currentColor;
+
+  letter-spacing: 0.01em;
+
   transition:
     background 0.18s ease,
     color 0.18s ease,
@@ -399,74 +632,187 @@
 
 .dropdownContent a:hover {
   background: rgba(255, 255, 255, 0.08);
+
   color: var(--color-surface);
+
   transform: translateX(2px);
 }
 
 .dropdownDot {
   display: none;
-  width: 7px;
-  height: 7px;
-  border-radius: var(--radius-pill);
-  background: var(--color-red);
-  flex-shrink: 0;
 }
 
-/* # ACTIONS */
+/* ######################################################### */
+/* # ACTIONS                                               # */
+/* ######################################################### */
 
 .actions {
   display: flex;
   align-items: center;
+
   gap: 14px;
+
   flex-shrink: 0;
 }
 
 .ctaButton {
+  position: relative;
+
+  isolation: isolate;
+
+  overflow: hidden;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+
+  gap: 16px;
+
+  min-width: 210px;
   min-height: 48px;
-  padding: 0 18px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red) 100%);
-  color: var(--color-surface);
+
+  padding:
+    0
+    22px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.5);
+
+  border-radius: var(--radius-pill);
+
+  background: #191a1c;
+
+  color: #ffffff;
+
   text-decoration: none;
-  font-weight: 800;
+
+  font-family:
+    "ATU Unison Pro Bold",
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 0.78rem;
+
+  font-style: normal;
+
+  font-weight: 700;
+
+  letter-spacing: 0.055em;
+
+  text-transform: uppercase;
+
   white-space: nowrap;
-  box-shadow: 0 14px 28px var(--color-red-border);
+
+  box-shadow:
+    0 10px 24px
+      rgba(15, 23, 42, 0.13),
+    inset 0 0 0 1px
+      rgba(255, 255, 255, 0.08);
+
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
+    color 0.42s ease,
+    border-color 0.42s ease,
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.ctaButton::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  border-radius: inherit;
+
+  background: #dedfe1;
+
+  transform: scaleX(0);
+
+  transform-origin: left center;
+
+  transition:
+    transform
+    0.48s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ctaButton > span,
+.ctaIcon {
+  position: relative;
+
+  z-index: 1;
 }
 
 .ctaIcon {
   width: 18px;
   height: 18px;
+
   flex-shrink: 0;
+
+  transition:
+    transform
+    0.28s ease;
 }
 
 .ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 32px var(--color-red-border);
+  color: #171719;
+
+  border-color:
+    rgba(17, 17, 19, 0.2);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 13px 28px
+      rgba(15, 23, 42, 0.16),
+    inset 0 0 0 1px
+      rgba(255, 255, 255, 0.08);
 }
 
-/* # MENU BUTTON */
+.ctaButton:hover::before {
+  transform: scaleX(1);
+}
+
+.ctaButton:hover .ctaIcon {
+  transform: translateX(3px);
+}
+
+.ctaButton:active {
+  transform:
+    translateY(0)
+    scale(0.985);
+}
+
+/* ######################################################### */
+/* # MENU BUTTON                                           # */
+/* ######################################################### */
 
 .menuButton {
   width: 54px;
   height: 54px;
+
   border: none;
+
   border-radius: var(--radius-md);
+
   background: rgba(255, 255, 255, 0.06);
+
   display: none;
+
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
   gap: 5px;
+
   cursor: pointer;
+
   transition: background 0.2s ease;
+
   flex-shrink: 0;
 }
 
@@ -477,15 +823,20 @@
 .menuButton span {
   width: 20px;
   height: 2px;
+
   border-radius: var(--radius-pill);
+
   background: var(--color-surface);
+
   transition:
     transform 0.25s ease,
     opacity 0.25s ease;
 }
 
 .menuButtonOpen span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform:
+    translateY(7px)
+    rotate(45deg);
 }
 
 .menuButtonOpen span:nth-child(2) {
@@ -493,10 +844,14 @@
 }
 
 .menuButtonOpen span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform:
+    translateY(-7px)
+    rotate(-45deg);
 }
 
-/* # MOBILE MENU */
+/* ######################################################### */
+/* # MOBILE MENU                                           # */
+/* ######################################################### */
 
 .mobileMenu {
   display: none;
@@ -505,168 +860,538 @@
 .mobileNav {
   display: flex;
   flex-direction: column;
+
   gap: 0;
 }
 
 .mobileNavLink {
   display: flex;
   align-items: center;
+
   gap: 14px;
+
   min-height: 52px;
-  padding: 0 4px;
+
+  padding:
+    0
+    4px;
+
   border-radius: 0;
+
   background: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
   color: var(--color-surface);
+
   text-decoration: none;
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
+
+  font-family:
+    var(--font-unison),
+    var(--font-sans),
+    sans-serif;
+
   font-style: italic;
+
   font-weight: 700;
+
   letter-spacing: 0.04em;
+
   text-transform: uppercase;
 }
 
+/* ######################################################### */
+/* # MOBILE YOUTH DROPDOWN                                 # */
+/* ######################################################### */
+
+.mobileDropdown {
+  --tree-x: 18px;
+  --tree-stroke: 2px;
+  --branch-width: 24px;
+  --chevron-x: 58px;
+  --text-x: 92px;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0;
+
+  overflow: visible;
+}
+
+/* ######################################################### */
+/* # MOBILE YOUTH HEADER                                   # */
+/* ######################################################### */
+
 .mobileNavToggle {
+  position: relative;
+
   width: 100%;
-  min-height: 52px;
-  padding: 0 4px;
-  border-radius: 0;
-  background: transparent;
-  color: var(--color-surface);
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  min-height: 58px;
+
+  padding:
+    0
+    4px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
-  font-style: italic;
-  font-weight: 700;
+
+  border: none;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  background: transparent;
+
+  color: var(--color-surface);
+
+  font-family:
+    var(--font-unison),
+    var(--font-sans),
+    sans-serif;
+
   font-size: 1rem;
+
+  font-style: italic;
+
+  font-weight: 700;
+
   letter-spacing: 0.04em;
+
   text-transform: uppercase;
+
   cursor: pointer;
 }
 
 .mobileNavLabel {
   display: inline-flex;
   align-items: center;
+
   gap: 14px;
+
   min-width: 0;
 }
 
 .mobileNavIcon {
-  width: 25px;
-  height: 25px;
-  color: var(--color-red);
-  flex-shrink: 0;
-}
+  width: 28px;
+  height: 28px;
 
-.mobileDropdown {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  color: var(--color-red);
+
+  flex-shrink: 0;
 }
 
 .mobileChevron {
   font-size: 1.3rem;
+
   line-height: 1;
-  transition: transform 0.22s ease;
+
+  transition:
+    transform
+    0.22s ease;
 }
 
 .mobileChevronOpen {
   transform: rotate(45deg);
 }
 
+/* ######################################################### */
+/* # MOBILE YOUTH SUBMENU                                  # */
+/* ######################################################### */
+
 .mobileSubmenu {
+  position: relative;
+
   max-height: 0;
+
   overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin-left: 0;
-  padding: 0 0 0 42px;
+
+  margin: 0;
+
+  padding: 0;
+
+  opacity: 0;
+
   transition:
-    max-height 0.25s ease,
-    padding 0.25s ease;
+    max-height 0.28s ease,
+    padding 0.28s ease,
+    opacity 0.18s ease;
 }
 
 .mobileSubmenuOpen {
-  max-height: 400px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  max-height: 420px;
+
+  padding-top: 8px;
+  padding-bottom: 12px;
+
+  opacity: 1;
 }
+
+/* ######################################################### */
+/* # TREE MAIN LINE                                        # */
+/* ######################################################### */
+
+.mobileSubmenuOpen::before {
+  content: "";
+
+  position: absolute;
+
+  left: var(--tree-x);
+
+  top: -18px;
+
+  bottom: 39px;
+
+  width: var(--tree-stroke);
+
+  background: rgba(255, 255, 255, 0.32);
+
+  pointer-events: none;
+}
+
+/* ######################################################### */
+/* # SUBMENU ITEM                                          # */
+/* ######################################################### */
 
 .mobileSubmenuLink {
   position: relative;
+
+  width: 100%;
+
+  min-height: 62px;
+
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 46px;
-  padding: 0 0 0 50px;
-  border-radius: 0;
+
+  padding:
+    0
+    6px
+    0
+    var(--text-x);
+
   background: transparent;
-  color: rgba(255, 255, 255, 0.92);
+
+  color: rgba(255, 255, 255, 0.78);
+
   text-decoration: none;
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
+
+  font-family:
+    var(--font-unison),
+    var(--font-sans),
+    sans-serif;
+
   font-style: italic;
+
   font-weight: 700;
+
   letter-spacing: 0.03em;
+
   text-transform: uppercase;
+
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.mobileSubmenuLink:hover {
-  background: transparent;
-}
+/* ######################################################### */
+/* # TREE BRANCH                                           # */
+/* ######################################################### */
 
-.mobileSubmenuDot {
+.mobileSubmenuLink::before {
+  content: "";
+
   position: absolute;
-  left: 16px;
+
+  left:
+    calc(
+      var(--tree-x) +
+      var(--tree-stroke)
+    );
+
+  top:
+    calc(
+      50% - 1px
+    );
+
+  width: var(--branch-width);
+
+  height: var(--tree-stroke);
+
+  background:
+    rgba(255, 255, 255, 0.32);
+
+  transition:
+    background 0.2s ease,
+    width 0.2s ease;
+}
+
+/* ######################################################### */
+/* # TREE CHEVRON                                          # */
+/* ######################################################### */
+
+.mobileSubmenuLink::after {
+  content: "";
+
+  position: absolute;
+
+  left: var(--chevron-x);
+  top: 50%;
+
   width: 9px;
   height: 9px;
-  border-radius: var(--radius-pill);
-  background: var(--color-red);
-  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.12);
+
+  border-top:
+    3px solid
+    rgba(255, 255, 255, 0.62);
+
+  border-right:
+    3px solid
+    rgba(255, 255, 255, 0.62);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    filter 0.2s ease;
+
+  pointer-events: none;
 }
 
+.mobileSubmenuArrow,
+.mobileSubmenuArrowActive {
+  display: none;
+}
+
+/* ######################################################### */
+/* # SUBMENU HOVER                                         # */
+/* ######################################################### */
+
+.mobileSubmenuLink:hover {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.mobileSubmenuLink:hover::before {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.mobileSubmenuLink:hover::after {
+  border-color:
+    rgba(255, 255, 255, 0.9);
+
+  transform:
+    translate(
+      calc(-50% + 2px),
+      -50%
+    )
+    rotate(45deg);
+}
+
+/* ######################################################### */
+/* # SUBMENU ACTIVE                                        # */
+/* ######################################################### */
+
+.mobileSubmenuLinkActive {
+  color: #ffffff;
+}
+
+.mobileSubmenuLinkActive::before {
+  background: var(--color-red);
+}
+
+.mobileSubmenuLinkActive::after {
+  border-color: var(--color-red);
+
+  filter:
+    drop-shadow(
+      0
+      0
+      5px
+      rgba(211, 47, 47, 0.34)
+    );
+}
+
+.mobileSubmenuLinkActive:hover::after {
+  border-color: var(--color-red);
+}
+
+/* ######################################################### */
+/* # MOBILE CTA                                            # */
+/* ######################################################### */
+
 .mobileCta {
+  position: relative;
+
+  isolation: isolate;
+
+  overflow: hidden;
+
   margin-top: 26px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+
+  gap: 16px;
+
   min-height: 52px;
-  padding: 0 18px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red) 100%);
-  color: var(--color-surface);
+
+  padding:
+    0
+    22px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.5);
+
+  border-radius: var(--radius-pill);
+
+  background: #191a1c;
+
+  color: #ffffff;
+
   text-decoration: none;
-  font-weight: 800;
+
+  font-family:
+    "ATU Unison Pro Bold",
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 0.8rem;
+
+  font-style: normal;
+
+  font-weight: 700;
+
+  letter-spacing: 0.055em;
+
+  text-transform: uppercase;
+
+  box-shadow:
+    0 10px 24px
+      rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px
+      rgba(255, 255, 255, 0.08);
+
+  transition:
+    color 0.42s ease,
+    border-color 0.42s ease,
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.mobileCta::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  border-radius: inherit;
+
+  background: #dedfe1;
+
+  transform: scaleX(0);
+
+  transform-origin: left center;
+
+  transition:
+    transform
+    0.48s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobileCta > span,
+.mobileCta > svg {
+  position: relative;
+
+  z-index: 1;
+}
+
+.mobileCta:hover {
+  color: #171719;
+
+  border-color:
+    rgba(255, 255, 255, 0.72);
+
+  transform: translateY(-1px);
+}
+
+.mobileCta:hover::before {
+  transform: scaleX(1);
+}
+
+.mobileCta:active {
+  transform:
+    translateY(0)
+    scale(0.99);
 }
 
 .mobileCta svg {
   width: 20px;
   height: 20px;
+
+  transition:
+    transform
+    0.28s ease;
 }
+
+.mobileCta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ######################################################### */
+/* # MOBILE SOCIAL                                         # */
+/* ######################################################### */
 
 .mobileSocialRow {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 12px;
-  margin: 22px 0 0;
+
+  margin:
+    22px
+    0
+    0;
 }
 
 .mobileSocialIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   width: 46px;
   height: 46px;
+
   border-radius: var(--radius-pill);
+
   color: var(--color-surface);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
   text-decoration: none;
+
   transition: all 0.25s ease;
 }
 
@@ -677,37 +1402,54 @@
 
 .mobileSocialIcon span {
   font-size: 0.78rem;
+
   font-weight: 900;
+
   line-height: 1;
 }
 
 .mobileSocialLogo {
   display: block;
+
   width: 26px;
   height: 26px;
+
   object-fit: contain;
 }
 
 .mobileSocialIcon:hover {
   transform: translateY(-1px);
-  
 }
 
 .mobileSocialIcon:active {
   transform: scale(0.96);
 }
 
+/* ######################################################### */
+/* # MOBILE ADMIN                                          # */
+/* ######################################################### */
+
 .mobileAdminIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   width: 46px;
   height: 46px;
+
   border-radius: var(--radius-pill);
+
   color: rgba(255, 255, 255, 0.9);
-  background: rgba(211, 47, 47, 0.12);
-  border: 1px solid rgba(211, 47, 47, 0.42);
+
+  background:
+    rgba(211, 47, 47, 0.12);
+
+  border:
+    1px solid
+    rgba(211, 47, 47, 0.42);
+
   text-decoration: none;
+
   transition:
     color 0.2s ease,
     background 0.2s ease,
@@ -722,39 +1464,65 @@
 
 .mobileAdminIcon:hover {
   color: var(--color-surface);
-  background: rgba(211, 47, 47, 0.22);
-  border-color: rgba(211, 47, 47, 0.7);
+
+  background:
+    rgba(211, 47, 47, 0.22);
+
+  border-color:
+    rgba(211, 47, 47, 0.7);
+
   transform: translateY(-1px);
 }
 
 .mobileAdminIcon:active {
   transform: scale(0.96);
 }
-/* # LARGE TABLET */
+
+/* ######################################################### */
+/* # LARGE TABLET                                          # */
+/* ######################################################### */
 
 @media (max-width: 1180px) {
   .container {
-    padding: 0 18px;
+    padding:
+      0
+      16px;
+  }
+
+  .mainBarInner {
+    gap: 14px;
   }
 
   .desktopNav {
-    gap: 2px;
+    gap: 0;
   }
 
   .navLink {
-    padding: 0 12px;
-    font-size: 0.91rem;
+    padding:
+      0
+      10px;
+
+    font-size: 0.73rem;
   }
 
   .ctaButton {
-    padding: 0 16px;
-  }
+    min-width: 190px;
 
+    padding:
+      0
+      15px;
+
+    gap: 12px;
+
+    font-size: 0.73rem;
+  }
 }
 
-/* # TABLET */
+/* ######################################################### */
+/* # TABLET                                                # */
+/* ######################################################### */
 
-@media (max-width: 960px) {
+@media (max-width: 1040px) {
   .topRight {
     gap: 12px;
   }
@@ -774,23 +1542,44 @@
 
   .mobileMenu {
     display: block;
+
     position: absolute;
+
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(14, 15, 18, 0.98);
+
+    background:
+      rgba(14, 15, 18, 0.98);
+
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+
+    border-bottom:
+      1px solid
+      rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+      0 18px 40px
+      rgba(0, 0, 0, 0.32);
+
     max-height: 0;
+
     overflow: hidden;
-    transition: max-height 0.28s ease;
+
+    transition:
+      max-height
+      0.28s ease;
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 78px);
+    max-height:
+      calc(
+        100vh - 78px
+      );
+
     overflow-y: auto;
+
     -webkit-overflow-scrolling: touch;
   }
 
@@ -798,18 +1587,22 @@
     padding-top: 14px;
     padding-bottom: 18px;
   }
-
 }
 
-/* # SMALL TABLET / BIG MOBILE */
+/* ######################################################### */
+/* # SMALL TABLET / BIG MOBILE                             # */
+/* ######################################################### */
 
 @media (max-width: 720px) {
   .container {
-    padding: 0 16px;
+    padding:
+      0
+      16px;
   }
 
   .topBarInner {
     min-height: 40px;
+
     gap: 12px;
   }
 
@@ -836,6 +1629,7 @@
 
   .mainBarInner {
     min-height: 74px;
+
     gap: 14px;
   }
 
@@ -845,11 +1639,16 @@
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 74px);
+    max-height:
+      calc(
+        100vh - 74px
+      );
   }
 }
 
-/* # MOBILE */
+/* ######################################################### */
+/* # MOBILE                                                # */
+/* ######################################################### */
 
 @media (max-width: 560px) {
   .topBar {
@@ -857,7 +1656,9 @@
   }
 
   .container {
-    padding: 0 14px;
+    padding:
+      0
+      14px;
   }
 
   .header {
@@ -865,20 +1666,35 @@
   }
 
   .mainBar {
-    background: rgba(10, 10, 11, 0.94);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    background:
+      rgba(10, 10, 11, 0.94);
+
+    border-bottom:
+      1px solid
+      rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+      0
+      10px
+      28px
+      rgba(0, 0, 0, 0.22);
   }
 
   .mainBarInner {
     min-height: 72px;
+
     gap: 12px;
   }
 
   .logoWrap {
     gap: 12px;
+
     min-width: 0;
-    max-width: calc(100% - 64px);
+
+    max-width:
+      calc(
+        100% - 64px
+      );
   }
 
   .logo {
@@ -888,7 +1704,9 @@
 
   .logoText strong {
     font-size: 0.95rem;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
   }
 
@@ -899,6 +1717,7 @@
   .menuButton {
     width: 46px;
     height: 46px;
+
     border-radius: var(--radius-md);
   }
 
@@ -907,7 +1726,10 @@
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 72px);
+    max-height:
+      calc(
+        100vh - 72px
+      );
   }
 
   .mobileMenu .container {
@@ -921,16 +1743,59 @@
     min-height: 50px;
   }
 
+  /* ####################################################### */
+  /* # MOBILE YOUTH TREE                                   # */
+  /* ####################################################### */
+
+  .mobileDropdown {
+    --tree-x: 18px;
+    --branch-width: 22px;
+    --chevron-x: 55px;
+    --text-x: 88px;
+  }
+
+  .mobileNavToggle {
+    min-height: 58px;
+
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .mobileNavIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mobileSubmenuOpen::before {
+    top: -17px;
+
+    bottom: 37px;
+  }
+
   .mobileSubmenuLink {
-    min-height: 44px;
+    min-height: 60px;
+
+    padding-left: var(--text-x);
+  }
+
+  .mobileSubmenuLink::after {
+    width: 8px;
+    height: 8px;
+
+    border-top-width: 3px;
+    border-right-width: 3px;
   }
 }
 
-/* # VERY SMALL MOBILE */
+/* ######################################################### */
+/* # VERY SMALL MOBILE                                     # */
+/* ######################################################### */
 
 @media (max-width: 380px) {
   .container {
-    padding: 0 12px;
+    padding:
+      0
+      12px;
   }
 
   .mainBarInner {
@@ -939,7 +1804,11 @@
 
   .logoWrap {
     gap: 8px;
-    max-width: calc(100% - 58px);
+
+    max-width:
+      calc(
+        100% - 58px
+      );
   }
 
   .logo {
@@ -957,33 +1826,81 @@
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 68px);
+    max-height:
+      calc(
+        100vh - 68px
+      );
   }
 
   .mobileNavLink,
   .mobileNavToggle,
   .mobileCta {
     min-height: 48px;
+
     padding-left: 14px;
     padding-right: 14px;
   }
 
+  /* ####################################################### */
+  /* # VERY SMALL YOUTH TREE                               # */
+  /* ####################################################### */
+
+  .mobileDropdown {
+    --tree-x: 16px;
+    --branch-width: 20px;
+    --chevron-x: 50px;
+    --text-x: 80px;
+  }
+
+  .mobileNavIcon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .mobileSubmenuOpen::before {
+    top: -16px;
+
+    bottom: 35px;
+  }
+
   .mobileSubmenuLink {
-    padding-left: 50px;
+    min-height: 56px;
+
+    padding-left: var(--text-x);
     padding-right: 0;
+
+    font-size: 0.92rem;
+  }
+
+  .mobileSubmenuLink::after {
+    width: 7px;
+    height: 7px;
   }
 }
+
+/* ######################################################### */
+/* # LEGACY MOBILE SOCIAL                                  # */
+/* ######################################################### */
 
 @media (max-width: 480px) {
   .mobileSocials {
     gap: 10px;
-    margin: 8px 0 16px;
+
+    margin:
+      8px
+      0
+      16px;
   }
 
   .mobileSocialLink {
     min-height: 50px;
-    padding: 0 12px;
+
+    padding:
+      0
+      12px;
+
     border-radius: var(--radius-lg);
+
     font-size: 0.95rem;
   }
 

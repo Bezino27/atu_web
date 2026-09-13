@@ -114,9 +114,9 @@
   text-align: left;
   opacity: 0.99;
 
-  font-family: "Unison Pro", var(--font-banner), sans-serif !important;
+  font-family: "ATU Unison Pro Bold", var(--font-sans), sans-serif !important;
   font-weight: 700 !important;
-  font-style: italic !important;
+  font-style: normal !important;
 
   text-shadow:
     0 10px 30px rgba(0, 0, 0, 0.38),
@@ -463,6 +463,12 @@
       letter-spacing: -0.02em;
     }
 
+  .bannerTitleDorast {
+      font-size: clamp(3rem, 12vw, 5.2rem);
+      letter-spacing: -0.035em;
+      white-space: nowrap;
+    }
+
   .bannerTitleziaci {
       margin: 44px 0 0;
       max-width: 100%;
@@ -643,6 +649,11 @@
       letter-spacing: -0.02em;
     }
 
+  .bannerTitleDorast {
+      font-size: clamp(2.75rem, 13vw, 3.9rem);
+      letter-spacing: -0.04em;
+    }
+
   .bannerTitleziaci {
       margin: 40px 0 0;
       max-width: 100%;
@@ -742,6 +753,10 @@
   .bannerTitle {
       margin-top: 38px;
       font-size: clamp(3rem, 17vw, 3.9rem);
+    }
+
+  .bannerTitleDorast {
+      font-size: clamp(2.5rem, 13vw, 3.15rem);
     }
 
   .bannerTitleziaci {

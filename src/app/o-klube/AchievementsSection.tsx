@@ -82,7 +82,7 @@ function MedalDot({ type }: { type: MedalType }) {
 
 export default function AchievementsSection() {
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${styles.achievementsSection}`}>
       <div className={styles.groupsGrid}>
         {achievementGroups.map((group) => (
           <article key={group.title} className={styles.groupCard}>

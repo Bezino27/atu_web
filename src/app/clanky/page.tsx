@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import Header from "@/app/components/Header";
@@ -54,34 +53,67 @@ export default async function ArticlesPage() {
       <main className={styles.page}>
         <section className={styles.hero}>
           <div className={styles.heroInner}>
-            <span className={styles.eyebrow}>Klubový obsah</span>
-            <h1>Všetky články</h1>
-            <p>
-              Prečítajte si novinky, zápasové reporty, klubové oznámenia a ďalší obsah
-              z prostredia ATU Košice.
-            </p>
+            <div className={styles.heroContent}>
+              <span className={styles.eyebrow}>Klubový obsah</span>
+              <h1>Všetky články</h1>
+              <p>
+                Prečítajte si novinky, zápasové reporty, klubové oznámenia a ďalší obsah
+                z prostredia ATU Košice.
+              </p>
+
+              <div className={styles.categoryLine} aria-hidden="true">
+                <span>Novinky</span>
+                <i>•</i>
+                <span>Reporty</span>
+                <i>•</i>
+                <span>Oznámenia</span>
+                <i>•</i>
+                <span>Klub</span>
+              </div>
+            </div>
+
           </div>
         </section>
 
         <section className={styles.contentSection}>
           <div className={styles.grid}>
             {posts.map((post) => (
-              <Link key={post.id} href={`/clanky/${post.slug}`} className={styles.card}>
+              <Link
+                key={post.id}
+                href={`/clanky/${post.slug}`}
+                className={styles.card}
+              >
                 <div className={styles.imageWrap}>
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={getImageUrl(post.featured_image)}
                     alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className={styles.image}
-                    quality={85}
+                    loading="lazy"
                   />
                 </div>
 
                 <div className={styles.cardContent}>
                   <div className={styles.meta}>
-                    <span className={styles.badge}>{post.category?.name || "Novinka"}</span>
-                    <span>{formatDate(post.published_at)}</span>
+                    <span className={styles.badge}>
+                      {post.category?.name || "Novinka"}
+                    </span>
+
+                    <time
+                      dateTime={
+                        post.published_at ||
+                        post.created_at ||
+                        post.updated_at ||
+                        undefined
+                      }
+                      className={styles.date}
+                    >
+                      {formatDate(
+                        post.published_at ||
+                          post.created_at ||
+                          post.updated_at
+                      )}
+                    </time>
                   </div>
 
                   <h2>{post.title}</h2>

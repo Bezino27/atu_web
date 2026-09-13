@@ -386,7 +386,7 @@ export default async function HomePage() {
                   alt={heroArticle.title}
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 66vw"
+                  sizes="(max-width: 480px) 100vw, (max-width: 900px) 100vw, 66vw"
                   className={styles.cardImage}
                 />
                 <div className={styles.imageOverlay} />

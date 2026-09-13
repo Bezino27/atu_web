@@ -1,13 +1,25 @@
 /* # FOOTER */
 .footer {
+  --footer-overhang-space: 130px;
+
   position: relative;
-  margin-top: 130px;
+  margin-top: var(--footer-overhang-space);
   padding: 125px 0 28px;
   background:
     linear-gradient(180deg, #121316 0%, #0f1013 52%, #101114 100%);
   color: #ffffff;
   overflow: visible;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: var(--footer-overhang-space);
+  background: #ffffff;
+  pointer-events: none;
 }
 
 .container {
@@ -400,23 +412,41 @@
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.09);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.bottom p {
+.copyright {
   margin: 0;
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.82rem;
   font-weight: 600;
   line-height: 1.45;
-  text-align: center;
+}
+
+.privacyLink {
+  display: inline-flex;
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.privacyLink:hover {
+  color: #ffffff;
 }
 
 /* # FOOTER RESPONSIVE 1024 */
 @media (max-width: 1024px) {
   .footer {
-    margin-top: 118px;
+    --footer-overhang-space: 118px;
+
     padding-top: 125px;
   }
 
@@ -449,7 +479,8 @@
 /* # FOOTER RESPONSIVE 768 */
 @media (max-width: 768px) {
   .footer {
-    margin-top: 96px;
+    --footer-overhang-space: 96px;
+
     padding: 108px 0 24px;
   }
 
@@ -601,13 +632,23 @@
 
   .bottom {
     margin-top: 30px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .copyright,
+  .privacyLink {
+    font-size: 0.76rem;
   }
 }
 
 /* # FOOTER RESPONSIVE 480 */
 @media (max-width: 480px) {
   .footer {
-    margin-top: 80px;
+    --footer-overhang-space: 80px;
+
     padding-top: 96px;
     padding-bottom: 22px;
   }
@@ -720,7 +761,8 @@
       scale(1);
   }
 
-  .bottom p {
+  .copyright,
+  .privacyLink {
     font-size: 0.72rem;
   }
 }

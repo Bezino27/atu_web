@@ -212,7 +212,9 @@ const DorastPage = async () => {
 
             <div className={heroStyles.bannerOverlay}>
               <div className={heroStyles.heroTextContent}>
-                <h1 className={heroStyles.bannerTitle}>
+                <h1
+                  className={`${heroStyles.bannerTitle} ${heroStyles.bannerTitleDorast}`}
+                >
                   {getSectionTitle(section, categoryName)}
                 </h1>
 

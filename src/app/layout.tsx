@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Manrope, Geist_Mono, Anton } from "next/font/google";
+import { Anton, Barlow, Geist_Mono, Manrope, Teko } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import {
@@ -26,6 +26,18 @@ const anton = Anton({
   variable: "--font-anton",
   subsets: ["latin"],
   weight: "400",
+});
+
+const barlow = Barlow({
+  variable: "--font-barlow",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700"],
+});
+
+const teko = Teko({
+  variable: "--font-teko",
+  subsets: ["latin", "latin-ext"],
+  weight: "600",
 });
 
 export const metadata: Metadata = {
@@ -86,6 +98,8 @@ export default function RootLayout({
         ${manrope.variable}
         ${geistMono.variable}
         ${anton.variable}
+        ${barlow.variable}
+        ${teko.variable}
         h-full antialiased
       `}
     >

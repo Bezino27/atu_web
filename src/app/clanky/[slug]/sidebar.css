@@ -1,0 +1,979 @@
+/* ######################################################### */
+/* # SIDEBAR                                               # */
+/* ######################################################### */
+
+.articleSidebar_sidebar {
+  position: sticky;
+  top: 108px;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* ######################################################### */
+/* # CARD                                                  # */
+/* ######################################################### */
+
+.articleSidebar_card {
+  position: relative;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(17, 22, 28, 0.09);
+
+  border-radius: 18px;
+}
+
+/* ######################################################### */
+/* # SHARE CARD                                            # */
+/* ######################################################### */
+
+.articleSidebar_shareCard {
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(5, 8, 12, 0.98),
+      rgba(13, 17, 22, 0.97)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 18px 38px
+    rgba(8, 12, 17, 0.1);
+}
+
+/* ######################################################### */
+/* # SHARE BACKGROUND                                      # */
+/* ######################################################### */
+
+.articleSidebar_shareDecoration {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 58%,
+      rgba(255, 255, 255, 0.025) 58%,
+      rgba(255, 255, 255, 0.025) 61%,
+      transparent 61%
+    ),
+    url("/atu-article-bg.png");
+
+  background-position:
+    center,
+    72% center;
+
+  background-size:
+    auto,
+    cover;
+
+  background-repeat:
+    no-repeat;
+
+  opacity: 0.28;
+}
+
+/* ######################################################### */
+/* # HEADING ICON                                          # */
+/* ######################################################### */
+
+.articleSidebar_headingIcon {
+  width: 25px;
+  height: 25px;
+
+  flex: 0 0 25px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: currentColor;
+}
+
+.articleSidebar_headingIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ######################################################### */
+/* # SHARE HEADER                                          # */
+/* ######################################################### */
+
+.articleSidebar_shareHeader {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.articleSidebar_shareTitle {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    var(--font-barlow),
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 1.12rem;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.articleSidebar_shareSubtitle {
+  margin:
+    6px
+    0
+    0;
+
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  font-size: 0.63rem;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+
+  line-height: 1.4;
+
+  text-transform: uppercase;
+}
+
+/* ######################################################### */
+/* # SHARE GRID                                            # */
+/* ######################################################### */
+
+.articleSidebar_shareGrid {
+  position: relative;
+
+  z-index: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 10px;
+}
+
+/* ######################################################### */
+/* # SHARE BUTTON                                          # */
+/* ######################################################### */
+
+.articleSidebar_shareButton {
+  min-width: 0;
+  min-height: 64px;
+
+  padding: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.25);
+
+  border-radius: 12px;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  color: #ffffff;
+
+  font: inherit;
+
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.articleSidebar_shareButton:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255, 255, 255, 0.55);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+}
+
+.articleSidebar_shareButton:focus-visible {
+  outline:
+    2px solid
+    var(--color-red);
+
+  outline-offset: 2px;
+}
+
+.articleSidebar_shareButtonIcon {
+  width: 23px;
+  height: 23px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.articleSidebar_shareButtonIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.articleSidebar_shareButtonText {
+  display: none;
+}
+
+.articleSidebar_facebookIcon,
+.articleSidebar_instagramIcon,
+.articleSidebar_copyIcon {
+  color: #ffffff;
+}
+
+/* ######################################################### */
+/* # COPY SUCCESS                                          # */
+/* ######################################################### */
+
+.articleSidebar_shareButtonSuccess {
+  border-color:
+    rgba(74, 222, 128, 0.75);
+
+  background:
+    rgba(74, 222, 128, 0.1);
+
+  box-shadow:
+    0 0 0 1px
+      rgba(74, 222, 128, 0.08),
+    0 10px 28px
+      rgba(34, 197, 94, 0.12);
+
+  animation:
+    articleSidebarCopySuccess
+    0.34s
+    ease;
+}
+
+.articleSidebar_shareButtonSuccess
+.articleSidebar_shareButtonIcon {
+  color: #86efac;
+
+  transform:
+    scale(1.08);
+}
+
+@keyframes articleSidebarCopySuccess {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.045);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ######################################################### */
+/* # RELATED CARD                                          # */
+/* ######################################################### */
+
+.articleSidebar_relatedCard {
+  padding: 23px;
+
+  background: #fafafa;
+}
+
+/* ######################################################### */
+/* # RELATED HEADER                                        # */
+/* ######################################################### */
+
+.articleSidebar_relatedHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 19px;
+}
+
+.articleSidebar_relatedHeading {
+  min-width: 0;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+.articleSidebar_relatedTitle {
+  margin: 0;
+
+  color: #11161c;
+
+  font-family:
+    var(--font-barlow),
+    var(--font-sans),
+    sans-serif;
+
+  font-size: 1.14rem;
+  font-weight: 750;
+
+  line-height: 1.2;
+}
+
+.articleSidebar_relatedSubtitle {
+  margin:
+    5px
+    0
+    0;
+
+  color: #9a9fa5;
+
+  font-size: 0.62rem;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+
+  line-height: 1.4;
+
+  text-transform: uppercase;
+}
+
+/* ######################################################### */
+/* # HEADER LINK                                           # */
+/* ######################################################### */
+
+.articleSidebar_headerLink {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-top: -7px;
+
+  text-decoration: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.articleSidebar_headerLogo {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+.articleSidebar_headerLink:hover {
+  opacity: 0.82;
+
+  transform:
+    scale(1.04);
+}
+
+/* ######################################################### */
+/* # RELATED LIST                                          # */
+/* ######################################################### */
+
+.articleSidebar_relatedList {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* ######################################################### */
+/* # RELATED ITEM                                          # */
+/* ######################################################### */
+
+.articleSidebar_relatedItem {
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    94px
+    minmax(0, 1fr)
+    38px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 9px;
+
+  border:
+    1px solid
+    rgba(17, 22, 28, 0.08);
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.articleSidebar_relatedItem:hover {
+  transform:
+    scale(1.012);
+
+  border-color:
+    rgba(17, 22, 28, 0.12);
+
+  background:
+    #f2f3f4;
+
+  box-shadow:
+    0 7px 18px
+    rgba(15, 20, 26, 0.05);
+}
+
+/* ######################################################### */
+/* # RELATED IMAGE                                         # */
+/* ######################################################### */
+
+.articleSidebar_relatedThumb {
+  width: 94px;
+  height: 72px;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #0b0d10;
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.articleSidebar_relatedThumb img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform
+    0.25s ease;
+}
+
+.articleSidebar_relatedItem:hover
+.articleSidebar_relatedThumb img {
+  transform:
+    scale(1.035);
+}
+
+/* ######################################################### */
+/* # RELATED CONTENT                                       # */
+/* ######################################################### */
+
+.articleSidebar_relatedContent {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 4px;
+}
+
+/* ######################################################### */
+/* # CATEGORY BADGE                                        # */
+/* ######################################################### */
+
+.articleSidebar_categoryBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 22px;
+
+  padding:
+    0
+    8px;
+
+  border-radius: 6px;
+
+  background:
+    var(--color-red);
+
+  color: #ffffff;
+
+  font-size: 0.58rem;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+/* ######################################################### */
+/* # RELATED TEXT                                          # */
+/* ######################################################### */
+
+.articleSidebar_relatedItemTitle {
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  color: #171c22;
+
+  font-size: 0.82rem;
+  font-weight: 750;
+
+  line-height: 1.28;
+
+  -webkit-box-orient:
+    vertical;
+
+  -webkit-line-clamp:
+    2;
+}
+
+.articleSidebar_relatedDate {
+  color: #9a9fa5;
+
+  font-size: 0.67rem;
+
+  line-height: 1.3;
+}
+
+/* ######################################################### */
+/* # ARROW                                                 # */
+/* ######################################################### */
+
+.articleSidebar_relatedArrow {
+  width: 36px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid
+    #e3e6e8;
+
+  border-radius: 50%;
+
+  color: #343a41;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.articleSidebar_relatedArrow svg {
+  width: 17px;
+  height: 17px;
+}
+
+.articleSidebar_relatedItem:hover
+.articleSidebar_relatedArrow {
+  transform:
+    translateX(2px);
+
+  border-color:
+    #cdd1d4;
+
+  background:
+    #e7e9eb;
+}
+
+/* ######################################################### */
+/* # CTA                                                   # */
+/* ######################################################### */
+
+.articleSidebar_bottomCta {
+  min-height: 49px;
+
+  margin-top: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border:
+    1px solid
+    #dfe2e4;
+
+  border-radius:
+    var(--radius-pill);
+
+  background: #ffffff;
+
+  color: #171c22;
+
+  font-size: 0.82rem;
+  font-weight: 750;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.articleSidebar_bottomCta
+> span:last-child {
+  width: 18px;
+  height: 18px;
+
+  display: inline-flex;
+
+  color: #343a41;
+}
+
+.articleSidebar_bottomCta svg {
+  width: 100%;
+  height: 100%;
+}
+
+.articleSidebar_bottomCta:hover {
+  transform:
+    scale(1.012);
+
+  border-color:
+    #cdd1d4;
+
+  background:
+    #f0f1f2;
+}
+
+/* ######################################################### */
+/* # TABLET                                                # */
+/* ######################################################### */
+
+@media (max-width: 1120px) {
+  .articleSidebar_sidebar {
+    position: static;
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(280px, 0.72fr)
+      minmax(0, 1.28fr);
+
+    align-items: start;
+  }
+}
+
+/* ######################################################### */
+/* # MOBILE                                                # */
+/* ######################################################### */
+
+@media (max-width: 720px) {
+  .articleSidebar_sidebar {
+    position: static;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+  }
+
+  /* ####################################################### */
+  /* # SHARE CARD                                          # */
+  /* ####################################################### */
+
+  .articleSidebar_shareCard {
+    width: 100%;
+
+    padding: 20px;
+  }
+
+  .articleSidebar_shareHeader {
+    margin-bottom: 18px;
+  }
+
+  .articleSidebar_shareGrid {
+    width: 100%;
+
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+
+    gap: 10px;
+  }
+
+  .articleSidebar_shareButton {
+    width: 100%;
+
+    min-height: 86px;
+  }
+
+  /* ####################################################### */
+  /* # RELATED CARD                                        # */
+  /* ####################################################### */
+
+  .articleSidebar_relatedCard {
+    width: 100%;
+
+    padding: 20px;
+  }
+
+  .articleSidebar_relatedHeader {
+    width: 100%;
+
+    align-items: flex-start;
+
+    margin-bottom: 18px;
+  }
+
+  .articleSidebar_relatedHeading {
+    flex: 1 1 auto;
+  }
+
+  .articleSidebar_headerLink {
+    flex: 0 0 auto;
+  }
+
+  /* ####################################################### */
+  /* # RELATED LIST                                        # */
+  /* ####################################################### */
+
+  .articleSidebar_relatedList {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  /* ####################################################### */
+  /* # RELATED ITEM                                        # */
+  /* ####################################################### */
+
+  .articleSidebar_relatedItem {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      108px
+      minmax(0, 1fr)
+      42px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 122px;
+
+    padding: 10px;
+  }
+
+  .articleSidebar_relatedThumb {
+    width: 108px;
+    height: 96px;
+  }
+
+  .articleSidebar_relatedContent {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 5px;
+  }
+
+  .articleSidebar_relatedItemTitle {
+    font-size: 0.92rem;
+
+    line-height: 1.24;
+
+    -webkit-line-clamp: 2;
+  }
+
+  .articleSidebar_relatedDate {
+    font-size: 0.72rem;
+  }
+
+  .articleSidebar_relatedArrow {
+    width: 40px;
+    height: 40px;
+
+    justify-self: end;
+  }
+
+  /* ####################################################### */
+  /* # CTA                                                 # */
+  /* ####################################################### */
+
+  .articleSidebar_bottomCta {
+    width: 100%;
+
+    min-height: 56px;
+
+    margin-top: 16px;
+  }
+}
+
+/* ######################################################### */
+/* # SMALL MOBILE                                          # */
+/* ######################################################### */
+
+@media (max-width: 430px) {
+  .articleSidebar_shareCard,
+  .articleSidebar_relatedCard {
+    padding: 16px;
+  }
+
+  /* ####################################################### */
+  /* # SHARE                                               # */
+  /* ####################################################### */
+
+  .articleSidebar_shareGrid {
+    gap: 8px;
+  }
+
+  .articleSidebar_shareButton {
+    min-height: 78px;
+  }
+
+  /* ####################################################### */
+  /* # RELATED ITEM                                        # */
+  /* ####################################################### */
+
+  .articleSidebar_relatedItem {
+    grid-template-columns:
+      92px
+      minmax(0, 1fr)
+      36px;
+
+    gap: 11px;
+
+    min-height: 108px;
+
+    padding: 9px;
+  }
+
+  .articleSidebar_relatedThumb {
+    width: 92px;
+    height: 84px;
+  }
+
+  .articleSidebar_relatedItemTitle {
+    font-size: 0.84rem;
+
+    line-height: 1.22;
+  }
+
+  .articleSidebar_relatedDate {
+    font-size: 0.66rem;
+  }
+
+  .articleSidebar_relatedArrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .articleSidebar_bottomCta {
+    min-height: 52px;
+  }
+}
+
+/* ######################################################### */
+/* # REDUCED MOTION                                        # */
+/* ######################################################### */
+
+@media (
+  prefers-reduced-motion:
+    reduce
+) {
+  .articleSidebar_shareButton,
+  .articleSidebar_headerLink,
+  .articleSidebar_relatedItem,
+  .articleSidebar_relatedThumb img,
+  .articleSidebar_relatedArrow,
+  .articleSidebar_bottomCta {
+    transition: none;
+  }
+
+  .articleSidebar_shareButtonSuccess {
+    animation: none;
+  }
+}
