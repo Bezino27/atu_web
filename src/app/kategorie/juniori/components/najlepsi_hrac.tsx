@@ -87,13 +87,38 @@ function getPlayerPhotoSrc(player: SzfbPlayerStat) {
   return player.photo_url || player.photo || null;
 }
 
+function normalizePlayerName(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function isMartinGulas(player: SzfbPlayerStat) {
+  return normalizePlayerName(player.player_name) === "martin gulas";
+}
 function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
-  const activePlayers = players.filter((player) => player.is_active !== false);
+  const activePlayers = players
+    .filter((player) => player.is_active !== false)
+    .sort((a, b) => {
+      if (b.points !== a.points) return b.points - a.points;
+      if (b.goals !== a.goals) return b.goals - a.goals;
+      if (b.assists !== a.assists) return b.assists - a.assists;
+      if (b.games !== a.games) return b.games - a.games;
+
+      // Pri úplnej štatistickej zhode má Martin Gulaš prednosť 😄
+      if (isMartinGulas(a) && !isMartinGulas(b)) return -1;
+      if (!isMartinGulas(a) && isMartinGulas(b)) return 1;
+
+      return a.player_name.localeCompare(b.player_name, "sk");
+    });
+
   const topPlayers = activePlayers.slice(0, 3);
 
-  if (topPlayers.length === 0) {
-    return placeholderPlayers;
-  }
+    if (topPlayers.length === 0) {
+      return placeholderPlayers;
+    }
 
   const mappedPlayers = topPlayers.map((player, index) => ({
     id: player.id,
