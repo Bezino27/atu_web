@@ -11,6 +11,7 @@ import Novinky from "./components/novinky";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
+import SeasonLeadersSection from "./components/najlepsi_hrac";
 import { getSzfbDashboard, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
@@ -273,6 +274,11 @@ export default async function MuziPage() {
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
 
+  const playerStats = szfbDashboard?.player_stats ?? [];
+  const activePlayerStats = playerStats.filter(
+    (player) => player.is_active !== false,
+  );
+
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
   const competitionName =
     szfbDashboard?.watch?.competition_name ||
@@ -439,14 +445,40 @@ export default async function MuziPage() {
       case "leaders":
       case "player_stats":
       case "top_players":
-        return null;
+        return renderLeadersSection(section);
 
       default:
         warnUnsupportedSection("/kategorie/muzi", section.section_type);
         return null;
     }
   };
+  const renderLeadersSection = (section: PageSection) => {
+    if (section.hide_when_empty && activePlayerStats.length === 0) {
+      return null;
+    }
 
+    return (
+      <section
+        key={section.id}
+        id="lidri"
+        className={pageStyles.sectionContainer}
+      >
+        <div className={pageStyles.resultsHeader}>
+          <div>
+            <span className={pageStyles.preTitle}>
+              {getSectionPreTitle(section, "Štatistiky tímu")}
+            </span>
+
+            <h2 className={pageStyles.sectionTitle}>
+              {getSectionTitle(section, "Lídri sezóny")}
+            </h2>
+          </div>
+        </div>
+
+        <SeasonLeadersSection players={activePlayerStats} />
+      </section>
+    );
+  }; 
   return (
     <div className={pageStyles.pageContainer}>
       <Header />

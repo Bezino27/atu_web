@@ -11,6 +11,7 @@ import Novinky from "./components/novinky";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
+import SeasonLeadersSection from "./components/najlepsi_hrac";
 import {
   getSzfbDashboard,
   getSzfbWatchIdForCategory,
@@ -224,6 +225,12 @@ export default async function JunioriPage() {
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
 
+  // # HRÁČSKE ŠTATISTIKY
+  const playerStats = szfbDashboard?.player_stats ?? [];
+  const activePlayerStats = playerStats.filter(
+    (player) => player.is_active !== false,
+  );
+
   const ownTeamName =
     szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
 
@@ -244,6 +251,7 @@ export default async function JunioriPage() {
     fallbackSections,
   );
 
+  // # HERO
   const renderHeroSection = (section: PageSection) => (
     <section key={section.id} className={heroStyles.heroSection}>
       <div className={heroStyles.bannerContainer}>
@@ -307,6 +315,7 @@ export default async function JunioriPage() {
     </section>
   );
 
+  // # ZÁPASY
   const renderMatchesSection = (section: PageSection) => {
     if (
       section.hide_when_empty &&
@@ -345,6 +354,7 @@ export default async function JunioriPage() {
     );
   };
 
+  // # NOVINKY
   const renderPostsSection = (section: PageSection) => {
     if (
       section.hide_when_empty &&
@@ -382,6 +392,7 @@ export default async function JunioriPage() {
     );
   };
 
+  // # TABUĽKA A VÝSLEDKY
   const renderOverviewSection = (section: PageSection) => {
     if (
       section.hide_when_empty &&
@@ -428,6 +439,47 @@ export default async function JunioriPage() {
     );
   };
 
+  // # LÍDRI SEZÓNY
+  const renderLeadersSection = (section: PageSection) => {
+    if (
+      section.hide_when_empty &&
+      activePlayerStats.length === 0
+    ) {
+      return null;
+    }
+
+    return (
+      <section
+        key={section.id}
+        id="lidri"
+        className={pageStyles.sectionContainer}
+      >
+        <div className={pageStyles.resultsHeader}>
+          <div>
+            <span className={pageStyles.preTitle}>
+              {getSectionPreTitle(
+                section,
+                "Štatistiky tímu",
+              )}
+            </span>
+
+            <h2 className={pageStyles.sectionTitle}>
+              {getSectionTitle(
+                section,
+                "Lídri sezóny",
+              )}
+            </h2>
+          </div>
+        </div>
+
+        <SeasonLeadersSection
+          players={activePlayerStats}
+        />
+      </section>
+    );
+  };
+
+  // # SEKCIE
   const renderSection = (section: PageSection) => {
     switch (section.section_type) {
       case "hero":
@@ -451,7 +503,7 @@ export default async function JunioriPage() {
       case "leaders":
       case "player_stats":
       case "top_players":
-        return null;
+        return renderLeadersSection(section);
 
       default:
         warnUnsupportedSection(
