@@ -6,23 +6,20 @@ import heroStyles from "../styles/CategoryHero.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
-import Image from "next/image";
+import HeroScrollZoomImage from "@/app/components/HeroScrollZoomImage";
 import Novinky from "./components/novinky";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import SeasonLeadersSection from "./components/najlepsi_hrac";
+import CategoryHeroContent from "../components/CategoryHeroContent";
 import {
   getSzfbDashboard,
   getSzfbWatchIdForCategory,
 } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import { getClubSeason } from "../../lib/season";
-import {
-  API_URL,
-  normalizeMediaUrl,
-  withDevMediaCacheBuster,
-} from "@/app/lib/api";
+import { API_URL } from "@/app/lib/api";
 import {
   getActiveSortedSections,
   getClubPageBySlug,
@@ -170,17 +167,10 @@ async function getCategories(): Promise<BackendCategory[]> {
       cache: "no-store",
     });
 
-    if (!res.ok) {
-      return [];
-    }
+    if (!res.ok) return [];
 
     const data = await res.json();
-
-    if (!Array.isArray(data)) {
-      return [];
-    }
-
-    return data;
+    return Array.isArray(data) ? data : [];
   } catch {
     return [];
   }
@@ -198,34 +188,20 @@ export default async function JunioriPage() {
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
 
-  const szfbDashboard = watchId
-    ? await getSzfbDashboard(watchId)
-    : null;
-
+  const szfbDashboard = watchId ? await getSzfbDashboard(watchId) : null;
   const currentCategory = categories.find(isCurrentCategory);
-
-  const categoryName =
-    currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
-
+  const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
   const categoryLeague =
     currentCategory?.league_name ||
     "Slovenská florbalová juniorská extraliga";
 
-  const heroImage = withDevMediaCacheBuster(
-    normalizeMediaUrl(
-      currentCategory?.hero_image_url,
-      "/images/kategorie/juniori_kader.jpg",
-    ),
-    Boolean(currentCategory?.hero_image_url),
-  );
 
   const junioriPosts = posts.filter(isCurrentCategoryPost);
-
   const standings = szfbDashboard?.standings ?? [];
+  const standingZones = szfbDashboard?.standing_zones ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
-
-  // # HRÁČSKE ŠTATISTIKY
+  const recentForm = szfbDashboard?.form ?? [];
   const playerStats = szfbDashboard?.player_stats ?? [];
   const activePlayerStats = playerStats.filter(
     (player) => player.is_active !== false,
@@ -233,94 +209,74 @@ export default async function JunioriPage() {
 
   const ownTeamName =
     szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
-
+  const ownTeamBrand = szfbDashboard?.watch?.team_brand ?? null;
   const competitionName =
     szfbDashboard?.watch?.competition_name ||
     currentCategory?.league_name ||
     "Extraliga";
 
   const nextMatch = upcomingMatches[0] ?? null;
-
   const currentSeason =
-    currentCategory?.season ??
-    clubSeason?.season ??
-    "2025 / 2026";
+    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
+
+  const heroDescription = currentCategory?.description?.trim() || "";
 
   const sections = getActiveSortedSections(
     categoryPage?.sections,
     fallbackSections,
   );
 
-  // # HERO
   const renderHeroSection = (section: PageSection) => (
-    <section key={section.id} className={heroStyles.heroSection}>
-      <div className={heroStyles.bannerContainer}>
-        <Image
-          src={heroImage}
-          alt={`ATU Košice ${categoryName}`}
-          fill
+    <section
+      key={section.id}
+      className={`${heroStyles.heroSection} ${heroStyles.heroArtworkSection}`}
+    >
+      <div
+        className={`${heroStyles.bannerContainer} ${heroStyles.heroArtworkBanner}`}
+      >
+        <HeroScrollZoomImage
+          src="/jex_backg_big.png"
+          mobileSrc="/jex_backg_phone.png"
+          mobileBreakpoint={768}
+          alt=""
+          wrapperClassName={heroStyles.heroArtworkBannerMedia}
+          imageClassName={heroStyles.heroArtworkBannerImage}
           priority
-          sizes="(max-width: 768px) 100vw, 1300px"
-          className={heroStyles.heroImg}
+          sizes="100vw"
+          scrollZoom={1.05}
+          scrollDistance={0.2}
+          smoothing={0.12}
         />
 
-        <div className={heroStyles.bannerOverlay}>
-          <div className={heroStyles.heroTextContent}>
-            <span className={heroStyles.heroSubtitle}>
-              {getSectionPreTitle(section, categoryLeague)}
-            </span>
-
-            <h1 className={heroStyles.bannerTitle}>
-              {getSectionTitle(section, categoryName)}
-            </h1>
-
-            <div className={heroStyles.heroQuickNav}>
-              <a
-                href="#zapasy"
-                className={heroStyles.heroQuickLink}
-              >
-                Zápasy
-              </a>
-
-              <a
-                href="#tabulka"
-                className={heroStyles.heroQuickLink}
-              >
-                Tabuľka
-              </a>
-            </div>
+        <div className={heroStyles.heroInner}>
+          <div className={heroStyles.heroMetaRow}>
+            <span className={heroStyles.heroLeagueText}>{categoryLeague}</span>
           </div>
 
-          <div className={heroStyles.heroMiniInfo}>
-            <span className={heroStyles.heroMiniLabel}>
-              Sezóna
-            </span>
-
-            <span className={heroStyles.heroMiniValue}>
-              {currentSeason}
-            </span>
-          </div>
+          <CategoryHeroContent
+            title={getSectionTitle(section, categoryName)}
+            description={heroDescription}
+            actions={[
+              { href: "#tabulka", label: "Tabuľka" },
+              { href: "#novinky", label: "Novinky" },
+              { href: "#lidri", label: "Lídri" },
+            ]}
+          />
         </div>
-      </div>
 
-      <NextMatchCountdown
-        matchDate={nextMatch?.match_date ?? null}
-        matchTime={nextMatch?.match_time ?? null}
-        opponent={
-          nextMatch?.opponent ?? "Súper bude doplnený"
-        }
-        ownTeamName={ownTeamName}
-        isHome={nextMatch?.is_home ?? null}
-      />
+        <NextMatchCountdown
+          matchDate={nextMatch?.match_date ?? null}
+          matchTime={nextMatch?.match_time ?? null}
+          opponent={nextMatch?.opponent ?? "Súper bude doplnený"}
+          ownTeamName={ownTeamName}
+          isHome={nextMatch?.is_home ?? null}
+        />
+      </div>
     </section>
   );
 
-  // # ZÁPASY
   const renderMatchesSection = (section: PageSection) => {
-    if (
-      section.hide_when_empty &&
-      upcomingMatches.length === 0
-    ) {
+    if (section.hide_when_empty && upcomingMatches.length === 0) {
       return null;
     }
 
@@ -328,38 +284,22 @@ export default async function JunioriPage() {
       <section
         key={section.id}
         id="zapasy"
-        className="sectionContainer"
+        className={pageStyles.sectionContainer}
       >
-        <div className={pageStyles.resultsHeader}>
-          <div>
-            <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(section, "Zápasy")}
-            </span>
-
-            <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(
-                section,
-                "Featured zápasy",
-              )}
-            </h2>
-          </div>
-        </div>
-
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
           ownTeamName={ownTeamName}
+          ownTeamBrand={ownTeamBrand}
           competitionName={competitionName}
+          preTitle={getSectionPreTitle(section, "Zápasy")}
+          title={getSectionTitle(section, "Featured zápasy")}
         />
       </section>
     );
   };
 
-  // # NOVINKY
   const renderPostsSection = (section: PageSection) => {
-    if (
-      section.hide_when_empty &&
-      junioriPosts.length === 0
-    ) {
+    if (section.hide_when_empty && junioriPosts.length === 0) {
       return null;
     }
 
@@ -367,22 +307,16 @@ export default async function JunioriPage() {
       <section
         key={section.id}
         id="novinky"
-        className="sectionContainer"
+        className={pageStyles.sectionContainer}
       >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(
-                section,
-                "Aktuálne dianie",
-              )}
+              {getSectionPreTitle(section, "Aktuálne dianie")}
             </span>
 
             <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(
-                section,
-                "Najdôležitejšie novinky",
-              )}
+              {getSectionTitle(section, "Najdôležitejšie novinky")}
             </h2>
           </div>
         </div>
@@ -392,7 +326,6 @@ export default async function JunioriPage() {
     );
   };
 
-  // # TABUĽKA A VÝSLEDKY
   const renderOverviewSection = (section: PageSection) => {
     if (
       section.hide_when_empty &&
@@ -406,7 +339,7 @@ export default async function JunioriPage() {
       <section
         key={section.id}
         id="tabulka"
-        className="overviewSection"
+        className={pageStyles.overviewSection}
       >
         <div className={pageStyles.resultsHeader}>
           <div>
@@ -424,14 +357,19 @@ export default async function JunioriPage() {
           <div className={pageStyles.tableColumn}>
             <Tabulka
               standings={standings}
+              zones={standingZones}
               ownTeamName={ownTeamName}
+              competitionName={competitionName}
             />
           </div>
 
           <div className={pageStyles.matchesColumn}>
             <RecentMatches
               results={resultMatches}
+              form={recentForm}
               ownTeamName={ownTeamName}
+              ownTeamBrand={ownTeamBrand}
+              competitionName={competitionName}
             />
           </div>
         </div>
@@ -439,12 +377,8 @@ export default async function JunioriPage() {
     );
   };
 
-  // # LÍDRI SEZÓNY
   const renderLeadersSection = (section: PageSection) => {
-    if (
-      section.hide_when_empty &&
-      activePlayerStats.length === 0
-    ) {
+    if (section.hide_when_empty && activePlayerStats.length === 0) {
       return null;
     }
 
@@ -457,54 +391,40 @@ export default async function JunioriPage() {
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
-              {getSectionPreTitle(
-                section,
-                "Štatistiky tímu",
-              )}
+              {getSectionPreTitle(section, "Štatistiky tímu")}
             </span>
 
             <h2 className={pageStyles.sectionTitle}>
-              {getSectionTitle(
-                section,
-                "Lídri sezóny",
-              )}
+              {getSectionTitle(section, "Lídri sezóny")}
             </h2>
           </div>
         </div>
 
-        <SeasonLeadersSection
-          players={activePlayerStats}
-        />
+        <SeasonLeadersSection players={activePlayerStats} />
       </section>
     );
   };
 
-  // # SEKCIE
   const renderSection = (section: PageSection) => {
     switch (section.section_type) {
       case "hero":
         return renderHeroSection(section);
-
       case "next_match":
       case "matches":
       case "category_matches":
       case "recent_matches":
         return renderMatchesSection(section);
-
       case "posts":
       case "category_posts":
         return renderPostsSection(section);
-
       case "matches_overview":
       case "standings":
       case "results":
         return renderOverviewSection(section);
-
       case "leaders":
       case "player_stats":
       case "top_players":
         return renderLeadersSection(section);
-
       default:
         warnUnsupportedSection(
           "/kategorie/juniori",
@@ -517,13 +437,9 @@ export default async function JunioriPage() {
   return (
     <div className={pageStyles.pageContainer}>
       <Header />
-
       <main className={pageStyles.content}>
-        {sections.map((section) =>
-          renderSection(section),
-        )}
+        {sections.map((section) => renderSection(section))}
       </main>
-
       <Footer />
     </div>
   );

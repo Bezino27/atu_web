@@ -45,9 +45,7 @@
 .heroInner h1 {
   margin: 0 0 16px;
   font-family:
-    "ATU Unison Pro Bold",
     var(--font-unison),
-    var(--font-sans),
     sans-serif;
   font-size: clamp(2.35rem, 4.8vw, 4.15rem);
   font-style: normal;
@@ -61,11 +59,7 @@
   max-width: 700px;
   margin: 0;
   color: rgba(255, 255, 255, 0.78);
-  font-family:
-    var(--font-barlow),
-    "Barlow",
-    var(--font-sans),
-    sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 1.06rem;
   line-height: 1.58;
 }
@@ -77,11 +71,7 @@
   gap: 8px 11px;
   margin-top: 24px;
   color: rgba(255, 255, 255, 0.42);
-  font-family:
-    var(--font-barlow),
-    "Barlow",
-    var(--font-sans),
-    sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -122,15 +112,36 @@
   color: inherit;
   text-decoration: none;
   transition:
-    transform 0.22s ease,
-    border-color 0.22s ease,
-    box-shadow 0.22s ease;
+    transform var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease);
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(17, 22, 28, 0.15);
-  box-shadow: 0 16px 34px rgba(12, 18, 28, 0.09);
+  transform: translateY(var(--hover-lift-card));
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+}
+
+.cardCompact {
+  border-radius: 16px;
+}
+
+.cardCompact .cardContent {
+  padding: 16px 17px 18px;
+}
+
+.cardCompact .meta {
+  margin-bottom: 11px;
+}
+
+.cardCompact .cardContent h2 {
+  font-size: 1.12rem;
+}
+
+.cardCompact .cardContent p {
+  font-size: 0.88rem;
+  line-height: 1.42;
 }
 
 .imageWrap {
@@ -150,11 +161,7 @@
   display: flex;
   flex-direction: column;
   padding: 18px 19px 21px;
-  font-family:
-    var(--font-barlow),
-    "Barlow",
-    var(--font-sans),
-    sans-serif;
+  font-family: var(--font-sans), sans-serif;
 }
 
 .meta {
@@ -192,11 +199,7 @@
 .cardContent h2 {
   margin: 0 0 9px;
   color: #171c22;
-  font-family:
-    var(--font-barlow),
-    "Barlow",
-    var(--font-sans),
-    sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 1.22rem;
   font-style: normal;
   font-weight: 700;

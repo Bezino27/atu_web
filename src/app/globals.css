@@ -1,18 +1,34 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Unison Pro";
-  src: url("/fonts/ATU-Unison Pro Bold Italic.otf") format("opentype");
-  font-weight: 700;
+  font-family: "ATU Unison Pro";
+  src: url("/fonts/ATU-Unison Pro Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ATU Unison Pro";
+  src: url("/fonts/ATU-Unison Pro Light Italic.otf") format("opentype");
+  font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "ATU Unison Pro Bold";
+  font-family: "ATU Unison Pro";
   src: url("/fonts/ATU-Unison Pro Bold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ATU Unison Pro";
+  src: url("/fonts/ATU-Unison Pro Bold Italic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -55,8 +71,21 @@
 
   /* # SHADOWS */
   --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.06);
-  --shadow-card-hover: 0 18px 36px rgba(15, 23, 42, 0.1);
+  --shadow-card-hover: 0 12px 26px rgba(15, 23, 42, 0.08);
   --shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.05);
+
+  /* # GENERIC HOVER / MOTION */
+  --hover-duration-fast: 180ms;
+  --hover-duration-normal: 220ms;
+  --hover-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --hover-lift-card: -3px;
+  --hover-lift-button: -1px;
+  --hover-directional-shift: 3px;
+  --hover-border: var(--color-border-strong);
+  --hover-surface: var(--color-surface-soft);
+  --hover-shadow-card: var(--shadow-card-hover);
+  --hover-link-color: var(--color-red-dark);
+  --hover-link-color-inverse: var(--color-white);
 
   /* # RADIUS */
   --radius-sm: 8px;
@@ -73,13 +102,10 @@
 
   /* # FONTS */
   --font-sans: var(--font-manrope);
-  --font-mono: var(--font-geist-mono);
-  --font-unison: "Unison Pro", sans-serif;
-  --font-banner: var(--font-unison);
+  --font-unison: "ATU Unison Pro", sans-serif;
 
   /* # FONT WEIGHTS */
   --font-title-weight: 700;
-  --font-banner-weight: 900;
 
   /* # FONT SIZES */
   --font-section-eyebrow: 16px;
@@ -93,7 +119,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
   padding-top: 0px;
 }
 
@@ -175,13 +201,13 @@ body {
   line-height: 1;
   white-space: nowrap;
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    color var(--hover-duration-fast) var(--hover-ease),
+    transform var(--hover-duration-fast) var(--hover-ease);
 }
 
 .sectionLink:hover {
   color: var(--color-text-muted);
-  transform: translateY(-1px);
+  transform: translateX(var(--hover-directional-shift));
 }
 
 /* # RESPONSIVE - 1024 */
@@ -307,6 +333,14 @@ body {
 /* # ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --hover-duration-fast: 0.01ms;
+    --hover-duration-normal: 0.01ms;
+    --hover-lift-card: 0px;
+    --hover-lift-button: 0px;
+    --hover-directional-shift: 0px;
+  }
+
   html {
     scroll-behavior: auto;
   }

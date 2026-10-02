@@ -1,12 +1,11 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
-import { getImageUrl } from "@/app/lib/api";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
+import ArticleCard from "./ArticleCard";
 
 export const metadata: Metadata = {
   title: "Články",
@@ -24,22 +23,6 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE_URL],
   },
 };
-
-function formatDate(dateString?: string | null) {
-  if (!dateString) return "";
-
-  const date = new Date(dateString);
-
-  if (Number.isNaN(date.getTime())) {
-    return "";
-  }
-
-  return date.toLocaleDateString("sk-SK", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
 
 export default async function ArticlesPage() {
   await connection();
@@ -78,48 +61,7 @@ export default async function ArticlesPage() {
         <section className={styles.contentSection}>
           <div className={styles.grid}>
             {posts.map((post) => (
-              <Link
-                key={post.id}
-                href={`/clanky/${post.slug}`}
-                className={styles.card}
-              >
-                <div className={styles.imageWrap}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={getImageUrl(post.featured_image)}
-                    alt={post.title}
-                    className={styles.image}
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className={styles.cardContent}>
-                  <div className={styles.meta}>
-                    <span className={styles.badge}>
-                      {post.category?.name || "Novinka"}
-                    </span>
-
-                    <time
-                      dateTime={
-                        post.published_at ||
-                        post.created_at ||
-                        post.updated_at ||
-                        undefined
-                      }
-                      className={styles.date}
-                    >
-                      {formatDate(
-                        post.published_at ||
-                          post.created_at ||
-                          post.updated_at
-                      )}
-                    </time>
-                  </div>
-
-                  <h2>{post.title}</h2>
-                  <p>{post.excerpt || "Prečítať článok"}</p>
-                </div>
-              </Link>
+              <ArticleCard key={post.id} post={post} />
             ))}
           </div>
         </section>

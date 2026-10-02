@@ -6,20 +6,18 @@ import heroStyles from "../styles/CategoryHero.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import NasledujuceZapasy from "./components/nasledujuce_zapasy";
-import Image from "next/image";
 import Novinky from "./components/novinky";
 import RecentMatches from "./components/posledne_zapasy";
 import Tabulka from "./components/tabulka";
 import NextMatchCountdown from "./components/NextMatchCountdown";
 import SeasonLeadersSection from "./components/najlepsi_hrac";
+import CategoryHeroContent from "../components/CategoryHeroContent";
+import HeroScrollZoomImage from "@/app/components/HeroScrollZoomImage";
 import { getSzfbDashboard, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
-import { getClubSeason } from "@/app/lib/season";
 import {
   API_URL,
   getApiFetchOptions,
-  normalizeMediaUrl,
-  withDevMediaCacheBuster,
 } from "@/app/lib/api";
 import { warnUnsupportedSection } from "@/app/lib/pages";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../../lib/seo";
@@ -83,6 +81,7 @@ type ClubPage = {
 const CLUB_SLUG = "atu-kosice";
 const CATEGORY_SLUG = "muzi";
 const CATEGORY_FALLBACK_NAME = "Muži";
+const COMPETITION_LOGO = "/logo/muzi_extraliga_logo.png";
 
 const fallbackSections: PageSection[] = [
   {
@@ -196,17 +195,10 @@ async function getCategories(): Promise<BackendCategory[]> {
       cache: "no-store",
     });
 
-    if (!res.ok) {
-      return [];
-    }
+    if (!res.ok) return [];
 
     const data = await res.json();
-
-    if (!Array.isArray(data)) {
-      return [];
-    }
-
-    return data;
+    return Array.isArray(data) ? data : [];
   } catch {
     return [];
   }
@@ -236,11 +228,10 @@ async function getCategoryPage(): Promise<ClubPage | null> {
 export default async function MuziPage() {
   await connection();
 
-  const [categoryPage, posts, clubSeason, categories, watchId] =
+  const [categoryPage, posts, categories, watchId] =
     await Promise.all([
       getCategoryPage(),
       getHomepagePosts(CLUB_SLUG),
-      getClubSeason(CLUB_SLUG),
       getCategories(),
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
@@ -257,79 +248,63 @@ export default async function MuziPage() {
   const currentCategory = categories.find(isCurrentCategory);
   const categoryName = currentCategory?.name ?? CATEGORY_FALLBACK_NAME;
 
-  const categoryLeague =
-    currentCategory?.league_name || "Slovenská florbalová extraliga";
-
-  const heroImage: string = withDevMediaCacheBuster(
-    normalizeMediaUrl(
-      currentCategory?.hero_image_url,
-      "/images/kategorie/muzi_kader.jpg",
-    ),
-    Boolean(currentCategory?.hero_image_url),
-  );
-
   const muziPosts = posts.filter(isCurrentCategoryPost);
-
   const standings = szfbDashboard?.standings ?? [];
+  const standingZones = szfbDashboard?.standing_zones ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
-
+  const recentForm = szfbDashboard?.form ?? [];
   const playerStats = szfbDashboard?.player_stats ?? [];
   const activePlayerStats = playerStats.filter(
     (player) => player.is_active !== false,
   );
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+  const ownTeamBrand = szfbDashboard?.watch?.team_brand ?? null;
   const competitionName =
     szfbDashboard?.watch?.competition_name ||
     currentCategory?.league_name ||
     "Extraliga";
+  const heroDescription = currentCategory?.description?.trim() || "";
 
   const nextMatch = upcomingMatches[0] ?? null;
+  const renderHeroSection = (section: PageSection) => (
+    <section
+      key={section.id}
+      className={`${heroStyles.heroSection} ${heroStyles.heroMenSection}`}
+    >
+      <div className={`${heroStyles.bannerContainer} ${heroStyles.heroMenBanner}`}>
+        <HeroScrollZoomImage
+          src="/muzi_backg.png"
+          mobileSrc="/muzi_backg_phone.png"
+          mobileBreakpoint={768}
+          alt=""
+          wrapperClassName={heroStyles.heroMenBannerMedia}
+          imageClassName={heroStyles.heroMenBannerImage}
+          priority
+          sizes="100vw"
+          scrollZoom={1.05}
+          scrollDistance={0.2}
+          smoothing={0.12}
+        />
 
-  const currentSeason =
-    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
+        <div className={heroStyles.heroInner}>
+          <div className={heroStyles.heroMetaRow}>
+            <span className={heroStyles.heroLeagueText}>
+              {getSectionPreTitle(section, "Florbalová extraliga mužov")}
+            </span>
+          </div>
 
-  const renderHeroSection = (section: PageSection) => {
-    return (
-      <section key={section.id} className={heroStyles.heroSection}>
-        <div className={heroStyles.bannerContainer}>
-          <Image
-            src={heroImage}
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 1300px"
-            className={heroStyles.heroImg}
+          <CategoryHeroContent
+            title={getSectionTitle(section, categoryName)}
+            description={heroDescription}
+            actions={[
+              { href: "#tabulka", label: "Tabuľka" },
+              { href: "#novinky", label: "Novinky" },
+              { href: "#lidri", label: "Lídri" },
+            ]}
           />
 
-          <div className={heroStyles.bannerOverlay}>
-            <div className={heroStyles.heroTextContent}>
-              <span className={heroStyles.heroSubtitle}>
-                {getSectionPreTitle(section, categoryLeague)}
-              </span>
-
-              <h1 className={heroStyles.bannerTitle}>
-                {getSectionTitle(section, categoryName)}
-              </h1>
-
-              <div className={heroStyles.heroQuickNav}>
-                <a href="#novinky" className={heroStyles.heroQuickLink}>
-                  Novinky
-                </a>
-
-                <a href="#tabulka" className={heroStyles.heroQuickLink}>
-                  Tabuľka
-                </a>
-
-              </div>
-            </div>
-
-            <div className={heroStyles.heroMiniInfo}>
-              <span className={heroStyles.heroMiniLabel}>Sezóna</span>
-              <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
-            </div>
-          </div>
         </div>
 
         <NextMatchCountdown
@@ -339,24 +314,25 @@ export default async function MuziPage() {
           ownTeamName={ownTeamName}
           isHome={nextMatch?.is_home ?? null}
         />
-      </section>
-    );
-  };
+      </div>
+    </section>
+  );
 
   const renderMatchesSection = (section: PageSection) => {
-    if (
-      section.hide_when_empty &&
-      upcomingMatches.length === 0 &&
-      resultMatches.length === 0
-    ) {
+    if (section.hide_when_empty && upcomingMatches.length === 0) {
       return null;
     }
 
     return (
-      <section key={section.id} id="zapasy" className={pageStyles.sectionContainer}>
+      <section
+        key={section.id}
+        id="zapasy"
+        className={pageStyles.sectionContainer}
+      >
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
           ownTeamName={ownTeamName}
+          ownTeamBrand={ownTeamBrand}
           competitionName={competitionName}
           preTitle={getSectionPreTitle(section, "Zápasy")}
           title={getSectionTitle(section, "Featured zápasy")}
@@ -371,7 +347,11 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="novinky" className={pageStyles.sectionContainer}>
+      <section
+        key={section.id}
+        id="novinky"
+        className={pageStyles.sectionContainer}
+      >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
@@ -398,7 +378,11 @@ export default async function MuziPage() {
     }
 
     return (
-      <section key={section.id} id="tabulka" className={pageStyles.overviewSection}>
+      <section
+        key={section.id}
+        id="tabulka"
+        className={pageStyles.overviewSection}
+      >
         <div className={pageStyles.resultsHeader}>
           <div>
             <span className={pageStyles.preTitle}>
@@ -412,46 +396,30 @@ export default async function MuziPage() {
 
         <div className={pageStyles.overviewGrid}>
           <div className={pageStyles.tableColumn}>
-            <Tabulka standings={standings} ownTeamName={ownTeamName} />
+            <Tabulka
+              standings={standings}
+              zones={standingZones}
+              ownTeamName={ownTeamName}
+              competitionName={competitionName}
+              competitionLogoSrc={COMPETITION_LOGO}
+            />
           </div>
 
           <div className={pageStyles.matchesColumn}>
-            <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
+            <RecentMatches
+              results={resultMatches}
+              form={recentForm}
+              ownTeamName={ownTeamName}
+              ownTeamBrand={ownTeamBrand}
+              competitionName={competitionName}
+              competitionLogoSrc={COMPETITION_LOGO}
+            />
           </div>
         </div>
       </section>
     );
   };
 
-  const renderSection = (section: PageSection) => {
-    switch (section.section_type) {
-      case "hero":
-        return renderHeroSection(section);
-
-      case "next_match":
-      case "matches":
-      case "category_matches":
-        return renderMatchesSection(section);
-
-      case "posts":
-      case "category_posts":
-        return renderPostsSection(section);
-
-      case "matches_overview":
-      case "standings":
-      case "results":
-        return renderOverviewSection(section);
-
-      case "leaders":
-      case "player_stats":
-      case "top_players":
-        return renderLeadersSection(section);
-
-      default:
-        warnUnsupportedSection("/kategorie/muzi", section.section_type);
-        return null;
-    }
-  };
   const renderLeadersSection = (section: PageSection) => {
     if (section.hide_when_empty && activePlayerStats.length === 0) {
       return null;
@@ -468,7 +436,6 @@ export default async function MuziPage() {
             <span className={pageStyles.preTitle}>
               {getSectionPreTitle(section, "Štatistiky tímu")}
             </span>
-
             <h2 className={pageStyles.sectionTitle}>
               {getSectionTitle(section, "Lídri sezóny")}
             </h2>
@@ -478,15 +445,39 @@ export default async function MuziPage() {
         <SeasonLeadersSection players={activePlayerStats} />
       </section>
     );
-  }; 
+  };
+
+  const renderSection = (section: PageSection) => {
+    switch (section.section_type) {
+      case "hero":
+        return renderHeroSection(section);
+      case "next_match":
+      case "matches":
+      case "category_matches":
+        return renderMatchesSection(section);
+      case "posts":
+      case "category_posts":
+        return renderPostsSection(section);
+      case "matches_overview":
+      case "standings":
+      case "results":
+        return renderOverviewSection(section);
+      case "leaders":
+      case "player_stats":
+      case "top_players":
+        return renderLeadersSection(section);
+      default:
+        warnUnsupportedSection("/kategorie/muzi", section.section_type);
+        return null;
+    }
+  };
+
   return (
     <div className={pageStyles.pageContainer}>
       <Header />
-
       <main className={pageStyles.content}>
         {sections.map((section) => renderSection(section))}
       </main>
-
       <Footer />
     </div>
   );

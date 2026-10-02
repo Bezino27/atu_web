@@ -53,11 +53,13 @@ function storeVotedPollId(pollId: number) {
 type PollSectionProps = {
   preTitle?: string;
   title?: string;
+  hideWhenEmpty?: boolean;
 };
 
 export default function PollSection({
   preTitle = "Anketa",
   title = "Hlasovanie fanúšikov",
+  hideWhenEmpty = false,
 }: PollSectionProps) {
   const [polls, setPolls] = useState<PollState[]>([]);
   const [latestResult, setLatestResult] = useState<ApiPollResults | null>(null);
@@ -195,6 +197,10 @@ export default function PollSection({
   const hasOpenPolls = polls.length > 0;
   const hasLatestResult = Boolean(latestResult);
   const hasAnyContent = hasOpenPolls || hasLatestResult;
+
+  if (hideWhenEmpty && !hasAnyContent) {
+    return null;
+  }
 
   return (
     <section className="sectionContainer">

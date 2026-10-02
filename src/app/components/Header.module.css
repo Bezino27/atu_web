@@ -1,16 +1,10 @@
-@font-face {
-  font-family: "ATU Unison Pro Light";
-  src: url("/fonts/ATU-Unison Pro Light.otf") format("opentype");
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-}
-
 /* ######################################################### */
 /* # HEADER WRAPPER                                        # */
 /* ######################################################### */
 
 .header {
+  --header-nav-letter-spacing: 0.2em;
+
   position: sticky;
   top: 0;
 
@@ -38,7 +32,8 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 1041px) {
+
+@media (min-width: 1101px) {
   .headerShifted {
     transform: translateY(-45px);
   }
@@ -294,8 +289,8 @@
 }
 
 .logo {
-  width: 90px;
-  height: 90px;
+  width: 68px;
+  height: 68px;
 
   flex-shrink: 0;
 
@@ -385,8 +380,7 @@
   text-decoration: none;
 
   font-family:
-    "ATU Unison Pro Light",
-    var(--font-sans),
+    var(--font-unison),
     sans-serif;
 
   font-style: normal;
@@ -394,8 +388,8 @@
   font-weight: 300;
 
   /*
-   * Unison Light zostáva Light,
-   * ale opticky je o trochu hrubší a čitateľnejší.
+   * Unison Light zostÃ¡va Light,
+   * ale opticky je o trochu hrubÅ¡Ã­ a ÄitateÄ¾nejÅ¡Ã­.
    */
   -webkit-text-stroke:
     0.18px
@@ -403,7 +397,7 @@
 
   font-size: 0.78rem;
 
-  letter-spacing: 0.015em;
+  letter-spacing: 0.215em;
 
   line-height: 1;
 
@@ -565,8 +559,7 @@
 
 .dropdownLabel {
   font-family:
-    "ATU Unison Pro Light",
-    var(--font-sans),
+    var(--font-unison),
     sans-serif;
 
   font-size: 0.6rem;
@@ -608,8 +601,7 @@
   text-decoration: none;
 
   font-family:
-    "ATU Unison Pro Light",
-    var(--font-sans),
+    var(--font-unison),
     sans-serif;
 
   font-size: 0.76rem;
@@ -688,8 +680,7 @@
   text-decoration: none;
 
   font-family:
-    "ATU Unison Pro Bold",
-    var(--font-sans),
+    var(--font-unison),
     sans-serif;
 
   font-size: 0.78rem;
@@ -890,16 +881,35 @@
 
   font-family:
     var(--font-unison),
-    var(--font-sans),
     sans-serif;
 
-  font-style: italic;
+  font-style: normal;
 
-  font-weight: 700;
+  font-weight: 300;
 
-  letter-spacing: 0.04em;
+  -webkit-text-stroke:
+    0.18px
+    currentColor;
 
-  text-transform: uppercase;
+  font-size: 0.96rem;
+
+  letter-spacing: 0.015em;
+
+  text-transform: none;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.mobileNavLink:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.mobileNavLinkLong {
+  font-size: clamp(0.72rem, 2.5vw, 0.88rem);
+  white-space: nowrap;
 }
 
 /* ######################################################### */
@@ -907,11 +917,9 @@
 /* ######################################################### */
 
 .mobileDropdown {
-  --tree-x: 18px;
   --tree-stroke: 2px;
-  --branch-width: 24px;
   --chevron-x: 58px;
-  --text-x: 92px;
+  --text-x: 86px;
 
   position: relative;
 
@@ -954,18 +962,21 @@
 
   font-family:
     var(--font-unison),
-    var(--font-sans),
     sans-serif;
 
-  font-size: 1rem;
+  font-size: 0.96rem;
 
-  font-style: italic;
+  font-style: normal;
 
-  font-weight: 700;
+  font-weight: 300;
 
-  letter-spacing: 0.04em;
+  -webkit-text-stroke:
+    0.18px
+    currentColor;
 
-  text-transform: uppercase;
+  letter-spacing: 0.015em;
+
+  text-transform: none;
 
   cursor: pointer;
 }
@@ -1023,52 +1034,75 @@
   opacity: 0;
 
   transition:
-    max-height 0.28s ease,
-    padding 0.28s ease,
+    max-height 0.32s cubic-bezier(0.23, 1, 0.32, 1),
+    padding 0.32s cubic-bezier(0.23, 1, 0.32, 1),
     opacity 0.18s ease;
 }
 
 .mobileSubmenuOpen {
   max-height: 420px;
 
-  padding-top: 8px;
-  padding-bottom: 12px;
+  padding-top: 6px;
+  padding-bottom: 10px;
 
   opacity: 1;
 }
 
 /* ######################################################### */
-/* # TREE MAIN LINE                                        # */
+/* # BRANCHED TREE                                         # */
 /* ######################################################### */
 
-.mobileSubmenuOpen::before {
-  content: "";
-
+.mobileSubmenuTree {
   position: absolute;
-
-  left: var(--tree-x);
-
   top: -18px;
-
-  bottom: 39px;
-
-  width: var(--tree-stroke);
-
-  background: rgba(255, 255, 255, 0.32);
-
+  left: 0;
+  width: var(--chevron-x);
+  height: calc(100% + 18px);
+  overflow: visible;
+  opacity: 0;
   pointer-events: none;
 }
 
-/* ######################################################### */
-/* # SUBMENU ITEM                                          # */
-/* ######################################################### */
+.mobileSubmenuTreeBase,
+.mobileSubmenuTreeActive {
+  fill: none;
+  stroke-width: var(--tree-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.mobileSubmenuTreeBase {
+  stroke: rgba(255, 255, 255, 0.31);
+}
+
+.mobileSubmenuTreeBranch {
+  stroke-linecap: butt;
+}
+
+.mobileSubmenuTreeActive {
+  stroke: var(--color-red);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 5px rgba(211, 47, 47, 0.18));
+}
+
+.mobileSubmenuOpen .mobileSubmenuTree {
+  animation: mobileTreeFadeIn 0.24s ease forwards;
+}
+
+.mobileSubmenuOpen .mobileSubmenuTreeActive {
+  animation: mobileTreeReachIn 0.36s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
 
 .mobileSubmenuLink {
   position: relative;
 
+  z-index: 1;
+
   width: 100%;
 
-  min-height: 62px;
+  min-height: 60px;
 
   display: flex;
   align-items: center;
@@ -1081,150 +1115,170 @@
 
   background: transparent;
 
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.68);
 
   text-decoration: none;
 
   font-family:
     var(--font-unison),
-    var(--font-sans),
     sans-serif;
 
-  font-style: italic;
+  font-size: 0.92rem;
 
-  font-weight: 700;
+  font-style: normal;
 
-  letter-spacing: 0.03em;
+  font-weight: 300;
 
-  text-transform: uppercase;
+  -webkit-text-stroke:
+    0.16px
+    currentColor;
+
+  letter-spacing: 0.012em;
+
+  text-transform: none;
+
+  opacity: 0;
+  transform: translateX(-4px);
 
   transition:
     color 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* ######################################################### */
-/* # TREE BRANCH                                           # */
-/* ######################################################### */
-
-.mobileSubmenuLink::before {
-  content: "";
-
-  position: absolute;
-
-  left:
-    calc(
-      var(--tree-x) +
-      var(--tree-stroke)
-    );
-
-  top:
-    calc(
-      50% - 1px
-    );
-
-  width: var(--branch-width);
-
-  height: var(--tree-stroke);
-
-  background:
-    rgba(255, 255, 255, 0.32);
-
-  transition:
-    background 0.2s ease,
-    width 0.2s ease;
+.mobileSubmenuOpen .mobileSubmenuLink {
+  animation:
+    mobileTreeItemIn
+    0.28s
+    cubic-bezier(0.23, 1, 0.32, 1)
+    forwards;
 }
 
-/* ######################################################### */
-/* # TREE CHEVRON                                          # */
-/* ######################################################### */
+.mobileSubmenuOpen .mobileSubmenuLink:nth-of-type(1) {
+  animation-delay: 0.04s;
+}
 
-.mobileSubmenuLink::after {
-  content: "";
+.mobileSubmenuOpen .mobileSubmenuLink:nth-of-type(2) {
+  animation-delay: 0.07s;
+}
+
+.mobileSubmenuOpen .mobileSubmenuLink:nth-of-type(3) {
+  animation-delay: 0.1s;
+}
+
+.mobileSubmenuOpen .mobileSubmenuLink:nth-of-type(4) {
+  animation-delay: 0.13s;
+}
+
+.mobileSubmenuOpen .mobileSubmenuLink:nth-of-type(5) {
+  animation-delay: 0.16s;
+}
+
+.mobileSubmenuArrow {
+  display: block;
 
   position: absolute;
 
   left: var(--chevron-x);
   top: 50%;
 
-  width: 9px;
-  height: 9px;
+  width: 16px;
+  height: 16px;
 
-  border-top:
-    3px solid
-    rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.48);
 
-  border-right:
-    3px solid
-    rgba(255, 255, 255, 0.62);
-
-  transform:
-    translate(-50%, -50%)
-    rotate(45deg);
+  transform: translate(-50%, -50%);
 
   transition:
-    border-color 0.2s ease,
+    color 0.2s ease,
     transform 0.2s ease,
     filter 0.2s ease;
 
   pointer-events: none;
 }
 
-.mobileSubmenuArrow,
 .mobileSubmenuArrowActive {
-  display: none;
-}
-
-/* ######################################################### */
-/* # SUBMENU HOVER                                         # */
-/* ######################################################### */
-
-.mobileSubmenuLink:hover {
-  color: rgba(255, 255, 255, 0.94);
-}
-
-.mobileSubmenuLink:hover::before {
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.mobileSubmenuLink:hover::after {
-  border-color:
-    rgba(255, 255, 255, 0.9);
-
-  transform:
-    translate(
-      calc(-50% + 2px),
-      -50%
-    )
-    rotate(45deg);
-}
-
-/* ######################################################### */
-/* # SUBMENU ACTIVE                                        # */
-/* ######################################################### */
-
-.mobileSubmenuLinkActive {
-  color: #ffffff;
-}
-
-.mobileSubmenuLinkActive::before {
-  background: var(--color-red);
-}
-
-.mobileSubmenuLinkActive::after {
-  border-color: var(--color-red);
+  color: var(--color-red);
 
   filter:
     drop-shadow(
       0
       0
       5px
-      rgba(211, 47, 47, 0.34)
+      rgba(211, 47, 47, 0.28)
     );
 }
 
-.mobileSubmenuLinkActive:hover::after {
-  border-color: var(--color-red);
+/* ######################################################### */
+/* # SUBMENU HOVER / ACTIVE                                # */
+/* ######################################################### */
+
+.mobileSubmenuLink:hover {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.mobileSubmenuLink:hover .mobileSubmenuArrow {
+  color: rgba(255, 255, 255, 0.92);
+
+  transform:
+    translate(
+      calc(-50% + 2px),
+      -50%
+    );
+}
+
+.mobileSubmenuLinkActive {
+  color: #ffffff;
+}
+
+.mobileSubmenuLinkActive:hover .mobileSubmenuArrow {
+  color: var(--color-red);
+}
+
+@keyframes mobileTreeFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mobileTreeReachIn {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mobileTreeItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileSubmenuOpen .mobileSubmenuTree,
+  .mobileSubmenuOpen .mobileSubmenuTreeActive,
+  .mobileSubmenuOpen .mobileSubmenuLink {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .mobileSubmenuOpen .mobileSubmenuTreeActive {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* ######################################################### */
@@ -1265,8 +1319,7 @@
   text-decoration: none;
 
   font-family:
-    "ATU Unison Pro Bold",
-    var(--font-sans),
+    var(--font-unison),
     sans-serif;
 
   font-size: 0.8rem;
@@ -1522,7 +1575,7 @@
 /* # TABLET                                                # */
 /* ######################################################### */
 
-@media (max-width: 1040px) {
+@media (max-width: 1100px) {
   .topRight {
     gap: 12px;
   }
@@ -1615,8 +1668,8 @@
   }
 
   .logo {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
   }
 
   .logoText strong {
@@ -1698,8 +1751,8 @@
   }
 
   .logo {
-    width: 58px;
-    height: 58px;
+    width: 46px;
+    height: 46px;
   }
 
   .logoText strong {
@@ -1748,10 +1801,8 @@
   /* ####################################################### */
 
   .mobileDropdown {
-    --tree-x: 18px;
-    --branch-width: 22px;
-    --chevron-x: 55px;
-    --text-x: 88px;
+    --chevron-x: 56px;
+    --text-x: 84px;
   }
 
   .mobileNavToggle {
@@ -1766,10 +1817,10 @@
     height: 28px;
   }
 
-  .mobileSubmenuOpen::before {
+  .mobileSubmenuTree {
     top: -17px;
 
-    bottom: 37px;
+    height: calc(100% + 17px);
   }
 
   .mobileSubmenuLink {
@@ -1778,12 +1829,9 @@
     padding-left: var(--text-x);
   }
 
-  .mobileSubmenuLink::after {
-    width: 8px;
-    height: 8px;
-
-    border-top-width: 3px;
-    border-right-width: 3px;
+  .mobileSubmenuArrow {
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -1812,8 +1860,8 @@
   }
 
   .logo {
-    width: 52px;
-    height: 52px;
+    width: 42px;
+    height: 42px;
   }
 
   .logoText strong {
@@ -1846,10 +1894,8 @@
   /* ####################################################### */
 
   .mobileDropdown {
-    --tree-x: 16px;
-    --branch-width: 20px;
-    --chevron-x: 50px;
-    --text-x: 80px;
+    --chevron-x: 51px;
+    --text-x: 76px;
   }
 
   .mobileNavIcon {
@@ -1857,24 +1903,24 @@
     height: 25px;
   }
 
-  .mobileSubmenuOpen::before {
+  .mobileSubmenuTree {
     top: -16px;
 
-    bottom: 35px;
+    height: calc(100% + 16px);
   }
 
   .mobileSubmenuLink {
-    min-height: 56px;
+    min-height: 58px;
 
     padding-left: var(--text-x);
     padding-right: 0;
 
-    font-size: 0.92rem;
+    font-size: 0.88rem;
   }
 
-  .mobileSubmenuLink::after {
-    width: 7px;
-    height: 7px;
+  .mobileSubmenuArrow {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -1908,4 +1954,16 @@
     width: 16px;
     height: 16px;
   }
+}
+
+/* One shared tracking value for every navigation label in the header. */
+.navLink,
+.dropdownLabel,
+.dropdownContent a,
+.ctaButton,
+.mobileNavLink,
+.mobileNavToggle,
+.mobileSubmenuLink,
+.mobileCta {
+  letter-spacing: var(--header-nav-letter-spacing);
 }

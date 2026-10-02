@@ -3,289 +3,690 @@
 /* # HERO */
 
 .heroSection {
-  width: 100%;
-  max-width: 1300px;
-  margin: 16px auto 0;
-  padding: 0 16px;
+  --hero-position-desktop: center 34%;
+  --hero-position-tablet: center 30%;
+  --hero-position-mobile: center 25%;
+  --hero-content-gutter: clamp(48px, 10vw, 200px);
+
   position: relative;
   z-index: 5;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 34px;
   box-sizing: border-box;
+}
+
+.heroSection.heroSectionWithoutCountdown {
+  padding-bottom: 0;
 }
 
 .bannerContainer {
   position: relative;
   width: 100%;
-  min-height: 580px;
-  border-radius: var(--radius-xl);
+  min-height: clamp(560px, 47vw, 720px);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 42px;
-  background: var(--color-black);
-  box-sizing: border-box;
-  line-height: 1;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background:
+    linear-gradient(90deg, rgba(5, 8, 13, 0.08), rgba(5, 8, 13, 0.08)),
+    url("/atu-article-bg.png") right center / auto 100% no-repeat,
+    #05080d;
   isolation: isolate;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+
+.bannerContainerCompact {
+  min-height: clamp(500px, 40vw, 620px);
+}
+
+.bannerContainer::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+
+  width: calc(36% + 100px);
+
+  background: url("/atu-article-bg.png") right center / auto 100% no-repeat;
+
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 68%,
+    rgba(0, 0, 0, 0.76) 78%,
+    rgba(0, 0, 0, 0.34) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 68%,
+    rgba(0, 0, 0, 0.76) 78%,
+    rgba(0, 0, 0, 0.34) 90%,
+    transparent 100%
+  );
+
+  pointer-events: none;
 }
 
 .bannerContainer::after {
   content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(2, 4, 7, 0.34) 0%,
+    rgba(2, 4, 7, 0.2) 22%,
+    rgba(2, 4, 7, 0.08) 36%,
+    transparent 48%
+  );
+
+  pointer-events: none;
+}
+
+/* # TEAM PHOTO */
+
+.heroImg {
+  z-index: 0;
+  left: auto !important;
+  right: 0 !important;
+  width: 72% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: var(--hero-position-desktop);
+  transform: none;
+}
+
+/* # HERO SHADING */
+
+.heroShade {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
     linear-gradient(
-      180deg,
-      rgba(6, 10, 18, 0.02) 0%,
-      rgba(6, 10, 18, 0.08) 20%,
-      rgba(6, 10, 18, 0.16) 40%,
-      rgba(6, 10, 18, 0.44) 72%,
-      rgba(6, 10, 18, 0.72) 100%
+      90deg,
+      rgba(5, 8, 13, 0.12) 0%,
+      rgba(5, 8, 13, 0.24) 23%,
+      rgba(5, 8, 13, 0.84) 34%,
+      rgba(5, 8, 13, 0.68) 41%,
+      rgba(5, 8, 13, 0.38) 49%,
+      rgba(5, 8, 13, 0.1) 60%,
+      rgba(5, 8, 13, 0.01) 72%,
+      rgba(5, 8, 13, 0.04) 100%
     ),
     linear-gradient(
-      90deg,
-      rgba(6, 10, 18, 0.34) 0%,
-      rgba(6, 10, 18, 0.18) 26%,
-      rgba(6, 10, 18, 0.08) 54%,
-      rgba(6, 10, 18, 0) 100%
+      180deg,
+      rgba(5, 8, 13, 0.14) 0%,
+      rgba(5, 8, 13, 0.01) 42%,
+      rgba(5, 8, 13, 0.08) 68%,
+      rgba(5, 8, 13, 0.54) 100%
     );
 }
 
-.heroImg {
-  object-fit: cover;
-  object-position: center 34%;
-  z-index: 0;
-  transform: scale(1.01);
+/* # BRAND GRAPHICS */
+
+.heroBrandLeft,
+.heroBrandRight {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.bannerOverlay {
-  position: static;
-  z-index: 2;
+.heroBrandLeft {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(36vw, 620px);
+  opacity: 0;
+  background: none;
+}
+
+.heroBrandRight {
+  top: -16%;
+  right: -5%;
+  width: min(26vw, 440px);
+  height: 132%;
+  opacity: 0.28;
+  transform: skewX(-11deg);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.01) 44%,
+      rgba(5, 8, 13, 0.1) 100%
+    );
+}
+
+.heroBrandRight::after {
+  content: "ATU";
+  position: absolute;
+  right: -0.04em;
+  bottom: 0.03em;
+  color: rgba(255, 255, 255, 0.065);
+  font-family: var(--font-unison), sans-serif;
+  font-size: clamp(7rem, 14vw, 14rem);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 0.72;
+  letter-spacing: -0.06em;
+  transform: skewX(11deg);
+}
+
+/* # HERO CONTENT */
+
+.heroInner {
+  position: relative;
+  z-index: 4;
   width: 100%;
-  min-height: 180px;
+  max-width: none;
+  min-height: inherit;
+  margin: 0 auto;
+  padding: 54px var(--hero-content-gutter) 74px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 18px;
+  gap: 40px;
+  box-sizing: border-box;
 }
 
 .heroTextContent {
-  max-width: 760px;
+  width: min(650px, 52%);
+  margin-left: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0px;
-  padding-right: 20px;
+  transform: none;
+}
+
+.heroTextContentEditorial {
+  position: relative;
+  isolation: isolate;
+}
+
+.heroTextContentEditorial::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -90px -150px -90px -120px;
+
+  background: radial-gradient(
+    ellipse 72% 70% at 34% 48%,
+    rgba(2, 4, 7, 0.52) 0%,
+    rgba(2, 4, 7, 0.34) 38%,
+    rgba(2, 4, 7, 0.12) 62%,
+    transparent 82%
+  );
+
+  pointer-events: none;
+}
+
+.heroMetaRow {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.heroLeagueText {
+  position: absolute;
+  top: 34px;
+  left: var(--hero-content-gutter);
+
+  padding: 10px 18px 10px 19px;
+
+  color: rgba(255, 255, 255, 0.92);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.24) 42%,
+    rgba(0, 0, 0, 0) 75%
+  );
+
+  font-family: var(--font-manrope, "Manrope"), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(0, 0, 0, 0.6);
+}
+
+.heroLeagueText::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 19px;
+
+  width: 100px;
+  height: 2px;
+
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.heroLeagueHolder,
+.heroSeasonHolder {
+  position: absolute;
+  z-index: 5;
+
+  color: #ffffff;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.24) 42%,
+    rgba(0, 0, 0, 0) 75%
+  );
+
+  font-family: var(--font-manrope, "Manrope"), sans-serif;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(0, 0, 0, 0.6);
+
+  pointer-events: none;
+}
+
+.heroLeagueHolder {
+  bottom: 34px;
+  left: 32px;
+
+  padding: 10px 18px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.15em;
+}
+
+.heroSeasonHolder {
+  top: auto;
+  right: 28px;
+  bottom: 34px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+
+  width: max-content;
+  max-width: calc(100% - 56px);
+
+  padding: 10px 18px;
+}
+
+.heroSeasonLabel {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.heroSeasonValue {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.04em;
 }
 
 .heroSubtitle {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  z-index: 10;
   display: inline-flex;
   align-items: center;
-  min-height: 35px;
-  padding: 0 14px;
-  border-radius: var(--radius-pill);
-  background: rgba(18, 18, 20, 0.9);
+  min-height: 34px;
+  margin-bottom: 18px;
+  padding: 0 13px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(10px);
-  color: var(--color-surface);
-  font-size: 0.78rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  border-radius: var(--radius-pill);
+  background: #0b1118;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
   line-height: 1;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.bannerTitle,
-.bannerTitleziaci {
-  position: relative;
-  z-index: 3;
-  margin: 0 0 8px;
-  color: var(--color-surface);
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  text-align: left;
-  opacity: 0.99;
-
-  font-family: "ATU Unison Pro Bold", var(--font-sans), sans-serif !important;
-  font-weight: 700 !important;
-  font-style: normal !important;
-
-  text-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.38),
-    0 3px 10px rgba(0, 0, 0, 0.22);
-
-  display: inline-block;
-  width: fit-content;
-  max-width: 100%;
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
-  pointer-events: none;
-  user-select: none;
 }
 
 .bannerTitle {
-  font-size: clamp(4.8rem, 12vw, 8.8rem);
-  line-height: 0.82;
-  letter-spacing: 0.00v5em;
-}
-
-.bannerTitleziaci {
-  font-size: clamp(3.4rem, 7.7vw, 6.7rem);
-  line-height: 0.88;
-  letter-spacing: 0.015em;
-  white-space: nowrap;
-}
-
-.bannerTitleziaciLong {
-  font-size: clamp(3.2rem, 6.2vw, 5.4rem);
-  letter-spacing: 0.005em;
-}
-
-.heroQuickNav {
   position: relative;
-  z-index: 6;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 2px;
-  align-items: stretch;
+  z-index: 3;
+  display: block;
+  width: fit-content;
+  max-width: min(100%, 48vw);
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-unison), sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  text-align: left;
+  text-transform: uppercase;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.36);
 }
 
-.heroQuickLink,
-.heroMiniInfo {
-  position: relative;
-  z-index: 7;
+.bannerTitle.heroTitleShort {
+  font-size: clamp(5rem, 9.5vw, 8.4rem);
+}
+
+.bannerTitle.heroTitleMedium {
+  font-size: clamp(4.35rem, 7.9vw, 7rem);
+}
+
+.bannerTitle.heroTitleLong {
+  font-size: clamp(3.8rem, 6.7vw, 6.2rem);
+}
+
+.bannerTitle.heroTitleExtraLong {
+  font-size: clamp(3.4rem, 6.2vw, 5.4rem);
+}
+
+.bannerTitle {
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+}
+
+.heroTitleMultiline {
+  line-height: 0.98;
+}
+
+.heroTitleWord {
+  display: block;
 }
 
 .heroDescription {
-  margin: 0;
-  max-width: 680px;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.45;
+  max-width: 570px;
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.58;
 }
+
+.heroDescriptionEditorial {
+  max-width: 610px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.03rem;
+  font-weight: 600;
+  line-height: 1.62;
+}
+
+/* # HERO ACTIONS */
 
 .heroQuickNav {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 2px;
-  align-items: stretch;
+  margin-top: 24px;
 }
 
-.heroQuickLink,
-.heroMiniInfo {
+.heroTextContentEditorial .heroQuickNav {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 128px;
-  min-height: 35px;
-  padding: 0 18px;
+  flex-wrap: nowrap;
+  gap: 4px;
+
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 5px;
+
+  overflow: hidden;
+  border: 0;
   border-radius: var(--radius-pill);
-  color: var(--color-surface);
-  font-size: 0.84rem;
-  font-weight: 800;
-  line-height: 1;
-  background: rgba(18, 18, 20, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 10px 24px rgba(0, 0, 0, 0.18);
+  background: #ffffff;
 }
 
 .heroQuickLink {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  position: relative;
+  min-height: 46px;
+  padding: 0 21px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
   text-decoration: none;
+  isolation: isolate;
   transition:
     transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
+    color 0.2s ease;
 }
 
 .heroQuickLink:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.22);
 }
 
+.heroTextContentEditorial .heroQuickLink {
+  border: 0;
+  border-radius: var(--radius-pill);
+}
+
+.heroTextContentEditorial .heroQuickLink:hover {
+  transform: none;
+}
+
+.heroQuickFill {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -72px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  transform: translateX(-50%) scale(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.heroQuickLink:hover .heroQuickFill,
+.heroQuickLink:focus-visible .heroQuickFill {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.heroQuickLabel {
+  position: relative;
+  z-index: 2;
+  display: block;
+  height: 1.25em;
+  overflow: hidden;
+}
+
+.heroQuickLabelDefault,
+.heroQuickLabelHover {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+
+.heroQuickLabelDefault {
+  position: relative;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.heroQuickLabelHover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(150%);
+  opacity: 0;
+}
+
+.heroQuickLink:hover .heroQuickLabelDefault,
+.heroQuickLink:focus-visible .heroQuickLabelDefault {
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+.heroQuickLink:hover .heroQuickLabelHover,
+.heroQuickLink:focus-visible .heroQuickLabelHover {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.heroQuickLinkPrimary {
+  background: #0b1118;
+  color: #ffffff;
+}
+
+.heroQuickLinkPrimary .heroQuickFill {
+  background: #ffffff;
+}
+
+.heroQuickLinkPrimary:hover,
+.heroQuickLinkPrimary:focus-visible {
+  color: #0b1118;
+}
+
+.heroQuickLinkSecondary {
+  background: #0b1118;
+  color: #fff;
+}
+
+.heroQuickLinkSecondary .heroQuickFill {
+  background: #ffffff;
+}
+
+.heroQuickLinkSecondary:hover,
+.heroQuickLinkSecondary:focus-visible {
+  color: #0b1118;
+}
+
+/* # SEASON */
+
 .heroMiniInfo {
-  gap: 8px;
+  position: absolute;
+  color: #fff;
   white-space: nowrap;
 }
 
-.heroMiniLabel {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1;
+.heroMiniInfoEditorial {
+  position: relative;
+
+  margin-top: 30px;
+  min-height: 0;
+  padding: 10px 14px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(7, 11, 17, 0.9);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
+.heroMiniInfoEditorial::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: #c8181f;
+}
+
+.heroMiniInfoEditorial .heroMiniLabel,
+.heroMiniInfoEditorial .heroMiniValue {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.heroMiniLabel,
 .heroMiniValue {
-  color: var(--color-surface);
-  font-size: 0.84rem;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 800;
   line-height: 1;
+  text-transform: uppercase;
+}
+
+.heroMiniInfoEditorial .heroMiniLabel {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+}
+
+.heroMiniInfoEditorial .heroMiniValue {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 /* # COUNTDOWN */
 
 .countdownWrapper {
-  width: 100%;
-  margin-top: -24px;
-  position: relative;
+  position: absolute;
   z-index: 10;
+  left: 50%;
+  bottom: 34px;
+  width: min(calc(100% - 32px), 1300px);
+  transform: translate(-50%, 50%);
   display: grid;
   place-items: center;
+  pointer-events: none;
 }
 
 .countdownBar {
   max-width: 100%;
-  padding: 14px 28px;
+  min-height: 50px;
+  padding: 0 26px;
+  border: 1px solid rgba(17, 17, 17, 0.11);
   border-radius: var(--radius-pill);
   display: flex;
   align-items: center;
-  gap: 14px;
-  white-space: nowrap;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
+  justify-content: center;
+  gap: 12px;
+  background: #fff;
   color: var(--color-text);
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(5, 8, 13, 0.13);
+  white-space: nowrap;
+  pointer-events: auto;
+  box-sizing: border-box;
 }
 
 .liveDot {
-  width: 10px;
-  height: 10px;
-  background-color: var(--color-red-dark);
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
   border-radius: 50%;
+  background: var(--color-red-dark);
   animation: pulse 1.5s infinite;
-  flex-shrink: 0;
 }
 
 .countdownLabel {
+  color: rgba(17, 17, 17, 0.62);
+  font-size: 0.76rem;
   font-weight: 800;
-  font-size: 0.92rem;
-  opacity: 0.72;
+  letter-spacing: 0.035em;
 }
 
 .timer {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.94rem;
   font-weight: 900;
-  font-size: 1.05rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -303,498 +704,1035 @@
   font-weight: 600;
 }
 
-.nextMatchMeta strong {
-  font-weight: 800;
-}
-
-.nextMatchMeta span {
-  opacity: 0.92;
-}
-
-/* # ANIMATIONS */
+.nextMatchMeta strong { font-weight: 800; }
+.nextMatchMeta span { opacity: 0.92; }
 
 @keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.8;
+  0% { transform: scale(0.95); opacity: 0.72; }
+  70% { transform: scale(1.14); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.72; }
+}
+
+/* # TABLET */
+
+@media (min-width: 1025px) {
+  .heroLeagueText {
+    top: 18px;
   }
 
-  70% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(0.95);
-    opacity: 0.8;
+  .heroInner {
+    padding-top: 34px;
+    padding-bottom: 38px;
   }
 }
-/* # 1024 */
 
-@media (max-width: 1024px) {
+@media (max-width: 1175px) {
   .heroSection {
-      margin: 14px auto 0;
-      padding: 0 14px;
-    }
+    --hero-content-gutter: clamp(28px, 4vw, 48px);
+  }
 
-  .bannerContainer {
-      min-height: 500px;
-      padding: 34px 28px 30px;
-      border-radius: var(--radius-xl);
-    }
-
-  .bannerOverlay {
-      gap: 14px;
-    }
+  .heroInner {
+    max-width: none;
+    padding-right: var(--hero-content-gutter);
+    padding-left: var(--hero-content-gutter);
+  }
 
   .heroTextContent {
-      max-width: 680px;
-      gap: 12px;
-      padding-right: 0;
-    }
+    width: min(560px, 56%);
+    transform: none;
+  }
 
-  .heroSubtitle {
-      top: 18px;
-      left: 22px;
-      min-height: 38px;
-      padding: 0 15px;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-    }
+  .heroLeagueText { left: var(--hero-content-gutter); }
+  .heroImg { width: 74% !important; }
 
-  .bannerTitle {
-      margin: 0;
-      font-size: clamp(4.8rem, 11vw, 7.2rem);
-      line-height: 0.86;
-      letter-spacing: -0.035em;
-    }
+  .bannerTitle.heroTitleShort {
+    font-size: clamp(4.4rem, 10vw, 6.4rem);
+  }
 
-  .bannerTitleziaci {
-      margin: 46px 0 0;
-      font-size: clamp(3.1rem, 7.8vw, 5.2rem);
-      line-height: 0.9;
-      letter-spacing: -0.035em;
-      white-space: nowrap;
-    }
+  .bannerTitle.heroTitleMedium {
+    font-size: clamp(3.9rem, 8.5vw, 5.5rem);
+  }
 
-  .bannerTitleziaciLong {
-      font-size: clamp(2.75rem, 6.6vw, 4.7rem);
-    }
+  .bannerTitle.heroTitleLong {
+    font-size: clamp(3.5rem, 7.8vw, 5rem);
+  }
 
-  .heroDescription {
-      max-width: 620px;
-      font-size: 0.95rem;
-      line-height: 1.45;
-    }
-
-  .heroQuickNav {
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-  .heroQuickLink,
-    .heroMiniInfo {
-      min-width: 118px;
-      min-height: 40px;
-      padding: 0 18px;
-      font-size: 0.84rem;
-    }
-
-  .heroMiniLabel {
-      font-size: 0.76rem;
-    }
-
-  .heroMiniValue {
-      font-size: 0.86rem;
-    }
-
-  .heroImg {
-      object-position: center 30%;
-    }
+  .bannerTitle.heroTitleExtraLong {
+    font-size: clamp(3.1rem, 7vw, 4.5rem);
+  }
 }
 
-/* # 768 */
+@media (max-width: 1024px) {
+  .heroSection { overflow: hidden; }
+
+  .bannerContainer { min-height: clamp(560px, 58vw, 600px); }
+
+  .heroImg {
+    width: 70% !important;
+    object-position: var(--hero-position-tablet);
+  }
+
+  .heroShade {
+    background:
+      linear-gradient(90deg,
+        rgba(5, 8, 13, 0.78) 0%,
+        rgba(5, 8, 13, 0.82) 30%,
+        rgba(5, 8, 13, 0.68) 43%,
+        rgba(5, 8, 13, 0.28) 58%,
+        rgba(5, 8, 13, 0.04) 78%,
+        rgba(5, 8, 13, 0.08) 100%),
+      linear-gradient(180deg,
+        rgba(5, 8, 13, 0.08) 0%,
+        rgba(5, 8, 13, 0.02) 54%,
+        rgba(5, 8, 13, 0.5) 100%);
+  }
+
+  .heroInner { padding: 70px 28px 78px; }
+
+  .heroTextContent {
+    width: min(510px, 58%);
+    transform: none;
+  }
+
+  .heroLeagueText {
+    top: 26px;
+    left: 28px;
+    max-width: calc(100% - 40px);
+    padding: 8px 14px 9px 16px;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+  }
+
+  .heroLeagueText::before {
+    left: 16px;
+    width: 82px;
+  }
+
+  .heroDescriptionEditorial {
+    max-width: 500px;
+    font-size: 0.95rem;
+  }
+
+  .heroMiniInfoEditorial {
+    margin-top: 24px;
+  }
+
+  .heroBrandRight { display: none; }
+}
+
+/* # MOBILE / RESPONSIVE COMPOSITION
+ *
+ * The photo has one explicit responsive height. Everything below it is natural
+ * content height on the club background. The local fade only masks the join.
+ */
 
 @media (max-width: 768px) {
   .heroSection {
-      margin: 12px auto 0;
-      padding: 0 10px;
-    }
+    --hero-photo-height: clamp(250px, 59vw, 430px);
+    --hero-photo-fade-height: clamp(40px, 12vw, 64px);
+    --hero-title-offset: 20px;
+    --hero-content-bottom: 52px;
 
-  .bannerContainer {
-      min-height: 390px;
-      padding: 24px 18px 20px;
-      border-radius: var(--radius-xl);
-    }
+    padding-bottom: 56px;
+    overflow: hidden;
+  }
 
-  .bannerOverlay {
-      min-height: auto;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-    }
+  .heroSection.heroSectionWithoutCountdown {
+    --hero-content-bottom: 22px;
+
+    padding-bottom: 0;
+  }
+
+  .bannerContainer,
+  .bannerContainerCompact {
+    min-height: 0;
+    background:
+      linear-gradient(180deg, rgba(5, 8, 13, 0.04), rgba(5, 8, 13, 0.12)),
+      url("/atu-article-bg.png") center bottom / cover no-repeat,
+      #05080d;
+  }
+
+  /* A two-line title needs a slightly earlier fade, not a category override. */
+  .bannerContainer:has(.heroTitleMultiline) {
+    --hero-photo-fade-height: clamp(56px, 15vw, 82px);
+    --hero-title-offset: 24px;
+  }
+
+  .bannerContainer::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: calc(var(--hero-photo-height) - var(--hero-photo-fade-height));
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: calc(var(--hero-photo-fade-height) + 18px);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(7, 10, 15, 0.14) 28%,
+      rgba(7, 10, 15, 0.48) 54%,
+      rgba(5, 8, 13, 0.94) 76%,
+      rgba(5, 8, 13, 0.44) 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: none;
+    mask-image: none;
+    pointer-events: none;
+  }
+
+  .bannerContainer::after {
+    display: none;
+  }
 
   .heroImg {
-      object-position: center 26%;
-    }
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: var(--hero-photo-height) !important;
+    object-position: var(--hero-position-mobile);
+  }
+
+  .heroShade {
+    z-index: 3;
+    background: radial-gradient(
+      ellipse 78% 30% at 8% 3%,
+      rgba(5, 8, 13, 0.64) 0%,
+      rgba(5, 8, 13, 0.3) 44%,
+      rgba(5, 8, 13, 0.06) 68%,
+      transparent 84%
+    );
+  }
+
+  .heroBrandLeft,
+  .heroBrandRight {
+    display: none;
+  }
+
+  .heroInner {
+    z-index: 4;
+    min-height: 0;
+    max-width: none;
+    padding:
+      calc(var(--hero-photo-height) + var(--hero-title-offset))
+      20px
+      var(--hero-content-bottom);
+    align-items: flex-start;
+  }
 
   .heroTextContent {
-      flex: 1 1 auto;
-      min-width: 0;
-      max-width: 100%;
-      gap: 8px;
-      padding-right: 0;
-    }
+    width: 100%;
+    max-width: 620px;
+    margin: 0;
+    transform: none;
+  }
 
-  .heroSubtitle {
-      top: 12px;
-      left: 14px;
-      min-height: 34px;
-      padding: 0 13px;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-    }
+  .heroTextContentEditorial::before {
+    inset: -28px -20px -32px;
+    background: radial-gradient(
+      ellipse 90% 66% at 24% 48%,
+      rgba(2, 4, 7, 0.18) 0%,
+      rgba(2, 4, 7, 0.07) 54%,
+      transparent 82%
+    );
+  }
+
+  .heroLeagueText {
+    top: 22px;
+    left: 20px;
+    max-width: calc(100% - 40px);
+    padding: 8px 0 10px;
+    overflow: hidden;
+    background: none;
+    font-size: clamp(0.82rem, 2.7vw, 1rem);
+    letter-spacing: 0.12em;
+    text-overflow: ellipsis;
+  }
+
+  .heroLeagueText::before {
+    left: 0;
+    width: 82px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.92);
+  }
 
   .bannerTitle {
-      margin: 44px 0 0;
-      max-width: 100%;
-      font-size: clamp(3.9rem, 14vw, 5.8rem);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-    }
+    max-width: 100%;
+    line-height: 0.84;
+  }
 
-  .bannerTitleDorast {
-      font-size: clamp(3rem, 12vw, 5.2rem);
-      letter-spacing: -0.035em;
-      white-space: nowrap;
-    }
+  .bannerTitle.heroTitleShort {
+    font-size: clamp(3.3rem, 14vw, 6.2rem);
+  }
 
-  .bannerTitleziaci {
-      margin: 44px 0 0;
-      max-width: 100%;
-      font-size: clamp(2.35rem, 9.4vw, 3.75rem);
-      line-height: 0.94;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: visible;
-      text-overflow: unset;
-    }
+  .bannerTitle.heroTitleMedium {
+    font-size: clamp(3.05rem, 12.5vw, 5.2rem);
+  }
 
-  .bannerTitleziaciLong {
-      font-size: clamp(2rem, 8vw, 3.25rem);
-      white-space: normal;
-    }
+  .bannerTitle.heroTitleLong {
+    font-size: clamp(2.75rem, 10.8vw, 4.5rem);
+  }
 
-  .heroDescription {
-      font-size: 0.84rem;
-      line-height: 1.4;
-    }
+  .bannerTitle.heroTitleExtraLong {
+    font-size: clamp(2.45rem, 9.5vw, 4rem);
+  }
+
+  .heroTitleMultiline {
+    line-height: 0.98;
+  }
+
+  .heroDescription,
+  .heroDescriptionEditorial {
+    max-width: 600px;
+    margin-top: 16px;
+    font-size: clamp(0.8rem, 2.3vw, 1rem);
+    line-height: 1.52;
+  }
 
   .heroQuickNav {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-    }
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .bannerContainerCompact .heroQuickNav {
+    margin-top: clamp(13px, 2.2vw, 17px);
+  }
+
+  .heroTextContentEditorial .heroQuickNav {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .heroTextContentEditorial .heroQuickLink {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
 
   .heroQuickLink {
-      display: none;
-    }
+    min-height: 42px;
+    padding: 0 17px;
+    font-size: 0.78rem;
+  }
 
-  .heroMiniInfo {
-      position: absolute;
-      top: 12px;
-      right: 14px;
-      display: inline-flex;
-      flex: 0 0 auto;
-      align-self: flex-start;
-      min-width: unset;
-      min-height: 34px;
-      padding: 0 12px;
-      gap: 6px;
-      border-radius: var(--radius-pill);
-      font-size: 0.8rem;
-      white-space: nowrap;
-    }
-
-  .heroMiniLabel {
-      font-size: 0.64rem;
-    }
-
-  .heroMiniValue {
-      font-size: 0.76rem;
-    }
+  .heroMiniInfoEditorial {
+    display: flex;
+  }
 
   .countdownWrapper {
-      margin-top: -14px;
-      padding: 0 10px;
-    }
+    bottom: 56px;
+    width: min(calc(100% - 24px), 620px);
+  }
 
   .countdownBar {
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      padding: 10px 14px;
-      border-radius: var(--radius-lg);
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      text-align: center;
-      white-space: normal;
-    }
+    width: auto;
+    max-width: 100%;
+    min-height: 56px;
+    padding: 0 22px;
+    gap: 10px;
+  }
 
   .liveDot {
-      width: 9px;
-      height: 9px;
-    }
+    width: 10px;
+    height: 10px;
+  }
 
   .countdownLabel {
-      font-size: 0.74rem;
-      line-height: 1.2;
-    }
+    font-size: 0.74rem;
+  }
 
   .timer {
-      font-size: 0.86rem;
-      line-height: 1.2;
-    }
+    font-size: 0.9rem;
+  }
+
 }
-
-/* # 640 */
-
-@media (max-width: 640px) {
-  .heroSection {
-      margin: 10px auto 0;
-      padding: 0 8px;
-    }
-
-  .bannerContainer {
-      min-height: 330px;
-      padding: 18px 14px 20px;
-      border-radius: var(--radius-lg);
-    }
-
-  .bannerTitle {
-      font-size: clamp(3.8rem, 16vw, 5rem);
-    }
-
-  .bannerTitleziaci {
-      font-size: clamp(2.05rem, 9vw, 3.35rem);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: visible;
-      text-overflow: unset;
-    }
-
-  .countdownWrapper {
-      margin-top: -12px;
-      padding: 0 8px;
-    }
-
-  .countdownBar {
-      padding: 10px 12px;
-      gap: 6px;
-    }
-}
-
-/* # 480 */
 
 @media (max-width: 480px) {
-  .heroSection {
-      margin: 10px auto 0;
-      padding: 0 8px;
-    }
+  .heroInner {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
 
-  .bannerContainer {
-      min-height: 320px;
-      padding: 16px 12px 16px;
-      border-radius: var(--radius-lg);
-    }
+  .heroLeagueText {
+    top: 17px;
+    left: 14px;
+    max-width: calc(100% - 28px);
+    font-size: 0.72rem;
+    letter-spacing: 0.105em;
+  }
 
-  .bannerOverlay {
-      min-height: auto;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 10px;
-    }
+  .heroLeagueText::before {
+    width: 66px;
+  }
 
-  .heroImg {
-      object-position: center 24%;
-    }
-
-  .heroTextContent {
-      flex: 1 1 auto;
-      min-width: 0;
-      max-width: 100%;
-      gap: 0;
-      padding-right: 0;
-    }
-
-  .heroSubtitle {
-      top: 10px;
-      left: 12px;
-      min-height: 30px;
-      padding: 0 10px;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-    }
-
-  .bannerTitle {
-      margin: 40px 0 -10px;
-      max-width: 100%;
-      font-size: clamp(3.45rem, 16vw, 4.65rem);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-    }
-
-  .bannerTitleDorast {
-      font-size: clamp(2.75rem, 13vw, 3.9rem);
-      letter-spacing: -0.04em;
-    }
-
-  .bannerTitleziaci {
-      margin: 40px 0 0;
-      max-width: 100%;
-      font-size: clamp(1.85rem, 8.4vw, 2.65rem);
-      line-height: 0.98;
-      letter-spacing: -0.015em;
-      white-space: nowrap;
-      overflow: visible;
-      text-overflow: unset;
-    }
-
-  .bannerTitleziaciLong {
-      font-size: clamp(1.55rem, 7.4vw, 2.25rem);
-      white-space: normal;
-    }
-
-  .heroDescription {
-      font-size: 0.76rem;
-      line-height: 1.35;
-    }
+  .heroDescription,
+  .heroDescriptionEditorial {
+    margin-top: 13px;
+    font-size: 0.8rem;
+    line-height: 1.48;
+  }
 
   .heroQuickNav {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+    gap: 8px;
+    margin-top: 17px;
+  }
+
+  .heroTextContentEditorial .heroQuickNav {
+    gap: 3px;
+    padding: 4px;
+  }
 
   .heroQuickLink {
-      display: none;
-    }
-
-  .heroMiniInfo {
-      top: 10px;
-      right: 12px;
-      flex: 0 0 auto;
-      align-self: flex-start;
-      min-height: 30px;
-      padding: 0 10px;
-      gap: 4px;
-      border-radius: var(--radius-pill);
-      font-size: 0.72rem;
-      white-space: nowrap;
-    }
-
-  .heroMiniLabel {
-      font-size: 0.56rem;
-    }
-
-  .heroMiniValue {
-      font-size: 0.66rem;
-    }
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.74rem;
+  }
 
   .countdownWrapper {
-      margin-top: -10px;
-      padding: 0 6px;
-    }
+    width: calc(100% - 16px);
+  }
 
   .countdownBar {
-      padding: 10px 10px;
-      border-radius: var(--radius-lg);
-      gap: 6px;
-    }
+    width: 100%;
+    min-height: 52px;
+    padding: 8px 16px;
+    gap: 8px;
+    flex-wrap: wrap;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .liveDot {
+    width: 9px;
+    height: 9px;
+  }
 
   .countdownLabel {
-      font-size: 0.7rem;
-    }
+    font-size: 0.68rem;
+  }
 
   .timer {
-      font-size: 0.82rem;
-    }
+    font-size: 0.82rem;
+  }
 }
 
-/* # 360 */
-
 @media (max-width: 360px) {
-  .heroSection {
-      padding: 0 6px;
-    }
+  .heroInner {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 
-  .bannerContainer {
-      min-height: 292px;
-      padding: 12px 10px 14px;
-      border-radius: var(--radius-lg);
-    }
-
-  .heroSubtitle {
-      top: 10px;
-      left: 10px;
-      min-height: 28px;
-      padding: 0 9px;
-      font-size: 0.56rem;
-    }
-
-  .bannerTitle {
-      margin-top: 38px;
-      font-size: clamp(3rem, 17vw, 3.9rem);
-    }
-
-  .bannerTitleDorast {
-      font-size: clamp(2.5rem, 13vw, 3.15rem);
-    }
-
-  .bannerTitleziaci {
-      margin-top: 38px;
-      max-width: 100%;
-      font-size: clamp(1.35rem, 7.8vw, 2.05rem);
-      line-height: 1.02;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: unset;
-    }
-
-  .heroDescription {
-      font-size: 0.72rem;
-      line-height: 1.32;
-    }
+  .heroLeagueText {
+    left: 10px;
+    max-width: calc(100% - 20px);
+    font-size: 0.67rem;
+  }
 
   .heroQuickLink {
-      display: none;
-    }
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 0.7rem;
+  }
 
-  .heroMiniInfo {
-      top: 10px;
-      right: 10px;
-      min-height: 28px;
-      padding: 0 8px;
-      font-size: 0.64rem;
-    }
+  .countdownWrapper {
+    width: calc(100% - 12px);
+  }
+}
 
-  .heroMiniLabel {
-      font-size: 0.52rem;
-    }
+/* # SHARED SPLIT HERO: PRÍPRAVKA / MLADŠÍ ŽIACI / STARŠÍ ŽIACI */
 
-  .heroMiniValue {
-      font-size: 0.62rem;
-    }
+@media (max-width: 768px) {
+  .heroSplitSection,
+  .heroSplitSection.heroSectionWithoutCountdown {
+    padding-bottom: clamp(20px, 5vw, 34px);
+    overflow: visible;
+  }
 
-  .countdownBar {
-      padding: 8px 10px;
-    }
+  .heroSplitBanner,
+  .heroSplitBanner.bannerContainerCompact {
+    position: relative;
+    min-height: 0;
+    aspect-ratio: auto;
+    overflow: visible;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    background: #17191b;
+  }
+
+  .heroSplitBanner::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: block;
+    width: auto;
+    height: auto;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    background: linear-gradient(
+      to bottom,
+      transparent 60%,
+      rgba(8, 10, 13, 0.12) 72%,
+      rgba(8, 10, 13, 0.5) 88%,
+      rgba(8, 10, 13, 0.76) 100%
+    );
+    -webkit-mask-image: none;
+    mask-image: none;
+    pointer-events: none;
+  }
+
+  .heroSplitBanner::after {
+    content: none;
+    display: none;
+  }
+
+  .heroSplitBanner .heroImg {
+    position: relative !important;
+    inset: auto !important;
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .heroSplitBanner .heroShade,
+  .heroSplitBanner .heroBrandLeft,
+  .heroSplitBanner .heroBrandRight,
+  .heroSplitBanner .heroMetaRow {
+    display: none;
+  }
+
+  .heroSplitBanner .heroInner {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    display: flex;
+    min-height: 0;
+    padding: clamp(18px, 4vw, 30px) clamp(14px, 4vw, 30px) 0;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .heroSplitBanner .heroTextContent {
+    display: flex;
+    width: min(100%, 680px);
+    max-width: 680px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    transform: none;
+    text-align: center;
+  }
+
+  .heroSplitBanner .heroTextContentEditorial::before {
+    content: none;
+    display: none;
+  }
+
+  .heroSplitBanner .bannerTitle {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .heroSplitBanner .heroDescription,
+  .heroSplitBanner .heroDescriptionEditorial {
+    max-width: min(600px, 92vw);
+    margin: clamp(8px, 1.8vw, 14px) auto 0;
+    font-size: clamp(0.76rem, 2.2vw, 0.95rem);
+    line-height: 1.45;
+    text-align: center;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroQuickLink,
+  .heroQuickFill,
+  .heroQuickLabelDefault,
+  .heroQuickLabelHover {
+    transition: none;
+  }
+}
+
+/* # ARTWORK CATEGORY BANNER
+ *
+ * Muži, Juniori and Dorast use finished hero compositions.
+ * Muži use two finished hero compositions:
+ * - desktop: /muzi_backg.png
+ * - responsive <= 768 px: /muzi_backg_phone.png
+ *
+ * The responsive version centers the title/navigation, moves the countdown
+ * to the top, hides the league eyebrow and lets the quick nav overlap the
+ * bottom edge of the hero.
+ */
+
+:is(.heroMenSection, .heroArtworkSection) {
+  position: relative;
+  z-index: 6;
+  overflow: visible;
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) {
+  --hero-men-edge: clamp(8px, 1vw, 16px);
+  --hero-men-content-shift-x: clamp(64px, 6vw, 120px);
+
+  min-height: 0;
+  overflow: visible;
+  background: #17191b;
+}
+
+:is(.heroMenBanner, .heroArtworkBanner)::before,
+:is(.heroMenBanner, .heroArtworkBanner)::after {
+  content: none;
+  display: none;
+}
+
+/* # MEN BANNER MEDIA */
+
+:is(.heroMenBannerMedia, .heroArtworkBannerMedia) {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3036 / 1200;
+  overflow: hidden;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+:is(.heroMenBannerImage, .heroArtworkBannerImage) {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* # MEN BANNER CONTENT */
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroInner {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  padding:
+    clamp(58px, 5vw, 84px)
+    var(--hero-men-edge)
+    var(--hero-men-edge);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroTextContent {
+  width: fit-content;
+  max-width: min(720px, 50%);
+  transform: translateX(var(--hero-men-content-shift-x));
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroTextContentEditorial::before {
+  content: none;
+  display: none;
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroLeagueText {
+  top: var(--hero-men-edge);
+  left: var(--hero-men-edge);
+  padding:
+    clamp(7px, 0.7vw, 10px)
+    clamp(12px, 1vw, 18px)
+    clamp(8px, 0.75vw, 10px);
+  transform: translateX(var(--hero-men-content-shift-x));
+  font-size: clamp(0.72rem, 0.9vw, 1.05rem);
+  letter-spacing: clamp(0.09em, 0.12vw, 0.15em);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroLeagueText::before {
+  left: clamp(12px, 1vw, 19px);
+  width: clamp(64px, 5vw, 100px);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .bannerTitle {
+  width: fit-content;
+  max-width: 100%;
+  font-size: clamp(4.25rem, 9vw, 9.6rem);
+  font-weight: 800 !important;
+  font-style: italic !important;
+  text-align: left;
+  letter-spacing: -0.045em;
+}
+
+/* Keep CategoryHeroTitle length classes useful inside finished artwork banners. */
+:is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleShort {
+  font-size: clamp(4.25rem, 9vw, 9.6rem);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleMedium {
+  font-size: clamp(3.9rem, 7.8vw, 8.4rem);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleLong {
+  font-size: clamp(3.5rem, 7vw, 7.6rem);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleExtraLong {
+  font-size: clamp(3.15rem, 6.2vw, 6.8rem);
+}
+
+/* # ARTWORK BANNER QUICK NAV */
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroQuickNav {
+  align-self: center;
+  gap: clamp(2px, 0.25vw, 4px);
+  margin-top: clamp(8px, 0.75vw, 12px);
+  padding: clamp(3px, 0.3vw, 5px);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroQuickLink {
+  min-height: clamp(36px, 3vw, 46px);
+  padding: 0 clamp(13px, 1.4vw, 21px);
+  font-size: clamp(0.69rem, 0.72vw, 0.84rem);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .heroQuickLabelDefault,
+:is(.heroMenBanner, .heroArtworkBanner) .heroQuickLabelHover {
+  gap: clamp(8px, 0.8vw, 12px);
+}
+
+/* Men countdown stays pinned to the lower hero edge on desktop. */
+:is(.heroMenBanner, .heroArtworkBanner) .countdownWrapper {
+  bottom: 0;
+  transform: translate(-50%, 50%);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .countdownBar {
+  font-family: var(--font-unison), sans-serif;
+  font-style: italic;
+  box-shadow: 0 5px 14px rgba(5, 8, 13, 0.09);
+}
+
+:is(.heroMenBanner, .heroArtworkBanner) .countdownLabel,
+:is(.heroMenBanner, .heroArtworkBanner) .timer {
+  font-family: var(--font-unison), sans-serif;
+  font-style: italic;
+}
+
+@media (min-width: 769px) and (max-width: 1450px) {
+  :is(.heroMenBanner, .heroArtworkBanner) .heroInner {
+    padding-bottom: clamp(24px, calc(15px + 1.17vw), 32px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroQuickNav {
+    gap: clamp(2px, calc(-0.3px + 0.3vw), 4px);
+    padding: clamp(2px, calc(-1.4px + 0.44vw), 5px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroQuickLink {
+    min-height: clamp(32px, calc(18.4px + 1.76vw), 44px);
+    padding-right: clamp(9px, calc(-4.6px + 1.76vw), 21px);
+    padding-left: clamp(9px, calc(-4.6px + 1.76vw), 21px);
+    font-size: clamp(0.58rem, calc(0.286rem + 0.612vw), 0.84rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownBar {
+    min-height: clamp(38px, calc(24.4px + 1.76vw), 50px);
+    padding-right: clamp(12px, calc(-3.8px + 2.06vw), 26px);
+    padding-left: clamp(12px, calc(-3.8px + 2.06vw), 26px);
+    gap: clamp(6px, calc(-0.8px + 0.88vw), 12px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownLabel {
+    font-size: clamp(0.56rem, calc(0.334rem + 0.471vw), 0.76rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .timer {
+    font-size: clamp(0.7rem, calc(0.428rem + 0.565vw), 0.94rem);
+  }
+}
+
+/* Categories without a countdown share one bottom-centered desktop layout. */
+@media (min-width: 769px) {
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .heroInner {
+    display: flex;
+    padding-right: clamp(8px, 1vw, 16px);
+    padding-bottom: clamp(4px, 0.7vw, 12px);
+    padding-left: clamp(8px, 1vw, 16px);
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .heroTextContent {
+    width: fit-content;
+    max-width: min(720px, 50%);
+    margin: 0;
+    align-items: center;
+    transform: translateX(clamp(64px, 6vw, 120px));
+    text-align: center;
+  }
+
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .bannerTitle {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .heroDescription,
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .heroDescriptionEditorial {
+    max-width: 680px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  }
+
+  .heroSectionWithoutCountdown
+    :is(.heroSplitBanner, .heroArtworkBanner)
+    .heroQuickNav {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: clamp(5px, 0.7vw, 10px);
+    align-self: center;
+  }
+}
+
+/* # MEN BANNER RESPONSIVE <= 768 */
+
+@media (max-width: 768px) {
+  :is(.heroMenSection, .heroArtworkSection) {
+    padding-bottom: clamp(24px, 5vw, 36px);
+    overflow: visible;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) {
+    --hero-men-edge: clamp(8px, 2vw, 14px);
+    --hero-artwork-mobile-ratio: 1490 / 1139;
+
+    min-height: 0;
+    aspect-ratio: var(--hero-artwork-mobile-ratio);
+    overflow: visible;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    background: #17191b;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner)::after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    background: linear-gradient(
+      180deg,
+      rgba(17, 19, 22, 0) 68%,
+      rgba(17, 19, 22, 0.1) 70%,
+      rgba(27, 29, 32, 0.66) 75%,
+      rgba(15, 17, 20, 0.86) 86%,
+      rgba(10, 12, 15, 0.93) 100%
+    );
+    pointer-events: none;
+  }
+
+  :is(.heroMenBannerMedia, .heroArtworkBannerMedia) {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
+
+  :is(.heroMenBannerImage, .heroArtworkBannerImage) {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroInner {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    min-height: 0;
+    padding: 0 clamp(10px, 3vw, 22px);
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroTextContent {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    transform: translateY(clamp(6px, 1.5vw, 12px));
+    text-align: center;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroLeagueText {
+    display: none;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle {
+    width: fit-content;
+    max-width: 100%;
+    font-size: clamp(3.75rem, 16.5vw, 7.15rem);
+    line-height: 0.84;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleShort {
+    font-size: clamp(3.55rem, 16.5vw, 7.15rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleMedium {
+    font-size: clamp(3.25rem, 14.5vw, 6.4rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleLong {
+    font-size: clamp(2.95rem, 12.8vw, 5.7rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleExtraLong {
+    font-size: clamp(2.7rem, 11.5vw, 5.1rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroDescription,
+  :is(.heroMenBanner, .heroArtworkBanner) .heroDescriptionEditorial {
+    display: block;
+    max-width: min(560px, 86vw);
+    margin: clamp(5px, 1.2vw, 9px) auto 0;
+    font-size: clamp(0.64rem, 1.8vw, 0.82rem);
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner) .heroQuickNav {
+    display: flex;
+    width: fit-content;
+    max-width: calc(100vw - 20px);
+    margin-top: -16px;
+    padding: clamp(2px, calc(-0.1px + 0.67vw), 5px);
+    gap: clamp(1px, calc(-1.1px + 0.67vw), 4px);
+    align-self: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    transform: translateY(50%);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
+    .heroTextContent:has(.heroDescription)
+    .heroQuickNav {
+    margin-top: clamp(4px, 1vw, 8px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner) .heroQuickLink {
+    flex: 0 1 auto;
+    min-width: 0;
+    min-height: clamp(30px, calc(18.6px + 3.57vw), 46px);
+    padding: 0 clamp(6px, calc(-2.6px + 2.68vw), 18px);
+    font-size: clamp(0.54rem, calc(0.34rem + 1vw), 0.82rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
+    .heroQuickLabelDefault,
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
+    .heroQuickLabelHover {
+    gap: clamp(4px, calc(-1px + 1.56vw), 11px);
+  }
+
+  /* Countdown becomes part of the upper mobile composition. */
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownWrapper {
+    top: clamp(14px, 3vw, 26px);
+    bottom: auto;
+    width: min(calc(100% - 24px), 620px);
+    transform: translateX(-50%);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownBar {
+    width: auto;
+    max-width: 100%;
+    min-height: clamp(28px, calc(18px + 3.13vw), 42px);
+    padding: 0 clamp(5px, calc(-1.4px + 2.01vw), 14px);
+    gap: clamp(3px, calc(0.1px + 0.9vw), 7px);
+    flex-wrap: nowrap;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.16);
+    color: rgba(24, 27, 31, 0.78);
+    box-shadow: 0 4px 12px rgba(5, 8, 13, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-family: var(--font-unison), sans-serif;
+    font-style: italic;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .liveDot {
+    width: clamp(4px, calc(1.1px + 0.9vw), 8px);
+    height: clamp(4px, calc(1.1px + 0.9vw), 8px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownLabel {
+    color: rgba(24, 27, 31, 0.66);
+    font-size: clamp(0.44rem, calc(0.269rem + 0.857vw), 0.68rem);
+    font-style: italic;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .timer {
+    color: rgba(17, 20, 24, 0.84);
+    font-family: var(--font-unison), sans-serif;
+    font-size: clamp(0.54rem, calc(0.34rem + 1vw), 0.82rem);
+    font-style: italic;
+  }
+}
+
+/* # MEN BANNER SMALL MOBILE */
+
+@media (max-width: 480px) {
+  :is(.heroMenSection, .heroArtworkSection) {
+    padding-bottom: 28px;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) {
+    min-height: 0;
+    aspect-ratio: var(--hero-artwork-mobile-ratio);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleShort {
+    font-size: clamp(3.55rem, 16.5vw, 5.1rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroQuickNav {
+    max-width: calc(100vw - 12px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .heroQuickLink {
+    min-width: 0;
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownWrapper {
+    top: 12px;
+    width: calc(100% - 16px);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner) .countdownBar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  :is(.heroMenBanner, .heroArtworkBanner) {
+    min-height: 0;
+    aspect-ratio: var(--hero-artwork-mobile-ratio);
+  }
+
 }

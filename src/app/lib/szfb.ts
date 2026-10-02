@@ -1,12 +1,48 @@
 import "server-only";
 import { API_URL, getApiFetchOptions } from "./api";
 
+export type SzfbTeamBrand = {
+  id: number;
+  display_name: string;
+  match_key: string;
+  normalized_match_key: string;
+  logo_url: string | null;
+  shadow_color: string | null;
+  use_shadow_color: boolean;
+  is_active: boolean;
+};
+
 export type SzfbStandingRow = {
   position: number;
   team_name: string;
+  team_brand: SzfbTeamBrand | null;
   played: number;
+  goals_for: number | null;
+  goals_against: number | null;
+  score: string | null;
   points: number;
 };
+
+export type SzfbStandingZoneKind = "playoff" | "barage" | "relegation";
+
+export type SzfbStandingZone = {
+  id: number;
+  kind: SzfbStandingZoneKind;
+  label: string;
+  start_position: number;
+  end_position: number;
+  display_order: number;
+  is_active: boolean;
+};
+
+export type SzfbDecisionType =
+  | "regulation"
+  | "overtime"
+  | "shootout"
+  | "unknown"
+  | "";
+
+export type SzfbFormCode = "V" | "P" | "VP" | "PP" | "VN" | "PN";
 
 export type SzfbMatch = {
   id: number;
@@ -14,8 +50,10 @@ export type SzfbMatch = {
   match_date: string | null;
   match_time: string | null;
   opponent: string;
+  opponent_brand: SzfbTeamBrand | null;
   venue: string;
   result: string;
+  decision_type: SzfbDecisionType;
   is_home: boolean | null;
 };
 
@@ -54,15 +92,17 @@ export type SzfbDashboardResponse = {
     id: number;
     label: string;
     team_name: string;
+    team_brand: SzfbTeamBrand | null;
     competition_name: string;
     competition_season: string;
   };
   standings: SzfbStandingRow[];
+  standing_zones: SzfbStandingZone[];
   results: SzfbMatch[];
+  form: SzfbFormCode[];
   upcoming: SzfbMatch[];
   player_stats: SzfbPlayerStat[];
 };
-
 
 export type SzfbLinkedCategory = {
   id: number;
@@ -113,7 +153,7 @@ export async function getSzfbWatchIdForCategory(
 }
 
 export async function getSzfbDashboard(
-  watchId: number
+  watchId: number,
 ): Promise<SzfbDashboardResponse | null> {
   try {
     const url = `${API_URL.replace(/\/$/, "")}/public/szfb/watch/${watchId}/dashboard/`;
@@ -132,16 +172,7 @@ export async function getSzfbDashboard(
   }
 }
 
-export type SzfbSingleMatch = {
-  id: number;
-  match_type: "finished" | "upcoming";
-  match_date: string | null;
-  match_time: string | null;
-  opponent: string;
-  venue: string;
-  result: string;
-  is_home: boolean | null;
-};
+export type SzfbSingleMatch = SzfbMatch;
 
 export type SzfbNextMatchResponse = {
   watch_id: number;
@@ -149,7 +180,7 @@ export type SzfbNextMatchResponse = {
 };
 
 export async function getSzfbNextMatch(
-  watchId: number
+  watchId: number,
 ): Promise<SzfbNextMatchResponse | null> {
   try {
     const url = `${API_URL.replace(/\/$/, "")}/public/szfb/watch/${watchId}/next-match/`;

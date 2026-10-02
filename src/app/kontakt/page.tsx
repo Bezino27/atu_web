@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { PiArrowRight } from "react-icons/pi";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ContactMap from "./ContactMap";
+import CopyEmailButton from "../components/CopyEmailButton";
 import styles from "./kontakt.module.css";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
 import { getClubContact } from "../lib/contact";
 import { getClubDocuments, getClubDocumentUrl } from "../lib/documents";
+import { getClub, getClubLinkLogoUrl } from "../lib/club";
+import { getActiveClubLinks, getClubLinkIcon } from "../lib/clubLinks";
 import { API_URL, getApiFetchOptions } from "../lib/api";
 
 const CLUB_SLUG = "atu-kosice";
@@ -102,15 +108,6 @@ function getPhoneHref(phone: string) {
   return `tel:${phone.replace(/\s/g, "")}`;
 }
 
-function getDocumentMeta(fileUrl: string) {
-  const cleanUrl = fileUrl.split("?")[0]?.split("#")[0] || "";
-  const extension = cleanUrl.includes(".")
-    ? cleanUrl.split(".").pop()?.toUpperCase()
-    : "PDF";
-
-  return extension || "PDF";
-}
-
 function getSectionPreTitle(section: PageSection, fallback: string) {
   return section.pre_title?.trim() || fallback;
 }
@@ -120,11 +117,16 @@ function getSectionTitle(section: PageSection, fallback: string) {
 }
 
 export default async function KontaktPage() {
-  const [page, contact, documents] = await Promise.all([
+  const [page, contact, documents, club] = await Promise.all([
     getContactPage(),
     getClubContact(CLUB_SLUG),
     getClubDocuments(CLUB_SLUG),
+    getClub(CLUB_SLUG),
   ]);
+
+  const socialLinks = getActiveClubLinks(club?.links).filter((link) =>
+    ["facebook", "instagram", "youtube"].includes(link.icon_type)
+  );
 
   const sections =
     page?.sections && page.sections.length > 0
@@ -160,81 +162,166 @@ export default async function KontaktPage() {
           </div>
         </div>
 
-        <div className={styles.contactGrid}>
-          <div className={styles.contactInfoCard}>
-            {contact ? (
-              <div className={styles.contactInfoList}>
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoLabel}>Adresa</span>
-                  <p className={styles.contactInfoText}>{contact.address}</p>
-                </div>
-
-                {contact.chairman_name && (
-                  <div className={styles.contactInfoItem}>
-                    <span className={styles.contactInfoLabel}>Predseda</span>
-                    <p className={styles.contactInfoText}>
-                      {contact.chairman_name}
-                    </p>
-                  </div>
-                )}
-
-                {contact.email && (
-                  <div className={styles.contactInfoItem}>
-                    <span className={styles.contactInfoLabel}>Email</span>
-                    <a
-                      className={styles.contactInfoLink}
-                      href={`mailto:${contact.email}`}
-                    >
-                      {contact.email}
-                    </a>
-                  </div>
-                )}
-
-                {contact.phone && (
-                  <div className={styles.contactInfoItem}>
-                    <span className={styles.contactInfoLabel}>Telefón</span>
-                    <a
-                      className={styles.contactInfoLink}
-                      href={getPhoneHref(contact.phone)}
-                    >
-                      {contact.phone}
-                    </a>
-                  </div>
-                )}
-
-                {contact.iban && (
-                  <div className={styles.contactInfoItem}>
-                    <span className={styles.contactInfoLabel}>IBAN</span>
-                    <p className={styles.contactInfoText}>{contact.iban}</p>
-                  </div>
-                )}
-
-                {contact.note && (
-                  <div className={styles.contactInfoItem}>
-                    <span className={styles.contactInfoLabel}>Poznámka</span>
-                    <p className={styles.contactInfoText}>{contact.note}</p>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className={styles.contactInfoList}>
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoLabel}>Kontakt</span>
-                  <p className={styles.contactInfoText}>
-                    Kontaktné údaje sa momentálne nepodarilo načítať.
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className={styles.contactMapCard}>
+        <div className={styles.contactShowcase}>
+          <div className={styles.contactMapLayer}>
             <div className={styles.contactMapWrap}>
               <ContactMap
                 locations={contactLocations}
                 activeLocation={contact ? "main" : null}
               />
             </div>
+          </div>
+
+          <div className={styles.contactMapFade} aria-hidden="true" />
+
+          <div className={styles.contactContent}>
+            {contact ? (
+              <>
+                <div className={styles.contactIntro}>
+                  <Link
+                    href="/pridaj_sa#kontakt"
+                    className={styles.contactIntroLink}
+                    aria-label="Prejsť na náborový formulár"
+                  >
+                    <h2 className={styles.contactIntroTitle}>Ozvite sa nám</h2>
+                    <span className={styles.contactIntroArrow} aria-hidden="true">
+                      <PiArrowRight />
+                    </span>
+                  </Link>
+
+                  <p className={styles.contactIntroText}>
+                    Otázky ohľadom klubu, spolupráce alebo náboru? Radi vám odpovieme.
+                  </p>
+                </div>
+
+                <div className={styles.contactInfoList}>
+                  <div className={styles.contactInfoItem}>
+                    <div className={styles.contactInfoBody}>
+                      <span className={styles.contactInfoLabel}>Adresa</span>
+                      <p className={styles.contactInfoText}>{contact.address}</p>
+                    </div>
+                  </div>
+
+                  {contact.chairman_name && (
+                    <div className={styles.contactInfoItem}>
+                      <div className={styles.contactInfoBody}>
+                        <span className={styles.contactInfoLabel}>Predseda</span>
+                        <p className={styles.contactInfoText}>
+                          {contact.chairman_name}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {contact.email && (
+                    <div className={styles.contactInfoItem}>
+                      <div className={styles.contactInfoBody}>
+                        <span className={styles.contactInfoLabel}>Email</span>
+                        <a
+                          className={styles.contactInfoLink}
+                          href={`mailto:${contact.email}`}
+                        >
+                          {contact.email}
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
+                  {contact.phone && (
+                    <div className={styles.contactInfoItem}>
+                      <div className={styles.contactInfoBody}>
+                        <span className={styles.contactInfoLabel}>Telefón</span>
+                        <a
+                          className={styles.contactInfoLink}
+                          href={getPhoneHref(contact.phone)}
+                        >
+                          {contact.phone}
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
+                  {contact.iban && (
+                    <div className={styles.contactInfoItem}>
+                      <div className={styles.contactInfoBody}>
+                        <span className={styles.contactInfoLabel}>IBAN</span>
+                        <p className={styles.contactInfoText}>{contact.iban}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {contact.note && (
+                    <div className={styles.contactInfoItem}>
+                      <div className={styles.contactInfoBody}>
+                        <span className={styles.contactInfoLabel}>Poznámka</span>
+                        <p className={styles.contactInfoText}>{contact.note}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {contact.email && (
+                  <CopyEmailButton
+                    email={contact.email}
+                    className={styles.contactCopyButton}
+                  />
+                )}
+
+                {socialLinks.length > 0 && (
+                  <div className={styles.contactSocials}>
+                    <span className={styles.contactSocialsLabel}>
+                      Sledujte nás
+                    </span>
+                    <div className={styles.contactSocialLinks}>
+                      {socialLinks.map((socialLink) => {
+                        const logoUrl = getClubLinkLogoUrl(socialLink);
+
+                        return (
+                          <a
+                            key={socialLink.id}
+                            href={socialLink.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.contactSocialLink}
+                            aria-label={socialLink.title}
+                            title={socialLink.title}
+                          >
+                            {logoUrl ? (
+                              <Image
+                                src={logoUrl}
+                                alt=""
+                                width={18}
+                                height={18}
+                                className={styles.contactSocialLogo}
+                              />
+                            ) : (
+                              getClubLinkIcon(socialLink.icon_type)
+                            )}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className={styles.contactUnavailable}>
+                <Link
+                  href="/pridaj_sa#kontakt"
+                  className={styles.contactIntroLink}
+                  aria-label="Prejsť na náborový formulár"
+                >
+                  <h2 className={styles.contactIntroTitle}>Ozvite sa nám</h2>
+                  <span className={styles.contactIntroArrow} aria-hidden="true">
+                    <PiArrowRight />
+                  </span>
+                </Link>
+
+                <p className={styles.contactIntroText}>
+                  Kontaktné údaje sa momentálne nepodarilo načítať.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -247,7 +334,11 @@ export default async function KontaktPage() {
     }
 
     return (
-      <section key={section.id} className="sectionContainer">
+      <section
+        id="dokumenty"
+        key={section.id}
+        className={`sectionContainer ${styles.documentsAnchor}`}
+      >
         <div className="resultsHeader">
           <div>
             <span className="preTitle">
@@ -264,9 +355,6 @@ export default async function KontaktPage() {
             <div className={styles.documentsGrid}>
               {documents.map((document) => {
                 const documentUrl = getClubDocumentUrl(document);
-                const documentMeta = getDocumentMeta(
-                  document.file_url || document.file || ""
-                );
 
                 return (
                   <a
@@ -277,26 +365,65 @@ export default async function KontaktPage() {
                     rel="noopener noreferrer"
                   >
                     <span className={styles.documentIcon} aria-hidden="true">
-                      {documentMeta}
+                      <span
+                        className={`${styles.documentPaper} ${styles.documentPaperBackTwo}`}
+                      />
+                      <span
+                        className={`${styles.documentPaper} ${styles.documentPaperBackOne}`}
+                      />
+                      <span
+                        className={`${styles.documentPaper} ${styles.documentPaperFront}`}
+                      >
+                        <Image
+                          src="/logo/znak_atu_nove.svg"
+                          alt=""
+                          width={28}
+                          height={28}
+                          className={styles.documentLogo}
+                        />
+                      </span>
                     </span>
 
                     <span className={styles.documentContent}>
                       <strong>{document.title}</strong>
-                      <small>Otvoriť dokument</small>
+                      <small>PDF dokument</small>
                     </span>
 
                     <span className={styles.documentArrow} aria-hidden="true">
-                      →
+                      <svg
+                        className={styles.documentArrowSvg}
+                        viewBox="0 0 56 32"
+                        fill="none"
+                      >
+                        <path
+                          className={styles.documentArrowStraightLine}
+                          d="M4 16H44"
+                          pathLength="1"
+                        />
+                        <path
+                          className={styles.documentArrowStraightHead}
+                          d="M37 9L44 16L37 23"
+                          pathLength="1"
+                        />
+                        <path
+                          className={styles.documentArrowLoopLine}
+                          d="M4 16C12 16 12 6 24 6C38 6 40 26 25 26C13 26 12 16 25 16H44"
+                          pathLength="1"
+                        />
+                        <path
+                          className={styles.documentArrowLoopHead}
+                          d="M37 9L44 16L37 23"
+                          pathLength="1"
+                        />
+                      </svg>
                     </span>
                   </a>
                 );
               })}
             </div>
           ) : (
-            <div className={styles.contactInfoCard}>
-              <p className={styles.contactInfoText}>
-                Dokumenty budú doplnené čoskoro.
-              </p>
+            <div className={styles.documentEmptyCard}>
+              <p>Dokumenty budú doplnené čoskoro.</p>
             </div>
           )}
         </div>

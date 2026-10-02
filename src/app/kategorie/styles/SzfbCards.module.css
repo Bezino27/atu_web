@@ -33,22 +33,15 @@
   );
   border: 1px solid var(--color-border-soft);
   box-shadow: var(--shadow-card);
-  transition:
-    transform 0.24s ease,
-    box-shadow 0.24s ease,
-    border-color 0.24s ease,
-    background 0.24s ease;
 }
 
 .szfbCard:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border-strong);
+  border-color: var(--hover-border);
   background: linear-gradient(
     180deg,
     var(--color-surface) 0%,
     var(--color-surface-soft) 100%
   );
-  box-shadow: var(--shadow-card-hover);
 }
 
 .szfbCard:focus-visible {
@@ -62,8 +55,8 @@
   z-index: -1;
   top: 14px;
   right: 16px;
-  width: 112px;
-  height: 112px;
+  width: 78px;
+  height: 78px;
   pointer-events: none;
   background-image: url("/logo/znak_atu_nove.svg");
   background-repeat: no-repeat;
@@ -71,14 +64,6 @@
   background-size: contain;
   opacity: 0.05;
   filter: grayscale(1);
-  transition:
-    opacity 0.3s ease,
-    transform 0.5s ease;
-}
-
-.szfbCard:hover .szfbWatermark {
-  opacity: 0.08;
-  transform: scale(1.04);
 }
 
 /* # CARD TOP */
@@ -145,36 +130,15 @@
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  border: 1px solid var(--szfb-red-border);
+  border: 1px solid rgba(17, 17, 19, 0.14);
   color: var(--color-text);
   box-shadow: var(--shadow-soft);
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.szfbCardLink::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--szfb-red-soft-hover);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .szfbCard:hover .szfbCardLink {
-  color: var(--color-text);
-  background: var(--color-surface);
-  border-color: rgba(224, 74, 74, 0.36);
-  box-shadow: 0 12px 24px var(--szfb-red-shadow);
-}
-
-.szfbCard:hover .szfbCardLink::before {
-  transform: scaleX(1);
+  color: #171719;
+  border-color: rgba(17, 17, 19, 0.2);
+  background: #dedfe1;
 }
 
 .szfbCardLinkText {
@@ -190,22 +154,6 @@
   width: 21px;
   height: 21px;
   color: var(--color-text);
-  transition: transform 0.3s ease;
-}
-
-.szfbCard:hover .szfbArrow {
-  transform: translateX(4px);
-}
-
-/* # REDUCED MOTION */
-@media (prefers-reduced-motion: reduce) {
-  .szfbCard,
-  .szfbWatermark,
-  .szfbCardLink,
-  .szfbCardLink::before,
-  .szfbArrow {
-    transition: none;
-  }
 }
 
 /* # 1024 */

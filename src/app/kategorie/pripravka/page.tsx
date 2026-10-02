@@ -11,6 +11,7 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_pripravka";
 import Nabor from "./components/nabor";
+import CategoryHeroContent from "../components/CategoryHeroContent";
 import {
   API_URL,
   normalizeMediaUrl,
@@ -177,6 +178,8 @@ const PripravkaPage = async () => {
   const mladezPosts = posts.filter(isYouthPost);
   const sections = getActiveSortedSections(categoryPage?.sections, fallbackSections);
 
+  const heroDescription = currentCategory?.description?.trim() || "";
+
   const categoryTrainings = [...(currentCategory?.trainings ?? [])].sort(
     (a, b) => a.order - b.order,
   );
@@ -195,45 +198,38 @@ const PripravkaPage = async () => {
               const heroTitle = getSectionTitle(section, categoryName);
 
               return (
-        <section key={section.id} className={heroStyles.heroSection}>
-          <div className={heroStyles.bannerContainer}>
+        <section
+          key={section.id}
+          className={`${heroStyles.heroSection} ${heroStyles.heroSectionWithoutCountdown} ${heroStyles.heroSplitSection}`}
+        >
+          <div
+            className={`${heroStyles.bannerContainer} ${heroStyles.heroSplitBanner} ${
+              heroDescription ? "" : heroStyles.bannerContainerCompact
+            }`}
+          >
             <Image
               src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 1300px"
+              sizes="100vw"
               className={heroStyles.heroImg}
             />
 
-            <div className={heroStyles.bannerOverlay}>
-              <div className={heroStyles.heroTextContent}>
-                <h1
-                  className={`${heroStyles.bannerTitleziaci} ${
-                    heroTitle.replace(/\s+/g, "").length > 8
-                      ? heroStyles.bannerTitleziaciLong
-                      : ""
-                  }`}
-                >
-                  {heroTitle}
-                </h1>
+            <div className={heroStyles.heroShade} aria-hidden="true" />
+            <div className={heroStyles.heroBrandLeft} aria-hidden="true" />
+            <div className={heroStyles.heroBrandRight} aria-hidden="true" />
 
-                <div className={heroStyles.heroQuickNav}>
-                  {categoryLinks.length > 0 ? (
-                    <a href="#odkazy" className={heroStyles.heroQuickLink}>
-                      Odkazy
-                    </a>
-                  ) : null}
-                  {categoryTrainings.length > 0 ? (
-                    <a href="#treningy" className={heroStyles.heroQuickLink}>
-                      Tréningy
-                    </a>
-                  ) : null}
-                  <a href="#novinky" className={heroStyles.heroQuickLink}>
-                    Novinky
-                  </a>
-                </div>
-              </div>
+            <div className={heroStyles.heroInner}>
+              <CategoryHeroContent
+                title={heroTitle}
+                description={heroDescription}
+                actions={[
+                  { href: "#nabor", label: "Nábor" },
+                  { href: "#novinky", label: "Novinky" },
+                  { href: "#treningy", label: "Tréningy" },
+                ]}
+              />
             </div>
           </div>
         </section>

@@ -12,6 +12,7 @@ import {
   getClubLinkIcon,
 } from "@/app/lib/clubLinks";
 import { getClubNavigation, getNavigationLabel } from "@/app/lib/pages";
+import Aurora from "./Aurora";
 import styles from "./Footer.module.css";
 
 type NavItem = {
@@ -168,6 +169,16 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
+      <div className={styles.auroraBackground} aria-hidden="true">
+        <Aurora
+          colorStops={["#111315", "#3A4048", "#1B1E22"]}
+          blend={0.5}
+          amplitude={0.82}
+          speed={0.8}
+        />
+      </div>
+
+      <div className={styles.auroraShade} aria-hidden="true" />
       <div className={styles.logoWrap}>
         <Link href="/" className={styles.logoLink} aria-label="ATU Košice domov">
           <Image

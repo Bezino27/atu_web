@@ -1,14 +1,62 @@
 /* # FOOTER */
 .footer {
   --footer-overhang-space: 130px;
+  --footer-accent: #9ba7b8;
+  --footer-accent-soft: rgba(155, 167, 184, 0.3);
 
   position: relative;
   margin-top: var(--footer-overhang-space);
   padding: 125px 0 28px;
-  background:
-    linear-gradient(180deg, #121316 0%, #0f1013 52%, #101114 100%);
+  background: #0b0c0f;
   color: #ffffff;
   overflow: visible;
+  isolation: isolate;
+}
+
+
+/* # AURORA BACKGROUND */
+.auroraBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+.auroraBackground::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 50% 8%,
+      rgba(155, 167, 184, 0.085) 0%,
+      rgba(155, 167, 184, 0.018) 28%,
+      transparent 58%
+    );
+  pointer-events: none;
+}
+
+.auroraShade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 9, 11, 0.18) 0%,
+      rgba(8, 9, 11, 0.34) 38%,
+      rgba(8, 9, 11, 0.78) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(6, 7, 9, 0.48) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(6, 7, 9, 0.48) 100%
+    );
 }
 
 .footer::before {
@@ -23,6 +71,9 @@
 }
 
 .container {
+  position: relative;
+  z-index: 2;
+
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
@@ -46,8 +97,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 330px;
-  height: 330px;
+  width: 190px;
+  height: 190px;
   text-decoration: none;
   transition:
     transform 0.24s ease,
@@ -91,9 +142,12 @@
   margin: 0 0 28px;
   padding-bottom: 20px;
   color: #ffffff;
-  font-family: var(--font-banner), var(--font-geist-sans), sans-serif;
+  font-family:
+    var(--font-unison),
+    sans-serif;
   font-size: clamp(1.45rem, 1.7vw, 2.1rem);
-  font-weight: 900;
+  font-style: normal;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -106,7 +160,12 @@
   bottom: 0;
   width: 72%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    90deg,
+    var(--footer-accent-soft) 0%,
+    rgba(255, 255, 255, 0.1) 72%,
+    transparent 100%
+  );
 }
 
 .navList {
@@ -126,19 +185,23 @@
 .navLink {
   display: inline-flex;
   width: fit-content;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.62);
   text-decoration: none;
+  font-family:
+    var(--font-unison),
+    sans-serif;
   font-size: 0.94rem;
-  font-weight: 600;
+  font-style: normal;
+  font-weight: 300;
+  -webkit-text-stroke: 0.14px currentColor;
   line-height: 1.35;
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    color var(--hover-duration-fast) var(--hover-ease),
+    opacity var(--hover-duration-fast) var(--hover-ease);
 }
 
 .navLink:hover {
-  color: #ffffff;
-  transform: translateX(4px);
+  color: var(--hover-link-color-inverse);
 }
 
 /* # SOCIAL IMAGE ICON */
@@ -234,18 +297,17 @@
 /* # SHARE BLOCK */
 .shareBlock {
   position: relative;
+  left: -48px;
   min-width: 0;
   min-height: 250px;
-  padding: 30px 24px 28px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.018);
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  border-radius: 24px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.035),
-    0 18px 45px rgba(0, 0, 0, 0.12);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .shareBlockInner {
@@ -260,7 +322,7 @@
   position: relative;
   width: 250px;
   height: 250px;
-  margin: 6px auto 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -434,12 +496,12 @@
   line-height: 1.45;
   text-decoration: none;
   transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
+    color var(--hover-duration-fast) var(--hover-ease),
+    opacity var(--hover-duration-fast) var(--hover-ease);
 }
 
 .privacyLink:hover {
-  color: #ffffff;
+  color: var(--hover-link-color-inverse);
 }
 
 /* # FOOTER RESPONSIVE 1024 */
@@ -455,8 +517,8 @@
   }
 
   .logoLink {
-    width: 270px;
-    height: 270px;
+    width: 160px;
+    height: 160px;
   }
 
   .topRow {
@@ -474,10 +536,14 @@
     width: 100%;
     margin: 0 auto;
   }
+
+  .shareBlock {
+    left: 0;
+  }
 }
 
-/* # FOOTER RESPONSIVE 768 */
-@media (max-width: 768px) {
+/* # FOOTER RESPONSIVE 1024 — CENTERED TABLET LAYOUT */
+@media (max-width: 1024px) {
   .footer {
     --footer-overhang-space: 96px;
 
@@ -489,8 +555,8 @@
   }
 
   .logoLink {
-    width: 220px;
-    height: 220px;
+    width: 140px;
+    height: 140px;
   }
 
   .topRow {
@@ -534,10 +600,6 @@
     font-size: 0.84rem;
   }
 
-  .navLink:hover {
-    transform: translateY(-2px);
-  }
-
   .shareSection {
     max-width: 460px;
     width: 100%;
@@ -546,9 +608,9 @@
   }
 
   .shareBlock {
-    min-height: 370px;
-    padding: 30px 18px 28px;
-    border-radius: 20px;
+    left: 0;
+    min-height: 270px;
+    padding: 0;
   }
 
   .shareMenu {
@@ -608,25 +670,25 @@
 
   .shareMenuOpen .shareItem {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(100px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1);
   }
 
   .shareItem:hover {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(100px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1.16);
   }
 
   .sharePlaceholder:hover {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(100px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1);
   }
 
@@ -658,8 +720,8 @@
   }
 
   .logoLink {
-    width: 175px;
-    height: 175px;
+    width: 120px;
+    height: 120px;
   }
 
   .navArea {
@@ -678,8 +740,8 @@
   }
 
   .shareBlock {
-    min-height: 330px;
-    padding: 26px 12px 24px;
+    min-height: 245px;
+    padding: 0;
   }
 
   .shareMenu {
@@ -739,25 +801,25 @@
 
   .shareMenuOpen .shareItem {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(92px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1);
   }
 
   .shareItem:hover {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(92px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1.14);
   }
 
   .sharePlaceholder:hover {
     transform:
-      rotate(calc(360deg / 7 * var(--i)))
+      rotate(calc(360deg / var(--items) * var(--i)))
       translateX(92px)
-      rotate(calc(-360deg / 7 * var(--i)))
+      rotate(calc(-360deg / var(--items) * var(--i)))
       scale(1);
   }
 

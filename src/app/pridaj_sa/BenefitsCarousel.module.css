@@ -1,17 +1,4 @@
 /* ######################################################### */
-/* # FONT                                                  # */
-/* ######################################################### */
-
-@font-face {
-  font-family: "ATU Unison Pro Bold";
-  src: url("/fonts/ATU-Unison Pro Bold.otf")
-    format("opentype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-/* ######################################################### */
 /* # SECTION                                               # */
 /* ######################################################### */
 
@@ -130,6 +117,8 @@
 .stage {
   position: relative;
 
+  --stage-fade-width: 96px;
+
   width: 100%;
   min-height: 350px;
 
@@ -142,56 +131,24 @@
   -webkit-mask-image:
     linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.86) 0%,
-      #000 1.25%,
-      #000 98.75%,
-      rgba(0, 0, 0, 0.86) 100%
+      transparent 0,
+      #000 var(--stage-fade-width),
+      #000 calc(100% - var(--stage-fade-width)),
+      transparent 100%
     );
+
+  -webkit-mask-repeat: no-repeat;
 
   mask-image:
     linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.86) 0%,
-      #000 1.25%,
-      #000 98.75%,
-      rgba(0, 0, 0, 0.86) 100%
+      transparent 0,
+      #000 var(--stage-fade-width),
+      #000 calc(100% - var(--stage-fade-width)),
+      transparent 100%
     );
-}
 
-.stage::before,
-.stage::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  bottom: 0;
-
-  z-index: 100;
-
-  width: 12px;
-
-  pointer-events: none;
-
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
-
-.stage::before {
-  left: 0;
-
-  -webkit-mask-image:
-    linear-gradient(to right, #000, transparent);
-  mask-image:
-    linear-gradient(to right, #000, transparent);
-}
-
-.stage::after {
-  right: 0;
-
-  -webkit-mask-image:
-    linear-gradient(to left, #000, transparent);
-  mask-image:
-    linear-gradient(to left, #000, transparent);
+  mask-repeat: no-repeat;
 }
 
 /* ######################################################### */
@@ -444,10 +401,7 @@
     0 5px 14px
       rgba(15, 23, 42, 0.04);
 
-  font-family:
-    "ATU Unison Pro Bold",
-    "Unison Pro",
-    sans-serif;
+  font-family: var(--font-unison), sans-serif;
 
   font-size: 0.64rem;
   font-style: normal;
@@ -631,14 +585,11 @@
 .cardTitle {
   margin: 0 0 6px;
 
-  max-width: 100%;
+  max-width: 27ch;
 
   color: #171717;
 
-  font-family:
-    "ATU Unison Pro Bold",
-    "Unison Pro",
-    sans-serif;
+  font-family: var(--font-unison), sans-serif;
 
   font-size: 1.08rem;
   font-style: normal;
@@ -646,7 +597,9 @@
 
   line-height: 1.06;
   letter-spacing: 0;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 
   transition:
     color 0.42s ease,
@@ -723,10 +676,7 @@
 
 .brandName,
 .brandText {
-  font-family:
-    "ATU Unison Pro Bold",
-    "Unison Pro",
-    sans-serif;
+  font-family: var(--font-unison), sans-serif;
 
   font-style: normal;
   font-weight: 700;
@@ -827,10 +777,7 @@
 }
 
 .counter strong {
-  font-family:
-    "ATU Unison Pro Bold",
-    "Unison Pro",
-    sans-serif;
+  font-family: var(--font-unison), sans-serif;
 
   font-size: 1.02rem;
   font-style: normal;
@@ -1091,25 +1038,9 @@
   }
 
   .stage {
+    --stage-fade-width: 56px;
+
     min-height: 322px;
-
-    -webkit-mask-image:
-      linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        #000 0.75%,
-        #000 99.25%,
-        rgba(0, 0, 0, 0.9) 100%
-      );
-
-    mask-image:
-      linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        #000 0.75%,
-        #000 99.25%,
-        rgba(0, 0, 0, 0.9) 100%
-      );
   }
 
   .card {
@@ -1329,15 +1260,9 @@
   }
 
   .stage {
+    --stage-fade-width: 42px;
+
     min-height: 296px;
-  }
-
-  .stage::before,
-  .stage::after {
-    width: 8px;
-
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
   }
 
   .card {

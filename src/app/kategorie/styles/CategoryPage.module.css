@@ -3,7 +3,7 @@
 /* # PAGE TOKENS */
 
 .pageContainer {
-  --font-panel-title: clamp(1.25rem, 1.8vw, 1.7rem);
+  --font-panel-title: clamp(1.05rem, 1.4vw, 1.3rem);
 
   --font-card-title: 20px;
   --font-card-title-sm: 18px;
@@ -56,25 +56,24 @@
 /* # OVERVIEW GRID */
 
 .overviewGrid {
-  width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.52fr) minmax(350px, 0.9fr);
   gap: 22px;
-  align-items: stretch;
+  width: 100%;
+  align-items: start;
 }
 
 /* # COLUMNS */
 
 .tableColumn,
 .matchesColumn {
-  min-width: 0;
   display: flex;
+  min-width: 0;
 }
 
 .tableColumn > *,
 .matchesColumn > * {
   width: 100%;
-  height: 100%;
 }
 
 /* # SHARED SECTION TITLES */
@@ -125,9 +124,10 @@
 .panelTitle {
   margin: 0;
   color: var(--color-black);
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-unison), sans-serif;
   font-size: var(--font-panel-title);
-  font-weight: 800;
+  font-weight: 300;
+  font-style: italic;
   line-height: 1.1;
   letter-spacing: -0.03em;
 }
@@ -136,125 +136,126 @@
 
 @media (max-width: 1024px) {
   .pageContainer {
-      --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
-
-      --font-card-title: 19px;
-      --font-card-title-sm: 17px;
-      --font-player-name: clamp(1.4rem, 1.8vw, 1.7rem);
-      --font-goalie-name: clamp(1.3rem, 1.7vw, 1.65rem);
-      --font-team-name: 1rem;
-      --font-table-team-name: 0.91rem;
-      --font-featured-date: 0.96rem;
-      --font-featured-place: 0.88rem;
-      --font-body: 0.96rem;
-      --font-body-sm: 0.92rem;
-      --font-meta: 0.84rem;
-      --font-meta-sm: 0.82rem;
-      --font-badge: 0.69rem;
-      --font-badge-sm: 10px;
-      --font-stat-value: 1.1rem;
-      --font-stat-label: 0.8rem;
-      --font-number-display: clamp(3.8rem, 6vw, 5.4rem);
-      --font-score: 2.35rem;
-    }
+    --font-panel-title: clamp(1.05rem, 2vw, 1.25rem);
+    --font-card-title: 19px;
+    --font-card-title-sm: 17px;
+    --font-player-name: clamp(1.4rem, 1.8vw, 1.7rem);
+    --font-goalie-name: clamp(1.3rem, 1.7vw, 1.65rem);
+    --font-team-name: 1rem;
+    --font-table-team-name: 0.91rem;
+    --font-featured-date: 0.96rem;
+    --font-featured-place: 0.88rem;
+    --font-body: 0.96rem;
+    --font-body-sm: 0.92rem;
+    --font-meta: 0.84rem;
+    --font-meta-sm: 0.82rem;
+    --font-badge: 0.69rem;
+    --font-badge-sm: 10px;
+    --font-stat-value: 1.1rem;
+    --font-stat-label: 0.8rem;
+    --font-number-display: clamp(3.8rem, 6vw, 5.4rem);
+    --font-score: 2.35rem;
+  }
 
   .content {
-      gap: 48px;
-      padding-bottom: 48px;
-    }
+    gap: 48px;
+    padding-bottom: 48px;
+  }
 
   .bottomSection,
-    .overviewSection,
-    .sectionContainer {
-      padding: 0 14px;
-    }
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 14px;
+  }
+
+  .overviewGrid {
+    grid-template-columns: minmax(0, 1.42fr) minmax(330px, 0.92fr);
+  }
 }
 
 /* # 900 */
 
 @media (max-width: 900px) {
   .overviewGrid {
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 }
 
 /* # 768 */
 
 @media (max-width: 768px) {
   .pageContainer {
-      --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
-
-      --font-card-title: 18px;
-      --font-card-title-sm: 16px;
-      --font-player-name: 1.6rem;
-      --font-goalie-name: 1.45rem;
-      --font-team-name: 0.82rem;
-      --font-table-team-name: 0.84rem;
-      --font-featured-date: 0.82rem;
-      --font-featured-place: 0.74rem;
-      --font-body: 0.92rem;
-      --font-body-sm: 0.86rem;
-      --font-meta: 0.8rem;
-      --font-meta-sm: 0.76rem;
-      --font-badge: 0.62rem;
-      --font-badge-sm: 10px;
-      --font-stat-value: 1.04rem;
-      --font-stat-label: 0.78rem;
-      --font-number-display: clamp(3.5rem, 14vw, 5.2rem);
-      --font-score: 1.75rem;
-    }
+    --font-panel-title: clamp(0.95rem, 3.8vw, 1.1rem);
+    --font-card-title: 18px;
+    --font-card-title-sm: 16px;
+    --font-player-name: 1.6rem;
+    --font-goalie-name: 1.45rem;
+    --font-team-name: 0.82rem;
+    --font-table-team-name: 0.84rem;
+    --font-featured-date: 0.82rem;
+    --font-featured-place: 0.74rem;
+    --font-body: 0.92rem;
+    --font-body-sm: 0.86rem;
+    --font-meta: 0.8rem;
+    --font-meta-sm: 0.76rem;
+    --font-badge: 0.62rem;
+    --font-badge-sm: 10px;
+    --font-stat-value: 1.04rem;
+    --font-stat-label: 0.78rem;
+    --font-number-display: clamp(3.5rem, 14vw, 5.2rem);
+    --font-score: 1.75rem;
+  }
 
   .content {
-      gap: 40px;
-      padding-bottom: 40px;
-    }
+    gap: 40px;
+    padding-bottom: 40px;
+  }
 
   .bottomSection,
-    .overviewSection,
-    .sectionContainer {
-      padding: 0 10px;
-    }
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 10px;
+  }
 
   .panelHeader {
-      margin-bottom: 14px;
-    }
+    margin-bottom: 14px;
+  }
 }
 
 /* # 480 */
 
 @media (max-width: 480px) {
   .pageContainer {
-      --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
-
-      --font-card-title: 16px;
-      --font-card-title-sm: 15px;
-      --font-player-name: 1.45rem;
-      --font-goalie-name: 1.4rem;
-      --font-team-name: 0.85rem;
-      --font-table-team-name: 0.8rem;
-      --font-featured-date: 0.8rem;
-      --font-featured-place: 0.75rem;
-      --font-body: 0.86rem;
-      --font-body-sm: 0.82rem;
-      --font-meta: 0.74rem;
-      --font-meta-sm: 0.7rem;
-      --font-badge: 0.58rem;
-      --font-badge-sm: 9px;
-      --font-stat-value: 1rem;
-      --font-stat-label: 0.76rem;
-      --font-number-display: clamp(3.2rem, 16vw, 4.8rem);
-      --font-score: 2rem;
-    }
+    --font-panel-title: clamp(0.9rem, 4.5vw, 1rem);
+    --font-card-title: 16px;
+    --font-card-title-sm: 15px;
+    --font-player-name: 1.45rem;
+    --font-goalie-name: 1.4rem;
+    --font-team-name: 0.85rem;
+    --font-table-team-name: 0.8rem;
+    --font-featured-date: 0.8rem;
+    --font-featured-place: 0.75rem;
+    --font-body: 0.86rem;
+    --font-body-sm: 0.82rem;
+    --font-meta: 0.74rem;
+    --font-meta-sm: 0.7rem;
+    --font-badge: 0.58rem;
+    --font-badge-sm: 9px;
+    --font-stat-value: 1rem;
+    --font-stat-label: 0.76rem;
+    --font-number-display: clamp(3.2rem, 16vw, 4.8rem);
+    --font-score: 2rem;
+  }
 
   .content {
-      gap: 32px;
-      padding-bottom: 32px;
-    }
+    gap: 32px;
+    padding-bottom: 32px;
+  }
 
   .bottomSection,
-    .overviewSection,
-    .sectionContainer {
-      padding: 0 8px;
-    }
+  .overviewSection,
+  .sectionContainer {
+    padding: 0 8px;
+  }
 }

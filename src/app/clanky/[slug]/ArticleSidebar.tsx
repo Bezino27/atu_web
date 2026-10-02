@@ -24,6 +24,10 @@ type ArticleSidebarProps = {
   relatedPosts: Post[];
 };
 
+type ArticlePreviewCardProps = {
+  post: Post;
+};
+
 const PRODUCTION_ORIGIN = "https://atukosice.sk";
 
 const styles = {
@@ -89,6 +93,51 @@ function formatDate(value?: string | null) {
     month: "long",
     year: "numeric",
   });
+}
+
+export function ArticlePreviewCard({ post }: ArticlePreviewCardProps) {
+  const image = post.featured_image
+    ? getImageUrl(post.featured_image)
+    : null;
+  const date = post.published_at || post.updated_at;
+
+  return (
+    <Link href={`/clanky/${post.slug}`} className={styles.relatedItem}>
+      <div className={styles.relatedThumb}>
+        {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={image} alt="" loading="lazy" />
+        ) : (
+          <span>ATU</span>
+        )}
+      </div>
+
+      <div className={styles.relatedContent}>
+        {post.category?.name ? (
+          <span className={styles.categoryBadge}>{post.category.name}</span>
+        ) : null}
+        <strong className={styles.relatedItemTitle}>{post.title}</strong>
+        {date ? (
+          <time dateTime={date} className={styles.relatedDate}>
+            {formatDate(date)}
+          </time>
+        ) : null}
+      </div>
+
+      <span className={styles.relatedArrow} aria-hidden="true">
+        <ArrowRightIcon />
+      </span>
+    </Link>
+  );
+}
+
+export function AllArticlesLink() {
+  return (
+    <Link href="/clanky" className={styles.bottomCta}>
+      <span>Všetky články</span>
+      <span aria-hidden="true"><ArrowRightIcon /></span>
+    </Link>
+  );
 }
 
 function getProductionArticleUrl(value: string) {
@@ -588,123 +637,12 @@ export default function ArticleSidebar({
           >
             {relatedPosts.map(
               (relatedPost) => {
-                const relatedImage =
-                  relatedPost.featured_image
-                    ? getImageUrl(
-                        relatedPost.featured_image
-                      )
-                    : null;
-
-                const relatedDate =
-                  relatedPost.published_at ||
-                  relatedPost.updated_at;
-
-                return (
-                  <Link
-                    key={
-                      relatedPost.id
-                    }
-                    href={`/clanky/${relatedPost.slug}`}
-                    className={
-                      styles.relatedItem
-                    }
-                  >
-                    <div
-                      className={
-                        styles.relatedThumb
-                      }
-                    >
-                      {relatedImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={
-                            relatedImage
-                          }
-                          alt=""
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span>
-                          ATU
-                        </span>
-                      )}
-                    </div>
-
-                    <div
-                      className={
-                        styles.relatedContent
-                      }
-                    >
-                      {relatedPost.category?.name ? (
-                        <span
-                          className={
-                            styles.categoryBadge
-                          }
-                        >
-                          {
-                            relatedPost
-                              .category
-                              .name
-                          }
-                        </span>
-                      ) : null}
-
-                      <strong
-                        className={
-                          styles.relatedItemTitle
-                        }
-                      >
-                        {
-                          relatedPost.title
-                        }
-                      </strong>
-
-                      {relatedDate ? (
-                        <time
-                          dateTime={
-                            relatedDate
-                          }
-                          className={
-                            styles.relatedDate
-                          }
-                        >
-                          {formatDate(
-                            relatedDate
-                          )}
-                        </time>
-                      ) : null}
-                    </div>
-
-                    <span
-                      className={
-                        styles.relatedArrow
-                      }
-                      aria-hidden="true"
-                    >
-                      <ArrowRightIcon />
-                    </span>
-                  </Link>
-                );
+                return <ArticlePreviewCard key={relatedPost.id} post={relatedPost} />;
               }
             )}
           </div>
 
-          <Link
-            href="/clanky"
-            className={
-              styles.bottomCta
-            }
-          >
-            <span>
-              Všetky články
-            </span>
-
-            <span
-              aria-hidden="true"
-            >
-              <ArrowRightIcon />
-            </span>
-          </Link>
+          <AllArticlesLink />
         </section>
       ) : null}
     </aside>

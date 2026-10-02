@@ -37,7 +37,7 @@
 }
 
 .headerLabel {
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   font-size: 0.95rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -258,7 +258,7 @@
   border-radius: var(--radius-xl);
   color: rgba(0, 0, 0, 0.28);
   font-size: 13px;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   letter-spacing: 1px;
   text-align: center;
   padding: 20px;
@@ -340,7 +340,7 @@
 
 .markerLabel strong {
   display: block;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   font-size: 15px;
   font-weight: 900;
   line-height: 1.15;
@@ -354,7 +354,7 @@
 .markerLabel span {
   display: block;
   margin-top: 2px;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;

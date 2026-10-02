@@ -59,16 +59,32 @@
   isolation: isolate;
   border-radius: 28px;
   background:
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(var(--leader-accent-rgb), 0.2) 0%,
+      rgba(var(--leader-accent-rgb), 0.07) 24%,
+      transparent 48%
+    ) padding-box,
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.018),
       rgba(0, 0, 0, 0.1)
-    ),
-    var(--leader-bg);
-  border: 1.5px solid var(--leader-border);
+    ) padding-box,
+    linear-gradient(var(--leader-bg), var(--leader-bg)) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(var(--leader-accent-rgb), 0.98) 0%,
+      rgba(var(--leader-accent-rgb), 0.18) 34%,
+      rgba(var(--leader-accent-rgb), 0.08) 58%,
+      rgba(var(--leader-accent-rgb), 0.92) 100%
+    ) border-box,
+    linear-gradient(var(--leader-bg), var(--leader-bg)) border-box;
+  border: 2px solid transparent;
   box-shadow:
-    0 18px 40px rgba(15, 18, 24, 0.14),
-    0 6px 18px rgba(0, 0, 0, 0.08);
+    0 14px 32px -6px rgba(var(--leader-accent-rgb), 0.5),
+    0 4px 10px -2px rgba(var(--leader-accent-rgb), 0.35),
+    0 24px 48px rgba(15, 18, 24, 0.22),
+    0 8px 20px rgba(0, 0, 0, 0.14);
   transition:
     transform 0.22s ease,
     border-color 0.22s ease,
@@ -77,10 +93,16 @@
 
 .playerCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(var(--leader-accent-rgb), 0.96);
   box-shadow:
-    0 24px 50px rgba(15, 18, 24, 0.18),
-    0 10px 22px rgba(0, 0, 0, 0.1);
+    0 18px 40px -6px rgba(var(--leader-accent-rgb), 0.6),
+    0 6px 14px -2px rgba(var(--leader-accent-rgb), 0.4),
+    0 30px 56px rgba(15, 18, 24, 0.26),
+    0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.playerCard:hover .playerNumber {
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.96);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
 }
 
 .playerCard::before {
@@ -251,17 +273,17 @@
   text-align: right;
   color: transparent;
   -webkit-text-stroke: 2px rgba(var(--leader-accent-rgb), 0.96);
-  font-family:
-    "Unison Pro",
-    var(--font-unison),
-    var(--font-geist-sans),
-    sans-serif;
+  font-family: var(--font-unison), sans-serif;
   font-style: italic;
-  font-size: clamp(4rem, 4.5vw, 4rem);
+  font-size: clamp(4.65rem, 5.35vw, 5.85rem);
   font-weight: 700;
   line-height: 0.82;
   letter-spacing: 0.01em;
   opacity: 0.96;
+  filter: drop-shadow(0 0 8px rgba(var(--leader-accent-rgb), 0.25));
+  transition:
+    -webkit-text-stroke-color 0.2s ease,
+    filter 0.2s ease;
   user-select: none;
   pointer-events: none;
 }
@@ -273,7 +295,7 @@
   z-index: 2;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(190px, 0.74fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(170px, 0.68fr);
   grid-template-areas: "content photo";
   gap: 18px;
   align-items: stretch;
@@ -307,13 +329,9 @@
 .playerName {
   margin: 0;
   color: var(--leader-text);
-  font-family:
-    "ATU Unison Bold",
-    var(--font-unison),
-    var(--font-geist-sans),
-    sans-serif;
-  font-style: normal;
-  font-size: clamp(1.45rem, 1.85vw, 2.1rem);
+  font-family: var(--font-unison), sans-serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.4vw, 1.55rem);
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: 0.01em;
@@ -338,7 +356,7 @@
   z-index: 3;
   width: 100%;
   min-height: 0;
-  margin-top: 86px;
+  margin-top: 94px;
   align-self: stretch;
   justify-self: end;
   border-radius: 22px;
@@ -430,7 +448,7 @@
 }
 
 .playerPhotoLogo {
-  width: min(46%, 96px);
+  width: min(38%, 78px);
   height: auto;
   opacity: 0.1;
   object-fit: contain;
@@ -441,66 +459,133 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .statItem {
   position: relative;
   min-width: 0;
-  min-height: 72px;
+  min-height: 82px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   gap: 4px;
   padding: 10px 10px 8px;
-  border-radius: 16px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(var(--leader-accent-rgb), 0.34);
+  border: 1.5px solid rgba(var(--leader-accent-rgb), 0.38);
+  text-align: center;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
     0 8px 18px rgba(0, 0, 0, 0.08);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
-    background 0.18s ease;
+    background 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .statItem::before {
   content: "";
   position: absolute;
-  left: 10px;
-  bottom: 8px;
-  width: 24px;
-  height: 2px;
+  left: 50%;
+  bottom: 0;
+  width: calc(100% - 24px);
+  height: 3px;
   border-radius: 999px;
-  background: rgba(var(--leader-accent-rgb), 0.92);
+  background: var(--leader-accent);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
 }
 
 .statItem::after {
   display: none;
 }
 
+.statItem:nth-child(3) {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(var(--leader-accent-rgb), 0.42) 18%,
+      rgba(var(--leader-accent-rgb), 0.22) 58%,
+      rgba(var(--leader-accent-rgb), 0.34) 100%
+    ),
+    var(--leader-bg);
+  border: 1.5px solid rgba(var(--leader-accent-rgb), 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1),
+    0 6px 14px rgba(var(--leader-accent-rgb), 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.11);
+}
+
+.statItem:nth-child(3)::before {
+  display: none;
+}
+
+.statItem:nth-child(3)::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
+  pointer-events: none;
+}
+
 .statItem:hover {
-  transform: translateY(-2px);
-  border-color: rgba(var(--leader-accent-rgb), 0.72);
-  background: rgba(255, 255, 255, 0.035);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 24px rgba(0, 0, 0, 0.16);
+}
+
+.statItem:nth-child(3):hover {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(var(--leader-accent-rgb), 0.42) 18%,
+      rgba(var(--leader-accent-rgb), 0.22) 58%,
+      rgba(var(--leader-accent-rgb), 0.34) 100%
+    ),
+    var(--leader-bg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.1),
+    0 7px 16px rgba(var(--leader-accent-rgb), 0.11),
+    0 4px 10px rgba(0, 0, 0, 0.13);
+}
+
+.statItem:hover::before {
+  transform: translateX(-50%) scaleX(1);
 }
 
 .statValue {
   position: relative;
   z-index: 1;
-  color: var(--leader-accent);
-  font-family:
-    "Unison Pro",
-    var(--font-unison),
-    var(--font-geist-sans),
-    sans-serif;
-  font-style: italic;
+  color: var(--leader-text);
+  font-family: var(--font-unison), sans-serif;
+  font-style: normal;
   font-size: clamp(1.3rem, 1.55vw, 1.8rem);
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: 0.01em;
+  transition: color 0.18s ease;
+}
+
+.statItem:hover .statValue {
+  color: var(--leader-accent);
+}
+
+.statItem:nth-child(3):hover .statValue {
+  color: var(--leader-text);
 }
 
 .statLabel {
@@ -594,7 +679,7 @@
     width: auto;
     min-width: 96px;
     text-align: right;
-    font-size: clamp(2.25rem, 3vw, 3.35rem);
+    font-size: clamp(2.7rem, 3.7vw, 3.8rem);
     -webkit-text-stroke-width: 1.8px;
   }
 
@@ -611,7 +696,7 @@
   }
 
   .playerName {
-    font-size: clamp(1.2rem, 1.45vw, 1.7rem);
+    font-size: clamp(0.98rem, 1.15vw, 1.3rem);
     line-height: 1.05;
   }
 
@@ -626,7 +711,7 @@
   }
 
   .statItem {
-    min-height: 66px;
+    min-height: 74px;
     padding: 9px 9px 8px;
   }
 
@@ -658,9 +743,9 @@
   }
 }
 
-/* # 900 */
+/* # STACKED CARDS BELOW DESKTOP */
 
-@media (max-width: 900px) {
+@media (max-width: 1099px) {
   .topPlayersPodium {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -704,7 +789,7 @@
     width: auto;
     min-width: 110px;
     text-align: right;
-    font-size: clamp(2.8rem, 7vw, 4rem);
+    font-size: clamp(3rem, 6.3vw, 4.2rem);
   }
 
   .playerCardBody {
@@ -720,7 +805,7 @@
   }
 
   .playerName {
-    font-size: clamp(1.7rem, 6vw, 2.8rem);
+    font-size: clamp(1.28rem, 4.4vw, 1.95rem);
     line-height: 1.06;
   }
 
@@ -730,13 +815,16 @@
   }
 
   .statItem {
-    min-height: 76px;
+    min-height: 84px;
   }
 
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    min-height: 282px;
-    margin-top: 42px;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    max-height: 310px;
+    margin-top: 70px;
+    align-self: end;
   }
 
   .playerPhoto {
@@ -822,17 +910,17 @@
     width: auto;
     min-width: 100px;
     text-align: right;
-    font-size: clamp(2.35rem, 10vw, 3.55rem);
+    font-size: clamp(2.55rem, 9vw, 3.6rem);
     -webkit-text-stroke-width: 1.6px;
   }
 
   .playerCardBody {
     grid-template-columns:
       minmax(0, 1fr)
-      clamp(172px, 34vw, 210px);
+      clamp(150px, 34vw, 190px);
     grid-template-areas: "content photo";
     gap: 14px;
-    align-items: stretch;
+    align-items: start;
   }
 
   .playerContent {
@@ -841,7 +929,7 @@
   }
 
   .playerName {
-    font-size: clamp(1.45rem, 7vw, 2.2rem);
+    font-size: clamp(1.14rem, 5.3vw, 1.68rem);
     line-height: 1.08;
   }
 
@@ -851,13 +939,14 @@
   }
 
   .statsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-    max-width: 190px;
+    width: 100%;
+    max-width: none;
   }
 
   .statItem {
-    min-height: 58px;
+    min-height: 66px;
     padding: 8px 10px 7px;
     border-radius: 14px;
   }
@@ -873,8 +962,12 @@
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
     width: 100%;
-    min-height: 292px;
-    margin-top: 68px;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    height: auto;
+    max-height: 280px;
+    margin-top: 70px;
+    align-self: end;
     justify-self: end;
     border-radius: 20px;
   }
@@ -909,34 +1002,41 @@
 @media (max-width: 640px) {
   .playerCardBody {
     grid-template-columns:
-      minmax(0, 0.52fr)
-      minmax(160px, 0.48fr);
+      minmax(0, 1fr)
+      clamp(138px, 38vw, 180px);
     gap: 12px;
+    align-items: start;
   }
 
   .playerName {
-    font-size: clamp(1.3rem, 8vw, 1.9rem);
+    font-size: clamp(1.06rem, 6.2vw, 1.48rem);
   }
 
   .statsGrid {
-    max-width: 148px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: none;
   }
 
   .statItem {
-    min-height: 54px;
+    min-height: 62px;
   }
 
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    min-height: 282px;
-    margin-top: 82px;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    height: auto;
+    max-height: 250px;
+    margin-top: 70px;
+    align-self: end;
   }
 
   .playerNumber {
     top: 10px;
     right: 16px;
     min-width: 86px;
-    font-size: clamp(2.1rem, 11vw, 3.1rem);
+    font-size: clamp(2.4rem, 10vw, 3.25rem);
   }
 
   .playerPhoto {
@@ -1008,7 +1108,7 @@
     right: 16px;
     min-width: 112px;
     text-align: right;
-    font-size: clamp(2.9rem, 14vw, 4.25rem);
+    font-size: clamp(2.8rem, 12.5vw, 4rem);
     -webkit-text-stroke-width: 1.5px;
   }
 
@@ -1018,7 +1118,7 @@
       clamp(126px, 36vw, 146px);
     grid-template-areas: "content photo";
     gap: 10px;
-    align-items: stretch;
+    align-items: start;
   }
 
   .playerContent {
@@ -1028,7 +1128,7 @@
   }
 
   .playerName {
-    font-size: clamp(1.28rem, 8vw, 1.78rem);
+    font-size: clamp(1rem, 6.2vw, 1.38rem);
     line-height: 1.08;
   }
 
@@ -1038,21 +1138,22 @@
   }
 
   .statsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-    max-width: 150px;
+    width: 100%;
+    max-width: none;
   }
 
   .statItem {
-    min-height: 56px;
+    min-height: 64px;
     padding: 8px 9px 7px;
     border-radius: 13px;
   }
 
   .statItem::before {
-    left: 8px;
-    bottom: 7px;
-    width: 20px;
+    left: 50%;
+    bottom: 0;
+    width: calc(100% - 18px);
   }
 
   .statValue {
@@ -1067,8 +1168,12 @@
   .playerCardMain .playerPhotoWrap {
     grid-area: photo;
     width: 100%;
-    min-height: 238px;
-    margin-top: 76px;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    height: auto;
+    max-height: 220px;
+    margin-top: 70px;
+    align-self: end;
     justify-self: end;
     border-radius: 18px;
   }
@@ -1109,27 +1214,29 @@
       minmax(0, 0.51fr)
       minmax(136px, 0.49fr);
     gap: 10px;
-    align-items: stretch;
+    align-items: start;
   }
 
   .playerNumber {
     top: 12px;
     right: 12px;
     min-width: 92px;
-    font-size: clamp(2.25rem, 13vw, 3.2rem);
+    font-size: clamp(2.35rem, 12vw, 3.1rem);
   }
 
   .playerName {
-    font-size: clamp(1.08rem, 8vw, 1.5rem);
+    font-size: clamp(0.92rem, 6.2vw, 1.2rem);
   }
 
   .statsGrid {
-    max-width: 132px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: none;
     gap: 6px;
   }
 
   .statItem {
-    min-height: 50px;
+    min-height: 58px;
     padding: 7px;
   }
 
@@ -1143,8 +1250,12 @@
 
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    min-height: 258px;
-    margin-top: 68px;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    height: auto;
+    max-height: 205px;
+    margin-top: 64px;
+    align-self: end;
   }
 
   .playerPhoto {
@@ -1153,5 +1264,45 @@
     padding: 0;
     transform: scale(1.16);
     transform-origin: center bottom;
+  }
+}
+
+/* One name part with 11–12 characters. */
+.playerName.playerNameMedium {
+  font-size: clamp(0.94rem, 1.12vw, 1.25rem);
+}
+
+/* One name part longer than 12 characters. */
+.playerName.playerNameLong {
+  font-size: clamp(0.78rem, 0.95vw, 1.08rem);
+}
+
+@media (max-width: 768px) {
+  .playerName.playerNameMedium {
+    font-size: clamp(1rem, 3.7vw, 1.4rem);
+  }
+
+  .playerName.playerNameLong {
+    font-size: clamp(0.92rem, 3.4vw, 1.28rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .playerName.playerNameMedium {
+    font-size: clamp(0.88rem, 4.4vw, 1.2rem);
+  }
+
+  .playerName.playerNameLong {
+    font-size: clamp(0.8rem, 4.1vw, 1.1rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .playerName.playerNameMedium {
+    font-size: clamp(0.82rem, 4.8vw, 1.02rem);
+  }
+
+  .playerName.playerNameLong {
+    font-size: clamp(0.74rem, 4.6vw, 0.96rem);
   }
 }

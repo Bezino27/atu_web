@@ -227,15 +227,15 @@
   line-height: 1;
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    background var(--hover-duration-fast) var(--hover-ease),
+    border-color var(--hover-duration-fast) var(--hover-ease),
+    transform var(--hover-duration-fast) var(--hover-ease);
 }
 
 .datePickerNavButton:hover:not(:disabled) {
   background: #f9fafb;
   border-color: rgba(211, 15, 29, 0.2);
-  transform: translateY(-1px);
+  transform: translateY(var(--hover-lift-button));
 }
 
 .datePickerNavButton:disabled {
@@ -342,40 +342,51 @@
   line-height: 1.45;
 }
 
-.submitError,
-.successMessage {
-  margin: 18px 0 0;
-  padding: 13px 15px;
-  border-radius: 16px;
-  font-size: 0.95rem;
-  font-weight: 650;
-  line-height: 1.55;
-}
-
 .submitError {
-  color: #8f0f19;
-  background: rgba(211, 15, 29, 0.08);
-  border: 1px solid rgba(211, 15, 29, 0.18);
+  margin: 18px 0 0;
+  color: var(--color-red-dark);
+  font-size: 1.02rem;
+  font-weight: 750;
+  line-height: 1.5;
 }
 
-.successMessage {
-  color: #166534;
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.16);
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* # SUBMIT AREA */
+
+.submitArea {
+  position: relative;
+  width: 100%;
+  margin-top: 26px;
+  isolation: isolate;
 }
 
 /* # SUBMIT BUTTON */
 
 .submitButton {
+  position: relative;
+  z-index: 2;
   width: 100%;
   min-height: 68px;
-  margin-top: 26px;
+  margin: 0;
   padding: 0 24px;
   border: none;
   border-radius: 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 13px;
+  overflow: hidden;
   background: linear-gradient(135deg, #d80f1f 0%, #c70d1b 48%, #a90d18 100%);
   color: #ffffff;
   cursor: pointer;
@@ -387,10 +398,10 @@
   line-height: 1;
   letter-spacing: -0.01em;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease,
-    filter 0.2s ease;
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    filter 0.22s ease,
+    background 0.32s ease;
 }
 
 .submitButton:hover:not(:disabled) {
@@ -406,8 +417,374 @@
 }
 
 .submitButton:disabled {
-  opacity: 0.72;
   cursor: not-allowed;
+}
+
+.submitButtonError {
+  animation: submitErrorShake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes submitErrorShake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.submitButtonLabel {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+/* # LOADING STATE */
+
+.submitButtonLoading {
+  background: linear-gradient(135deg, #e33a48 0%, #ce2635 50%, #b81b29 100%);
+  box-shadow:
+    0 10px 20px rgba(132, 16, 26, 0.12),
+    0 4px 9px rgba(132, 16, 26, 0.08);
+}
+
+.submitButtonLoading:disabled {
+  opacity: 1;
+}
+
+.submitButtonLoading::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -35%;
+  z-index: 1;
+  width: 30%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.03) 75%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  will-change: transform, opacity;
+  animation: loadingShimmer 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loadingIcon {
+  position: relative;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.loadingRing {
+  position: absolute;
+  inset: 0;
+  border: 2.5px solid rgba(255, 255, 255, 0.28);
+  border-top-color: #ffffff;
+  border-right-color: rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  will-change: transform;
+  animation: loadingSpin 1.2s linear infinite;
+}
+
+.loadingDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 9px rgba(255, 255, 255, 0.5);
+  will-change: transform, opacity;
+  animation: loadingDotPulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loadingDots {
+  display: inline-flex;
+  width: 16px;
+  margin-left: 1px;
+}
+
+.loadingDots span {
+  opacity: 0.25;
+  will-change: transform, opacity;
+  animation: loadingTextDot 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loadingDots span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.loadingDots span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+/* # SUCCESS STATE */
+
+.submitButtonSuccess {
+  background: linear-gradient(135deg, #26b85e 0%, #1fa551 52%, #198f46 100%);
+  box-shadow:
+    0 14px 28px rgba(25, 143, 70, 0.2),
+    0 6px 14px rgba(25, 143, 70, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  animation: successButtonPop 0.48s cubic-bezier(0.2, 0.82, 0.3, 1);
+}
+
+.submitButtonSuccess:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.buttonCheck {
+  position: relative;
+  z-index: 2;
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 0 18px rgba(255, 255, 255, 0.1);
+  animation: successCheckIn 0.46s 0.05s cubic-bezier(0.2, 0.9, 0.25, 1.2) both;
+}
+
+.buttonCheck svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* # SUCCESS GLOW BURST */
+
+.successBurst {
+  position: absolute;
+  z-index: 1;
+  top: -27px;
+  left: 50%;
+  width: 132px;
+  height: 54px;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.successBurstGlow {
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 118px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(34, 197, 94, 0.34) 0%,
+    rgba(34, 197, 94, 0.16) 38%,
+    rgba(34, 197, 94, 0) 72%
+  );
+  filter: blur(5px);
+  transform: translateX(-50%) scale(0.45);
+  animation: successGlowBurst 0.8s ease-out both;
+}
+
+.successRay {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  width: 3px;
+  height: 15px;
+  border-radius: 999px;
+  background: #20a853;
+  box-shadow: 0 0 8px rgba(32, 168, 83, 0.26);
+  transform-origin: 50% 28px;
+  opacity: 0;
+  animation: successRayBurst 0.72s ease-out both;
+}
+
+.successRayOne {
+  transform: translateX(-50%) rotate(-58deg) translateY(-19px);
+}
+
+.successRayTwo {
+  transform: translateX(-50%) rotate(-29deg) translateY(-24px);
+  animation-delay: 0.035s;
+}
+
+.successRayThree {
+  transform: translateX(-50%) rotate(0deg) translateY(-27px);
+  animation-delay: 0.06s;
+}
+
+.successRayFour {
+  transform: translateX(-50%) rotate(29deg) translateY(-24px);
+  animation-delay: 0.035s;
+}
+
+.successRayFive {
+  transform: translateX(-50%) rotate(58deg) translateY(-19px);
+}
+
+/* # SUBMIT ANIMATIONS */
+
+@keyframes loadingSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingDotPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.78);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes loadingShimmer {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) skewX(-18deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(500%, 0, 0) skewX(-18deg);
+  }
+}
+
+@keyframes loadingTextDot {
+  0%,
+  70%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes successButtonPop {
+  0% {
+    transform: scale(0.985);
+  }
+
+  55% {
+    transform: scale(1.008);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes successCheckIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-8deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes successGlowBurst {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.35);
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.25);
+  }
+}
+
+@keyframes successRayBurst {
+  0% {
+    opacity: 0;
+    height: 5px;
+    filter: blur(1px);
+  }
+
+  35% {
+    opacity: 1;
+    height: 15px;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    height: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submitButton,
+  .submitButtonLoading::after,
+  .loadingRing,
+  .loadingDot,
+  .loadingDots span,
+  .submitButtonSuccess,
+  .buttonCheck,
+  .successBurstGlow,
+  .successRay {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* # SAFE NOTICE */
@@ -461,11 +838,11 @@
   font-weight: 750;
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.2s ease;
+  transition: color var(--hover-duration-fast) var(--hover-ease);
 }
 
 .privacyNotice a:hover {
-  color: #171717;
+  color: var(--hover-link-color);
 }
 
 .privacyNotice a:focus-visible {
@@ -487,10 +864,12 @@
   }
 
   .formField label,
-  .formFieldFull label,
-  .submitError,
-  .successMessage {
+  .formFieldFull label {
     font-size: 0.94rem;
+  }
+
+  .submitError {
+    font-size: 1rem;
   }
 
   .inputWrap input,
@@ -570,14 +949,25 @@
     font-size: 0.8rem;
   }
 
-  .submitError,
-  .successMessage {
-    font-size: 0.9rem;
+  .submitError {
+    font-size: 0.95rem;
   }
 
   .submitButton {
     min-height: 58px;
+    gap: 11px;
     font-size: 0.94rem;
+  }
+
+  .loadingIcon,
+  .buttonCheck {
+    width: 25px;
+    height: 25px;
+  }
+
+  .buttonCheck svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -689,19 +1079,36 @@
     font-size: 0.74rem;
   }
 
-  .submitError,
-  .successMessage {
-    padding: 12px 14px;
-    border-radius: 14px;
-    font-size: 0.84rem;
+  .submitError {
+    font-size: 0.9rem;
+  }
+
+  .submitArea {
+    margin-top: 18px;
   }
 
   .submitButton {
     min-height: 54px;
-    margin-top: 18px;
     padding: 0 18px;
+    gap: 9px;
     border-radius: 16px;
     font-size: 0.88rem;
+  }
+
+  .loadingIcon,
+  .buttonCheck {
+    width: 22px;
+    height: 22px;
+  }
+
+  .buttonCheck svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .successBurst {
+    top: -24px;
+    transform: translateX(-50%) scale(0.88);
   }
 
   .safeNotice {

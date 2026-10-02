@@ -11,7 +11,7 @@ import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_starsi_ziaci";
 import Nabor from "./components/nabor";
-import { getClubSeason } from "../../lib/season";
+import CategoryHeroContent from "../components/CategoryHeroContent";
 import {
   API_URL,
   normalizeMediaUrl,
@@ -162,10 +162,9 @@ async function getCategories(): Promise<BackendCategory[]> {
 const StarsiZiaciPage = async () => {
   await connection();
 
-  const [categoryPage, posts, clubSeason, categories] = await Promise.all([
+  const [categoryPage, posts, categories] = await Promise.all([
     getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
     getHomepagePosts(CLUB_SLUG),
-    getClubSeason(CLUB_SLUG),
     getCategories(),
   ]);
 
@@ -183,8 +182,7 @@ const StarsiZiaciPage = async () => {
   const mladezPosts = posts.filter(isYouthPost);
   const sections = getActiveSortedSections(categoryPage?.sections, fallbackSections);
 
-  const currentSeason =
-    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
+  const heroDescription = currentCategory?.description?.trim() || "";
 
   const categoryLinks = currentCategory?.links ?? [];
   const categoryTrainings = currentCategory?.trainings ?? [];
@@ -200,46 +198,38 @@ const StarsiZiaciPage = async () => {
               const heroTitle = getSectionTitle(section, categoryName);
 
               return (
-        <section key={section.id} className={heroStyles.heroSection}>
-          <div className={heroStyles.bannerContainer}>
+        <section
+          key={section.id}
+          className={`${heroStyles.heroSection} ${heroStyles.heroSectionWithoutCountdown} ${heroStyles.heroSplitSection}`}
+        >
+          <div
+            className={`${heroStyles.bannerContainer} ${heroStyles.heroSplitBanner} ${
+              heroDescription ? "" : heroStyles.bannerContainerCompact
+            }`}
+          >
             <Image
               src={heroImage}
               alt={`ATU Košice ${categoryName}`}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 1300px"
+              sizes="100vw"
               className={heroStyles.heroImg}
             />
 
-            <div className={heroStyles.bannerOverlay}>
-              <div className={heroStyles.heroTextContent}>
-                <h1
-                  className={`${heroStyles.bannerTitleziaci} ${
-                    heroTitle.replace(/\s+/g, "").length > 8
-                      ? heroStyles.bannerTitleziaciLong
-                      : ""
-                  }`}
-                >
-                  {heroTitle}
-                </h1>
+            <div className={heroStyles.heroShade} aria-hidden="true" />
+            <div className={heroStyles.heroBrandLeft} aria-hidden="true" />
+            <div className={heroStyles.heroBrandRight} aria-hidden="true" />
 
-                <div className={heroStyles.heroQuickNav}>
-                  <a href="#odkazy" className={heroStyles.heroQuickLink}>
-                    Odkazy
-                  </a>
-                  <a href="#treningy" className={heroStyles.heroQuickLink}>
-                    Tréningy
-                  </a>
-                  <a href="#novinky" className={heroStyles.heroQuickLink}>
-                    Novinky
-                  </a>
-                </div>
-              </div>
-
-              <div className={heroStyles.heroMiniInfo}>
-                <span className={heroStyles.heroMiniLabel}>Sezóna</span>
-                <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
-              </div>
+            <div className={heroStyles.heroInner}>
+              <CategoryHeroContent
+                title={heroTitle}
+                description={heroDescription}
+                actions={[
+                  { href: "#nabor", label: "Nábor" },
+                  { href: "#novinky", label: "Novinky" },
+                  { href: "#treningy", label: "Tréningy" },
+                ]}
+              />
             </div>
           </div>
         </section>

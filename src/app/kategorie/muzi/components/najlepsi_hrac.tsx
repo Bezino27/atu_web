@@ -107,6 +107,17 @@ function renderPlayerName(name: string) {
   );
 }
 
+function getPlayerNameSizeClass(name: string) {
+  const longestPart = Math.max(
+    0,
+    ...name.trim().split(/\s+/).map((part) => part.length),
+  );
+
+  if (longestPart > 12) return leadersStyles.playerNameLong;
+  if (longestPart > 10) return leadersStyles.playerNameMedium;
+  return "";
+}
+
 function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
   const activePlayers = players.filter((player) => player.is_active !== false);
   const topPlayers = activePlayers.slice(0, 3);
@@ -151,13 +162,19 @@ function PlayerCard({ player }: { player: Player }) {
           {player.displayRank ?? player.rank}.
         </div>
 
-        <div className={leadersStyles.playerNumber}>{displayNumber}</div>
+        <div className={leadersStyles.playerNumber}>
+          {displayNumber}
+        </div>
       </div>
 
       <div className={leadersStyles.playerCardBody}>
         <div className={leadersStyles.playerContent}>
           <div className={leadersStyles.playerHeading}>
-            <h3 className={leadersStyles.playerName}>
+            <h3
+              className={`${leadersStyles.playerName} ${getPlayerNameSizeClass(
+                displayName,
+              )}`}
+            >
               {renderPlayerName(displayName)}
             </h3>
           </div>

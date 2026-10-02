@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  display: inline-block;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.text {
+  display: block;
+  white-space: nowrap;
+  transition:
+    opacity 140ms ease,
+    filter 140ms ease,
+    text-shadow 140ms ease;
+}
+
+.text[data-scrambling="true"] {
+  opacity: 0.86;
+  filter: blur(0.18px);
+  text-shadow:
+    1px 0 rgba(211, 47, 47, 0.44),
+    -1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 18px rgba(0, 0, 0, 0.62);
+}
+
+@media (max-width: 769px) {
+  .text {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text {
+    transition: none;
+  }
+}

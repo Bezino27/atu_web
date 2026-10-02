@@ -1,115 +1,432 @@
-.page {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 26%),
-    linear-gradient(180deg, var(--color-black) 0px, var(--color-black) 460px, var(--color-page) 460px, var(--color-page) 100%);
+/* # SHELL */
+
+.shell {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #050607;
 }
+
+.page {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050607;
+}
+
+.footerWrap :global(footer)::before {
+  background: #050607;
+}
+
+
+/* # AURORA BACKGROUND */
+
+.auroraBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 1;
+  filter: saturate(1.35) brightness(1.1);
+}
+
+.auroraBackground > * {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.08) scaleY(1.75);
+  transform-origin: top center;
+}
+
+.auroraShade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.02) 16%,
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(6, 7, 8, 0.03) 0%,
+      rgba(6, 7, 8, 0.08) 18%,
+      rgba(6, 7, 8, 0.18) 34%,
+      rgba(6, 7, 8, 0.42) 55%,
+      rgba(6, 7, 8, 0.78) 78%,
+      rgba(5, 6, 7, 0.96) 100%
+    );
+}
+
+
+/* # LOGO WATERMARK */
+
+.logoWatermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(720px, 48vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.062;
+}
+
+.logoWatermark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* # MAIN SECTION */
 
 .section {
-  padding: 80px 20px 100px;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
 }
 
-.card {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 56px 32px;
-  border-radius: var(--radius-xl);
-  background: var(--color-surface);
-  box-shadow: 0 24px 60px rgba(10, 16, 26, 0.1);
+.content {
+  width: min(100%, 860px);
   text-align: center;
+  transform: translateY(-1%);
+}
+
+
+/* # 404 LABEL */
+
+.codeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .code {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  padding: 0 16px;
-  margin-bottom: 18px;
-  border-radius: var(--radius-pill);
-  background: var(--color-red-soft);
   color: var(--color-red);
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+
+  font-family: var(--font-unison), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-style: italic;
+
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  text-shadow: 0 0 18px rgba(220, 40, 40, 0.16);
 }
 
-.card h1 {
-  margin: 0 0 16px;
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  line-height: 1.08;
-  color: var(--color-text);
+.codeLine {
+  width: 70px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-red);
+  box-shadow: 0 0 14px rgba(220, 40, 40, 0.22);
 }
 
-.card p {
-  max-width: 560px;
-  margin: 0 auto 30px;
-  font-size: 1.05rem;
+
+/* # TEXT */
+
+.content h1 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-unison), sans-serif;
+  font-size: clamp(2.7rem, 4vw, 4rem);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.22);
+}
+
+.content h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.content p {
+  max-width: 720px;
+  margin: 26px auto 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
   line-height: 1.75;
-  color: var(--color-text-muted);
+  text-wrap: balance;
 }
+
+
+/* # ACTIONS */
 
 .actions {
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
+  margin-top: 38px;
 }
 
 .primaryButton,
 .secondaryButton {
+  min-height: 58px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  padding: 0 22px;
-  border-radius: var(--radius-md);
+  padding: 0 28px;
+  border-radius: 16px;
   text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-family: var(--font-unison), sans-serif;
+  font-size: 0.98rem;
+  font-weight: 300;
+  font-style: normal;
+  transition:
+    transform var(--hover-duration-normal) var(--hover-ease),
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    color var(--hover-duration-normal) var(--hover-ease);
 }
 
 .primaryButton {
+  gap: 14px;
+  min-width: 218px;
   background: var(--color-red);
-  color: var(--color-white);
-  box-shadow: 0 12px 28px var(--color-red-border);
+  color: #ffffff;
+  box-shadow:
+    0 14px 34px rgba(220, 40, 40, 0.22),
+    0 0 34px rgba(220, 40, 40, 0.16);
 }
 
 .primaryButton:hover {
-  transform: translateY(-2px);
+  transform: translateY(var(--hover-lift-button));
   background: var(--color-red-dark);
+  box-shadow:
+    0 16px 38px rgba(220, 40, 40, 0.28),
+    0 0 42px rgba(220, 40, 40, 0.2);
+}
+
+.arrow {
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.primaryButton:hover .arrow {
+  transform: translateX(4px);
 }
 
 .secondaryButton {
-  background: var(--color-surface-soft);
-  color: var(--color-text);
+  min-width: 218px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
 }
 
 .secondaryButton:hover {
-  transform: translateY(-2px);
-  background: var(--color-border);
+  transform: translateY(var(--hover-lift-button));
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.07);
 }
+
+
+/* # TABLET */
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 36px 28px;
+  }
+
+  .auroraBackground > * {
+    transform: scale(1.05) scaleY(1.58);
+  }
+
+  .logoWatermark {
+    width: min(940px, 94vw);
+    opacity: 0.056;
+  }
+
+  .content {
+    width: min(100%, 760px);
+  }
+
+  .content h1 {
+    font-size: clamp(2.5rem, 5.5vw, 3.7rem);
+  }
+
+  .content p {
+    max-width: 620px;
+  }
+}
+
+
+/* # MOBILE */
 
 @media (max-width: 640px) {
   .section {
-    padding: 56px 16px 72px;
+    padding:
+      28px
+      max(20px, env(safe-area-inset-right))
+      max(26px, env(safe-area-inset-bottom))
+      max(20px, env(safe-area-inset-left));
   }
 
-  .card {
-    padding: 36px 20px;
-    border-radius: var(--radius-lg);
+  .auroraBackground {
+    opacity: 1;
+    filter: saturate(1.45) brightness(1.08);
   }
 
-  .card p {
-    font-size: 1rem;
+  .auroraBackground > * {
+    transform: scale(1.04) scaleY(1.42);
+  }
+
+  .auroraShade {
+    background:
+      radial-gradient(
+        circle at 50% 18%,
+        rgba(255, 255, 255, 0.03) 0%,
+        transparent 34%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(6, 7, 8, 0.02) 0%,
+        rgba(6, 7, 8, 0.14) 20%,
+        rgba(6, 7, 8, 0.34) 42%,
+        rgba(6, 7, 8, 0.7) 72%,
+        rgba(5, 6, 7, 0.94) 100%
+      );
+  }
+
+  .logoWatermark {
+    top: 46%;
+    left: 50%;
+    width: 105vw;
+    transform: translate(-50%, -50%);
+    opacity: 0.048;
+  }
+
+  .content {
+    width: 100%;
+    transform: none;
+  }
+
+  .codeRow {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .code {
+    font-size: 0.9rem;
+  }
+
+  .codeLine {
+    width: 42px;
+  }
+
+  .content h1 {
+    font-size: clamp(2.15rem, 9vw, 2.9rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  .content p {
+    max-width: 430px;
+    margin-top: 18px;
+    font-size: 0.97rem;
+    line-height: 1.65;
   }
 
   .actions {
+    width: 100%;
+    max-width: 420px;
+    margin: 30px auto 0;
     flex-direction: column;
+    gap: 12px;
   }
 
   .primaryButton,
   .secondaryButton {
     width: 100%;
+    min-width: 0;
+    min-height: 54px;
+  }
+}
+
+
+/* # SMALL MOBILE */
+
+@media (max-width: 380px) {
+  .section {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .content h1 {
+    font-size: 2.06rem;
+  }
+
+  .content p {
+    font-size: 0.9rem;
+    line-height: 1.58;
+  }
+
+  .actions {
+    margin-top: 24px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 50px;
+    font-size: 0.92rem;
+  }
+}
+
+
+/* # SHORT VIEWPORT */
+
+@media (max-height: 760px) {
+  .section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .codeRow {
+    margin-bottom: 14px;
+  }
+
+  .content h1 {
+    font-size: clamp(2.25rem, 5vw, 4rem);
+  }
+
+  .content p {
+    margin-top: 14px;
+    line-height: 1.58;
+  }
+
+  .actions {
+    margin-top: 24px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 52px;
   }
 }

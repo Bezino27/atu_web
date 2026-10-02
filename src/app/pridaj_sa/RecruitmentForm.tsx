@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import { flip } from "@floating-ui/dom";
 import { sk } from "date-fns/locale";
@@ -61,6 +61,18 @@ const years = Array.from(
   (_, index) => currentYear - index
 );
 
+function normalizeSlovakPhone(value: string) {
+  const compact = value.trim().replace(/[\s().\/-]/g, "");
+
+  if (!compact) return "";
+  if (/^0\d{9}$/.test(compact)) return `+421${compact.slice(1)}`;
+  if (/^00421\d{9}$/.test(compact)) return `+${compact.slice(2)}`;
+  if (/^421\d{9}$/.test(compact)) return `+${compact}`;
+  if (/^\+421\d{9}$/.test(compact)) return compact;
+
+  return null;
+}
+
 function UserIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -117,16 +129,52 @@ function LockIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" />
+    </svg>
+  );
+}
+
 export default function RecruitmentForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
   const [successMessage, setSuccessMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitErrorAttempt, setSubmitErrorAttempt] = useState(0);
+  const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
 
   const endpoint = useMemo(() => {
     return RECRUITMENT_FORM_ENDPOINT;
   }, []);
+
+  const isSuccess = Boolean(successMessage);
+
+  useEffect(() => {
+    if (!isSuccess) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setSuccessMessage("");
+    }, 2200);
+
+    return () => window.clearTimeout(timer);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (retryAfterSeconds <= 0) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setRetryAfterSeconds((seconds) => Math.max(0, seconds - 1));
+    }, 1000);
+
+    return () => window.clearTimeout(timer);
+  }, [retryAfterSeconds]);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -165,10 +213,28 @@ export default function RecruitmentForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if (isSubmitting || retryAfterSeconds > 0) {
+      return;
+    }
+
     setIsSubmitting(true);
     setErrors({});
     setSuccessMessage("");
     setSubmitError("");
+
+    const normalizedPhone = normalizeSlovakPhone(formData.phone);
+
+    if (normalizedPhone === null) {
+      setErrors({
+        phone: [
+          "Zadajte slovenské číslo, napríklad 0905 748 845 alebo +421 905 748 845.",
+        ],
+      });
+      setSubmitError("Formulár sa nepodarilo odoslať. Skontrolujte údaje.");
+      setSubmitErrorAttempt((attempt) => attempt + 1);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch(endpoint, {
@@ -182,7 +248,7 @@ export default function RecruitmentForm() {
             ? formData.birth_date.getFullYear()
             : null,
           email: formData.email.trim(),
-          phone: formData.phone.trim(),
+          phone: normalizedPhone,
           note: formData.note.trim(),
         }),
       });
@@ -190,8 +256,27 @@ export default function RecruitmentForm() {
       const data = await response.json();
 
       if (!response.ok) {
+        if (response.status === 429) {
+          const retryAfterHeader = Number.parseInt(
+            response.headers.get("Retry-After") ?? "",
+            10
+          );
+          const retryAfter = Number.isFinite(retryAfterHeader)
+            ? Math.max(1, retryAfterHeader)
+            : 60;
+
+          setErrors({});
+          setRetryAfterSeconds(retryAfter);
+          setSubmitError(
+            `Odoslali ste viac požiadaviek za sebou. Skúste to znova o ${retryAfter} sekúnd.`
+          );
+          setSubmitErrorAttempt((attempt) => attempt + 1);
+          return;
+        }
+
         setErrors(data);
         setSubmitError("Formulár sa nepodarilo odoslať. Skontrolujte údaje.");
+        setSubmitErrorAttempt((attempt) => attempt + 1);
         return;
       }
 
@@ -204,6 +289,7 @@ export default function RecruitmentForm() {
       setSubmitError(
         "Nastala chyba pri odosielaní formulára. Skúste to prosím znova."
       );
+      setSubmitErrorAttempt((attempt) => attempt + 1);
     } finally {
       setIsSubmitting(false);
     }
@@ -350,7 +436,9 @@ export default function RecruitmentForm() {
               <input
                 id="phone"
                 name="phone"
-                type="text"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 placeholder="+421 900 000 000"
                 value={formData.phone}
                 onChange={handleChange}
@@ -431,17 +519,71 @@ export default function RecruitmentForm() {
           <p className={styles.submitError}>{submitError}</p>
         ) : null}
 
-        {successMessage ? (
-          <p className={styles.successMessage}>{successMessage}</p>
-        ) : null}
+        <p className={styles.srOnly} aria-live="polite">
+          {isSubmitting
+            ? "Formulár sa odosiela."
+            : isSuccess
+              ? successMessage
+              : ""}
+        </p>
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Odosielam..." : "Chcem skúsiť tréning"}
-        </button>
+        <div className={styles.submitArea}>
+          {isSuccess ? (
+            <span className={styles.successBurst} aria-hidden="true">
+              <span className={styles.successBurstGlow} />
+              <span className={`${styles.successRay} ${styles.successRayOne}`} />
+              <span className={`${styles.successRay} ${styles.successRayTwo}`} />
+              <span className={`${styles.successRay} ${styles.successRayThree}`} />
+              <span className={`${styles.successRay} ${styles.successRayFour}`} />
+              <span className={`${styles.successRay} ${styles.successRayFive}`} />
+            </span>
+          ) : null}
+
+          <button
+            key={submitError ? submitErrorAttempt : "submit"}
+            type="submit"
+            className={`${styles.submitButton} ${
+              isSubmitting ? styles.submitButtonLoading : ""
+            } ${isSuccess ? styles.submitButtonSuccess : ""} ${
+              submitError ? styles.submitButtonError : ""
+            }`}
+            disabled={isSubmitting || isSuccess || retryAfterSeconds > 0}
+          >
+            {isSubmitting ? (
+              <>
+                <span className={styles.loadingIcon} aria-hidden="true">
+                  <span className={styles.loadingRing} />
+                  <span className={styles.loadingDot} />
+                </span>
+                <span className={styles.submitButtonLabel}>
+                  Odosielame prihlášku
+                  <span className={styles.loadingDots} aria-hidden="true">
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                  </span>
+                </span>
+              </>
+            ) : isSuccess ? (
+              <>
+                <span className={styles.buttonCheck} aria-hidden="true">
+                  <CheckIcon />
+                </span>
+                <span className={styles.submitButtonLabel}>
+                  Prihláška odoslaná
+                </span>
+              </>
+            ) : retryAfterSeconds > 0 ? (
+              <span className={styles.submitButtonLabel}>
+                Skúste znova o {retryAfterSeconds} s
+              </span>
+            ) : (
+              <span className={styles.submitButtonLabel}>
+                Chcem skúsiť tréning
+              </span>
+            )}
+          </button>
+        </div>
 
         <div className={styles.safeNotice}>
           <span className={styles.safeNoticeIcon}>

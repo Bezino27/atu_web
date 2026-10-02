@@ -6,17 +6,13 @@ import heroStyles from "../styles/CategoryHero.module.css";
 import szfbStyle from "../styles/SzfbCards.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import Image from "next/image";
+import HeroScrollZoomImage from "@/app/components/HeroScrollZoomImage";
 import Novinky from "./components/novinky";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_dorast";
 import Nabor from "./components/nabor";
-import { getClubSeason } from "../../lib/season";
-import {
-  API_URL,
-  normalizeMediaUrl,
-  withDevMediaCacheBuster,
-} from "@/app/lib/api";
+import CategoryHeroContent from "../components/CategoryHeroContent";
+import { API_URL } from "@/app/lib/api";
 import {
   getActiveSortedSections,
   getClubPageBySlug,
@@ -160,29 +156,20 @@ async function getCategories(): Promise<BackendCategory[]> {
 const DorastPage = async () => {
   await connection();
 
-  const [categoryPage, posts, clubSeason, categories] = await Promise.all([
+  const [categoryPage, posts, categories] = await Promise.all([
     getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
     getHomepagePosts(CLUB_SLUG),
-    getClubSeason(CLUB_SLUG),
     getCategories(),
   ]);
 
   const dorastCategory = categories.find(isDorastCategory);
 
   const categoryName = dorastCategory?.name ?? CATEGORY_FALLBACK_NAME;
-  const heroImage = withDevMediaCacheBuster(
-    normalizeMediaUrl(
-      dorastCategory?.hero_image_url,
-      "/images/kategorie/dorast_kader.jpg",
-    ),
-    Boolean(dorastCategory?.hero_image_url),
-  );
 
   const mladezPosts = posts.filter(isDorastOrYouthPost);
   const sections = getActiveSortedSections(categoryPage?.sections, fallbackSections);
 
-  const currentSeason =
-    dorastCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
+  const heroDescription = dorastCategory?.description?.trim() || "";
 
   const categoryTrainings = dorastCategory?.trainings ?? [];
   const categoryLinks = [...(dorastCategory?.links ?? [])].sort(
@@ -199,49 +186,40 @@ const DorastPage = async () => {
           switch (section.section_type) {
             case "hero":
               return (
-        <section key={section.id} className={heroStyles.heroSection}>
-          <div className={heroStyles.bannerContainer}>
-            <Image
-              src={heroImage}
-              alt={`ATU Košice ${categoryName}`}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 1300px"
-              className={heroStyles.heroImg}
-            />
-
-            <div className={heroStyles.bannerOverlay}>
-              <div className={heroStyles.heroTextContent}>
-                <h1
-                  className={`${heroStyles.bannerTitle} ${heroStyles.bannerTitleDorast}`}
+                <section
+                  key={section.id}
+                  className={`${heroStyles.heroSection} ${heroStyles.heroSectionWithoutCountdown} ${heroStyles.heroArtworkSection}`}
                 >
-                  {getSectionTitle(section, categoryName)}
-                </h1>
+                  <div
+                    className={`${heroStyles.bannerContainer} ${heroStyles.heroArtworkBanner}`}
+                  >
+                    <HeroScrollZoomImage
+                      src="/dorast_backg_big.png"
+                      mobileSrc="/dorast_backg_phone.png"
+                      mobileBreakpoint={768}
+                      alt=""
+                      wrapperClassName={heroStyles.heroArtworkBannerMedia}
+                      imageClassName={heroStyles.heroArtworkBannerImage}
+                      priority
+                      sizes="100vw"
+                      scrollZoom={1.05}
+                      scrollDistance={0.2}
+                      smoothing={0.12}
+                    />
 
-                <div className={heroStyles.heroQuickNav}>
-                  {categoryLinks.length > 0 ? (
-                    <a href="#odkazy" className={heroStyles.heroQuickLink}>
-                      Odkazy
-                    </a>
-                  ) : null}
-                  {categoryTrainings.length > 0 ? (
-                    <a href="#treningy" className={heroStyles.heroQuickLink}>
-                      Tréningy
-                    </a>
-                  ) : null}
-                  <a href="#novinky" className={heroStyles.heroQuickLink}>
-                    Novinky
-                  </a>
-                </div>
-              </div>
-
-              <div className={heroStyles.heroMiniInfo}>
-                <span className={heroStyles.heroMiniLabel}>Sezóna</span>
-                <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
-              </div>
-            </div>
-          </div>
-        </section>
+                    <div className={heroStyles.heroInner}>
+                      <CategoryHeroContent
+                        title={getSectionTitle(section, categoryName)}
+                        description={heroDescription}
+                        actions={[
+                          { href: "#nabor", label: "Nábor" },
+                          { href: "#novinky", label: "Novinky" },
+                          { href: "#treningy", label: "Tréningy" },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                </section>
               );
             case "links":
               if (categoryLinks.length === 0) {

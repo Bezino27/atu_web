@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import CategoryHeroTitle from "../components/CategoryHeroTitle";
 
 import NasledujuceZapasy from "../juniori/components/nasledujuce_zapasy";
 import Novinky from "../juniori/components/novinky";
@@ -366,12 +367,6 @@ function getRecruitmentComponent(dataCategorySlug: string) {
   return null;
 }
 
-function usesYouthHeroTitle(dataCategorySlug: string) {
-  return ["pripravka", "mladsi-ziaci", "starsi-ziaci"].includes(
-    dataCategorySlug,
-  );
-}
-
 async function getCategories(): Promise<BackendCategory[]> {
   try {
     const response = await fetch(
@@ -526,17 +521,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const activeClubLinks = getActiveClubLinks(club?.links);
 
   const standings = szfbDashboard?.standings ?? [];
+  const standingZones = szfbDashboard?.standing_zones ?? [];
   const upcomingMatches = szfbDashboard?.upcoming ?? [];
   const resultMatches = szfbDashboard?.results ?? [];
+  const recentForm = szfbDashboard?.form ?? [];
   const playerStats = szfbDashboard?.player_stats ?? [];
 
   const ownTeamName = szfbDashboard?.watch?.team_name || "FaBK ATU Košice";
+  const ownTeamBrand = szfbDashboard?.watch?.team_brand ?? null;
   const competitionName = categoryLeague || "Liga";
   const nextMatch = nextMatchResponse?.next_match ?? upcomingMatches[0] ?? null;
   const currentSeason = category.season ?? clubSeason?.season ?? "2025 / 2026";
   const hasSzfbDashboard = Boolean(watchId);
-  const hasYouthHeroTitle = usesYouthHeroTitle(categoryDataSlug);
-
   const sections = getActiveSortedSections(page.sections, fallbackSections);
 
   const heroImage = withDevMediaCacheBuster(
@@ -546,10 +542,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const renderHeroSection = (section: PageSection) => {
     const heroTitle = getSectionTitle(section, categoryName);
+    const heroDescription = category.description?.trim() || "";
 
     return (
-    <section key={section.id} className={heroStyles.heroSection}>
-      <div className={heroStyles.bannerContainer}>
+    <section
+      key={section.id}
+      className={`${heroStyles.heroSection} ${
+        hasSzfbDashboard ? "" : heroStyles.heroSectionWithoutCountdown
+      }`}
+    >
+      <div
+        className={`${heroStyles.bannerContainer} ${
+          heroDescription ? "" : heroStyles.bannerContainerCompact
+        }`}
+      >
         <Image
           src={heroImage}
           alt={`ATU Košice ${categoryName}`}
@@ -559,32 +565,33 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           className={heroStyles.heroImg}
         />
 
+        {hasSzfbDashboard ? (
+          <span className={heroStyles.heroLeagueHolder}>
+            {getSectionPreTitle(
+              section,
+              category.category_subname ||
+                linkedCategory.category_subname ||
+                categoryLeague,
+            )}
+          </span>
+        ) : null}
+
+        <div className={heroStyles.heroSeasonHolder}>
+          <span className={heroStyles.heroSeasonLabel}>Sezóna</span>
+          <span className={heroStyles.heroSeasonValue}>{currentSeason}</span>
+        </div>
+
         <div className={heroStyles.bannerOverlay}>
           <div className={heroStyles.heroTextContent}>
-            {hasSzfbDashboard ? (
-              <span className={heroStyles.heroSubtitle}>
-                {getSectionPreTitle(
-                  section,
-                  category.category_subname ||
-                    linkedCategory.category_subname ||
-                    categoryLeague,
-                )}
-              </span>
-            ) : null}
+            <CategoryHeroTitle title={heroTitle} />
 
-            <h1
-              className={
-                hasYouthHeroTitle
-                  ? `${heroStyles.bannerTitleziaci} ${
-                      heroTitle.replace(/\s+/g, "").length > 8
-                        ? heroStyles.bannerTitleziaciLong
-                        : ""
-                    }`
-                  : heroStyles.bannerTitle
-              }
-            >
-              {heroTitle}
-            </h1>
+            {heroDescription ? (
+              <p
+                className={`${heroStyles.heroDescription} ${heroStyles.heroDescriptionEditorial}`}
+              >
+                {heroDescription}
+              </p>
+            ) : null}
 
             <div className={heroStyles.heroQuickNav}>
               {hasSzfbDashboard ? (
@@ -615,10 +622,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
 
-          <div className={heroStyles.heroMiniInfo}>
-            <span className={heroStyles.heroMiniLabel}>Sezóna</span>
-            <span className={heroStyles.heroMiniValue}>{currentSeason}</span>
-          </div>
         </div>
       </div>
 
@@ -689,6 +692,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <NasledujuceZapasy
           upcomingMatches={upcomingMatches}
           ownTeamName={ownTeamName}
+          ownTeamBrand={ownTeamBrand}
           competitionName={competitionName}
         />
       </section>
@@ -885,11 +889,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         <div className={pageStyles.overviewGrid}>
           <div className={pageStyles.tableColumn}>
-            <Tabulka standings={standings} ownTeamName={ownTeamName} />
+            <Tabulka
+              standings={standings}
+              zones={standingZones}
+              ownTeamName={ownTeamName}
+              competitionName={competitionName}
+            />
           </div>
 
           <div className={pageStyles.matchesColumn}>
-            <RecentMatches results={resultMatches} ownTeamName={ownTeamName} />
+            <RecentMatches
+              results={resultMatches}
+              form={recentForm}
+              ownTeamName={ownTeamName}
+              ownTeamBrand={ownTeamBrand}
+              competitionName={competitionName}
+            />
           </div>
         </div>
       </section>

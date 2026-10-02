@@ -9,6 +9,7 @@ import {
   PiArrowRightBold,
   PiCaretDownBold,
   PiEnvelopeSimple,
+  PiFileText,
   PiHouse,
   PiShieldCheck,
   PiUserCircle,
@@ -25,28 +26,13 @@ import {
   type NavigationPage,
 } from "@/app/lib/pages";
 import styles from "./Header.module.css";
+import { HEADER_DEFAULTS } from "./headerDefaults";
 
 type NavItem = {
   href: string;
   label: string;
   icon: IconType;
 };
-
-const navItems: NavItem[] = [
-  { href: "/", label: "Domov", icon: PiHouse },
-  { href: "/o-klube", label: "O klube", icon: PiShieldCheck },
-  { href: "/kategorie/muzi", label: "A-tím", icon: PiUsersThree },
-  { href: "/kategorie", label: "Mládež", icon: PiUserCircle },
-  { href: "/kontakt", label: "Kontakt", icon: PiEnvelopeSimple },
-];
-
-const categoryItems = [
-  { href: "/kategorie/pripravka", label: "Prípravky" },
-  { href: "/kategorie/mladsi-ziaci", label: "Mladší žiaci" },
-  { href: "/kategorie/starsi-ziaci", label: "Starší žiaci" },
-  { href: "/kategorie/dorast", label: "Dorast" },
-  { href: "/kategorie/juniori", label: "Juniori" },
-];
 
 const headerLinkIconTypes = new Set(["instagram", "youtube", "facebook"]);
 const CLUB_SLUG = "atu-kosice";
@@ -73,6 +59,18 @@ function getNavigationIcon(page: NavigationPage): IconType {
 
   return PiUserCircle;
 }
+
+function getFallbackNavigationIcon(href: string): IconType {
+  if (href === "/") return PiHouse;
+  if (href === "/o-klube") return PiShieldCheck;
+  if (href === "/kontakt") return PiEnvelopeSimple;
+  if (href === "/kategorie/muzi") return PiUsersThree;
+  return PiUserCircle;
+}
+
+const fallbackNavigationItems: NavItem[] = HEADER_DEFAULTS.navigation.map(
+  (item) => ({ ...item, icon: getFallbackNavigationIcon(item.href) }),
+);
 
 function mapNavigationPages(pages: NavigationPage[]): NavItem[] {
   return pages.map((page) => ({
@@ -108,18 +106,89 @@ function addYouthDropdownItem(items: NavItem[], title: string): NavItem[] {
   ];
 }
 
+function MobileYouthTree({
+  itemCount,
+  activeIndex,
+}: {
+  itemCount: number;
+  activeIndex: number;
+}) {
+  if (itemCount === 0) return null;
+
+  const width = 58;
+  const trunkX = 18;
+  const rowHeight = 60;
+  const entryHeight = 24;
+  const radius = 11;
+  const viewHeight = entryHeight + itemCount * rowHeight + 10;
+  const rowY = (index: number) => entryHeight + (index + 0.5) * rowHeight;
+  const branchPath = (index: number) => {
+    const y = rowY(index);
+    return `M ${trunkX} ${y - radius} A ${radius} ${radius} 0 0 0 ${
+      trunkX + radius
+    } ${y} H ${width}`;
+  };
+  const activePath =
+    activeIndex >= 0
+      ? `M ${trunkX} 0 V ${rowY(activeIndex) - radius} A ${radius} ${radius} 0 0 0 ${
+          trunkX + radius
+        } ${rowY(activeIndex)} H ${width}`
+      : null;
+
+  return (
+    <svg
+      className={styles.mobileSubmenuTree}
+      viewBox={`0 0 ${width} ${viewHeight}`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        className={styles.mobileSubmenuTreeBase}
+        d={`M ${trunkX} 0 V ${rowY(itemCount - 1) - radius}`}
+      />
+      {Array.from({ length: itemCount }, (_, index) => (
+        <path
+          key={index}
+          className={`${styles.mobileSubmenuTreeBase} ${styles.mobileSubmenuTreeBranch}`}
+          d={branchPath(index)}
+        />
+      ))}
+      {activePath ? (
+        <path
+          key={activeIndex}
+          className={styles.mobileSubmenuTreeActive}
+          d={activePath}
+          pathLength={1}
+        />
+      ) : null}
+    </svg>
+  );
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
-  const [contactEmail, setContactEmail] = useState("");
-  const [clubLinks, setClubLinks] = useState<ClubLink[]>([]);
-  const [navigationItems, setNavigationItems] = useState<NavItem[]>(navItems);
-  const [youthDropdownTitle, setYouthDropdownTitle] = useState("Mládež");
-  const [youthItems, setYouthItems] = useState<CategoryItem[]>(categoryItems);
-  const [ctaItem, setCtaItem] = useState<HeaderCta | null>(null);
+  const [contactEmail, setContactEmail] = useState<string>(
+    HEADER_DEFAULTS.contactEmail,
+  );
+  const [clubLinks, setClubLinks] = useState<ClubLink[]>([
+    ...HEADER_DEFAULTS.socialLinks,
+  ]);
+  const [navigationItems, setNavigationItems] = useState<NavItem[]>(
+    fallbackNavigationItems,
+  );
+  const [youthDropdownTitle, setYouthDropdownTitle] = useState<string>(
+    HEADER_DEFAULTS.youthDropdown.title,
+  );
+  const [youthItems, setYouthItems] = useState<CategoryItem[]>([
+    ...HEADER_DEFAULTS.youthDropdown.items,
+  ]);
+  const [ctaItem, setCtaItem] = useState<HeaderCta | null>(HEADER_DEFAULTS.cta);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -127,7 +196,21 @@ export default function Header() {
   };
 
   const handleCategoriesToggle = () => {
-    setCategoriesOpen((prev) => !prev);
+    const nextOpen = !categoriesOpen;
+    setCategoriesOpen(nextOpen);
+
+    if (nextOpen) {
+      setContactOpen(false);
+    }
+  };
+
+  const handleContactToggle = () => {
+    const nextOpen = !contactOpen;
+    setContactOpen(nextOpen);
+
+    if (nextOpen) {
+      setCategoriesOpen(false);
+    }
   };
 
   const handleMobileCategoriesToggle = () => {
@@ -155,12 +238,17 @@ export default function Header() {
 
       if (!isMounted) return;
 
-      setClubLinks(
-        getActiveClubLinks(club?.links).filter((link) =>
-          headerLinkIconTypes.has(link.icon_type)
-        )
-      );
-      setContactEmail(contact?.email ?? "");
+      if (club) {
+        setClubLinks(
+          getActiveClubLinks(club.links).filter((link) =>
+            headerLinkIconTypes.has(link.icon_type)
+          )
+        );
+      }
+
+      if (contact?.email) {
+        setContactEmail(contact.email);
+      }
 
       if (navigation) {
         const mappedMain = mapNavigationPages(navigation.main);
@@ -182,12 +270,14 @@ export default function Header() {
           setYouthItems(mapDropdown(youthDropdown));
         }
 
-        if (navigation.cta) {
-          setCtaItem({
-            href: navigation.cta.url,
-            label: getNavigationLabel(navigation.cta),
-          });
-        }
+        setCtaItem(
+          navigation.cta
+            ? {
+                href: navigation.cta.url,
+                label: getNavigationLabel(navigation.cta),
+              }
+            : null,
+        );
       }
     }
 
@@ -221,7 +311,7 @@ export default function Header() {
         <div className={styles.container}>
           <div className={styles.topBarInner}>
             <div className={styles.topLeft}>
-              <span>ATU Košice • Florbalový klub</span>
+              <span>{HEADER_DEFAULTS.clubLabel}</span>
             </div>
 
             <div className={styles.topRight}>
@@ -281,7 +371,7 @@ export default function Header() {
           <div className={styles.mainBarInner}>
             <Link href="/" className={styles.logoWrap} onClick={closeMenu}>
               <Image
-                src="/logo/znak_atu_nove.svg"
+                src={HEADER_DEFAULTS.logoSrc}
                 alt="ATU Košice logo"
                 width={72}
                 height={72}
@@ -289,7 +379,7 @@ export default function Header() {
                 priority
               />
               <div className={styles.logoText}>
-                <strong>FaBK ATU Košice</strong>
+                <strong>{HEADER_DEFAULTS.clubName}</strong>
 
               </div>
             </Link>
@@ -303,7 +393,10 @@ export default function Header() {
                     <div
                       key={item.href}
                       className={styles.dropdown}
-                      onMouseEnter={() => setCategoriesOpen(true)}
+                      onMouseEnter={() => {
+                        setCategoriesOpen(true);
+                        setContactOpen(false);
+                      }}
                       onMouseLeave={() => setCategoriesOpen(false)}
                     >
                       <button
@@ -342,6 +435,62 @@ export default function Header() {
                               {category.label}
                             </Link>
                           ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (item.href === "/kontakt") {
+                  return (
+                    <div
+                      key={item.href}
+                      className={styles.dropdown}
+                      onMouseEnter={() => {
+                        setContactOpen(true);
+                        setCategoriesOpen(false);
+                      }}
+                      onMouseLeave={() => setContactOpen(false)}
+                    >
+                      <button
+                        type="button"
+                        className={styles.navLink}
+                        onClick={handleContactToggle}
+                        aria-expanded={contactOpen}
+                      >
+                        <Icon className={styles.navIcon} aria-hidden="true" />
+                        <span>{item.label}</span>
+                        <PiCaretDownBold
+                          className={`${styles.navChevron} ${
+                            contactOpen ? styles.navChevronOpen : ""
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </button>
+
+                      <div
+                        className={`${styles.dropdownMenu} ${
+                          contactOpen ? styles.show : ""
+                        }`}
+                      >
+                        <div className={styles.dropdownContent}>
+                          <span className={styles.dropdownLabel}>
+                            Kontakt
+                          </span>
+
+                          <Link
+                            href="/kontakt"
+                            onClick={() => setContactOpen(false)}
+                          >
+                            Kontaktné údaje
+                          </Link>
+
+                          <Link
+                            href="/kontakt#dokumenty"
+                            onClick={() => setContactOpen(false)}
+                          >
+                            Dôležité dokumenty
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -429,6 +578,12 @@ export default function Header() {
                         mobileCategoriesOpen ? styles.mobileSubmenuOpen : ""
                       }`}
                     >
+                      <MobileYouthTree
+                        itemCount={youthItems.length}
+                        activeIndex={youthItems.findIndex(
+                          (category) => pathname === category.href,
+                        )}
+                      />
                       {youthItems.map((category) => {
                         const isActive = pathname === category.href;
 
@@ -469,6 +624,15 @@ export default function Header() {
               );
             })}
             
+            <Link
+              href="/kontakt#dokumenty"
+              className={`${styles.mobileNavLink} ${styles.mobileNavLinkLong}`}
+              onClick={closeMenu}
+            >
+              <PiFileText className={styles.mobileNavIcon} aria-hidden="true" />
+              <span>Dôležité dokumenty</span>
+            </Link>
+
             {ctaItem ? (
               <Link
                 href={ctaItem.href}

@@ -64,8 +64,8 @@ const alumni = [
     name: "Michal Dudovič",
     description:
       "Florbalový svetobežník s obrovskými skúsenosťami, ktorý pôsobí vo švédskej Superlige v klube Växjö Vipers. Niekoľkokrát bol ocenený ako slovenský florbalista roka a dlhé roky pôsobil aj vo švajčiarskom SV Wiler-Ersingen, s ktorým sa stal viacnásobným majstrom Švajčiarska.",
-    logo: "/logo/teams/vaxjou.png",
-    logoAlt: "Växjö logo",
+    logo: "/logo/teams/FBC_Kalmarsund_logo.svg",
+    logoAlt: "FBC Kalmarsund logo",
   },
   {
     name: "Michal Pažák",
@@ -78,7 +78,7 @@ const alumni = [
     name: "Lukáš Řezanina",
     description:
       "Odchovanec ATU Košice, ktorý patril medzi najvýraznejšie osobnosti slovenského florbalu. Presadil sa aj v zahraničí, pôsobil v českých Vítkoviciach aj švédskom Linköpingu a dlhé roky bol kapitánom slovenskej reprezentácie. Po úspešnej kariére sa vrátil do ATU, kde sa po sezóne rozhodol ukončiť aktívne hráčske pôsobenie.",
-    logo: "/logo/teams/default.svg",
+    logo: "/logo/znak_atu_nove.svg",
     logoAlt: "ATU Košice logo",
     largeLogo: true,
   },
@@ -251,6 +251,10 @@ export default async function OKlubePage() {
                   height={34}
                   className={`${styles.alumniBadgeLogo} ${
                     player.largeLogo ? styles.logoLargeSingle : ""
+                  } ${
+                    player.logo === "/logo/znak_atu_nove.svg"
+                      ? styles.alumniBadgeLogoAtu
+                      : ""
                   }`}
                 />
               </div>

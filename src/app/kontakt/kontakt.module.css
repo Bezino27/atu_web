@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "ATU Unison Pro";
+  src: url("/fonts/ATU-Unison Pro Light Italic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
 .pageContainer {
   --font-panel-title: clamp(1.25rem, 1.8vw, 1.7rem);
   --font-body: 1rem;
@@ -18,6 +26,7 @@
 }
 
 /* # GLOBAL SECTION LAYOUT */
+
 .sectionContainer {
   width: 100%;
   max-width: 1300px;
@@ -26,45 +35,174 @@
   box-sizing: border-box;
 }
 
-/* # SHARED SECTION TITLES */
+/* # CONTACT SHOWCASE */
 
-/* # CONTACT GRID */
-.contactGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: 22px;
-  align-items: stretch;
+.contactShowcase {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 570px;
+  overflow: hidden;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow:
+    0 18px 44px rgba(15, 23, 42, 0.055),
+    0 4px 14px rgba(15, 23, 42, 0.025);
 }
 
-/* # CONTACT INFO */
-.contactInfoCard,
-.contactMapCard {
-  position: relative;
-  width: 100%;
-  background: var(--color-surface);
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  border-radius: var(--radius-xl);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+/* # CONTACT MAP BACKGROUND */
+
+.contactMapLayer {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 0 35%;
   overflow: hidden;
+}
+
+.contactMapLayer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.contactMapLayer::before {
+  content: "";
+  display: none;
+  pointer-events: none;
+}
+
+.contactMapFade {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.995) 26%,
+    rgba(255, 255, 255, 0.92) 34%,
+    rgba(255, 255, 255, 0.72) 41%,
+    rgba(255, 255, 255, 0.42) 48%,
+    rgba(255, 255, 255, 0.18) 55%,
+    rgba(255, 255, 255, 0.05) 62%,
+    rgba(255, 255, 255, 0) 68%
+  );
+}
+
+
+/* # CONTACT CONTENT */
+
+.contactContent {
+  position: relative;
+  z-index: 4;
+  width: min(47%, 535px);
+  min-height: 570px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 38px 0 38px 42px;
   box-sizing: border-box;
 }
 
-.contactInfoCard {
-  padding: 22px;
+.contactIntro {
+  max-width: 470px;
+  margin-bottom: 24px;
 }
 
+.contactIntroLink {
+  width: fit-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    color var(--hover-duration-fast) var(--hover-ease),
+    opacity var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactIntroTitle {
+  display: inline-block;
+  margin: 0;
+  color: inherit;
+  font-family: "ATU Unison Pro", var(--font-unison), sans-serif;
+  font-size: clamp(1.6rem, 2.1vw, 2.15rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  -webkit-text-stroke: 0.2px currentColor;
+  transition: transform var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactIntroArrow {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  color: inherit;
+  transition:
+    border-color var(--hover-duration-fast) var(--hover-ease),
+    background var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactIntroArrow svg {
+  width: 17px;
+  height: 17px;
+  transition: transform var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactIntroLink:hover {
+  color: var(--hover-link-color);
+}
+
+.contactIntroLink:hover .contactIntroArrow {
+  border-color: var(--color-red);
+  background: var(--hover-surface);
+  color: var(--color-red-dark);
+}
+
+.contactIntroLink:hover .contactIntroArrow svg {
+  transform: translateX(var(--hover-directional-shift));
+}
+
+.contactIntroLink:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 5px;
+  border-radius: 6px;
+}
+
+.contactIntroText {
+  max-width: 430px;
+  margin: 12px 0 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+/* # CONTACT INFO */
+
 .contactInfoList {
-  position: relative;
+  width: 100%;
+  max-width: 500px;
   display: grid;
 }
 
 .contactInfoItem {
-  position: relative;
-  padding: 18px 0 20px;
-  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-  transition: transform 0.22s ease;
+  min-width: 0;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.075);
 }
 
 .contactInfoItem:first-child {
@@ -73,20 +211,24 @@
 
 .contactInfoItem:last-child {
   border-bottom: none;
-  padding-bottom: 0;
 }
 
-.contactInfoItem:hover {
-  transform: translateX(4px);
+.contactInfoBody {
+  min-width: 0;
+  transition: transform var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactInfoItem:hover .contactInfoBody {
+  transform: translateX(calc(var(--hover-directional-shift) * -1));
 }
 
 .contactInfoLabel {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: var(--color-text-muted);
   font-size: var(--font-badge);
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   line-height: 1.2;
 }
@@ -96,75 +238,139 @@
   display: block;
   margin: 0;
   color: var(--color-text);
-  font-size: 1.04rem;
-  line-height: 1.5;
-  font-weight: 700;
+  font-size: 1.03rem;
+  font-weight: 750;
+  line-height: 1.38;
   letter-spacing: -0.02em;
   text-decoration: none;
-  word-break: normal;
-  overflow-wrap: normal;
+  overflow-wrap: anywhere;
 }
 
 .contactInfoLink {
+  width: fit-content;
   transition:
-    color 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    color var(--hover-duration-fast) var(--hover-ease),
+    opacity var(--hover-duration-fast) var(--hover-ease);
 }
 
 .contactInfoLink:hover {
-  color: var(--color-red-dark);
-  opacity: 0.96;
+  color: var(--hover-link-color);
+  opacity: 0.92;
+}
+
+.contactCopyButton {
+  align-self: flex-start;
+  max-width: 100%;
+  margin-top: 22px;
+}
+
+.contactShowcase .contactCopyButton {
+  border-color: rgba(17, 24, 39, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-text);
+  box-shadow:
+    0 7px 18px rgba(15, 23, 42, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.contactShowcase .contactCopyButton:hover:not(:disabled) {
+  transform: translateY(var(--hover-lift-button));
+  border-color: rgba(17, 24, 39, 0.3);
+  background: #ffffff;
+  color: var(--color-text);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+}
+
+.contactSocials {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 17px;
+}
+
+.contactSocialsLabel {
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.contactSocialLinks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contactSocialLink {
+  width: 31px;
+  height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.88);
+  color: rgba(17, 24, 39, 0.72);
+  box-shadow: 0 4px 11px rgba(15, 23, 42, 0.045);
+  transition:
+    transform var(--hover-duration-fast) var(--hover-ease),
+    color var(--hover-duration-fast) var(--hover-ease),
+    background var(--hover-duration-fast) var(--hover-ease),
+    border-color var(--hover-duration-fast) var(--hover-ease);
+}
+
+.contactSocialLink svg {
+  width: 15px;
+  height: 15px;
+}
+
+.contactSocialLogo {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: grayscale(1);
+}
+
+.contactSocialLink:hover {
+  transform: translateY(var(--hover-lift-button));
+  border-color: rgba(17, 24, 39, 0.28);
+  background: #ffffff;
+  color: var(--color-text);
+}
+
+.contactSocialLink:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
+
+.contactUnavailable {
+  max-width: 470px;
 }
 
 /* # CONTACT MAP */
-.contactMapCard {
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-}
-
-.contactMapHeader {
-  position: relative;
-  margin-bottom: 18px;
-}
-
-.contactMapTitle {
-  margin: 0 0 6px;
-  color: var(--color-text);
-  font-size: var(--font-panel-title);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-}
-
-.contactMapAddress {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: var(--font-body-sm);
-  line-height: 1.5;
-  font-weight: 500;
-}
 
 .contactMapWrap {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  min-height: 420px;
   height: 100%;
+  min-height: 570px;
   overflow: hidden;
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
 }
 
 .leafletMap {
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: 570px;
 }
 
 /* # MAP MARKER */
+
 .leafletMarkerIcon {
   background: transparent !important;
   border: 0 !important;
@@ -239,35 +445,26 @@
 
 .markerLabel strong {
   display: block;
-  font-family: var(--font-geist-sans);
+  color: var(--color-white);
+  font-family: var(--font-sans), sans-serif;
   font-size: 15px;
   font-weight: 900;
   line-height: 1.15;
-  color: var(--color-white);
   white-space: normal;
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: none;
 }
 
 .markerLabel span {
   display: block;
   margin-top: 3px;
-  font-family: var(--font-geist-sans);
+  color: rgba(255, 255, 255, 0.94);
+  font-family: var(--font-sans), sans-serif;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;
-  color: rgba(255, 255, 255, 0.94);
   white-space: normal;
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: none;
 }
 
-.customMarker:hover {
-  z-index: 1000;
-}
-
+.customMarker:hover,
 .markerActive {
   z-index: 1000 !important;
 }
@@ -290,10 +487,11 @@
 }
 
 /* # LEAFLET FIXES */
+
 .contactMapWrap :global(.leaflet-container) {
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: 570px;
 }
 
 .contactMapWrap :global(.leaflet-control-container) {
@@ -306,7 +504,7 @@
 
 .contactMapWrap :global(.leaflet-control-zoom) {
   z-index: 10 !important;
-  margin: 14px !important;
+  margin: 18px !important;
   border: none !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
 }
@@ -318,7 +516,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background-color: var(--color-white) !important;
+  background-color: rgba(255, 255, 255, 0.92) !important;
   color: var(--color-text) !important;
   border: 1px solid rgba(0, 0, 0, 0.05) !important;
   font-size: 16px !important;
@@ -342,7 +540,7 @@
 .contactMapWrap :global(.leaflet-control-zoom-in:hover),
 .contactMapWrap :global(.leaflet-control-zoom-out:hover) {
   background-color: var(--color-page-soft) !important;
-  color: var(--color-red) !important;
+  color: var(--color-text) !important;
   transform: scale(1.04);
 }
 
@@ -354,19 +552,25 @@
 
 .mapLoading {
   width: 100%;
-  min-height: 420px;
+  height: 100%;
+  min-height: 570px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  color: rgba(0, 0, 0, 0.28);
-  font-size: 13px;
-  font-family: var(--font-geist-sans);
-  letter-spacing: 1px;
-  text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  background: var(--color-surface);
+  color: rgba(0, 0, 0, 0.28);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* # DOCUMENT ANCHOR */
+
+.documentsAnchor {
+  scroll-margin-top: 138px;
 }
 
 /* # DOCUMENTS */
@@ -379,91 +583,178 @@
   line-height: 1.6;
   text-align: right;
 }
-
 .documentsSection {
+  position: relative;
+  isolation: isolate;
   width: 100%;
-  padding: 28px;
-  border-radius: var(--radius-xl);
-  background: #ffffff;
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  padding: 10px 0 18px;
   box-sizing: border-box;
-  overflow: hidden;
 }
-
 .documentsGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
-
+/* # DOCUMENT CARD */
 .documentCard {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   min-width: 0;
-  min-height: 98px;
-  padding: 18px;
-  border-radius: 22px;
-  background: #ffffff;
-  border: 1px solid #e7edf4;
+  min-height: 108px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid #e1e7ee;
   color: inherit;
   text-decoration: none;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+  box-shadow:
+    0 9px 22px rgba(15, 23, 42, 0.045),
+    0 2px 7px rgba(15, 23, 42, 0.025);
+  transform: translate3d(0, 0, 0);
   transition:
-    box-shadow 0.22s ease,
-    border-color 0.22s ease,
-    background 0.22s ease;
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+background 0.3s ease;
   overflow: hidden;
+  box-sizing: border-box;
 }
-
 .documentCard::before {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    112deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(17, 24, 39, 0.022) 48%,
+    rgba(17, 24, 39, 0.038) 50%,
+    rgba(17, 24, 39, 0.018) 52%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-position: 120% 0;
+  opacity: 0;
+  transition:
+    opacity 0.24s ease,
+    background-position 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
-
-.documentCard:hover {
-  background: #f4f4f4;
-  border-color: rgba(17, 24, 39, 0.16);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.055);
+.documentCard:hover,
+.documentCard:focus-visible {
+  background: #ffffff;
+  border-color: rgba(17, 24, 39, 0.14);
+  box-shadow:
+    0 17px 34px rgba(15, 23, 42, 0.085),
+    0 5px 13px rgba(15, 23, 42, 0.04);
+  transform: translate3d(0, -3px, 0);
 }
-
+.documentCard:hover::before,
+.documentCard:focus-visible::before {
+  opacity: 1;
+  background-position: -20% 0;
+}
+.documentCard:focus-visible {
+  outline: 2px solid rgba(17, 24, 39, 0.22);
+  outline-offset: 4px;
+}
+/* # DOCUMENT ICON */
 .documentIcon {
   position: relative;
   z-index: 1;
-  width: 48px;
-  height: 58px;
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 8px;
-  border-radius: 14px 14px 12px 12px;
-  background: #f3f4f6;
-  border: 1px solid #d9dee6;
-  color: #6b7280;
-  font-size: 0.63rem;
-  font-weight: 950;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  width: 68px;
+  height: 72px;
+  flex: 0 0 68px;
+  perspective: 500px;
 }
-
-.documentIcon::before {
+.documentPaper {
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  width: 48px;
+  height: 60px;
+  border-radius: 10px 10px 8px 8px;
+  background: linear-gradient(145deg, #fcfdff 0%, #edf1f6 100%);
+  border: 1px solid #d8e0e9;
+  box-shadow:
+    0 8px 16px rgba(15, 23, 42, 0.095),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94);
+  transform-origin: 72% 76%;
+  transition:
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.24s ease,
+    box-shadow 0.34s ease;
+  box-sizing: border-box;
+}
+.documentPaper::before {
   content: "";
   position: absolute;
   top: -1px;
   right: -1px;
   width: 16px;
   height: 16px;
-  border-radius: 0 14px 0 8px;
-  background: #e5e7eb;
-  border-left: 1px solid #dbe3eb;
-  border-bottom: 1px solid #dbe3eb;
+  border-radius: 0 10px 0 7px;
+  background: linear-gradient(135deg, #e9eef5 0%, #dbe4ef 100%);
+  border-left: 1px solid #d2dce7;
+  border-bottom: 1px solid #d2dce7;
+  box-shadow: -2px 2px 5px rgba(15, 23, 42, 0.035);
 }
-
+.documentPaperBackTwo,
+.documentPaperBackOne {
+  opacity: 0;
+  pointer-events: none;
+}
+.documentPaperBackTwo {
+  z-index: 1;
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(0.96);
+}
+.documentPaperBackOne {
+  z-index: 2;
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(0.98);
+}
+.documentPaperFront {
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 7px;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+.documentLogo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+  opacity: 0.82;
+}
+.documentCard:hover .documentPaperBackTwo,
+.documentCard:focus-visible .documentPaperBackTwo {
+  opacity: 0.64;
+  transform: translate3d(-13px, 7px, 0) rotate(-6deg) scale(0.96);
+  transition-delay: 0.1s;
+}
+.documentCard:hover .documentPaperBackOne,
+.documentCard:focus-visible .documentPaperBackOne {
+  opacity: 0.88;
+  transform: translate3d(-7px, 4px, 0) rotate(-3deg) scale(0.98);
+  transition-delay: 0.045s;
+}
+.documentCard:hover .documentPaperFront,
+.documentCard:focus-visible .documentPaperFront {
+  transform: translate3d(4px, -2px, 0) rotate(1.4deg);
+  box-shadow:
+    0 12px 22px rgba(15, 23, 42, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+/* # DOCUMENT TEXT */
 .documentContent {
   position: relative;
   z-index: 1;
@@ -473,50 +764,139 @@
   flex-direction: column;
   gap: 5px;
 }
-
 .documentContent strong {
   color: var(--color-text);
   font-size: 1rem;
   font-weight: 900;
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -0.025em;
   word-break: normal;
   overflow-wrap: normal;
   hyphens: none;
 }
-
 .documentContent small {
   color: var(--color-text-muted);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.2;
 }
-
+/* # DOCUMENT ARROW */
 .documentArrow {
   position: relative;
   z-index: 1;
-  width: auto;
-  height: auto;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 48px;
+  height: 32px;
   background: transparent;
-  color: #8a8a8a;
-  font-size: 1.28rem;
-  font-weight: 900;
-  line-height: 1;
-  transition:
-    transform 0.22s ease,
-    color 0.22s ease;
+  color: #747980;
+  transition: color 0.2s ease;
+}
+.documentArrowSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.documentArrowSvg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.documentArrowStraightLine,
+.documentArrowStraightHead,
+.documentArrowLoopLine,
+.documentArrowLoopHead {
+  stroke-dasharray: 1;
+  transition-property: stroke-dashoffset, opacity;
+  transition-duration: 0.62s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.documentArrowStraightLine,
+.documentArrowStraightHead {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+.documentArrowLoopLine,
+.documentArrowLoopHead {
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.documentArrowLoopHead {
+  transition-delay: 0s;
+}
+.documentCard:hover .documentArrow,
+.documentCard:focus-visible .documentArrow {
+  color: #111111;
+}
+.documentCard:hover .documentArrowStraightLine,
+.documentCard:hover .documentArrowStraightHead,
+.documentCard:focus-visible .documentArrowStraightLine,
+.documentCard:focus-visible .documentArrowStraightHead {
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.documentCard:hover .documentArrowLoopLine,
+.documentCard:focus-visible .documentArrowLoopLine {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition-delay: 0.05s;
+}
+.documentCard:hover .documentArrowLoopHead,
+.documentCard:focus-visible .documentArrowLoopHead {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition-delay: 0.4s;
 }
 
-.documentCard:hover .documentArrow {
-  transform: translateX(3px);
-  color: #111111;
+.documentEmptyCard {
+  padding: 24px 26px;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 9px 22px rgba(15, 23, 42, 0.04);
+}
+
+.documentEmptyCard p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* # 1100 */
+
+@media (max-width: 1100px) {
+  .contactShowcase {
+    min-height: 545px;
+  }
+
+  .contactMapLayer {
+    inset: 0 0 0 32%;
+  }
+
+  .contactContent {
+    width: min(52%, 520px);
+    min-height: 545px;
+    padding: 34px 0 34px 32px;
+  }
+
+  .contactMapWrap,
+  .leafletMap,
+  .mapLoading,
+  .contactMapWrap :global(.leaflet-container) {
+    min-height: 545px;
+  }
 }
 
 /* # 1024 */
+
 @media (max-width: 1024px) {
   .pageContainer {
     --font-panel-title: clamp(1.15rem, 2.2vw, 1.4rem);
@@ -536,22 +916,41 @@
     padding: 30px 14px 0;
   }
 
-  .contactGrid {
-    grid-template-columns: 1fr;
+  .contactShowcase {
+    min-height: 520px;
   }
 
-  .contactInfoCard,
-  .contactMapCard {
-    padding: 20px;
-    border-radius: var(--radius-xl);
+  .contactMapLayer {
+    inset: 0 0 0 34%;
+  }
+
+  .contactContent {
+    width: min(56%, 500px);
+    min-height: 520px;
+    padding: 30px 0 30px 28px;
+  }
+
+  .contactIntro {
+    margin-bottom: 20px;
+  }
+
+  .contactIntroTitle {
+    font-size: clamp(1.5rem, 2.8vw, 1.95rem);
+  }
+
+  .contactIntroArrow {
+    font-size: 1.24rem;
+  }
+
+  .contactInfoItem {
+    padding: 10px 0;
   }
 
   .contactMapWrap,
   .leafletMap,
   .mapLoading,
   .contactMapWrap :global(.leaflet-container) {
-    height: 380px;
-    min-height: 380px;
+    min-height: 520px;
   }
 
   .contactMapWrap :global(.leaflet-control-zoom) {
@@ -566,7 +965,7 @@
   }
 
   .documentsSection {
-    padding: 24px;
+    padding: 6px 0 12px;
   }
 
   .documentsGrid {
@@ -574,7 +973,67 @@
   }
 }
 
+/* # 820 */
+
+@media (max-width: 820px) {
+  .contactShowcase {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .contactMapLayer {
+    position: relative;
+    inset: auto;
+    order: 2;
+    width: 100%;
+    height: 330px;
+  }
+
+  .contactMapLayer::before {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 4;
+    display: block;
+    height: 55%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.84) 0%,
+      rgba(255, 255, 255, 0.7) 18%,
+      rgba(255, 255, 255, 0.42) 36%,
+      rgba(255, 255, 255, 0.18) 54%,
+      rgba(255, 255, 255, 0.05) 72%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .contactMapFade {
+    display: none;
+  }
+
+  .contactContent {
+    order: 1;
+    width: 100%;
+    min-height: 0;
+    padding: 30px;
+    background: #ffffff;
+  }
+
+  .contactInfoList {
+    max-width: 620px;
+  }
+
+  .contactMapWrap,
+  .leafletMap,
+  .mapLoading,
+  .contactMapWrap :global(.leaflet-container) {
+    height: 330px;
+    min-height: 330px;
+  }
+}
+
 /* # 768 */
+
 @media (max-width: 768px) {
   .pageContainer {
     --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
@@ -594,18 +1053,28 @@
     padding: 24px 10px 0;
   }
 
-  .contactGrid {
-    gap: 18px;
-  }
-
-  .contactInfoCard,
-  .contactMapCard {
-    padding: 16px;
+  .contactShowcase {
     border-radius: var(--radius-xl);
   }
 
-  .contactInfoItem {
-    padding: 15px 0 16px;
+  .contactContent {
+    padding: 26px 22px;
+  }
+
+  .contactIntro {
+    margin-bottom: 18px;
+  }
+
+  .contactIntroTitle {
+    font-size: clamp(1.42rem, 5.7vw, 1.8rem);
+  }
+
+  .contactIntroArrow {
+    font-size: 1.18rem;
+  }
+
+  .contactIntroText {
+    font-size: 0.92rem;
   }
 
   .contactInfoText,
@@ -613,8 +1082,12 @@
     font-size: 0.98rem;
   }
 
-  .contactMapHeader {
-    margin-bottom: 14px;
+  .contactCopyButton {
+    margin-top: 18px;
+  }
+
+  .contactMapLayer {
+    height: 300px;
   }
 
   .contactMapWrap,
@@ -623,7 +1096,6 @@
   .contactMapWrap :global(.leaflet-container) {
     height: 300px;
     min-height: 300px;
-    border-radius: var(--radius-lg);
   }
 
   .markerDot {
@@ -657,6 +1129,10 @@
     font-size: 14px !important;
   }
 
+  .documentsAnchor {
+    scroll-margin-top: 92px;
+  }
+
   .documentsLead {
     max-width: 100%;
     text-align: left;
@@ -667,18 +1143,27 @@
   }
 
   .documentCard {
-    min-height: 88px;
-    padding: 16px;
+    min-height: 102px;
+    padding: 16px 18px;
     border-radius: 18px;
   }
 
   .documentIcon {
+    width: 60px;
+    height: 66px;
+    flex-basis: 60px;
+  }
+
+  .documentPaper {
+    left: 8px;
+    top: 4px;
     width: 44px;
-    height: 54px;
+    height: 55px;
   }
 }
 
 /* # 480 */
+
 @media (max-width: 480px) {
   .pageContainer {
     --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
@@ -698,24 +1183,43 @@
     padding: 18px 8px 0;
   }
 
-  .contactGrid {
-    gap: 16px;
-  }
-
-  .contactInfoCard,
-  .contactMapCard {
-    padding: 14px;
+  .contactShowcase {
     border-radius: var(--radius-lg);
   }
 
+  .contactContent {
+    padding: 22px 16px;
+  }
+
+  .contactIntroTitle {
+    font-size: clamp(1.32rem, 7vw, 1.62rem);
+  }
+
+  .contactIntroArrow {
+    font-size: 1.08rem;
+  }
+
+  .contactIntroText {
+    margin-top: 9px;
+    font-size: 0.86rem;
+  }
+
   .contactInfoItem {
-    padding: 12px 0 14px;
+    padding: 9px 0;
   }
 
   .contactInfoText,
   .contactInfoLink {
     font-size: 0.92rem;
-    line-height: 1.55;
+    line-height: 1.42;
+  }
+
+  .contactCopyButton {
+    margin-top: 16px;
+  }
+
+  .contactMapLayer {
+    height: 260px;
   }
 
   .contactMapWrap,
@@ -724,7 +1228,6 @@
   .contactMapWrap :global(.leaflet-container) {
     height: 260px;
     min-height: 260px;
-    border-radius: var(--radius-lg);
   }
 
   .markerDot {
@@ -772,8 +1275,7 @@
   }
 
   .documentsSection {
-    padding: 16px;
-    border-radius: var(--radius-lg);
+    padding: 4px 0 10px;
   }
 
   .documentsGrid {
@@ -786,22 +1288,35 @@
   }
 
   .documentCard {
-    min-height: 82px;
+    min-height: 92px;
     padding: 14px;
     gap: 12px;
     border-radius: 16px;
   }
 
   .documentIcon {
-    width: 40px;
-    height: 50px;
-    border-radius: 12px 12px 10px 10px;
-    font-size: 0.58rem;
+    width: 54px;
+    height: 60px;
+    flex-basis: 54px;
   }
 
-  .documentIcon::before {
-    width: 14px;
-    height: 14px;
+  .documentPaper {
+    left: 8px;
+    top: 4px;
+    width: 39px;
+    height: 49px;
+    border-radius: 10px 10px 9px 9px;
+  }
+
+  .documentPaper::before {
+    width: 13px;
+    height: 13px;
+    border-radius: 0 10px 0 6px;
+  }
+
+  .documentLogo {
+    width: 23px;
+    height: 23px;
   }
 
   .documentContent strong {
@@ -813,6 +1328,75 @@
   }
 
   .documentArrow {
-    font-size: 1.16rem;
+    width: 44px;
+    height: 30px;
+  }
+
+  .documentEmptyCard {
+    padding: 18px;
+  }
+}
+
+/* # REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .contactIntroTitle,
+  .contactIntroArrow,
+  .contactIntroArrow svg,
+  .contactInfoBody {
+    transition: none;
+  }
+
+  .contactIntroLink:hover .contactIntroTitle {
+    transform: none;
+  }
+
+  .contactIntroLink:hover .contactIntroArrow svg,
+  .contactInfoItem:hover .contactInfoBody {
+    transform: none;
+  }
+
+  .documentCard,
+  .documentPaper,
+  .documentArrow,
+  .documentArrowSvg path {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  .documentCard:hover,
+  .documentCard:focus-visible {
+    transform: none;
+  }
+  .documentCard:hover .documentArrow,
+  .documentCard:focus-visible .documentArrow {
+    animation: none;
+  }
+  .documentCard:hover .documentPaperBackTwo,
+  .documentCard:focus-visible .documentPaperBackTwo,
+  .documentCard:hover .documentPaperBackOne,
+  .documentCard:focus-visible .documentPaperBackOne {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.98);
+  }
+  .documentCard:hover .documentPaperFront,
+  .documentCard:focus-visible .documentPaperFront {
+    transform: none;
+  }
+  .documentArrowStraightLine,
+  .documentArrowStraightHead,
+  .documentCard:hover .documentArrowStraightLine,
+  .documentCard:hover .documentArrowStraightHead,
+  .documentCard:focus-visible .documentArrowStraightLine,
+  .documentCard:focus-visible .documentArrowStraightHead {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  .documentArrowLoopLine,
+  .documentArrowLoopHead,
+  .documentCard:hover .documentArrowLoopLine,
+  .documentCard:hover .documentArrowLoopHead,
+  .documentCard:focus-visible .documentArrowLoopLine,
+  .documentCard:focus-visible .documentArrowLoopHead {
+    stroke-dashoffset: 1;
+    opacity: 0;
   }
 }

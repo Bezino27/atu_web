@@ -35,17 +35,17 @@
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.06);
   align-items: stretch;
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .heroCard:hover {
   background: var(--color-surface);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .heroLeft {
@@ -71,24 +71,24 @@
   background: var(--color-page);
   border: 1px solid rgba(17, 17, 17, 0.05);
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .infoCard:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .infoCardHighlight:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .infoCardLabel {
@@ -223,7 +223,7 @@
   border-radius: var(--radius-xl);
   color: rgba(0, 0, 0, 0.28);
   font-size: 13px;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   letter-spacing: 1px;
   text-align: center;
   padding: 20px;
@@ -306,7 +306,7 @@
 
 .markerLabel strong {
   display: block;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   font-size: 15px;
   font-weight: 900;
   line-height: 1.15;
@@ -320,7 +320,7 @@
 .markerLabel span {
   display: block;
   margin-top: 2px;
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-sans), sans-serif;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;
@@ -359,6 +359,9 @@
 /* # HISTORY TEXT */
 
 .textSectionCard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 38px 40px;
   border: 1px solid rgba(17, 17, 17, 0.07);
   border-radius: var(--radius-xl);
@@ -367,17 +370,31 @@
     0 20px 50px rgba(17, 17, 17, 0.06),
     0 2px 10px rgba(17, 17, 17, 0.03);
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.textSectionCard::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(430px, 48%);
+  aspect-ratio: 1;
+  background: url("/logo/ATU_logo_black_transp.svg") center / contain no-repeat;
+  opacity: 0.035;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .textSectionCard:hover {
   background: var(--color-surface);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .textColumns {
@@ -389,7 +406,7 @@
 .bodyText {
   margin: 0;
   color: var(--color-text-soft);
-  font-family: var(--font-barlow), "Barlow", var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.84;
@@ -416,17 +433,17 @@
     0 4px 14px rgba(17, 17, 17, 0.03);
   overflow: hidden;
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .groupCard:hover {
   background: var(--color-surface);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .groupHeader {
@@ -445,7 +462,7 @@
   z-index: 1;
   margin: 0;
   color: var(--color-text);
-  font-family: "ATU Unison Pro Bold", var(--font-sans), sans-serif;
+  font-family: var(--font-unison), sans-serif;
   font-size: 1.65rem;
   font-weight: 700;
   font-style: normal;
@@ -491,17 +508,17 @@
     0 10px 24px rgba(17, 17, 17, 0.035),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .achievementItem:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .itemLeft {
@@ -512,7 +529,7 @@
 
 .itemCountRow {
   display: grid;
-  grid-template-columns: 86px 55px;
+  grid-template-columns: 86px 64px;
   align-items: center;
   gap: 12px;
 }
@@ -530,8 +547,8 @@
 /* # MEDAL ICON */
 
 .medalIcon {
-  width: 55px;
-  height: 55px;
+  width: 64px;
+  height: 64px;
   justify-self: center;
 }
 
@@ -594,17 +611,16 @@
     0 16px 36px rgba(17, 17, 17, 0.05),
     0 3px 12px rgba(17, 17, 17, 0.025);
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .alumniCard:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .alumniCardHeader {
@@ -641,6 +657,12 @@
   width: 72px;
   height: 72px;
   object-fit: contain;
+}
+
+.alumniBadgeLogoAtu {
+  width: 65px;
+  height: 65px;
+  transform: none;
 }
 
 .alumniMeta {
@@ -776,12 +798,12 @@
   }
 
   .itemCountRow {
-    grid-template-columns: 72px 32px;
+    grid-template-columns: 72px 52px;
   }
 
   .medalIcon {
-    width: 32px;
-    height: 32px;
+    width: 52px;
+    height: 52px;
   }
 
   .seasonChip {
@@ -813,6 +835,11 @@
   .logoLargeSingle {
     width: 66px;
     height: 66px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 58px;
+    height: 58px;
   }
 
   .alumniName {
@@ -941,9 +968,9 @@
 
   .groupCard:hover {
     background: var(--color-surface);
-    border-color: var(--color-border-strong);
-    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-    transform: translateY(-3px);
+    border-color: var(--hover-border);
+    box-shadow: var(--hover-shadow-card);
+    transform: translateY(var(--hover-lift-card));
   }
 
   .groupCard::before {
@@ -990,6 +1017,15 @@
     font-size: 1.85rem;
   }
 
+  .itemCountRow {
+    grid-template-columns: 72px 48px;
+  }
+
+  .medalIcon {
+    width: 48px;
+    height: 48px;
+  }
+
   .itemRight {
     gap: 10px;
   }
@@ -1030,6 +1066,11 @@
   .logoLargeSingle {
     width: 62px;
     height: 62px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 54px;
+    height: 54px;
   }
 
   .alumniKicker {
@@ -1137,9 +1178,9 @@
 
   .groupCard:hover {
     background: var(--color-surface);
-    border-color: var(--color-border-strong);
-    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-    transform: translateY(-3px);
+    border-color: var(--hover-border);
+    box-shadow: var(--hover-shadow-card);
+    transform: translateY(var(--hover-lift-card));
   }
 
   .groupCard::before {
@@ -1176,7 +1217,7 @@
   }
 
   .itemCountRow {
-    grid-template-columns: 62px 28px;
+    grid-template-columns: 62px 42px;
     gap: 10px;
   }
 
@@ -1185,8 +1226,8 @@
   }
 
   .medalIcon {
-    width: 28px;
-    height: 28px;
+    width: 42px;
+    height: 42px;
   }
 
   .itemSeasons {
@@ -1228,6 +1269,11 @@
   .logoLargeSingle {
     width: 58px;
     height: 58px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 50px;
+    height: 50px;
   }
 
   .alumniKicker {

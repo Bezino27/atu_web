@@ -143,17 +143,17 @@
   cursor: pointer;
   text-align: left;
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    background var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease);
 }
 
 .optionButton:hover:not([aria-disabled="true"]) {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .optionButton:hover:not([aria-disabled="true"]) .optionIndicator {
@@ -249,17 +249,17 @@
   border-radius: var(--radius-md);
   background: var(--color-surface-soft);
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .pollResultItem:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
 }
 
 .pollResultItem:nth-child(1) { animation: fadeSlideIn 0.3s ease both 0s; }
@@ -363,14 +363,14 @@
   text-transform: uppercase;
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease);
 }
 
 .voteButton:hover:not(:disabled) {
   background: var(--color-red-dark);
-  transform: translateY(-1px);
+  transform: translateY(var(--hover-lift-button));
   box-shadow: 0 6px 14px rgba(15, 23, 42, 0.14);
 }
 
@@ -426,18 +426,18 @@
   overflow: hidden;
   cursor: pointer;
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .previousWinnerCard:hover,
 .previousWinnerCard:focus-visible {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
   outline: none;
 }
 
@@ -525,18 +525,18 @@
   background: var(--color-surface-soft);
   cursor: pointer;
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
 }
 
 .previousRankingItem:hover,
 .previousRankingItem:focus-visible {
-  background: var(--color-surface-soft);
-  border-color: var(--color-border-strong);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-  transform: translateY(-3px);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
   outline: none;
 }
 

@@ -24,14 +24,16 @@
   overflow: hidden;
   cursor: pointer;
   background: var(--color-black);
-  transition: transform 0.26s ease, box-shadow 0.26s ease;
+  transition:
+    transform var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease);
   box-sizing: border-box;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
 .novinkyCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14), 0 8px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(var(--hover-lift-card));
+  box-shadow: var(--hover-shadow-card);
 }
 
 .novinkyImageWrapper {

@@ -73,8 +73,8 @@ function MedalDot({ type }: { type: MedalType }) {
     <Image
       src={medalIcons[type]}
       alt={`${type} medal`}
-      width={55}
-      height={55}
+      width={64}
+      height={64}
       className={styles.medalIcon}
     />
   );

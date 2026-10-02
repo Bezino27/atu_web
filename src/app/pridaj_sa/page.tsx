@@ -1,12 +1,13 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import BenefitsCarouselSection from "./BenefitsCarousel";
+import FaqAccordion from "./FaqAccordion";
 import styles from "./pridaj_sa.module.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import RecruitmentForm from "./RecruitmentForm";
+import HeroScrollZoomImage from "@/app/components/HeroScrollZoomImage";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
 
@@ -366,40 +367,46 @@ export default async function PridajSaPage() {
     return (
       <section key={section.id} className={styles.heroSection}>
         <div className={styles.heroCard}>
-          <Image
+          <HeroScrollZoomImage
             src="/images/nabor-hero.jpg"
             alt="Deti na tréningu ATU Košice"
-            fill
+            wrapperClassName={styles.heroLoadZoom}
+            imageClassName={styles.heroBackgroundImage}
             priority
             unoptimized
-            sizes="(max-width: 768px) 100vw, 1300px"
-            className={styles.heroBackgroundImage}
+            scrollZoom={1.05}
+            scrollDistance={0.2}
+            smoothing={0.12}
           />
+
           <div className={styles.heroOverlay} />
 
           <div className={styles.heroInner}>
-            <div className={styles.heroGlassBadge}>
-              <span>
-                {getSectionPreTitle(section, "ATU KOŠICE / MLÁDEŽ")}
-              </span>
-            </div>
+            <span className={styles.heroEyebrow}>
+              {getSectionPreTitle(section, "ATU KOŠICE / MLÁDEŽ")}
+            </span>
 
-            <div className={styles.heroContent}>
+            <div className={styles.heroBottom}>
               <h1 className={styles.heroTitle}>
                 {getSectionTitle(section, "Poď hrať florbal")}
               </h1>
 
-              <p className={styles.heroText}>
-                Pridaj sa k ATU Košice a vyskúšaj si tréning v kvalitnom
-                klubovom prostredí s osobným prístupom.
-              </p>
-
               <div className={styles.heroActions}>
-                <a href="#kontakt" className={styles.primaryButton}>
-                  Chcem skúsiť tréning
+                <a
+                  href="#kontakt"
+                  className={styles.primaryButton}
+                >
+                  <span>Vyskúšať prvý tréning</span>
+                  <span className={styles.buttonArrow} aria-hidden="true">
+                    →
+                  </span>
                 </a>
+
                 <a href="#kategorie" className={styles.secondaryButton}>
-                  Pozrieť kategórie
+                  <span>Pozrieť kategórie</span>
+                  <span className={styles.buttonArrow} aria-hidden="true">
+                    →
+                  </span>
                 </a>
               </div>
             </div>
@@ -494,30 +501,7 @@ export default async function PridajSaPage() {
           </h2>
         </div>
 
-        <div className={styles.faqList}>
-          {faqItems.map((item) => (
-            <details key={item.question} className={styles.faqItem}>
-              <summary className={styles.faqQuestion}>
-                <span className={styles.faqQuestionText}>
-                  {item.question}
-                </span>
-                <span className={styles.faqChevron}>+</span>
-              </summary>
-
-              <div className={styles.faqAnswer}>
-                {Array.isArray(item.answer) ? (
-                  <div className={styles.faqAnswerList}>
-                    {item.answer.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </div>
-                ) : (
-                  <p>{item.answer}</p>
-                )}
-              </div>
-            </details>
-          ))}
-        </div>
+        <FaqAccordion items={faqItems} />
       </section>
     );
   };

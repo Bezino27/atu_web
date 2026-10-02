@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Anton, Barlow, Geist_Mono, Manrope, Teko } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import {
@@ -14,30 +14,7 @@ import {
 
 const manrope = Manrope({
   variable: "--font-manrope",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const anton = Anton({
-  variable: "--font-anton",
-  subsets: ["latin"],
-  weight: "400",
-});
-
-const barlow = Barlow({
-  variable: "--font-barlow",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
-});
-
-const teko = Teko({
-  variable: "--font-teko",
-  subsets: ["latin", "latin-ext"],
-  weight: "600",
 });
 
 export const metadata: Metadata = {
@@ -55,6 +32,32 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   creator: SITE_NAME,
   publisher: SITE_NAME,
+
+  icons: {
+    icon: [
+      {
+        url: "/favicon/favicon.ico",
+      },
+      {
+        url: "/favicon/favicon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/favicon/favicon-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/favicon/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+
+  manifest: "/favicon/site.webmanifest",
 
   robots: {
     index: true,
@@ -96,10 +99,6 @@ export default function RootLayout({
       lang="sk"
       className={`
         ${manrope.variable}
-        ${geistMono.variable}
-        ${anton.variable}
-        ${barlow.variable}
-        ${teko.variable}
         h-full antialiased
       `}
     >

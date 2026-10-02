@@ -139,9 +139,9 @@
 .heroTitle {
   margin: 0;
   color: var(--color-white);
-  font-family: var(--font-banner), var(--font-sans), sans-serif;
+  font-family: var(--font-unison), sans-serif;
   font-size: clamp(2.8rem, 7.2vw, 6.4rem);
-  font-weight: var(--font-banner-weight);
+  font-weight: var(--font-title-weight);
   font-style: italic;
   line-height: 0.86;
   letter-spacing: 0.01em;
@@ -194,10 +194,10 @@
   overflow: hidden;
   box-shadow: var(--shadow-card);
   transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease,
-    background 0.22s ease;
+    transform var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    background var(--hover-duration-normal) var(--hover-ease);
 }
 
 .linkCard::before {
@@ -207,14 +207,14 @@
   width: 4px;
   background: var(--color-text-subtle);
   opacity: 0;
-  transition: opacity 0.22s ease;
+  transition: opacity var(--hover-duration-normal) var(--hover-ease);
 }
 
 .linkCard:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border-strong);
+  transform: translateY(var(--hover-lift-card));
+  border-color: var(--hover-border);
   background: var(--color-surface);
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--hover-shadow-card);
 }
 
 .linkCard:hover::before {
@@ -356,15 +356,13 @@
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
   transition:
-    box-shadow 0.22s ease,
-    border-color 0.22s ease,
-    background 0.22s ease;
+    border-color var(--hover-duration-fast) var(--hover-ease),
+    background var(--hover-duration-fast) var(--hover-ease);
 }
 
 .documentCard:hover {
-  background: #f4f4f4;
-  border-color: rgba(17, 24, 39, 0.16);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.055);
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
 }
 
 .documentBadge {
@@ -498,7 +496,7 @@
   gap: 18px;
   padding: 18px 0 20px;
   border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-  transition: transform 0.22s ease;
+  transition: transform var(--hover-duration-fast) var(--hover-ease);
 }
 
 .contactInfoItem:first-child {
@@ -511,7 +509,7 @@
 }
 
 .contactInfoItem:hover {
-  transform: translateX(4px);
+  transform: translateX(var(--hover-directional-shift));
 }
 
 .contactInfoContent {
@@ -561,13 +559,12 @@
 .contactInfoLink {
   text-decoration: none;
   transition:
-    color 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    color var(--hover-duration-fast) var(--hover-ease),
+    opacity var(--hover-duration-fast) var(--hover-ease);
 }
 
 .contactInfoLink:hover {
-  color: var(--color-red-dark);
+  color: var(--hover-link-color);
   opacity: 0.96;
 }
 

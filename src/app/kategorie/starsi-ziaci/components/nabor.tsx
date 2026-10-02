@@ -1,7 +1,21 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
+import GlitchText from "@/app/components/GlitchText";
+import {
+  PiArrowRightBold,
+  PiCalendarBlank,
+  PiEnvelopeSimple,
+  PiUser,
+} from "react-icons/pi";
 import recruitmentStyles from "@/app/kategorie/styles/CategoryRecruitment.module.css";
 import { API_URL, getApiFetchOptions } from "@/app/lib/api";
+
+const RECRUITMENT_PHRASES = [
+  "PRIDAJ SA K ATU",
+  "PRÍĎ NA TRÉNING",
+  "ZAČNI HRAŤ ZA ATU",
+] as const;
 
 type CategoryBirthYears = {
   id: number;
@@ -42,42 +56,120 @@ const Nabor = async () => {
       )}`
     : "2011 – 2012";
 
+  const coachName = category?.coach_name || "Tréner";
+  const coachEmail = category?.coach_email || "tomikbez@gmail.com";
+  const coachPhone = category?.coach_phone?.trim();
+
   return (
     <section className={recruitmentStyles.naborSection}>
-      <div className={recruitmentStyles.naborCard}>
+      <div
+        className={recruitmentStyles.naborCard}
+        style={
+          {
+            "--nabor-photo-position-desktop": "43% 42%",
+            "--nabor-photo-position-tablet": "40% 39%",
+            "--nabor-photo-position-mobile": "38% 30%",
+          } as React.CSSProperties
+        }
+      >
+        <div className={recruitmentStyles.naborPhotoWrap} aria-hidden="true">
+          <Image
+            src="/images/nabor/starsi_ziaci_nabor.jpg"
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 65vw"
+            className={recruitmentStyles.naborPhoto}
+          />
+        </div>
+
+        <div
+          className={recruitmentStyles.naborOverlay}
+          aria-hidden="true"
+        />
+
+        <div className={recruitmentStyles.naborJoinWrap}>
+          <p className={recruitmentStyles.naborJoinText}>
+            <GlitchText phrases={RECRUITMENT_PHRASES} />
+          </p>
+        </div>
+
         <div className={recruitmentStyles.naborContent}>
-          <div className={recruitmentStyles.naborTopRow}>
-            <div className={recruitmentStyles.naborTextWrap}>
-              <p className={recruitmentStyles.naborDescription}>
-                Pridaj sa k ATU Košice.
-              </p>
-            </div>
-
-            <Link href="/pridaj_sa" className={recruitmentStyles.naborPrimaryButton}>
-              Získať viac informácií
-            </Link>
-          </div>
-
           <div className={recruitmentStyles.naborInfoGrid}>
             <div className={recruitmentStyles.naborInfoItem}>
-              <div className={recruitmentStyles.naborInfoLabel}>Ročník</div>
-              <div className={recruitmentStyles.naborInfoValue}>{birthYearsText}</div>
+              <span className={recruitmentStyles.naborInfoIndex}>01</span>
+
+              <span className={recruitmentStyles.naborInfoIcon}>
+                <PiCalendarBlank aria-hidden="true" />
+              </span>
+
+              <div className={recruitmentStyles.naborInfoText}>
+                <div className={recruitmentStyles.naborInfoLabel}>
+                  Ročník
+                </div>
+
+                <div className={recruitmentStyles.naborInfoValue}>
+                  {birthYearsText}
+                </div>
+              </div>
             </div>
 
             <div className={recruitmentStyles.naborInfoItem}>
-              <div className={recruitmentStyles.naborInfoLabel}>Kontakt na trénera</div>
-              <div className={recruitmentStyles.naborInfoValue}>
-                {category?.coach_name || "Tréner"}
-                <br />
-                {category?.coach_email || "tomikbez@gmail.com"}
-                {category?.coach_phone ? (
-                  <>
-                    <br />
-                    {category.coach_phone}
-                  </>
-                ) : null}
+              <span className={recruitmentStyles.naborInfoIndex}>02</span>
+
+              <span className={recruitmentStyles.naborInfoIcon}>
+                <PiUser aria-hidden="true" />
+              </span>
+
+              <div className={recruitmentStyles.naborInfoText}>
+                <div className={recruitmentStyles.naborInfoLabel}>
+                  Meno trénera
+                </div>
+
+                <div className={recruitmentStyles.naborInfoValue}>
+                  {coachName}
+                </div>
               </div>
             </div>
+
+            <div className={recruitmentStyles.naborInfoItem}>
+              <span className={recruitmentStyles.naborInfoIndex}>03</span>
+
+              <span className={recruitmentStyles.naborInfoIcon}>
+                <PiEnvelopeSimple aria-hidden="true" />
+              </span>
+
+              <div className={recruitmentStyles.naborInfoText}>
+                <div className={recruitmentStyles.naborInfoLabel}>
+                  Kontakt
+                </div>
+
+                <div className={recruitmentStyles.naborInfoValue}>
+                  {coachEmail}
+
+                  {coachPhone ? (
+                    <span className={recruitmentStyles.naborInfoSubValue}>
+                      {coachPhone}
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div aria-hidden="true" />
+
+          <div className={recruitmentStyles.naborAction}>
+            <Link
+              href="/pridaj_sa"
+              className={recruitmentStyles.naborPrimaryButton}
+            >
+              <span>Získať viac informácií</span>
+
+              <PiArrowRightBold
+                className={recruitmentStyles.naborCtaIcon}
+                aria-hidden="true"
+              />
+            </Link>
           </div>
         </div>
       </div>
