@@ -73,11 +73,17 @@
   --shadow-card: 0 12px 28px rgba(15, 23, 42, 0.06);
   --shadow-card-hover: 0 12px 26px rgba(15, 23, 42, 0.08);
   --shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.05);
+  --shadow-elevated: 0 18px 44px rgba(15, 23, 42, 0.1);
 
-  /* # GENERIC HOVER / MOTION */
-  --hover-duration-fast: 180ms;
-  --hover-duration-normal: 220ms;
-  --hover-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* # MOTION */
+  --duration-fast: 180ms;
+  --duration-normal: 220ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Existing component aliases kept for backwards compatibility. */
+  --hover-duration-fast: var(--duration-fast);
+  --hover-duration-normal: var(--duration-normal);
+  --hover-ease: var(--ease-standard);
   --hover-lift-card: -3px;
   --hover-lift-button: -1px;
   --hover-directional-shift: 3px;
@@ -94,6 +100,30 @@
   --radius-xl: 20px;
   --radius-pill: 999px;
 
+  /* # LAYOUT */
+  --container-main: 1300px;
+  --container-reading: 920px;
+  --page-gutter: clamp(8px, calc(2.5px + 1.125vw), 16px);
+
+  /* # SPACING */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+
+  /* # LAYERS */
+  --z-content: 1;
+  --z-overlay: 10;
+  --z-dropdown: 100;
+  --z-header: 1000;
+  --z-modal: 2000;
+
   /* # NEXT / TAILWIND */
   --background: var(--color-page);
   --foreground: var(--color-text);
@@ -108,19 +138,49 @@
   --font-title-weight: 700;
 
   /* # FONT SIZES */
+  --font-display: clamp(3rem, 6vw, 5.5rem);
+  --font-h1: clamp(2.5rem, 4.5vw, 4rem);
+  --font-h2: clamp(2rem, 3.8vw, 2.8rem);
+  --font-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --font-body-large: 1.05rem;
+  --font-body: 1rem;
+  --font-small: 0.875rem;
+  --font-meta: 0.75rem;
+
+  /* Existing section aliases keep their current responsive behaviour. */
   --font-section-eyebrow: 16px;
-  --font-section-title: clamp(2rem, 3.8vw, 2.8rem);
+  --font-section-title: var(--font-h2);
 }
 
 html {
+  box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
-  padding-top: 0px;
+  padding-top: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+a {
+  color: inherit;
 }
 
 /* # GLOBAL SECTION LAYOUT */
@@ -130,7 +190,7 @@ body {
 .overviewSection,
 .section {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
   padding: 0 16px;
   box-sizing: border-box;
@@ -334,8 +394,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --hover-duration-fast: 0.01ms;
-    --hover-duration-normal: 0.01ms;
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
     --hover-lift-card: 0px;
     --hover-lift-button: 0px;
     --hover-directional-shift: 0px;
