@@ -8,7 +8,7 @@
 
 .novinkyGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 345px), 1fr));
   gap: var(--space-6);
   width: 100%;
   align-items: stretch;
@@ -140,7 +140,6 @@
 
 @media (max-width: 1100px) {
   .novinkyGrid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-5);
     }
 
