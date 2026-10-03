@@ -9,8 +9,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  padding-bottom: 56px;
+  gap: var(--space-14);
+  padding-bottom: var(--space-14);
 }
 
 /* # HERO */
@@ -19,7 +19,7 @@
   width: 100%;
   max-width: var(--container-main);
   margin: 0 auto;
-  padding: 24px 16px 0;
+  padding: var(--space-6) var(--space-4) 0;
   box-sizing: border-box;
 }
 
@@ -30,7 +30,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(var(--space-6), 4vw, var(--space-12));
   border-radius: 30px;
   overflow: hidden;
   isolation: isolate;
@@ -87,7 +87,7 @@
   bottom: 0;
   z-index: 4;
   height: 3px;
-  border-radius: 999px 999px 0 0;
+  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
   background: linear-gradient(
     90deg,
     rgba(95, 95, 95, 0.72),
@@ -123,7 +123,7 @@
   align-items: center;
   min-height: 34px;
   margin: 0 0 14px;
-  padding: 0 16px;
+  padding: 0 var(--space-4);
   border-radius: var(--radius-pill);
   background: rgba(11, 11, 12, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -185,7 +185,7 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 15px;
-  padding: 20px;
+  padding: var(--space-5);
   border-radius: 24px;
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid var(--color-border-soft);
@@ -373,8 +373,8 @@
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 8px;
-  border-radius: 14px 14px 12px 12px;
+  padding-bottom: var(--space-2);
+  border-radius: 14px 14px var(--radius-md) var(--radius-md);
   background: #f3f4f6;
   border: 1px solid #d9dee6;
   color: #6b7280;
@@ -392,7 +392,7 @@
   right: -1px;
   width: 16px;
   height: 16px;
-  border-radius: 0 14px 0 8px;
+  border-radius: 0 14px 0 var(--radius-sm);
   background: #e5e7eb;
   border-left: 1px solid #dbe3eb;
   border-bottom: 1px solid #dbe3eb;
@@ -455,9 +455,7 @@
   background: var(--color-surface);
   border: 1px solid rgba(17, 24, 39, 0.06);
   border-radius: var(--radius-xl);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -476,9 +474,7 @@
   background: var(--color-surface);
   border: 1px solid rgba(17, 24, 39, 0.06);
   border-radius: var(--radius-xl);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -494,7 +490,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
-  padding: 18px 0 20px;
+  padding: 18px 0 var(--space-5);
   border-bottom: 1px solid rgba(17, 24, 39, 0.08);
   transition: transform var(--hover-duration-fast) var(--hover-ease);
 }
@@ -518,7 +514,7 @@
 
 .contactInfoLabel {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
   color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 800;
@@ -576,12 +572,12 @@
 
 @media (max-width: 1024px) {
   .content {
-    gap: 48px;
-    padding-bottom: 48px;
+    gap: var(--space-12);
+    padding-bottom: var(--space-12);
   }
 
   .heroSection {
-    padding: 20px 14px 0;
+    padding: var(--space-5) 14px 0;
   }
 
   .heroInner {
@@ -602,7 +598,7 @@
 
   .linkGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .contactGrid {
@@ -610,13 +606,13 @@
   }
 
   .contactMapCard {
-    padding: 20px;
+    padding: var(--space-5);
   }
 }
 
 @media (max-width: 767px) {
   .content {
-    gap: 40px;
+    gap: var(--space-10);
     padding-bottom: 42px;
   }
 
@@ -626,7 +622,7 @@
 
   .heroInner {
     min-height: 280px;
-    padding: 24px 20px;
+    padding: var(--space-6) var(--space-5);
     border-radius: 24px;
   }
 
@@ -661,7 +657,7 @@
   }
 
   .contactInfoCard {
-    padding: 16px;
+    padding: var(--space-4);
     border-radius: var(--radius-xl);
   }
 
@@ -670,13 +666,13 @@
   }
 
   .contactMapCard {
-    padding: 16px;
+    padding: var(--space-4);
     border-radius: var(--radius-xl);
   }
 
   .contactInfoItem {
     gap: 14px;
-    padding: 15px 0 16px;
+    padding: 15px 0 var(--space-4);
   }
 
   .contactInfoIcon {
@@ -696,7 +692,7 @@
 
   .documentGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 24px;
+    padding: var(--space-6);
     border-radius: 22px;
   }
 
@@ -707,8 +703,8 @@
 
   .linkCard {
     min-height: 94px;
-    padding: 16px;
-    border-radius: 20px;
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
   }
 
   .linkIcon {
@@ -746,13 +742,13 @@
   }
 
   .heroSection {
-    padding: 10px 8px 0;
+    padding: 10px var(--space-2) 0;
   }
 
   .heroInner {
     min-height: 240px;
     padding: 18px 14px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
   }
 
   .heroInnerWithImage {
@@ -768,7 +764,7 @@
 
   .textPanel {
     padding: 18px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
   }
 
   .contactInfoCard {
@@ -777,7 +773,7 @@
   }
 
   .contactGrid {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .contactMapCard {
@@ -786,8 +782,8 @@
   }
 
   .contactInfoItem {
-    gap: 12px;
-    padding: 12px 0 14px;
+    gap: var(--space-3);
+    padding: var(--space-3) 0 14px;
   }
 
   .contactInfoIcon {
@@ -808,13 +804,13 @@
 
   .documentGrid {
     grid-template-columns: 1fr;
-    padding: 16px;
-    border-radius: 20px;
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
   }
 
   .linkCard {
     grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 12px;
+    gap: var(--space-3);
     min-height: 86px;
     padding: 14px;
     border-radius: 18px;
@@ -822,9 +818,9 @@
 
   .documentCard {
     min-height: 82px;
-    gap: 12px;
+    gap: var(--space-3);
     padding: 14px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .linkIcon {
@@ -836,7 +832,7 @@
   .documentBadge {
     width: 40px;
     height: 50px;
-    border-radius: 12px 12px 10px 10px;
+    border-radius: var(--radius-md) var(--radius-md) 10px 10px;
     font-size: 0.58rem;
   }
 

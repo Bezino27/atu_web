@@ -23,7 +23,7 @@
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 24px;
+  gap: var(--space-6) var(--space-6);
 }
 
 .formField,
@@ -81,13 +81,13 @@
 .inputWrap input,
 .dateInput {
   min-height: 64px;
-  padding: 18px 56px 18px 18px;
+  padding: 18px var(--space-14) 18px 18px;
 }
 
 .inputWrap textarea {
   min-height: 180px;
   resize: vertical;
-  padding: 18px 56px 18px 18px;
+  padding: 18px var(--space-14) 18px 18px;
   line-height: 1.5;
 }
 
@@ -180,7 +180,7 @@
     0 20px 44px rgba(15, 23, 42, 0.14),
     0 8px 18px rgba(15, 23, 42, 0.08) !important;
   font-family: inherit !important;
-  padding: 0 0 12px;
+  padding: 0 0 var(--space-3);
 }
 
 .datePickerCalendar :global(.react-datepicker__month-container) {
@@ -194,14 +194,14 @@
 }
 
 .datePickerHeader {
-  padding: 16px 16px 14px;
+  padding: var(--space-4) var(--space-4) 14px;
 }
 
 .datePickerTopRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-3);
   margin-bottom: 14px;
 }
 
@@ -217,7 +217,7 @@
   width: 36px;
   height: 36px;
   border: 1px solid rgba(17, 24, 39, 0.08);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: #ffffff;
   color: #111827;
   display: inline-flex;
@@ -271,8 +271,8 @@
 .datePickerCalendar :global(.react-datepicker__day-names) {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin: 0 14px 8px;
+  gap: var(--space-1);
+  margin: 0 14px var(--space-2);
 }
 
 .datePickerCalendar :global(.react-datepicker__month) {
@@ -282,7 +282,7 @@
 .datePickerCalendar :global(.react-datepicker__week) {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .datePickerCalendar :global(.react-datepicker__day-name),
@@ -304,7 +304,7 @@
 }
 
 .datePickerCalendar :global(.react-datepicker__day) {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   color: #111827;
   font-size: 0.9rem;
   font-weight: 700;
@@ -335,7 +335,7 @@
 /* # MESSAGES */
 
 .fieldError {
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   color: #8f0f19;
   font-size: 0.86rem;
   font-weight: 650;
@@ -379,7 +379,7 @@
   width: 100%;
   min-height: 68px;
   margin: 0;
-  padding: 0 24px;
+  padding: 0 var(--space-6);
   border: none;
   border-radius: 18px;
   display: inline-flex;
@@ -621,7 +621,7 @@
   bottom: 12px;
   width: 3px;
   height: 15px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #20a853;
   box-shadow: 0 0 8px rgba(32, 168, 83, 0.26);
   transform-origin: 50% 28px;
@@ -790,7 +790,7 @@
 /* # SAFE NOTICE */
 
 .safeNotice {
-  margin-top: 16px;
+  margin-top: var(--space-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -860,7 +860,7 @@
   }
 
   .formGrid {
-    gap: 20px;
+    gap: var(--space-5);
   }
 
   .formField label,
@@ -882,13 +882,13 @@
 
 @media (max-width: 767px) {
   .formPanel {
-    padding: 20px;
+    padding: var(--space-5);
     border-radius: 22px;
   }
 
   .formGrid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .formFieldFull {
@@ -903,13 +903,13 @@
   .inputWrap input,
   .dateInput {
     min-height: 56px;
-    padding: 15px 48px 15px 15px;
+    padding: 15px var(--space-12) 15px 15px;
     font-size: var(--font-body-compact);
   }
 
   .inputWrap textarea {
     min-height: 128px;
-    padding: 15px 48px 15px 15px;
+    padding: 15px var(--space-12) 15px 15px;
     font-size: var(--font-body-compact);
   }
 
@@ -932,7 +932,7 @@
   }
 
   .datePickerSelectors {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .datePickerSelect {
@@ -976,7 +976,7 @@
 @media (max-width: 480px) {
   .formPanel {
     padding: 14px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
   }
 
   .formGrid {
@@ -993,14 +993,14 @@
   .dateInput {
     min-height: 52px;
     padding: 14px 44px 14px 14px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     font-size: 0.86rem;
   }
 
   .inputWrap textarea {
     min-height: 118px;
     padding: 14px 44px 14px 14px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     font-size: 0.86rem;
   }
 
@@ -1020,16 +1020,16 @@
 
   .datePickerCalendar {
     width: min(282px, calc(100vw - 42px));
-    border-radius: 20px !important;
+    border-radius: var(--radius-xl) !important;
     padding-bottom: 10px;
   }
 
   .datePickerHeader {
-    padding: 12px 12px 10px;
+    padding: var(--space-3) var(--space-3) 10px;
   }
 
   .datePickerTopRow {
-    gap: 8px;
+    gap: var(--space-2);
     margin-bottom: 10px;
   }
 
@@ -1045,13 +1045,13 @@
 
   .datePickerSelectors {
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .datePickerSelect {
     min-height: 39px;
     padding: 0 10px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-size: 0.82rem;
   }
 
@@ -1091,7 +1091,7 @@
     min-height: 54px;
     padding: 0 18px;
     gap: 9px;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     font-size: var(--font-small);
   }
 

@@ -78,9 +78,9 @@
 
 .richTextContent :global(blockquote) {
   margin: 1.2em 0;
-  padding: 16px 18px;
+  padding: var(--space-4) 18px;
   border-left: 5px solid var(--color-red-dark, #84101a);
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   background: var(--color-surface-soft, #f8fafc);
   color: var(--color-text-muted, #334155);
   font-weight: 650;
@@ -140,7 +140,7 @@
 
 .richTextContent :global(th),
 .richTextContent :global(td) {
-  padding: 12px 14px;
+  padding: var(--space-3) 14px;
   border: 1px solid var(--color-border, #dbe3eb);
   vertical-align: top;
 }

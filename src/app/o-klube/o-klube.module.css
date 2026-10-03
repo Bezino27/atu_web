@@ -7,8 +7,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  padding: 36px 0 56px;
+  gap: var(--space-section);
+  padding: 36px 0 var(--space-section);
 }
 
 .section {
@@ -66,7 +66,7 @@
 }
 
 .infoCard {
-  padding: 16px 18px;
+  padding: var(--space-4) 18px;
   border-radius: var(--radius-lg);
   background: var(--color-page);
   border: 1px solid rgba(17, 17, 17, 0.05);
@@ -93,7 +93,7 @@
 
 .infoCardLabel {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
   color: var(--color-text-muted);
   font-size: 0.76rem;
   font-weight: 800;
@@ -110,7 +110,7 @@
 }
 
 .infoCardText {
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
   font-size: var(--font-body-compact);
   line-height: 1.58;
@@ -167,7 +167,7 @@
 
 .mapWrapper :global(.leaflet-control-zoom) {
   z-index: 10 !important;
-  margin: 20px !important;
+  margin: var(--space-5) !important;
   border: none !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
 }
@@ -192,11 +192,11 @@
 }
 
 .mapWrapper :global(.leaflet-control-zoom-in) {
-  border-radius: var(--radius-md) 12px 0 0 !important;
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
 }
 
 .mapWrapper :global(.leaflet-control-zoom-out) {
-  border-radius: 0 0 12px 12px !important;
+  border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
   border-top: none !important;
 }
 
@@ -226,7 +226,7 @@
   font-family: var(--font-sans), sans-serif;
   letter-spacing: 1px;
   text-align: center;
-  padding: 20px;
+  padding: var(--space-5);
   box-sizing: border-box;
 }
 
@@ -243,7 +243,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   width: max-content;
   max-width: min(300px, calc(100vw - 80px));
   transform: scale(var(--marker-scale));
@@ -279,7 +279,7 @@
   padding: 10px 15px;
   background: var(--color-red);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   box-shadow:
     0 14px 28px rgba(211, 47, 47, 0.24),
     0 3px 10px rgba(15, 23, 42, 0.12);
@@ -362,7 +362,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 38px 40px;
+  padding: 38px var(--space-10);
   border: 1px solid rgba(17, 17, 17, 0.07);
   border-radius: var(--radius-xl);
   background: var(--color-surface);
@@ -400,7 +400,7 @@
 .textColumns {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 .bodyText {
@@ -452,7 +452,7 @@
   display: flex;
   align-items: flex-end;
   margin-bottom: 22px;
-  padding-bottom: 16px;
+  padding-bottom: var(--space-4);
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
   overflow: hidden;
 }
@@ -498,9 +498,9 @@
 .achievementItem {
   display: grid;
   grid-template-columns: 170px 1fr;
-  gap: 20px;
+  gap: var(--space-5);
   align-items: center;
-  padding: 20px;
+  padding: var(--space-5);
   border: 1px solid rgba(17, 17, 17, 0.06);
   border-radius: var(--radius-xl);
   background: var(--color-surface-soft);
@@ -531,7 +531,7 @@
   display: grid;
   grid-template-columns: 86px 64px;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .itemCount {
@@ -556,13 +556,13 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .itemSeasons {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .seasonChip {
@@ -570,7 +570,7 @@
   align-items: center;
   justify-content: center;
   min-height: 34px;
-  padding: 0 12px;
+  padding: 0 var(--space-3);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
@@ -597,13 +597,13 @@
 .alumniGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .alumniCard {
   position: relative;
   overflow: hidden;
-  padding: 22px 22px 20px;
+  padding: 22px 22px var(--space-5);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(17, 17, 17, 0.08);
   background: var(--color-surface);
@@ -627,8 +627,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
   z-index: 1;
 }
 
@@ -708,12 +708,12 @@
 /* # 1024 */
 @media (max-width: 1024px) {
   .content {
-    gap: 48px;
-    padding: 30px 0 48px;
+    gap: var(--space-section);
+    padding: 30px 0 var(--space-section);
   }
 
   .section {
-    padding: 0 20px;
+    padding: 0 var(--space-5);
   }
 
   .heroCard {
@@ -732,7 +732,7 @@
   }
 
   .infoCard {
-    padding: 16px 14px;
+    padding: var(--space-4) 14px;
     border-radius: var(--radius-lg);
   }
 
@@ -775,7 +775,7 @@
     width: 100%;
     max-width: none;
     justify-self: stretch;
-    padding: 24px;
+    padding: var(--space-6);
     border-radius: var(--radius-xl);
     box-sizing: border-box;
   }
@@ -789,7 +789,7 @@
     max-width: none;
     justify-self: stretch;
     grid-template-columns: 150px 1fr;
-    gap: 16px;
+    gap: var(--space-4);
     padding: 18px;
     border-radius: var(--radius-lg);
     box-sizing: border-box;
@@ -819,7 +819,7 @@
   }
 
   .alumniCard {
-    padding: 20px 20px 18px;
+    padding: var(--space-5) var(--space-5) 18px;
     border-radius: var(--radius-xl);
   }
 
@@ -856,17 +856,17 @@
 /* # MOBILE (< 768) */
 @media (max-width: 767px) {
   .content {
-    gap: 40px;
-    padding: 20px 0 40px;
+    gap: var(--space-section);
+    padding: var(--space-5) 0 var(--space-section);
   }
 
   .section {
-    padding: 0 16px;
+    padding: 0 var(--space-4);
   }
 
   .heroCard,
   .textSectionCard {
-    padding: 16px;
+    padding: var(--space-4);
     border-radius: var(--radius-lg);
   }
 
@@ -876,7 +876,7 @@
   }
 
   .infoCardLabel {
-    margin-bottom: clamp(5px, 1.4vw, 8px);
+    margin-bottom: clamp(5px, 1.4vw, var(--space-2));
     font-size: clamp(0.6rem, 1.8vw, 0.72rem);
   }
 
@@ -900,7 +900,7 @@
   }
 
   .heroStatsGrid {
-    gap: clamp(8px, 2vw, 14px);
+    gap: clamp(var(--space-2), 2vw, 14px);
   }
 
   .mapWrapper,
@@ -941,7 +941,7 @@
 
   .markerLabel {
     max-width: clamp(125px, 38vw, 165px);
-    padding: clamp(6px, 1.7vw, 8px) clamp(8px, 2.5vw, 12px);
+    padding: clamp(6px, 1.7vw, var(--space-2)) clamp(var(--space-2), 2.5vw, var(--space-3));
     border-radius: clamp(10px, 3vw, 14px);
   }
 
@@ -966,13 +966,11 @@
     width: 100%;
     max-width: none;
     justify-self: stretch;
-    padding: 16px;
+    padding: var(--space-4);
     border: 1px solid rgba(17, 17, 17, 0.07);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
-    box-shadow:
-      0 12px 30px rgba(15, 23, 42, 0.06),
-      0 2px 8px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--shadow-panel);
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -991,7 +989,7 @@
   .groupHeader {
     min-height: 58px;
     margin-bottom: 14px;
-    padding: 0 0 12px;
+    padding: 0 0 var(--space-3);
     border-bottom: 1px solid rgba(17, 17, 17, 0.08);
   }
 
@@ -1015,13 +1013,13 @@
     justify-self: stretch;
     grid-template-columns: 1fr;
     gap: 14px;
-    padding: 16px;
+    padding: var(--space-4);
     border-radius: var(--radius-lg);
     box-sizing: border-box;
   }
 
   .itemLeft {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .itemCount {
@@ -1054,7 +1052,7 @@
   }
 
   .alumniCard {
-    padding: 18px 18px 16px;
+    padding: 18px 18px var(--space-4);
     border-radius: var(--radius-lg);
   }
 
@@ -1093,7 +1091,7 @@
   }
 
   .alumniDescriptionWrap {
-    padding-top: 12px;
+    padding-top: var(--space-3);
   }
 
   .alumniText {
@@ -1105,12 +1103,12 @@
 /* # 480 */
 @media (max-width: 480px) {
   .content {
-    gap: 32px;
-    padding: 16px 0 32px;
+    gap: var(--space-section);
+    padding: var(--space-4) 0 var(--space-section);
   }
 
   .section {
-    padding: 0 12px;
+    padding: 0 var(--space-3);
   }
 
   .heroCard,
@@ -1155,7 +1153,7 @@
     width: 100%;
     max-width: none;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .groupCard {
@@ -1166,9 +1164,7 @@
     border: 1px solid rgba(17, 17, 17, 0.07);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
-    box-shadow:
-      0 12px 30px rgba(15, 23, 42, 0.06),
-      0 2px 8px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--shadow-panel);
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -1186,7 +1182,7 @@
 
   .groupHeader {
     min-height: 52px;
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
     padding: 0 0 10px;
   }
 
@@ -1201,7 +1197,7 @@
   }
 
   .itemsList {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .achievementItem {
@@ -1228,18 +1224,18 @@
   }
 
   .alumniSectionIntro {
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
     font-size: 0.86rem;
   }
 
   .alumniCard {
-    padding: 16px 14px 14px;
+    padding: var(--space-4) 14px 14px;
     border-radius: var(--radius-lg);
   }
 
   .alumniCardHeader {
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
   }
 
   .alumniBadge {

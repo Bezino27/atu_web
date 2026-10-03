@@ -10,7 +10,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: var(--space-14);
   padding-bottom: 50px;
 }
 
@@ -41,7 +41,7 @@
   min-width: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.9fr);
-  gap: 16px;
+  gap: var(--space-4);
   align-items: stretch;
 }
 .topNewsMobileList {
@@ -60,9 +60,7 @@
   text-decoration: none;
   color: inherit;
   background: var(--color-black);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.08),
-    0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card-strong);
   transition:
     transform var(--hover-duration-normal) var(--hover-ease),
     box-shadow var(--hover-duration-normal) var(--hover-ease);
@@ -82,7 +80,7 @@
   min-width: 0;
   display: grid;
   grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .topNewsSmall {
@@ -213,7 +211,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   margin-bottom: 18px;
 }
 
@@ -252,9 +250,7 @@
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
 }
 
 .tableWrap {
@@ -285,7 +281,7 @@
 }
 
 .table thead th {
-  padding: 15px 12px;
+  padding: 15px var(--space-3);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface-soft);
   color: var(--color-text-muted);
@@ -312,7 +308,7 @@
 }
 
 .table tbody td {
-  padding: 16px 12px;
+  padding: var(--space-4) var(--space-3);
   border-bottom: 1px solid var(--color-border-soft);
   vertical-align: middle;
   background: var(--color-surface);
@@ -395,7 +391,7 @@
 
 .table tbody td[colspan] {
   text-align: center !important;
-  padding: 9px 12px;
+  padding: 9px var(--space-3);
   color: var(--color-text-subtle);
   font-size: 0.96rem;
   font-weight: 600;
@@ -415,19 +411,17 @@
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
 }
 
 .recentMatchesList {
   display: grid;
-  gap: 16px;
+  gap: var(--space-4);
   height: 100%;
 }
 
 .recentMatchCard {
-  padding: 18px 18px 16px;
+  padding: 18px 18px var(--space-4);
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg, var(--color-page) 0%, var(--color-surface-soft) 100%);
   border: 1px solid var(--color-border);
@@ -447,7 +441,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-3);
   margin-bottom: 14px;
 }
 
@@ -485,13 +479,13 @@
 
 .recentTeams {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .recentTeamRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .recentTeamName {
@@ -541,7 +535,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--space-6);
   border-radius: var(--radius-lg);
   background: var(--color-surface-soft);
   border: 1px solid var(--color-border);
@@ -605,9 +599,7 @@
   text-decoration: none;
   color: inherit;
   background: var(--color-black);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.08),
-    0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-card-strong);
   transition:
     transform var(--hover-duration-normal) var(--hover-ease),
     box-shadow var(--hover-duration-normal) var(--hover-ease);
@@ -619,7 +611,7 @@
 }
 
 .clubNewsContent {
-  padding: 20px;
+  padding: var(--space-5);
 }
 
 .clubNewsContent h3 {
@@ -642,14 +634,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: var(--space-5);
   box-sizing: border-box;
   border-radius: var(--radius-xl);
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
 }
 
 .upcomingMatchesList {
@@ -668,7 +658,7 @@
   overflow: hidden;
   display: grid;
   gap: 11px;
-  padding: 16px 16px 0;
+  padding: var(--space-4) var(--space-4) 0;
   border-radius: var(--radius-lg);
   background: url("/atu-article-bg.png") center / cover no-repeat;
   border: 0;
@@ -741,7 +731,7 @@
   min-width: 0;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .simpleTeamLogo {
@@ -832,7 +822,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
-  margin: 0 -16px;
+  margin: 0 -var(--space-4);
   padding: 10px 9px;
   border-top: 1px solid var(--color-border);
   background: #f3f3f2;
@@ -842,7 +832,7 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  padding: 0 12px;
+  padding: 0 var(--space-3);
   border-right: 1px solid rgba(15, 23, 42, 0.09);
 }
 
@@ -897,12 +887,12 @@
 
 .partnerGroup {
   display: grid;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .partnerGroupTitle {
   margin: 0;
-  padding: 9px 12px;
+  padding: 9px var(--space-3);
   border-radius: 0;
   background: var(--color-page-soft);
   color: var(--color-text-muted);
@@ -939,7 +929,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-5);
   border-radius: var(--radius-lg);
   background: linear-gradient(
     180deg,
@@ -965,12 +955,12 @@
 
 .partnerLogoCellGeneral {
   min-height: 180px;
-  padding: 12px;
+  padding: var(--space-3);
 }
 
 .partnerLogoCellMain {
   min-height: 148px;
-  padding: 12px;
+  padding: var(--space-3);
 }
 
 .partnerLogoCellMedia {
@@ -1029,8 +1019,8 @@
   }
 
   .content {
-    gap: 48px;
-    padding-bottom: 48px;
+    gap: var(--space-12);
+    padding-bottom: var(--space-12);
   }
 
   .homeArticleGrid {
@@ -1042,7 +1032,7 @@
   }
 
   .topNewsGrid {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .topNewsMain {
@@ -1058,7 +1048,7 @@
   .topNewsMainContent,
   .topNewsSmallContent,
   .clubNewsContent {
-    padding: 20px;
+    padding: var(--space-5);
   }
 
   .overviewGrid,
@@ -1070,7 +1060,7 @@
   .recentMatchesCard,
   .upcomingMatchesCard,
   .partnersCard {
-    padding: 20px;
+    padding: var(--space-5);
     border-radius: var(--radius-xl);
   }
 
@@ -1105,11 +1095,11 @@
   .recentMatchCard,
   .simpleMatchCard {
     border-radius: var(--radius-lg);
-    padding: 16px;
+    padding: var(--space-4);
   }
 
   .clubPostsGrid {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .clubNewsCard {
@@ -1118,7 +1108,7 @@
   }
 
   .simpleMatchCard {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .simpleTeamName {
@@ -1178,7 +1168,7 @@
   }
   .recentMatchesList,
   .upcomingMatchesList {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   /* # MOBILE LIMIT RECENT MATCHES */
@@ -1186,12 +1176,12 @@
     display: none;
   }
   .content {
-    gap: 40px;
-    padding-bottom: 40px;
+    gap: var(--space-10);
+    padding-bottom: var(--space-10);
   }
 
   .sectionContainer:first-of-type {
-    margin-top: 20px;
+    margin-top: var(--space-5);
   }
 
   .topNewsGrid {
@@ -1281,7 +1271,7 @@
   }
 
   .table thead th {
-    padding: 11px 8px;
+    padding: 11px var(--space-2);
     font-size: 0.62rem;
     letter-spacing: 0.06em;
   }
@@ -1296,7 +1286,7 @@
   }
 
   .table tbody td {
-    padding: 12px 8px;
+    padding: var(--space-3) var(--space-2);
     font-size: 0.83rem;
   }
 
@@ -1322,7 +1312,7 @@
   }
 
   .recentMatchTop {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .recentResultBadge {
@@ -1375,7 +1365,7 @@
   }
 
   .simpleMatchTeamsRow {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .simpleTeamName {
@@ -1387,7 +1377,7 @@
   }
 
   .simpleMatchMetaRow {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .simpleMatchMetaValue {
@@ -1404,7 +1394,7 @@
 
   .partnerLogoCell {
     min-height: 112px;
-    padding: 16px;
+    padding: var(--space-4);
     border-radius: var(--radius-lg);
   }
 
@@ -1450,12 +1440,12 @@
   }
 
   .content {
-    gap: 32px;
-    padding-bottom: 32px;
+    gap: var(--space-8);
+    padding-bottom: var(--space-8);
   }
 
   .sectionContainer:first-of-type {
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   .topNewsMain {
@@ -1495,11 +1485,11 @@
   }
 
   .metaRow {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .badge {
-    padding: 4px 8px;
+    padding: var(--space-1) var(--space-2);
     font-size: 9px;
   }
 
@@ -1507,12 +1497,12 @@
   .recentMatchesCard,
   .upcomingMatchesCard,
   .partnersCard {
-    padding: 14px 12px;
+    padding: 14px var(--space-3);
     border-radius: var(--radius-lg);
   }
 
   .panelHeader {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .panelEyebrow {
@@ -1558,14 +1548,14 @@
 
   .recentMatchCard,
   .simpleMatchCard {
-    padding: 12px;
+    padding: var(--space-3);
     border-radius: var(--radius-lg);
   }
 
   .recentMatchTop {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .recentMatchDate {
@@ -1586,7 +1576,7 @@
   }
 
   .simpleMatchCard {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .simpleMatchHeaderRow {
@@ -1597,7 +1587,7 @@
   .simpleLeagueBadge {
     max-width: 72%;
     min-height: 22px;
-    padding: 0 8px;
+    padding: 0 var(--space-2);
     font-size: 0.56rem;
   }
 
@@ -1606,7 +1596,7 @@
   }
 
   .simpleMatchTeamsRow {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .simpleTeamName {
@@ -1620,8 +1610,8 @@
 
   .simpleMatchMetaRow {
     grid-template-columns: 1fr;
-    gap: 8px;
-    padding-top: 12px;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
   }
 
   .simpleMatchMetaItemRight {
@@ -1676,9 +1666,7 @@
     border-radius: var(--radius-lg);
     background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-page-soft) 100%);
     border: 1px solid rgba(17, 24, 39, 0.06);
-    box-shadow:
-      0 12px 30px rgba(15, 23, 42, 0.06),
-      0 2px 8px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--shadow-panel);
   }
 
   .recentMatchesCard,
@@ -1692,19 +1680,19 @@
   }
 
   .recentMatchesCard {
-    padding-bottom: 24px;
+    padding-bottom: var(--space-6);
     border-bottom: 1px solid var(--color-border);
   }
 
   .mobileUpcomingMatches {
     display: block;
-    padding-top: 24px;
+    padding-top: var(--space-6);
   }
 }
 
 @media (max-width: 480px) {
   .matchesColumn {
-    padding: 14px 12px;
+    padding: 14px var(--space-3);
   }
 
   .recentMatchesCard,
@@ -1736,7 +1724,7 @@
 
   .partnerLogoCellGeneral {
     min-height: 160px;
-    padding: 12px;
+    padding: var(--space-3);
   }
 
   .partnerLogoGeneral {
@@ -1768,7 +1756,7 @@
 
 @media (max-width: 767px) {
   .partnerGroups {
-    gap: 24px;
+    gap: var(--space-6);
   }
 
   .partnerGridGeneral,
@@ -1807,14 +1795,14 @@
     z-index: 2;
   }
   .partnerGroupTitle {
-    padding: 8px 10px;
+    padding: var(--space-2) 10px;
     font-size: 0.82rem;
   }
 
   .partnerLogoCell,
   .partnerLogoCellMedia {
     min-height: 108px;
-    padding: 16px;
+    padding: var(--space-4);
   }
 
   .partnerLogo {
@@ -1904,7 +1892,7 @@
 
   .partnerLogoCellMedia {
     min-height: 100px;
-    padding: 8px;
+    padding: var(--space-2);
   }
 
   .partnerLogoMedia {
@@ -1919,7 +1907,7 @@
 
 @media (max-width: 767px) {
   .simpleMatchCard {
-    padding: 12px 12px 0;
+    padding: var(--space-3) var(--space-3) 0;
   }
 
   .simpleTeamLogo {
@@ -1939,8 +1927,8 @@
   }
 
   .simpleMatchMetaRow {
-    margin: 0 -12px;
-    padding: 8px;
+    margin: 0 -var(--space-3);
+    padding: var(--space-2);
   }
 
   .simpleMatchMetaItem {
@@ -1984,7 +1972,7 @@
   }
 
   .simpleMatchMetaItem {
-    gap: 4px;
+    gap: var(--space-1);
     padding: 0 5px;
     border-right: 1px solid rgba(15, 23, 42, 0.08);
     border-bottom: 0;
@@ -2127,7 +2115,7 @@
   padding: 30px;
 }
 .topNewsSmallContent {
-  padding: 20px;
+  padding: var(--space-5);
 }
 .topNewsMainContent h1 {
   max-width: calc(100% - 64px);
@@ -2140,7 +2128,7 @@
 }
 .topNewsMainContent p {
   max-width: 720px;
-  margin-top: 12px;
+  margin-top: var(--space-3);
   color: rgba(255, 255, 255, 0.84);
   font-size: 0.95rem;
   line-height: 1.5;
@@ -2179,7 +2167,7 @@
 }
 .topNewsMain .badge {
   min-height: 30px;
-  padding-inline: 12px;
+  padding-inline: var(--space-3);
   font-size: 0.72rem;
 }
 .topNewsMain .topNewsDate {
@@ -2255,7 +2243,7 @@
 .topNewsAllLink {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   color: #11161c;
   font-size: 0.95rem;
   font-weight: 800;
@@ -2295,19 +2283,19 @@
 @media (max-width: 1024px) {
   .topNewsGrid {
     grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
-    gap: 16px;
+    gap: var(--space-4);
   }
   .topNewsMain {
     min-height: 0;
   }
   .topNewsSide {
-    gap: 16px;
+    gap: var(--space-4);
   }
   .topNewsSmall {
     min-height: 0;
   }
   .topNewsMainContent {
-    padding: 24px;
+    padding: var(--space-6);
   }
   .topNewsSmallContent {
     padding: 18px;
@@ -2348,7 +2336,7 @@
   .topNewsMobileList {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--space-3);
   }
   .topNewsMobileList :global(.articleSidebar_relatedItem) {
     grid-template-columns: 150px minmax(0, 1fr) 48px;
@@ -2381,7 +2369,7 @@
     height: 46px;
   }
   .topNewsMobileList :global(.articleSidebar_bottomCta) {
-    margin-top: 4px;
+    margin-top: var(--space-1);
   }
 }
 /* ######################################################### */
@@ -2417,11 +2405,11 @@
     height: 15px;
   }
   .topNewsGrid {
-    gap: 12px;
+    gap: var(--space-3);
   }
   .topNewsMain {
     min-height: 0;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
   .topNewsMainContent {
     padding: 17px;
@@ -2438,7 +2426,7 @@
 
   .topNewsMain .badge {
     min-height: clamp(22px, 6vw, 26px);
-    padding-inline: clamp(8px, 2.4vw, 10px);
+    padding-inline: clamp(var(--space-2), 2.4vw, 10px);
     font-size: clamp(0.5rem, 2vw, 0.62rem);
     letter-spacing: 0.055em;
   }
@@ -2464,7 +2452,7 @@
     display: grid;
     grid-template-columns: clamp(145px, 38vw, 180px) minmax(0, 1fr);
     align-items: center;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     background: #ffffff;
     color: #171c22;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
@@ -2515,7 +2503,7 @@
   .topNewsSmall .metaRow {
     align-items: center;
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: var(--space-2);
   }
   .topNewsSmall .badge {
     min-height: 25px;
@@ -2587,7 +2575,7 @@
   }
   .topNewsSmallContent {
     padding-right: 46px;
-    padding-left: 12px;
+    padding-left: var(--space-3);
   }
   .topNewsSmallContent h3 {
     font-size: var(--font-small);

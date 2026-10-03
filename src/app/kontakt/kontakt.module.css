@@ -21,8 +21,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  padding-bottom: 56px;
+  gap: var(--space-section);
+  padding-bottom: var(--space-section);
 }
 
 /* # GLOBAL SECTION LAYOUT */
@@ -110,7 +110,7 @@
 
 .contactIntro {
   max-width: 470px;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-6);
 }
 
 .contactIntroLink {
@@ -184,7 +184,7 @@
 
 .contactIntroText {
   max-width: 430px;
-  margin: 12px 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--color-text-muted);
   font-size: var(--font-body);
   font-weight: 600;
@@ -224,7 +224,7 @@
 
 .contactInfoLabel {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: var(--space-1);
   color: var(--color-text-muted);
   font-size: var(--font-badge);
   font-weight: 800;
@@ -301,7 +301,7 @@
 .contactSocialLinks {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .contactSocialLink {
@@ -382,7 +382,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   width: max-content;
   max-width: min(300px, calc(100vw - 80px));
   transform: scale(var(--marker-scale));
@@ -418,7 +418,7 @@
   padding: 10px 15px;
   background: var(--color-red);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   box-shadow:
     0 14px 28px rgba(211, 47, 47, 0.24),
     0 3px 10px rgba(15, 23, 42, 0.12);
@@ -557,7 +557,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-5);
   box-sizing: border-box;
   background: var(--color-surface);
   color: rgba(0, 0, 0, 0.28);
@@ -595,17 +595,17 @@
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: var(--space-4);
 }
 /* # DOCUMENT CARD */
 .documentCard {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
   min-width: 0;
   min-height: 108px;
-  padding: 18px 20px;
+  padding: 18px var(--space-5);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.97);
   border: 1px solid #e1e7ee;
@@ -679,7 +679,7 @@ background 0.3s ease;
   top: 4px;
   width: 48px;
   height: 60px;
-  border-radius: 10px 10px 8px 8px;
+  border-radius: 10px 10px var(--radius-sm) var(--radius-sm);
   background: linear-gradient(145deg, #fcfdff 0%, #edf1f6 100%);
   border: 1px solid #d8e0e9;
   box-shadow:
@@ -855,7 +855,7 @@ background 0.3s ease;
 }
 
 .documentEmptyCard {
-  padding: 24px 26px;
+  padding: var(--space-6) 26px;
   border: 1px solid rgba(17, 24, 39, 0.08);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.96);
@@ -884,7 +884,7 @@ background 0.3s ease;
   .contactContent {
     width: min(52%, 520px);
     min-height: 545px;
-    padding: 34px 0 34px 32px;
+    padding: 34px 0 34px var(--space-8);
   }
 
   .contactMapWrap,
@@ -908,8 +908,8 @@ background 0.3s ease;
   }
 
   .content {
-    gap: 48px;
-    padding-bottom: 48px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
   .sectionContainer {
@@ -931,7 +931,7 @@ background 0.3s ease;
   }
 
   .contactIntro {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-5);
   }
 
   .contactIntroTitle {
@@ -954,7 +954,7 @@ background 0.3s ease;
   }
 
   .contactMapWrap :global(.leaflet-control-zoom) {
-    margin: 12px !important;
+    margin: var(--space-3) !important;
   }
 
   .contactMapWrap :global(.leaflet-control-zoom-in),
@@ -965,7 +965,7 @@ background 0.3s ease;
   }
 
   .documentsSection {
-    padding: 6px 0 12px;
+    padding: 6px 0 var(--space-3);
   }
 
   .documentsGrid {
@@ -1052,12 +1052,12 @@ background 0.3s ease;
   }
 
   .content {
-    gap: 40px;
-    padding-bottom: 40px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
   .sectionContainer {
-    padding-top: 24px;
+    padding-top: var(--space-6);
   }
 
   .contactShowcase {
@@ -1112,7 +1112,7 @@ background 0.3s ease;
 
   .markerLabel {
     max-width: 165px;
-    padding: 8px 12px;
+    padding: var(--space-2) var(--space-3);
     border-radius: 14px;
   }
 
@@ -1146,12 +1146,12 @@ background 0.3s ease;
   }
 
   .documentsGrid {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .documentCard {
     min-height: 102px;
-    padding: 16px 18px;
+    padding: var(--space-4) 18px;
     border-radius: 18px;
   }
 
@@ -1182,8 +1182,8 @@ background 0.3s ease;
   }
 
   .content {
-    gap: 32px;
-    padding-bottom: 32px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
   .sectionContainer {
@@ -1195,7 +1195,7 @@ background 0.3s ease;
   }
 
   .contactContent {
-    padding: 22px 16px;
+    padding: 22px var(--space-4);
   }
 
   .contactIntroTitle {
@@ -1222,7 +1222,7 @@ background 0.3s ease;
   }
 
   .contactCopyButton {
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   .contactMapLayer {
@@ -1245,7 +1245,7 @@ background 0.3s ease;
   .markerLabel {
     max-width: 140px;
     padding: 7px 10px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
   }
 
   .markerLabel::before {
@@ -1271,7 +1271,7 @@ background 0.3s ease;
   }
 
   .contactMapWrap :global(.leaflet-control-zoom) {
-    margin: 8px !important;
+    margin: var(--space-2) !important;
   }
 
   .contactMapWrap :global(.leaflet-control-zoom-in),
@@ -1282,7 +1282,7 @@ background 0.3s ease;
   }
 
   .documentsSection {
-    padding: 4px 0 10px;
+    padding: var(--space-1) 0 10px;
   }
 
   .documentsGrid {
@@ -1297,8 +1297,8 @@ background 0.3s ease;
   .documentCard {
     min-height: 92px;
     padding: 14px;
-    gap: 12px;
-    border-radius: 16px;
+    gap: var(--space-3);
+    border-radius: var(--radius-lg);
   }
 
   .documentIcon {

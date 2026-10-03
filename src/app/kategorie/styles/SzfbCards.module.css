@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   min-height: 185px;
-  padding: 20px;
+  padding: var(--space-5);
   overflow: hidden;
   border-radius: var(--radius-xl);
   text-decoration: none;
@@ -174,7 +174,7 @@
 
   .szfbCardContent {
     max-width: 76%;
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 
   .szfbWatermark {
@@ -188,7 +188,7 @@
 /* # MOBILE (< 768) */
 @media (max-width: 767px) {
   .szfbGrid {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .szfbCard {
@@ -213,7 +213,7 @@
   }
 
   .szfbCardTitle {
-    margin-bottom: 4px;
+    margin-bottom: var(--space-1);
     font-size: 0.94rem;
   }
 
@@ -224,7 +224,7 @@
 
   .szfbCardLink {
     min-height: 39px;
-    padding: 0 12px;
+    padding: 0 var(--space-3);
   }
 
   .szfbCardLinkText {
@@ -261,7 +261,7 @@
 
   .szfbBadge {
     min-height: 21px;
-    padding: 0 8px;
+    padding: 0 var(--space-2);
     font-size: 0.55rem;
   }
 

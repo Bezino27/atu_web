@@ -27,7 +27,7 @@
 
   margin: 0 auto;
 
-  padding: 0 20px;
+  padding: 0 var(--space-5);
 
   box-sizing: border-box;
 }
@@ -188,7 +188,7 @@
   align-items: center;
   justify-content: flex-end;
 
-  gap: 16px;
+  gap: var(--space-4);
 
   flex-wrap: wrap;
 }
@@ -326,7 +326,7 @@
 }
 
 .logoText span {
-  margin-top: 4px;
+  margin-top: var(--space-1);
 
   color: rgba(255, 255, 255, 0.62);
 
@@ -535,7 +535,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: 4px;
+  gap: var(--space-1);
 
   padding: 10px;
 
@@ -658,7 +658,7 @@
   align-items: center;
   justify-content: center;
 
-  gap: 16px;
+  gap: var(--space-4);
 
   min-width: 210px;
   min-height: 48px;
@@ -1298,7 +1298,7 @@
   align-items: center;
   justify-content: center;
 
-  gap: 16px;
+  gap: var(--space-4);
 
   min-height: 52px;
 
@@ -1416,7 +1416,7 @@
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
+  gap: var(--space-3);
 
   margin:
     22px
@@ -1565,7 +1565,7 @@
       0
       15px;
 
-    gap: 12px;
+    gap: var(--space-3);
 
     font-size: 0.73rem;
   }
@@ -1577,7 +1577,7 @@
 
 @media (max-width: 1100px) {
   .topRight {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .desktopNav,
@@ -1656,7 +1656,7 @@
   .topBarInner {
     min-height: 40px;
 
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .topLeft span {
@@ -1736,11 +1736,11 @@
   .mainBarInner {
     min-height: 72px;
 
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .logoWrap {
-    gap: 12px;
+    gap: var(--space-3);
 
     min-width: 0;
 
@@ -1786,8 +1786,8 @@
   }
 
   .mobileMenu .container {
-    padding-top: 12px;
-    padding-bottom: 16px;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-4);
   }
 
   .mobileNavLink,
@@ -1808,8 +1808,8 @@
   .mobileNavToggle {
     min-height: 58px;
 
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: var(--space-1);
+    padding-right: var(--space-1);
   }
 
   .mobileNavIcon {
@@ -1851,7 +1851,7 @@
   }
 
   .logoWrap {
-    gap: 8px;
+    gap: var(--space-2);
 
     max-width:
       calc(
