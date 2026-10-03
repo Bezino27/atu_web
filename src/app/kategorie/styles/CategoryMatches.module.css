@@ -388,7 +388,7 @@
 
 .resultsColumn {
   display: grid;
-  gap: 14px;
+  gap: clamp(var(--space-3), calc(-6px + 2vw), 14px);
   width: 100%;
   min-width: 0;
 }
@@ -471,7 +471,7 @@
   left: 50%;
   top: 50%;
 
-width: clamp(210px, 35cqi, 300px);
+  width: clamp(210px, 35cqi, 300px);
   height: auto;
   aspect-ratio: 1;
 
@@ -686,11 +686,6 @@ width: clamp(210px, 35cqi, 300px);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   transform: translateY(-0.12em);
-}
-
-.scoreDisplayCompact .scoreSuffix {
-  margin-left: 0;
-  font-size: 0.48em;
 }
 
 .finalResultLabel {
@@ -913,8 +908,13 @@ width: clamp(210px, 35cqi, 300px);
 
 .recentMatchRow {
   display: grid;
-  grid-template-columns: minmax(108px, 0.9fr) minmax(0, 1.75fr) auto auto;
+  grid-template-columns:
+    minmax(64px, 0.72fr)
+    minmax(0, 1.8fr)
+    minmax(58px, 0.52fr)
+    minmax(28px, 34px);
   gap: var(--space-3);
+  column-gap: clamp(var(--space-2), 1vw, 14px);
   align-items: center;
   min-height: 70px;
   width: 100%;
@@ -931,10 +931,6 @@ width: clamp(210px, 35cqi, 300px);
 
 .recentMatchRow:hover {
   background: var(--hover-surface);
-}
-
-.recentMatchRow:last-child {
-  border-bottom: 1px solid rgba(15, 23, 42, 0.075);
 }
 
 .recentMatchDate {
@@ -1007,24 +1003,10 @@ width: clamp(210px, 35cqi, 300px);
 
 /* Tablet / desktop result rows: keep the score compact and aligned with P/V. */
 @media (min-width: 768px) {
-  .recentMatchRow {
-    grid-template-columns:
-      minmax(64px, 0.72fr)
-      minmax(0, 1.8fr)
-      minmax(58px, 0.52fr)
-      minmax(28px, 34px);
-    column-gap: clamp(var(--space-2), 1vw, 14px);
-  }
-
   .recentMatchRow .scoreDisplayCompact {
     min-width: 0;
     padding: 0;
     justify-self: center;
-  }
-
-  .recentMatchRow .scoreDisplayCompact .scoreSuffix {
-    margin-left: 1px;
-    font-size: 0.4em;
   }
 
   .recentMatchRow > .resultBadgeSmall {
@@ -1062,19 +1044,19 @@ width: clamp(210px, 35cqi, 300px);
 @media (max-width: 1000px) {
   .featuredMatchesGrid {
     grid-template-columns: 1fr;
+    gap: clamp(18px, calc(-18px + 4vw), 22px);
   }
 }
 
-/* # 900 */
-
-@media (max-width: 900px) {
-  .resultsColumn {
-    gap: var(--space-3);
-  }
-
-  .featuredMatchesGrid {
-    grid-template-columns: 1fr;
-    gap: 18px;
+/* The centered watermark needs its compact treatment at exactly 768px too. */
+@media (max-width: 768px) {
+  .latestCompetitionBackdrop {
+    left: 50%;
+    top: 60%;
+    width: clamp(50px, 30cqi, 160px);
+    max-width: none;
+    height: auto;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -1155,6 +1137,22 @@ width: clamp(210px, 35cqi, 300px);
     font-size: clamp(1.75rem, 8vw, 3rem);
   }
 
+  .latestScoreBlock {
+    width: 100%;
+    min-width: 0;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .latestScoreVisual {
+    width: min(130px, 100%);
+    height: 62px;
+  }
+
+  .formTrack {
+    padding: var(--space-2) 10px;
+  }
+
   .recentMatchRow {
     grid-template-columns:
       clamp(68px, 15vw, 94px)
@@ -1201,24 +1199,6 @@ width: clamp(210px, 35cqi, 300px);
     font-size: 0.41rem;
   }
 
-  .formContent {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
-
-  .formDivider {
-    width: 100%;
-    height: 1px;
-  }
-
-  .formSummary {
-    max-width: none;
-  }
-
-  .formBadges {
-    gap: 0;
-  }
-
   .formBadge {
     min-width: 34px;
     height: 34px;
@@ -1232,11 +1212,6 @@ width: clamp(210px, 35cqi, 300px);
       minmax(42px, auto)
       auto;
     gap: clamp(var(--space-1), 1.5vw, var(--space-2));
-    width: 100%;
-    min-width: 0;
-    padding: 10px var(--space-3);
-    box-sizing: border-box;
-    overflow: hidden;
   }
 
   .recentMatchDate {
@@ -1264,6 +1239,27 @@ width: clamp(210px, 35cqi, 300px);
 
   .recentMatchRow .resultBadge {
     margin-right: 1px;
+  }
+
+  .recentMatchesHeader {
+    gap: 9px;
+  }
+
+  .recentLeagueBadge {
+    min-height: 30px;
+    max-width: 112px;
+    padding: var(--space-1) 7px;
+  }
+
+  .recentLeagueBadge img {
+    max-width: 98px;
+    height: 21px;
+  }
+
+  .formPanelHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 }
 
@@ -1327,97 +1323,6 @@ width: clamp(210px, 35cqi, 300px);
 
   .recentMatchDate {
     font-size: clamp(0.52rem, 2.2vw, 0.62rem);
-  }
-}
-
-/* # RESULTS RESPONSIVE REFINEMENT */
-
-@media (max-width: 768px) {
-  .latestCompetitionBackdrop {
-    left: 50%;
-    top: 60%;
-    width: clamp(50px, 30cqi, 160px);
-    max-width: none;
-    height: auto;
-    transform: translate(-50%, -50%);
-  }
-}
-
-@media (max-width: 767px) {
-  .latestMatchPanel,
-  .recentMatchesPanel {
-    padding: var(--space-4) 14px;
-  }
-
-  .formPanel {
-    padding: 13px var(--space-3);
-  }
-
-  .latestScoreBlock {
-    width: 100%;
-    min-width: 0;
-    justify-self: center;
-    text-align: center;
-  }
-
-  .latestScoreVisual {
-    width: min(130px, 100%);
-    height: 62px;
-  }
-
-  .latestMatchTeams {
-    gap: 9px;
-    align-items: stretch;
-  }
-
-  .resultTeamLogoLarge {
-    width: 62px;
-    height: 62px;
-  }
-
-  .formTrack {
-    gap: 11px;
-    padding: var(--space-2) 10px;
-  }
-
-  .formBadges {
-    gap: 0;
-  }
-}
-
-@media (max-width: 560px) {
-  .recentMatchesHeader {
-    gap: 9px;
-  }
-
-  .recentLeagueBadge {
-    min-height: 30px;
-    max-width: 112px;
-    padding: var(--space-1) 7px;
-  }
-
-  .recentLeagueBadge img {
-    max-width: 98px;
-    height: 21px;
-  }
-
-  .formPanelHeader {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .formTrack {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .formTrackLabel {
-    padding-left: 2px;
-  }
-
-  .latestMatchTeams {
-    grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
   }
 }
 
