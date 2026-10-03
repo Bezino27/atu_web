@@ -1530,8 +1530,8 @@
     width: fit-content;
     max-width: calc(100vw - 20px);
     margin-top: clamp(-24px, calc(-9px - 2vw), -14px);
-    padding: clamp(2px, calc(-0.1px + 0.67vw), 5px);
-    gap: clamp(1px, calc(-1.1px + 0.67vw), var(--space-1));
+    padding: clamp(2px, 0.45vw, var(--space-1));
+    gap: clamp(1px, 0.35vw, 3px);
     align-self: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -1547,16 +1547,16 @@
   :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner) .heroQuickLink {
     flex: 0 1 auto;
     min-width: 0;
-    min-height: clamp(30px, calc(18.6px + 3.57vw), 46px);
-    padding: 0 clamp(6px, calc(-2.6px + 2.68vw), 18px);
-    font-size: clamp(0.54rem, calc(0.34rem + 1vw), 0.82rem);
+    min-height: clamp(28px, calc(15px + 3.25vw), 40px);
+    padding: 0 clamp(5px, calc(-1px + 1.7vw), 12px);
+    font-size: clamp(0.54rem, calc(0.35rem + 0.72vw), 0.74rem);
   }
 
   :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
     .heroQuickLabelDefault,
   :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
     .heroQuickLabelHover {
-    gap: clamp(var(--space-1), calc(-1px + 1.56vw), 11px);
+    gap: clamp(3px, calc(1px + 0.8vw), 7px);
   }
 
   /* Countdown becomes part of the upper mobile composition. */

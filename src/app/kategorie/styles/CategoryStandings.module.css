@@ -341,16 +341,16 @@
 .teamLogoWithImage::before {
   content: "";
   position: absolute;
-  inset: -35%;
+  inset: -30%;
   z-index: -1;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--team-logo-glow, #64748b) 16%, transparent) 0%,
-    color-mix(in srgb, var(--team-logo-glow, #64748b) 7%, transparent) 44%,
+    color-mix(in srgb, var(--team-logo-glow, #64748b) 10%, transparent) 0%,
+    color-mix(in srgb, var(--team-logo-glow, #64748b) 4%, transparent) 44%,
     transparent 74%
   );
-  filter: blur(3px);
+  filter: blur(4px);
   pointer-events: none;
 }
 
@@ -358,11 +358,11 @@
   filter:
     drop-shadow(
       0 3px 5px
-      color-mix(in srgb, var(--team-logo-glow, #64748b) 20%, transparent)
+      color-mix(in srgb, var(--team-logo-glow, #64748b) 12%, transparent)
     )
     drop-shadow(
       0 0 8px
-      color-mix(in srgb, var(--team-logo-glow, #64748b) 10%, transparent)
+      color-mix(in srgb, var(--team-logo-glow, #64748b) 5%, transparent)
     );
 }
 

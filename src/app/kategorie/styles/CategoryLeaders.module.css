@@ -42,7 +42,6 @@
   --leader-dot: rgba(255, 255, 255, 0.055);
   --leader-sheen: rgba(var(--leader-accent-rgb), 0.18);
   position: relative;
-  min-height: 390px;
   overflow: hidden;
   isolation: isolate;
   border-radius: 28px;
@@ -341,6 +340,14 @@
 .playerNameLine {
   display: block;
 }
+/* Longest name part with 9–10 characters. */
+.playerName.playerNameMedium {
+  font-size: clamp(1rem, 1.12vw, 1.25rem);
+}
+/* Longest name part with at least 11 characters. */
+.playerName.playerNameLong {
+  font-size: clamp(0.9rem, 1.2vw, 1.12rem);
+}
 /* # PLAYER PHOTO */
 .playerPhotoWrap {
   grid-area: photo;
@@ -397,9 +404,6 @@
   border-radius: var(--radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.07);
   pointer-events: none;
-}
-.playerCardMain .playerPhotoWrap {
-  min-height: 0;
 }
 /*
  \* Transparent PNG/WebP:
@@ -589,103 +593,6 @@ background 0.18s ease,
   line-height: 1.5;
   box-sizing: border-box;
 }
-/* # 1024 */
-@media (max-width: 1024px) {
-  .topPlayersPodium {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-4);
-  }
-  .playerRank2Wrap {
-    margin-top: var(--space-4);
-  }
-  .playerRank3Wrap {
-    margin-top: var(--space-8);
-  }
-  .playerCard {
-    min-height: 370px;
-  }
-  .playerCardRank1 {
-    min-height: 390px;
-  }
-  .playerCardRank2 {
-    min-height: 372px;
-  }
-  .playerCardRank3 {
-    min-height: 354px;
-  }
-  .playerCardMain,
-  .playerCardSide {
-    padding: var(--space-4);
-  }
-  .playerCardTop {
-    top: 12px;
-    left: 14px;
-    right: 14px;
-    margin-bottom: 0;
-  }
-  .rankBadge {
-    min-width: 52px;
-    height: 36px;
-    font-size: 0.84rem;
-  }
-  .playerNumber {
-    top: 4px;
-    right: 14px;
-    width: auto;
-    min-width: 96px;
-    text-align: right;
-    font-size: clamp(2.7rem, 3.7vw, 3.8rem);
-    -webkit-text-stroke-width: 1.8px;
-  }
-  .playerCardBody {
-    grid-template-columns: minmax(0, 1fr) minmax(172px, 0.72fr);
-    grid-template-areas: "content photo";
-    gap: 14px;
-    align-items: stretch;
-  }
-  .playerContent {
-    gap: 26px;
-    padding-top: 68px;
-  }
-  .playerName {
-    font-size: clamp(0.98rem, 1.15vw, 1.3rem);
-    line-height: 1.05;
-  }
-  .playerHeading::after {
-    max-width: 138px;
-    margin-top: var(--space-2);
-  }
-  .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-2);
-  }
-  .statItem {
-    min-height: 74px;
-    padding: 9px 9px var(--space-2);
-  }
-  .statValue {
-    font-size: clamp(1.1rem, 1.35vw, 1.45rem);
-  }
-  .statLabel {
-    font-size: 0.68rem;
-  }
-  .playerPhotoWrap,
-  .playerCardMain .playerPhotoWrap {
-    min-height: 272px;
-    margin-top: 42px;
-  }
-  .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
-    transform: scale(1.28);
-    transform-origin: center bottom;
-  }
-  .goalieCard {
-    padding: 22px;
-    margin-top: 6px;
-  }
-}
 /* # STACKED CARDS BELOW DESKTOP */
 @media (max-width: 1099px) {
   .topPlayersPodium {
@@ -706,19 +613,20 @@ background 0.18s ease,
   .playerCardRank2,
   .playerCardRank3 {
     min-height: auto;
-    transform: none;
   }
   .playerCardMain,
-  .playerCardSide,
-  .playerCardRank1,
-  .playerCardRank2,
-  .playerCardRank3 {
+  .playerCardSide {
     padding: var(--space-5);
   }
   .playerCardTop {
     top: 16px;
     left: 16px;
     right: 16px;
+  }
+  .rankBadge {
+    min-width: clamp(52px, 5.25vw, 58px);
+    height: clamp(36px, 3.65vw, 40px);
+    font-size: clamp(0.84rem, 1.37vw, 0.94rem);
   }
   .playerNumber {
     top: 10px;
@@ -727,6 +635,7 @@ background 0.18s ease,
     min-width: 110px;
     text-align: right;
     font-size: clamp(3rem, 6.3vw, 4.2rem);
+    -webkit-text-stroke-width: clamp(1.6px, 0.18vw, 2px);
   }
   .playerCardBody {
     grid-template-columns: minmax(0, 1fr) 220px;
@@ -742,27 +651,37 @@ background 0.18s ease,
     font-size: clamp(1.28rem, 4.4vw, 1.95rem);
     line-height: 1.06;
   }
+  .playerName.playerNameMedium {
+    font-size: clamp(1.08rem, 2.7vw, 1.32rem);
+  }
+  .playerName.playerNameLong {
+    font-size: clamp(0.94rem, 2.3vw, 1.12rem);
+  }
+  .playerHeading::after {
+    max-width: clamp(138px, 14vw, 160px);
+    margin-top: var(--space-2);
+  }
   .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
   .statItem {
     min-height: 84px;
+    padding: clamp(9px, 0.9vw, 10px) clamp(9px, 0.9vw, 10px) var(--space-2);
+  }
+  .statValue {
+    font-size: clamp(1.1rem, 1.9vw, 1.3rem);
+  }
+  .statLabel {
+    font-size: clamp(0.68rem, 1.08vw, 0.74rem);
   }
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
     aspect-ratio: 4 / 5;
-    min-height: 0;
-    max-height: 310px;
     margin-top: 70px;
     align-self: end;
   }
   .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
     transform: scale(1.26);
-    transform-origin: center bottom;
   }
 }
 /* # MOBILE (< 768) */
@@ -784,26 +703,11 @@ background 0.18s ease,
     margin-top: 0;
   }
   .playerCard {
-    min-height: auto;
     border-radius: 24px;
   }
-  .playerCard::before {
-    width: 50%;
-    opacity: 0.55;
-    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-  }
-  .playerCard::after {
-    right: 48%;
-    height: 114%;
-    opacity: 0.8;
-  }
   .playerCardMain,
-  .playerCardSide,
-  .playerCardRank1,
-  .playerCardRank2,
-  .playerCardRank3 {
+  .playerCardSide {
     padding: 18px;
-    transform: none;
   }
   .playerCard:hover,
   .playerCardRank1:hover,
@@ -815,7 +719,6 @@ background 0.18s ease,
     top: 12px;
     left: 14px;
     right: 14px;
-    margin-bottom: 0;
   }
   .rankBadge {
     min-width: 50px;
@@ -825,9 +728,7 @@ background 0.18s ease,
   .playerNumber {
     top: 10px;
     right: 18px;
-    width: auto;
     min-width: 100px;
-    text-align: right;
     font-size: clamp(2.55rem, 9vw, 3.6rem);
     -webkit-text-stroke-width: 1.6px;
   }
@@ -835,70 +736,46 @@ background 0.18s ease,
     grid-template-columns:
       minmax(0, 1fr)
       clamp(150px, 34vw, 190px);
-    grid-template-areas: "content photo";
     gap: 14px;
-    align-items: start;
   }
   .playerContent {
     gap: 26px;
     padding-top: 66px;
   }
   .playerName {
-    font-size: clamp(1.14rem, 5.3vw, 1.68rem);
+    font-size: clamp(1.2rem, calc(0.775rem + 1.89vw), 1.68rem);
     line-height: 1.08;
+  }
+  .playerName.playerNameMedium {
+    font-size: clamp(1rem, calc(0.72rem + 1.4vw), 1.3rem);
+  }
+  .playerName.playerNameLong {
+    font-size: clamp(0.9rem, calc(0.64rem + 1vw), 1.12rem);
   }
   .playerHeading::after {
     max-width: 140px;
     margin-top: var(--space-2);
   }
   .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2);
-    width: 100%;
-    max-width: none;
   }
   .statItem {
-    min-height: 66px;
+    min-height: clamp(58px, calc(50px + 3vw), 66px);
     padding: var(--space-2) 10px 7px;
     border-radius: 14px;
   }
   .statValue {
-    font-size: clamp(1.15rem, 5vw, 1.55rem);
+    font-size: clamp(1.22rem, calc(0.93rem + 1.3vw), 1.55rem);
   }
   .statLabel {
-    font-size: 0.7rem;
+    font-size: clamp(0.58rem, calc(0.475rem + 0.47vw), 0.7rem);
   }
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-    height: auto;
-    max-height: 280px;
-    margin-top: 70px;
-    align-self: end;
-    justify-self: end;
     border-radius: var(--radius-xl);
   }
   .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
     transform: scale(1.22);
-    transform-origin: center bottom;
-  }
-  .goalieCard {
-    gap: 18px;
-    padding: var(--space-5);
-    margin-top: 2px;
-    border-radius: var(--radius-xl);
-  }
-  .goalieHeader {
-    align-items: flex-start;
-  }
-  .goalieStats {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
   }
 }
 /* # 640 */
@@ -908,27 +785,6 @@ background 0.18s ease,
       minmax(0, 1fr)
       clamp(138px, 38vw, 180px);
     gap: var(--space-3);
-    align-items: start;
-  }
-  .playerName {
-    font-size: clamp(1.06rem, 6.2vw, 1.48rem);
-  }
-  .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    max-width: none;
-  }
-  .statItem {
-    min-height: 62px;
-  }
-  .playerPhotoWrap,
-  .playerCardMain .playerPhotoWrap {
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-    height: auto;
-    max-height: 250px;
-    margin-top: 70px;
-    align-self: end;
   }
   .playerNumber {
     top: 10px;
@@ -937,11 +793,7 @@ background 0.18s ease,
     font-size: clamp(2.4rem, 10vw, 3.25rem);
   }
   .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
     transform: scale(1.2);
-    transform-origin: center bottom;
   }
 }
 /* # 480 */
@@ -953,24 +805,10 @@ background 0.18s ease,
   .playerCard {
     border-radius: 22px;
   }
-  .playerCard::before {
-    width: 50%;
-    opacity: 0.55;
-    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-  }
-  .playerCard::after {
-    display: block;
-    right: 48%;
-    opacity: 0.8;
-  }
   .playerCardMain,
-  .playerCardSide,
-  .playerCardRank1,
-  .playerCardRank2,
-  .playerCardRank3 {
+  .playerCardSide {
     padding: 14px;
     border-radius: var(--radius-lg);
-    transform: none;
   }
   .playerCard:hover,
   .playerCardRank1:hover,
@@ -982,7 +820,6 @@ background 0.18s ease,
     top: 10px;
     left: 12px;
     right: 12px;
-    margin-bottom: 0;
   }
   .rankBadge {
     min-width: 46px;
@@ -1002,31 +839,21 @@ background 0.18s ease,
     grid-template-columns:
       minmax(0, 1fr)
       clamp(126px, 36vw, 146px);
-    grid-template-areas: "content photo";
     gap: 10px;
-    align-items: start;
   }
   .playerContent {
     grid-area: content;
     gap: var(--space-6);
     padding-top: 62px;
   }
-  .playerName {
-    font-size: clamp(1rem, 6.2vw, 1.38rem);
-    line-height: 1.08;
-  }
   .playerHeading::after {
     max-width: 125px;
     margin-top: var(--space-2);
   }
   .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2);
-    width: 100%;
-    max-width: none;
   }
   .statItem {
-    min-height: 64px;
     padding: var(--space-2) 9px 7px;
     border-radius: 13px;
   }
@@ -1035,49 +862,18 @@ background 0.18s ease,
     bottom: 0;
     width: calc(100% - 18px);
   }
-  .statValue {
-    font-size: clamp(1.05rem, 6vw, 1.42rem);
-  }
-  .statLabel {
-    font-size: 0.66rem;
-  }
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    grid-area: photo;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-    height: auto;
-    max-height: 220px;
-    margin-top: 70px;
-    align-self: end;
-    justify-self: end;
     border-radius: 18px;
   }
   .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
     transform: scale(1.18);
-    transform-origin: center bottom;
-  }
-  .goalieCard {
-    padding: 18px;
-    margin-top: 0;
-    border-radius: var(--radius-lg);
-  }
-  .goalieStatItem {
-    padding: var(--space-3);
-    border-radius: var(--radius-lg);
   }
 }
 /* # 360 */
 @media (max-width: 360px) {
   .playerCardMain,
-  .playerCardSide,
-  .playerCardRank1,
-  .playerCardRank2,
-  .playerCardRank3 {
+  .playerCardSide {
     padding: 10px;
   }
   .playerCardBody {
@@ -1085,7 +881,6 @@ background 0.18s ease,
       minmax(0, 1fr)
       minmax(128px, 0.9fr);
     gap: var(--space-2);
-    align-items: start;
   }
   .playerNumber {
     top: 12px;
@@ -1093,71 +888,17 @@ background 0.18s ease,
     min-width: 92px;
     font-size: clamp(2.35rem, 12vw, 3.1rem);
   }
-  .playerName {
-    font-size: clamp(0.92rem, 6.2vw, 1.2rem);
-  }
   .statsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    max-width: none;
     gap: 5px;
   }
   .statItem {
-    min-height: 58px;
     padding: 7px;
-  }
-  .statValue {
-    font-size: clamp(0.92rem, 6vw, 1.22rem);
-  }
-  .statLabel {
-    font-size: 0.58rem;
   }
   .playerPhotoWrap,
   .playerCardMain .playerPhotoWrap {
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-    height: auto;
-    max-height: 195px;
     margin-top: 60px;
-    align-self: end;
   }
   .playerPhoto {
-    object-fit: contain;
-    object-position: center bottom;
-    padding: 0;
     transform: scale(1.16);
-    transform-origin: center bottom;
-  }
-}
-/* One name part with 11–12 characters. */
-.playerName.playerNameMedium {
-  font-size: clamp(0.94rem, 1.12vw, 1.25rem);
-}
-/* One name part longer than 12 characters. */
-.playerName.playerNameLong {
-  font-size: clamp(0.78rem, 0.95vw, 1.08rem);
-}
-@media (max-width: 767px) {
-  .playerName.playerNameMedium {
-    font-size: clamp(1rem, 3.7vw, 1.4rem);
-  }
-  .playerName.playerNameLong {
-    font-size: clamp(0.92rem, 3.4vw, 1.28rem);
-  }
-}
-@media (max-width: 480px) {
-  .playerName.playerNameMedium {
-    font-size: clamp(0.88rem, 4.4vw, 1.2rem);
-  }
-  .playerName.playerNameLong {
-    font-size: clamp(0.8rem, 4.1vw, 1.1rem);
-  }
-}
-@media (max-width: 360px) {
-  .playerName.playerNameMedium {
-    font-size: clamp(0.82rem, 4.8vw, 1.02rem);
-  }
-  .playerName.playerNameLong {
-    font-size: clamp(0.74rem, 4.6vw, 0.96rem);
   }
 }

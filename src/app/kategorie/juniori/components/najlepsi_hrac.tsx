@@ -1,5 +1,6 @@
 import Image from "next/image";
 import leadersStyles from "../../styles/CategoryLeaders.module.css";
+import CategoryLeaderPlayerName from "../../components/CategoryLeaderPlayerName";
 import type { SzfbPlayerStat } from "@/app/lib/szfb";
 
 type PlayerStat = {
@@ -99,16 +100,6 @@ function isMartinGulas(player: SzfbPlayerStat) {
   return normalizePlayerName(player.player_name) === "martin gulas";
 }
 
-function getPlayerNameSizeClass(name: string) {
-  const longestPart = Math.max(
-    0,
-    ...name.trim().split(/\s+/).map((part) => part.length),
-  );
-
-  if (longestPart > 12) return leadersStyles.playerNameLong;
-  if (longestPart > 10) return leadersStyles.playerNameMedium;
-  return "";
-}
 function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
   const activePlayers = players
     .filter((player) => player.is_active !== false)
@@ -175,13 +166,7 @@ function PlayerCard({ player }: { player: Player }) {
       <div className={leadersStyles.playerCardBody}>
         <div className={leadersStyles.playerContent}>
           <div className={leadersStyles.playerHeading}>
-            <h3
-              className={`${leadersStyles.playerName} ${getPlayerNameSizeClass(
-                displayName,
-              )}`}
-            >
-              {displayName}
-            </h3>
+            <CategoryLeaderPlayerName name={displayName} />
           </div>
 
           <div className={leadersStyles.statsGrid}>
