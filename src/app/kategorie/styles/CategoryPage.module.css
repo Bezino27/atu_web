@@ -43,9 +43,9 @@
 .bottomSection,
 .overviewSection {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
-  padding: 0 16px;
+  padding-inline: var(--page-gutter);
   box-sizing: border-box;
 }
 
@@ -162,12 +162,6 @@
     padding-bottom: 48px;
   }
 
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 14px;
-  }
-
   .overviewGrid {
     grid-template-columns: minmax(0, 1.42fr) minmax(330px, 0.92fr);
   }
@@ -182,9 +176,9 @@
   }
 }
 
-/* # 768 */
+/* # MOBILE (< 768) */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .pageContainer {
     --font-panel-title: clamp(0.95rem, 3.8vw, 1.1rem);
     --font-card-title: 18px;
@@ -212,12 +206,6 @@
     padding-bottom: 40px;
   }
 
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 10px;
-  }
-
   .panelHeader {
     margin-bottom: 14px;
   }
@@ -227,12 +215,12 @@
 
 @media (max-width: 480px) {
   .pageContainer {
-    --font-panel-title: clamp(0.9rem, 4.5vw, 1rem);
+    --font-panel-title: clamp(0.9rem, calc(0.5rem + 1.8vw), 1rem);
     --font-card-title: 16px;
     --font-card-title-sm: 15px;
     --font-player-name: 1.45rem;
     --font-goalie-name: 1.4rem;
-    --font-team-name: 0.85rem;
+    --font-team-name: clamp(0.72rem, calc(0.4rem + 1.5vw), 0.82rem);
     --font-table-team-name: 0.8rem;
     --font-featured-date: 0.8rem;
     --font-featured-place: 0.75rem;
@@ -253,9 +241,4 @@
     padding-bottom: 32px;
   }
 
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 8px;
-  }
 }

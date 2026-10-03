@@ -506,7 +506,7 @@
 
 /* # RESPONSIVE 769 */
 
-@media (max-width: 769px) {
+@media (max-width: 767px) {
   .naborCard {
     min-height: 0;
 

@@ -6,7 +6,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 82px 24px 160px;
+  padding: 82px var(--page-gutter) 160px;
   background-color: #06080b;
   background-image:
     linear-gradient(
@@ -24,7 +24,7 @@
 
 .heroInner {
   position: relative;
-  width: min(1300px, 100%);
+  width: min(var(--container-main), 100%);
   margin: 0 auto;
 }
 
@@ -88,11 +88,11 @@
   position: relative;
   z-index: 2;
   margin-top: -90px;
-  padding: 0 24px 92px;
+  padding: 0 var(--page-gutter) 92px;
 }
 
 .grid {
-  width: min(1300px, 100%);
+  width: min(var(--container-main), 100%);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -182,7 +182,7 @@
   border-radius: 6px;
   background: var(--color-red);
   color: #ffffff;
-  font-size: 0.72rem;
+  font-size: clamp(0.6rem, calc(0.47rem + 0.5vw), 0.72rem);
   font-weight: 850;
   letter-spacing: 0.055em;
   line-height: 1;
@@ -191,7 +191,7 @@
 
 .date {
   color: #8b929a;
-  font-size: 0.78rem;
+  font-size: clamp(0.66rem, calc(0.52rem + 0.55vw), 0.78rem);
   font-weight: 500;
   line-height: 1.25;
 }
@@ -216,12 +216,6 @@
 }
 
 @media (max-width: 1024px) {
-  .hero,
-  .contentSection {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
@@ -231,7 +225,7 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 54px 16px 52px;
+    padding: 54px var(--page-gutter) 52px;
     background-position: 60% center;
   }
 
@@ -253,7 +247,7 @@
 
   .contentSection {
     margin-top: 0;
-    padding: 28px 16px 70px;
+    padding: 28px var(--page-gutter) 70px;
   }
 
   .grid {

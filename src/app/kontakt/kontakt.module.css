@@ -29,9 +29,9 @@
 
 .sectionContainer {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
-  padding: 30px 16px 0;
+  padding: 30px var(--page-gutter) 0;
   box-sizing: border-box;
 }
 
@@ -913,7 +913,7 @@ background 0.3s ease;
   }
 
   .sectionContainer {
-    padding: 30px 14px 0;
+    padding-top: 30px;
   }
 
   .contactShowcase {
@@ -970,6 +970,13 @@ background 0.3s ease;
 
   .documentsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Two document cards need at least about 430px each to keep titles readable. */
+@media (max-width: 900px) {
+  .documentsGrid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1032,9 +1039,9 @@ background 0.3s ease;
   }
 }
 
-/* # 768 */
+/* # MOBILE (< 768) */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .pageContainer {
     --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
     --font-body: 0.92rem;
@@ -1050,7 +1057,7 @@ background 0.3s ease;
   }
 
   .sectionContainer {
-    padding: 24px 10px 0;
+    padding-top: 24px;
   }
 
   .contactShowcase {
@@ -1180,7 +1187,7 @@ background 0.3s ease;
   }
 
   .sectionContainer {
-    padding: 18px 8px 0;
+    padding-top: 18px;
   }
 
   .contactShowcase {

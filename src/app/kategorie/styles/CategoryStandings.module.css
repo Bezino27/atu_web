@@ -315,25 +315,57 @@
   align-items: center;
   gap: 11px;
   min-height: 36px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .teamLogo {
   position: relative;
   z-index: 2;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 34px;
   height: 34px;
   flex: 0 0 34px;
+  overflow: visible;
 }
 
 .teamLogo img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.teamLogoWithImage::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--team-logo-glow, #64748b) 16%, transparent) 0%,
+    color-mix(in srgb, var(--team-logo-glow, #64748b) 7%, transparent) 44%,
+    transparent 74%
+  );
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.teamLogoWithImage img {
+  filter:
+    drop-shadow(
+      0 3px 5px
+      color-mix(in srgb, var(--team-logo-glow, #64748b) 20%, transparent)
+    )
+    drop-shadow(
+      0 0 8px
+      color-mix(in srgb, var(--team-logo-glow, #64748b) 10%, transparent)
+    );
 }
 
 .teamLogoAtu img {
@@ -553,9 +585,9 @@
   }
 }
 
-/* # 768 */
+/* # MOBILE (< 768) */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .tablePanel {
     padding: 15px 12px;
     border-radius: var(--radius-lg);

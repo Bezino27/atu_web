@@ -13,7 +13,7 @@
 
 .section {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
@@ -851,8 +851,8 @@
   }
 }
 
-/* # 768 */
-@media (max-width: 768px) {
+/* # MOBILE (< 768) */
+@media (max-width: 767px) {
   .content {
     gap: 40px;
     padding: 20px 0 40px;
@@ -1297,7 +1297,7 @@
 }
 /* # ACHIEVEMENTS MOBILE WIDTH */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .achievementsSection {
     padding-left: 0;
     padding-right: 0;

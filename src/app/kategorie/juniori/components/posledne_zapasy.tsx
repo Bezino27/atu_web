@@ -31,6 +31,20 @@ function formatDate(dateString?: string | null) {
   });
 }
 
+function formatCompactDate(dateString?: string | null) {
+  if (!dateString) return null;
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return null;
+
+  return {
+    dayMonth: date.toLocaleDateString("sk-SK", {
+      day: "numeric",
+      month: "long",
+    }),
+    year: String(date.getFullYear()),
+  };
+}
+
 function formatFormDate(dateString?: string | null) {
   if (!dateString) return "";
   const date = new Date(dateString);
@@ -162,7 +176,7 @@ function Score({
   compact?: boolean;
 }) {
   const score = parseScore(result);
-  const suffix = getScoreSuffix(resultCode);
+  const suffix = compact ? null : getScoreSuffix(resultCode);
 
   if (!score) {
     return <span>—</span>;
@@ -375,12 +389,21 @@ export default function RecentMatches({
             {otherResults.map((match) => {
               const teams = getTeams(match, ownTeamName, ownTeamBrand);
               const code = getResultCode(match);
+              const formattedDate = formatCompactDate(match.match_date);
 
               return (
                 <article key={match.id} className={matchesStyles.recentMatchRow}>
-                  <span className={matchesStyles.recentMatchDate}>
-                    {formatDate(match.match_date)}
-                  </span>
+                  <time
+                    className={matchesStyles.recentMatchDate}
+                    dateTime={match.match_date || undefined}
+                  >
+                    {formattedDate ? (
+                      <>
+                        <span>{formattedDate.dayMonth}</span>
+                        <span>{formattedDate.year}</span>
+                      </>
+                    ) : null}
+                  </time>
 
                   <div className={matchesStyles.recentMatchTeams}>
                     <div className={matchesStyles.recentMatchTeamLine}>

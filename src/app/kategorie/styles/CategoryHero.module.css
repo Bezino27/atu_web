@@ -826,7 +826,7 @@
  * content height on the club background. The local fade only masks the join.
  */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .heroSection {
     --hero-photo-height: clamp(250px, 59vw, 430px);
     --hero-photo-fade-height: clamp(40px, 12vw, 64px);
@@ -1144,7 +1144,7 @@
 
 /* # SHARED SPLIT HERO: PRÍPRAVKA / MLADŠÍ ŽIACI / STARŠÍ ŽIACI */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .heroSplitSection,
   .heroSplitSection.heroSectionWithoutCountdown {
     padding-bottom: clamp(20px, 5vw, 34px);
@@ -1415,7 +1415,7 @@
   font-style: italic;
 }
 
-@media (min-width: 769px) and (max-width: 1450px) {
+@media (min-width: 768px) and (max-width: 1450px) {
   :is(.heroMenBanner, .heroArtworkBanner) .heroInner {
     padding-bottom: clamp(24px, calc(15px + 1.17vw), 32px);
   }
@@ -1449,7 +1449,7 @@
 }
 
 /* Categories without a countdown share one bottom-centered desktop layout. */
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .heroSectionWithoutCountdown
     :is(.heroSplitBanner, .heroArtworkBanner)
     .heroInner {
@@ -1501,9 +1501,9 @@
   }
 }
 
-/* # MEN BANNER RESPONSIVE <= 768 */
+/* # MEN BANNER RESPONSIVE < 768 */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   :is(.heroMenSection, .heroArtworkSection) {
     padding-bottom: clamp(24px, 5vw, 36px);
     overflow: visible;

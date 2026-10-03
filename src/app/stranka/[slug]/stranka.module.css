@@ -17,7 +17,7 @@
 
 .heroSection {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
   padding: 24px 16px 0;
   box-sizing: border-box;
@@ -614,7 +614,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .content {
     gap: 40px;
     padding-bottom: 42px;

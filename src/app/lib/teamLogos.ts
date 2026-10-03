@@ -77,6 +77,25 @@ const TEAM_LOGOS: Record<string, string> = {
   "tempish-capitol": "/logo/teams/tempish-capitol.png",
 };
 
+const TEAM_LOGO_GLOWS: Record<string, string> = {
+  "atu-kosice": "#cbd5e1",
+  "fbc-trencin": "#d71920",
+  "sk-lido-bratislava": "#3156a3",
+  "tsunami-zahorska-bystrica": "#2563eb",
+  "grasshoppers-zilina": "#f97316",
+  presov: "#dc2626",
+  "florko-kosice": "#16a34a",
+  "snipers-bratislava": "#ff4d00",
+  "fbk-nizna": "#2563eb",
+  "as-trencin": "#dc0000",
+  "hurikan-bratislava": "#2563eb",
+  "detva-joxers": "#eab308",
+  "predator-sabinov": "#166534",
+  "tempish-capitol": "#dc2626",
+};
+
+const HEX_COLOR_PATTERN = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
+
 function normalizeTeamName(name: string) {
   return name
     .normalize("NFD")
@@ -103,4 +122,20 @@ export function getTeamLogo(teamName?: string | null) {
   if (!teamKey || !VISIBLE_TEAM_LOGOS.has(teamKey)) return null;
 
   return TEAM_LOGOS[teamKey];
+}
+
+export function getTeamLogoGlow(
+  teamName?: string | null,
+  backendColor?: string | null,
+) {
+  const validBackendColor =
+    typeof backendColor === "string" && HEX_COLOR_PATTERN.test(backendColor.trim())
+      ? backendColor.trim()
+      : null;
+
+  if (validBackendColor) return validBackendColor;
+  if (!teamName) return "#64748b";
+
+  const teamKey = TEAM_ALIASES[normalizeTeamName(teamName)];
+  return (teamKey && TEAM_LOGO_GLOWS[teamKey]) || "#64748b";
 }

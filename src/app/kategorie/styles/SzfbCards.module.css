@@ -185,8 +185,8 @@
   }
 }
 
-/* # 768 */
-@media (max-width: 768px) {
+/* # MOBILE (< 768) */
+@media (max-width: 767px) {
   .szfbGrid {
     gap: 12px;
   }

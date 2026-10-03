@@ -19,9 +19,9 @@
 .bottomSection,
 .overviewSection {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
-  padding: 0 16px;
+  padding-inline: var(--page-gutter);
   box-sizing: border-box;
 }
 
@@ -521,7 +521,7 @@
 }
 
 .recentScore {
-  font-size: 2.1rem;
+  font-size: clamp(1.75rem, calc(-1.6rem + 5.2vw), 2.1rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -801,6 +801,9 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .simpleVs {
@@ -1034,12 +1037,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sectionContainer,
-  .bottomSection,
-  .overviewSection {
-    padding: 0 14px;
-  }
-
   .sectionContainer:first-of-type {
     margin-top: 26px;
   }
@@ -1111,10 +1108,6 @@
     padding: 16px;
   }
 
-  .recentScore {
-    font-size: 1.95rem;
-  }
-
   .clubPostsGrid {
     gap: 16px;
   }
@@ -1177,8 +1170,8 @@
   }
 }
 
-/* # 768 */
-@media (max-width: 768px) {
+/* # MOBILE (< 768) */
+@media (max-width: 767px) {
   .pageContainer {
     --font-panel-title: clamp(1rem, 4.3vw, 1.25rem);
     --font-body: 0.92rem;
@@ -1195,12 +1188,6 @@
   .content {
     gap: 40px;
     padding-bottom: 40px;
-  }
-
-  .sectionContainer,
-  .bottomSection,
-  .overviewSection {
-    padding: 0 10px;
   }
 
   .sectionContainer:first-of-type {
@@ -1357,7 +1344,7 @@
   }
 
   .recentScore {
-    font-size: 1.75rem;
+    font-size: clamp(1.45rem, 4vw, 1.75rem);
   }
 
   .clubPostsGrid {
@@ -1458,19 +1445,13 @@
 /* # 480 */
 @media (max-width: 480px) {
   .pageContainer {
-    --font-panel-title: clamp(0.95rem, 5vw, 1.12rem);
+    --font-panel-title: clamp(0.95rem, calc(0.45rem + 2.4vw), 1.12rem);
     --font-body: 0.86rem;
   }
 
   .content {
     gap: 32px;
     padding-bottom: 32px;
-  }
-
-  .sectionContainer,
-  .bottomSection,
-  .overviewSection {
-    padding: 0 8px;
   }
 
   .sectionContainer:first-of-type {
@@ -1601,7 +1582,7 @@
   }
 
   .recentScore {
-    font-size: 1.55rem;
+    font-size: clamp(1.3rem, 5.4vw, 1.55rem);
   }
 
   .simpleMatchCard {
@@ -1678,7 +1659,7 @@
 }
 
 /* # MOBILE COMBINED MATCHES */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .clubContentSection {
     display: none;
   }
@@ -1785,7 +1766,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .partnerGroups {
     gap: 24px;
   }
@@ -1936,7 +1917,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .simpleMatchCard {
     padding: 12px 12px 0;
   }
@@ -1992,7 +1973,7 @@
 
   .simpleTeamName {
     min-height: 32px;
-    font-size: 0.72rem;
+    font-size: clamp(0.68rem, 2.9vw, 0.78rem);
   }
 
   .simpleMatchMetaRow {
@@ -2358,10 +2339,10 @@
   .topNewsMain .badge {
     min-height: 32px;
     padding-inline: 13px;
-    font-size: 0.78rem;
+    font-size: clamp(0.64rem, calc(0.46rem + 0.45vw), 0.78rem);
   }
   .topNewsMain .topNewsDate {
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, calc(0.52rem + 0.7vw), 0.9rem);
     font-weight: 750;
   }
   .topNewsMobileList {
@@ -2454,6 +2435,19 @@
   .topNewsMainContent p {
     display: none;
   }
+
+  .topNewsMain .badge {
+    min-height: clamp(22px, 6vw, 26px);
+    padding-inline: clamp(8px, 2.4vw, 10px);
+    font-size: clamp(0.5rem, 2vw, 0.62rem);
+    letter-spacing: 0.055em;
+  }
+
+  .topNewsMain .topNewsDate {
+    font-size: clamp(0.52rem, 2.2vw, 0.68rem);
+    font-weight: 700;
+  }
+
   .topNewsMainArrow {
     right: 15px;
     bottom: 15px;
@@ -2526,12 +2520,12 @@
   .topNewsSmall .badge {
     min-height: 25px;
     padding: 0 9px;
-    font-size: 0.64rem;
+    font-size: clamp(0.56rem, 2.4vw, 0.64rem);
     letter-spacing: 0.065em;
   }
   .topNewsSmall .topNewsDate {
     color: #9a9fa5;
-    font-size: 0.7rem;
+    font-size: clamp(0.62rem, 2.6vw, 0.7rem);
     font-weight: 600;
     white-space: nowrap;
   }

@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import pageStyles from "../../styles/CategoryPage.module.css";
 import standingsStyles from "../../styles/CategoryStandings.module.css";
-import { getTeamLogo } from "@/app/lib/teamLogos";
+import { getTeamLogo, getTeamLogoGlow } from "@/app/lib/teamLogos";
 import type {
   SzfbStandingRow,
   SzfbStandingZone,
@@ -104,6 +104,13 @@ function TeamLogo({ team }: { team: SzfbStandingRow }) {
   const logo = backendLogo || fallbackLogo;
   const isAtuLogo = logo === "/logo/znak_atu_nove.svg";
   const displayName = team.team_brand?.display_name || team.team_name;
+  const glowColor = getTeamLogoGlow(
+    team.team_name,
+    team.team_brand?.shadow_color,
+  );
+  const logoStyle = {
+    "--team-logo-glow": glowColor,
+  } as CSSProperties;
 
   const initials = displayName
     .split(/\s+/)
@@ -117,7 +124,8 @@ function TeamLogo({ team }: { team: SzfbStandingRow }) {
     <span
       className={`${standingsStyles.teamLogo} ${
         isAtuLogo ? standingsStyles.teamLogoAtu : ""
-      }`}
+      } ${logo ? standingsStyles.teamLogoWithImage : ""}`}
+      style={logo ? logoStyle : undefined}
     >
       {logo ? (
         <img src={logo} alt="" loading="lazy" />

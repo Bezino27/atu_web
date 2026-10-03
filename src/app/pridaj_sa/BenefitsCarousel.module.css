@@ -4,7 +4,7 @@
 
 .section {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -1001,7 +1001,7 @@
 /* # MOBILE 768                                            # */
 /* ######################################################### */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .section {
     overflow: visible;
   }

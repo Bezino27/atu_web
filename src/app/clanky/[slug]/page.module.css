@@ -67,7 +67,7 @@
 /* ######################################################### */
 
 .heroContainer {
-  width: min(1300px, calc(100% - 48px));
+  width: min(var(--container-main), calc(100% - 48px));
   margin: 0 auto;
 
   padding:
@@ -464,7 +464,7 @@
 }
 
 .articleContainer {
-  width: min(1300px, calc(100% - 48px));
+  width: min(var(--container-main), calc(100% - 48px));
 
   margin: 0 auto;
 
@@ -639,7 +639,7 @@
 @media (max-width: 1120px) {
   .heroContainer,
   .articleContainer {
-    width: min(1300px, calc(100% - 40px));
+    width: min(var(--container-main), calc(100% - 40px));
   }
 
   .heroGrid {
