@@ -204,63 +204,6 @@
   color: var(--hover-link-color-inverse);
 }
 
-/* # SOCIAL IMAGE ICON */
-.socialImageIcon {
-  display: block;
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 0 4px rgba(255, 255, 255, 0.55))
-    drop-shadow(0 0 10px rgba(210, 215, 222, 0.35));
-  transition:
-    transform 0.28s ease,
-    filter 0.28s ease;
-}
-
-.shareItem:hover .socialImageIcon {
-  transform: scale(1.06);
-  filter:
-    drop-shadow(0 0 5px rgba(255, 255, 255, 0.78))
-    drop-shadow(0 0 14px rgba(210, 215, 222, 0.52));
-}
-
-.ludimusImageIcon {
-  display: block;
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 50%;
-  transition:
-    transform 0.28s ease,
-    filter 0.28s ease;
-}
-
-.shareItem:hover .ludimusImageIcon {
-  transform: scale(1.08);
-  filter:
-    drop-shadow(0 0 5px rgba(255, 255, 255, 0.72))
-    drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
-}
-
-.florbalexpertImageIcon {
-  display: block;
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 50%;
-  transition:
-    transform 0.28s ease,
-    filter 0.28s ease;
-}
-
-.shareItem:hover .florbalexpertImageIcon {
-  transform: scale(1.08);
-  filter:
-    drop-shadow(0 0 5px rgba(255, 255, 255, 0.72))
-    drop-shadow(0 0 12px rgba(210, 215, 222, 0.45));
-}
-
 .clubLinkImageIcon {
   display: block;
   width: 36px;
@@ -319,6 +262,11 @@
 
 /* # SHARE MENU */
 .shareMenu {
+  --share-item-size: 50px;
+  --share-item-margin: -25px;
+  --share-orbit: 94px;
+  --share-hover-scale: 1.18;
+
   position: relative;
   width: 250px;
   height: 250px;
@@ -371,9 +319,9 @@
   left: 50%;
   top: 50%;
   z-index: 5;
-  width: 50px;
-  height: 50px;
-  margin: -25px;
+  width: var(--share-item-size);
+  height: var(--share-item-size);
+  margin: var(--share-item-margin);
   border-radius: 50%;
   background: #ffffff;
   color: var(--clr);
@@ -410,7 +358,7 @@
   pointer-events: auto;
   transform:
     rotate(calc(360deg / var(--items) * var(--i)))
-    translateX(94px)
+    translateX(var(--share-orbit))
     rotate(calc(-360deg / var(--items) * var(--i)))
     scale(1);
 }
@@ -419,9 +367,9 @@
   border-color: var(--clr);
   transform:
     rotate(calc(360deg / var(--items) * var(--i)))
-    translateX(94px)
+    translateX(var(--share-orbit))
     rotate(calc(-360deg / var(--items) * var(--i)))
-    scale(1.18);
+    scale(var(--share-hover-scale));
   box-shadow:
     0 18px 34px rgba(0, 0, 0, 0.46),
     0 0 0 7px color-mix(in srgb, var(--clr) 18%, transparent),
@@ -429,8 +377,7 @@
 }
 
 /* # BLACK ICON WHITE-GRAY SHADOW */
-.shareItem[style*="#111111"] .shareItemIcon svg,
-.shareItem[style*="#111111"] .textIcon {
+.shareItem[style*="#111111"] .shareItemIcon svg {
   filter:
     drop-shadow(0 0 4px rgba(255, 255, 255, 0.75))
     drop-shadow(0 0 10px rgba(210, 215, 222, 0.5));
@@ -454,18 +401,6 @@
 .shareItemIcon svg {
   width: 26px;
   height: 26px;
-}
-
-.textIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #111111;
-  font-size: 0.84rem;
-  font-weight: 900;
-  letter-spacing: 0.03em;
-  line-height: 1;
-  text-transform: uppercase;
 }
 
 /* # FOOTER BOTTOM */
@@ -504,59 +439,32 @@
   color: var(--hover-link-color-inverse);
 }
 
-/* # FOOTER RESPONSIVE 1024 */
+/* # FOOTER RESPONSIVE 1024 — CENTERED TABLET/MOBILE LAYOUT */
 @media (max-width: 1024px) {
   .footer {
-    --footer-overhang-space: 118px;
+    --footer-overhang-space: clamp(
+      80px,
+      calc(65.9px + 2.941vw),
+      96px
+    );
 
-    padding-top: 125px;
+    padding:
+      clamp(96px, calc(85.4px + 2.206vw), 108px)
+      0
+      clamp(22px, calc(20.2px + 0.368vw), var(--space-6));
   }
 
   .container {
-    padding: 0 var(--space-5);
+    padding-inline: clamp(
+      var(--space-3),
+      calc(8.5px + 0.735vw),
+      var(--space-4)
+    );
   }
 
   .logoLink {
-    width: 160px;
-    height: 160px;
-  }
-
-  .topRow {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .navArea {
-    grid-template-columns: 0.75fr 1.25fr;
-    gap: var(--space-8);
-  }
-
-  .shareSection {
-    max-width: 460px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .shareBlock {
-    left: 0;
-  }
-}
-
-/* # FOOTER RESPONSIVE 1024 — CENTERED TABLET LAYOUT */
-@media (max-width: 1024px) {
-  .footer {
-    --footer-overhang-space: 96px;
-
-    padding: 108px 0 var(--space-6);
-  }
-
-  .container {
-    padding: 0 var(--space-4);
-  }
-
-  .logoLink {
-    width: 140px;
-    height: 140px;
+    width: clamp(120px, calc(102.4px + 3.676vw), 140px);
+    height: clamp(120px, calc(102.4px + 3.676vw), 140px);
   }
 
   .topRow {
@@ -566,7 +474,12 @@
 
   .navArea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 22px;
+    row-gap: clamp(26px, calc(24.2px + 0.368vw), 28px);
+    column-gap: clamp(
+      var(--space-4),
+      calc(10.7px + 1.103vw),
+      22px
+    );
     text-align: center;
     align-items: start;
   }
@@ -576,9 +489,21 @@
   }
 
   .navTitle {
-    margin-bottom: var(--space-5);
-    padding-bottom: var(--space-4);
-    font-size: 1.2rem;
+    margin-bottom: clamp(
+      var(--space-4),
+      calc(12.5px + 0.735vw),
+      var(--space-5)
+    );
+    padding-bottom: clamp(
+      14px,
+      calc(12.2px + 0.368vw),
+      var(--space-4)
+    );
+    font-size: clamp(
+      1.05rem,
+      calc(0.918rem + 0.441vw),
+      1.2rem
+    );
   }
 
   .navTitle::after {
@@ -597,7 +522,11 @@
   }
 
   .navLink {
-    font-size: 0.84rem;
+    font-size: clamp(
+      0.78rem,
+      calc(0.727rem + 0.176vw),
+      0.84rem
+    );
   }
 
   .shareSection {
@@ -609,87 +538,46 @@
 
   .shareBlock {
     left: 0;
-    min-height: 270px;
-    padding: 0;
+    min-height: clamp(245px, calc(222.9px + 4.596vw), 270px);
   }
 
   .shareMenu {
-    width: 270px;
-    height: 270px;
+    --share-item-size: clamp(54px, calc(48.7px + 1.103vw), 60px);
+    --share-item-margin: clamp(
+      -30px,
+      calc(-24.4px - 0.551vw),
+      -27px
+    );
+    --share-orbit: clamp(92px, calc(84.9px + 1.471vw), 100px);
+    --share-hover-scale: 1.16;
+
+    width: clamp(245px, calc(222.9px + 4.596vw), 270px);
+    height: clamp(245px, calc(222.9px + 4.596vw), 270px);
   }
 
   .shareToggle {
-    width: 72px;
-    height: 72px;
+    width: clamp(66px, calc(60.7px + 1.103vw), 72px);
+    height: clamp(66px, calc(60.7px + 1.103vw), 72px);
   }
 
   .shareToggle svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .shareItem {
-    width: 60px;
-    height: 60px;
-    margin: -30px;
+    width: clamp(28px, calc(26.2px + 0.368vw), 30px);
+    height: clamp(28px, calc(26.2px + 0.368vw), 30px);
   }
 
   .shareItemIcon svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .textIcon {
-    font-size: 0.82rem;
-  }
-
-  .socialImageIcon {
-    width: 64px;
-    height: 64px;
-  }
-
-  .ludimusImageIcon {
-    width: 43px;
-    height: 43px;
-  }
-
-  .florbalexpertImageIcon {
-    width: 43px;
-    height: 43px;
+    width: clamp(28px, calc(26.2px + 0.368vw), 30px);
+    height: clamp(28px, calc(26.2px + 0.368vw), 30px);
   }
 
   .clubLinkImageIcon {
-    width: 43px;
-    height: 43px;
+    width: clamp(40px, calc(37.4px + 0.551vw), 43px);
+    height: clamp(40px, calc(37.4px + 0.551vw), 43px);
   }
 
   .ludimusClubLinkImageIcon {
-    width: 56px;
-    height: 56px;
-  }
-
-  .shareMenuOpen .shareItem {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(100px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1);
-  }
-
-  .shareItem:hover {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(100px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1.16);
-  }
-
-  .sharePlaceholder:hover {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(100px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1);
+    width: clamp(52px, calc(48.5px + 0.735vw), 56px);
+    height: clamp(52px, calc(48.5px + 0.735vw), 56px);
   }
 
   .bottom {
@@ -702,130 +590,11 @@
 
   .copyright,
   .privacyLink {
-    font-size: 0.76rem;
-  }
-}
-
-/* # FOOTER RESPONSIVE 480 */
-@media (max-width: 480px) {
-  .footer {
-    --footer-overhang-space: 80px;
-
-    padding-top: 96px;
-    padding-bottom: 22px;
-  }
-
-  .container {
-    padding: 0 var(--space-3);
-  }
-
-  .logoLink {
-    width: 120px;
-    height: 120px;
-  }
-
-  .navArea {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 26px var(--space-4);
-  }
-
-  .navTitle {
-    margin-bottom: var(--space-4);
-    padding-bottom: 14px;
-    font-size: 1.05rem;
-  }
-
-  .navLink {
-    font-size: 0.78rem;
-  }
-
-  .shareBlock {
-    min-height: 245px;
-    padding: 0;
-  }
-
-  .shareMenu {
-    width: 245px;
-    height: 245px;
-  }
-
-  .shareToggle {
-    width: 66px;
-    height: 66px;
-  }
-
-  .shareToggle svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .shareItem {
-    width: 54px;
-    height: 54px;
-    margin: -27px;
-  }
-
-  .shareItemIcon svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .textIcon {
-    font-size: 0.76rem;
-  }
-
-  .socialImageIcon {
-    width: 58px;
-    height: 58px;
-  }
-
-  .ludimusImageIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .florbalexpertImageIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .clubLinkImageIcon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .ludimusClubLinkImageIcon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .shareMenuOpen .shareItem {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(92px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1);
-  }
-
-  .shareItem:hover {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(92px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1.14);
-  }
-
-  .sharePlaceholder:hover {
-    transform:
-      rotate(calc(360deg / var(--items) * var(--i)))
-      translateX(92px)
-      rotate(calc(-360deg / var(--items) * var(--i)))
-      scale(1);
-  }
-
-  .copyright,
-  .privacyLink {
-    font-size: 0.72rem;
+    font-size: clamp(
+      0.72rem,
+      calc(0.685rem + 0.118vw),
+      0.76rem
+    );
   }
 }
 
