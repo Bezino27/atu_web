@@ -339,24 +339,6 @@
   letter-spacing: 0.04em;
 }
 
-.heroSubtitle {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  margin-bottom: 18px;
-  padding: 0 13px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-pill);
-  background: #0b1118;
-  color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
 .bannerTitle {
   position: relative;
   z-index: 3;
@@ -365,9 +347,9 @@
   max-width: min(100%, 48vw);
   margin: 0;
   color: #fff;
-  font-family: var(--font-unison), sans-serif !important;
-  font-weight: 700 !important;
-  font-style: normal !important;
+  font-family: var(--font-unison), sans-serif;
+  font-weight: 700;
+  font-style: normal;
   text-align: left;
   text-transform: uppercase;
   overflow-wrap: normal;
@@ -574,67 +556,6 @@
   color: #0b1118;
 }
 
-/* # SEASON */
-
-.heroMiniInfo {
-  position: absolute;
-  color: #fff;
-  white-space: nowrap;
-}
-
-.heroMiniInfoEditorial {
-  position: relative;
-
-  margin-top: 30px;
-  min-height: 0;
-  padding: 10px 14px 10px var(--space-4);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
-  background: rgba(7, 11, 17, 0.9);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-}
-
-.heroMiniInfoEditorial::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  background: #c8181f;
-}
-
-.heroMiniInfoEditorial .heroMiniLabel,
-.heroMiniInfoEditorial .heroMiniValue {
-  position: relative;
-  z-index: 1;
-  display: block;
-}
-
-.heroMiniLabel,
-.heroMiniValue {
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.heroMiniInfoEditorial .heroMiniLabel {
-  color: rgba(255, 255, 255, 0.55);
-  font-size: 0.62rem;
-  letter-spacing: 0.13em;
-}
-
-.heroMiniInfoEditorial .heroMiniValue {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
 /* # COUNTDOWN */
 
 .countdownWrapper {
@@ -690,23 +611,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.nextMatchMeta {
-  width: 100%;
-  margin-top: 14px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px var(--space-4);
-  align-items: center;
-  text-align: center;
-  color: var(--color-white);
-  font-size: var(--font-body-sm);
-  font-weight: 600;
-}
-
-.nextMatchMeta strong { font-weight: 800; }
-.nextMatchMeta span { opacity: 0.92; }
-
 @keyframes pulse {
   0% { transform: scale(0.95); opacity: 0.72; }
   70% { transform: scale(1.14); opacity: 1; }
@@ -732,14 +636,12 @@
   }
 
   .heroInner {
-    max-width: none;
     padding-right: var(--hero-content-gutter);
     padding-left: var(--hero-content-gutter);
   }
 
   .heroTextContent {
     width: min(560px, 56%);
-    transform: none;
   }
 
   .heroLeagueText { left: var(--hero-content-gutter); }
@@ -791,7 +693,6 @@
 
   .heroTextContent {
     width: min(510px, 58%);
-    transform: none;
   }
 
   .heroLeagueText {
@@ -813,10 +714,6 @@
     font-size: 0.95rem;
   }
 
-  .heroMiniInfoEditorial {
-    margin-top: var(--space-6);
-  }
-
   .heroBrandRight { display: none; }
 }
 
@@ -834,7 +731,6 @@
     --hero-content-bottom: 52px;
 
     padding-bottom: var(--space-14);
-    overflow: hidden;
   }
 
   .heroSection.heroSectionWithoutCountdown {
@@ -907,15 +803,13 @@
     );
   }
 
-  .heroBrandLeft,
-  .heroBrandRight {
+  .heroBrandLeft {
     display: none;
   }
 
   .heroInner {
     z-index: 4;
     min-height: 0;
-    max-width: none;
     padding:
       calc(var(--hero-photo-height) + var(--hero-title-offset))
       20px
@@ -927,7 +821,6 @@
     width: 100%;
     max-width: 620px;
     margin: 0;
-    transform: none;
   }
 
   .heroTextContentEditorial::before {
@@ -1016,10 +909,6 @@
     min-height: 42px;
     padding: 0 17px;
     font-size: 0.78rem;
-  }
-
-  .heroMiniInfoEditorial {
-    display: flex;
   }
 
   .countdownWrapper {
@@ -1151,8 +1040,7 @@
     overflow: visible;
   }
 
-  .heroSplitBanner,
-  .heroSplitBanner.bannerContainerCompact {
+  .heroSplitBanner {
     position: relative;
     min-height: 0;
     aspect-ratio: auto;
@@ -1224,7 +1112,6 @@
     flex-direction: column;
     align-items: center;
     gap: 0;
-    transform: none;
     text-align: center;
   }
 
@@ -1354,8 +1241,8 @@
   width: fit-content;
   max-width: 100%;
   font-size: clamp(4.25rem, 9vw, 9.6rem);
-  font-weight: 800 !important;
-  font-style: italic !important;
+  font-weight: 800;
+  font-style: italic;
   text-align: left;
   letter-spacing: -0.045em;
 }
@@ -1530,7 +1417,6 @@
     --hero-men-edge: clamp(8px, 2vw, 14px);
     --hero-artwork-mobile-ratio: 1490 / 1139;
 
-    min-height: 0;
     aspect-ratio: var(--hero-artwork-mobile-ratio);
     overflow: visible;
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
@@ -1578,7 +1464,6 @@
     position: absolute;
     z-index: 4;
     inset: 0;
-    min-height: 0;
     padding: 0 clamp(10px, 3vw, 22px);
     align-items: flex-end;
     justify-content: center;
@@ -1633,7 +1518,6 @@
 
   :is(.heroMenBanner, .heroArtworkBanner) .heroDescription,
   :is(.heroMenBanner, .heroArtworkBanner) .heroDescriptionEditorial {
-    display: block;
     max-width: min(560px, 86vw);
     margin: clamp(5px, 1.2vw, 9px) auto 0;
     font-size: clamp(0.64rem, 1.8vw, 0.82rem);
@@ -1728,37 +1612,12 @@
     padding-bottom: 28px;
   }
 
-  :is(.heroMenBanner, .heroArtworkBanner) {
-    min-height: 0;
-    aspect-ratio: var(--hero-artwork-mobile-ratio);
-  }
-
-  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleShort {
-    font-size: clamp(3.55rem, 16.5vw, 5.1rem);
-  }
-
   :is(.heroMenBanner, .heroArtworkBanner) .heroQuickNav {
     max-width: calc(100vw - 12px);
-  }
-
-  :is(.heroMenBanner, .heroArtworkBanner) .heroQuickLink {
-    min-width: 0;
   }
 
   :is(.heroMenBanner, .heroArtworkBanner) .countdownWrapper {
     top: 12px;
     width: calc(100% - 16px);
   }
-
-  :is(.heroMenBanner, .heroArtworkBanner) .countdownBar {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 360px) {
-  :is(.heroMenBanner, .heroArtworkBanner) {
-    min-height: 0;
-    aspect-ratio: var(--hero-artwork-mobile-ratio);
-  }
-
 }
