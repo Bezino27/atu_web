@@ -853,7 +853,7 @@
   }
 
   .articleSidebar_relatedItemTitle {
-    font-size: 0.92rem;
+    font-size: var(--font-body-compact);
 
     line-height: 1.24;
 

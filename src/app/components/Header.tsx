@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -46,6 +46,8 @@ type HeaderCta = {
   href: string;
   label: string;
 };
+
+type DesktopDropdown = "categories" | "contact" | null;
 
 function getNavigationIcon(page: NavigationPage): IconType {
   if (page.url === "/") return PiHouse;
@@ -172,7 +174,11 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [pinnedDropdown, setPinnedDropdown] =
+    useState<DesktopDropdown>(null);
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
+  const categoriesDropdownRef = useRef<HTMLDivElement>(null);
+  const contactDropdownRef = useRef<HTMLDivElement>(null);
   const [contactEmail, setContactEmail] = useState<string>(
     HEADER_DEFAULTS.contactEmail,
   );
@@ -195,22 +201,28 @@ export default function Header() {
     setMobileCategoriesOpen(false);
   };
 
-  const handleCategoriesToggle = () => {
-    const nextOpen = !categoriesOpen;
-    setCategoriesOpen(nextOpen);
+  const closeDesktopDropdowns = useCallback(() => {
+    setCategoriesOpen(false);
+    setContactOpen(false);
+    setPinnedDropdown(null);
+  }, []);
 
-    if (nextOpen) {
+  const handleCategoriesToggle = () => {
+    setPinnedDropdown((current) => {
+      const next = current === "categories" ? null : "categories";
+      setCategoriesOpen(next === "categories");
       setContactOpen(false);
-    }
+      return next;
+    });
   };
 
   const handleContactToggle = () => {
-    const nextOpen = !contactOpen;
-    setContactOpen(nextOpen);
-
-    if (nextOpen) {
+    setPinnedDropdown((current) => {
+      const next = current === "contact" ? null : "contact";
+      setContactOpen(next === "contact");
       setCategoriesOpen(false);
-    }
+      return next;
+    });
   };
 
   const handleMobileCategoriesToggle = () => {
@@ -225,6 +237,37 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target;
+
+      if (!(target instanceof Node)) return;
+
+      if (
+        categoriesDropdownRef.current?.contains(target) ||
+        contactDropdownRef.current?.contains(target)
+      ) {
+        return;
+      }
+
+      closeDesktopDropdowns();
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeDesktopDropdowns();
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeDesktopDropdowns]);
 
   useEffect(() => {
     let isMounted = true;
@@ -392,12 +435,18 @@ export default function Header() {
                   return (
                     <div
                       key={item.href}
+                      ref={categoriesDropdownRef}
                       className={styles.dropdown}
                       onMouseEnter={() => {
+                        if (pinnedDropdown !== null) return;
                         setCategoriesOpen(true);
                         setContactOpen(false);
                       }}
-                      onMouseLeave={() => setCategoriesOpen(false)}
+                      onMouseLeave={() => {
+                        if (pinnedDropdown === null) {
+                          setCategoriesOpen(false);
+                        }
+                      }}
                     >
                       <button
                         type="button"
@@ -429,7 +478,7 @@ export default function Header() {
                             <Link
                               key={category.href}
                               href={category.href}
-                              onClick={() => setCategoriesOpen(false)}
+                              onClick={closeDesktopDropdowns}
                             >
                               <span className={styles.dropdownDot} />
                               {category.label}
@@ -445,12 +494,18 @@ export default function Header() {
                   return (
                     <div
                       key={item.href}
+                      ref={contactDropdownRef}
                       className={styles.dropdown}
                       onMouseEnter={() => {
+                        if (pinnedDropdown !== null) return;
                         setContactOpen(true);
                         setCategoriesOpen(false);
                       }}
-                      onMouseLeave={() => setContactOpen(false)}
+                      onMouseLeave={() => {
+                        if (pinnedDropdown === null) {
+                          setContactOpen(false);
+                        }
+                      }}
                     >
                       <button
                         type="button"
@@ -480,14 +535,14 @@ export default function Header() {
 
                           <Link
                             href="/kontakt"
-                            onClick={() => setContactOpen(false)}
+                            onClick={closeDesktopDropdowns}
                           >
                             Kontaktné údaje
                           </Link>
 
                           <Link
                             href="/kontakt#dokumenty"
-                            onClick={() => setContactOpen(false)}
+                            onClick={closeDesktopDropdowns}
                           >
                             Dôležité dokumenty
                           </Link>

@@ -480,7 +480,7 @@
   }
 
   .headerLabel {
-    font-size: 0.8rem;
+    font-size: var(--font-label);
     letter-spacing: 0.08em;
   }
 
@@ -519,7 +519,7 @@
   }
 
   .dayName {
-    font-size: 0.92rem;
+    font-size: var(--font-body-compact);
     line-height: 1.18;
   }
 
@@ -538,7 +538,7 @@
     max-width: 160px;
     padding: 7px 12px;
     gap: 6px;
-    font-size: 0.8rem;
+    font-size: var(--font-label);
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;

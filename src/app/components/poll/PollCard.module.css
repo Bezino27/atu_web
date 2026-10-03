@@ -101,7 +101,7 @@
 .pollDescription {
   margin: 0px 0 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   line-height: 1.15;
 }
 
@@ -283,7 +283,7 @@
 
 .pollResultLabel {
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-weight: 800;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -297,7 +297,7 @@
 .pollResultValue {
   flex-shrink: 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
@@ -357,7 +357,7 @@
   color: var(--color-white);
   border: none;
   border-radius: var(--radius-pill);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -391,7 +391,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text-subtle);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 600;
   line-height: 1.4;
 }
@@ -407,7 +407,7 @@
 .pollErrorText {
   width: 100%;
   color: var(--color-red);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 700;
 }
 
@@ -552,7 +552,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 750;
   line-height: 1.35;
   white-space: nowrap;
@@ -600,7 +600,7 @@
 .pollEmptyText {
   margin: 0;
   color: var(--color-text-subtle);
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   font-weight: 600;
   max-width: 280px;
   line-height: 1.55;

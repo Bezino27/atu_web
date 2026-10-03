@@ -144,8 +144,17 @@
   --font-h3: clamp(1.25rem, 2vw, 1.6rem);
   --font-body-large: 1.05rem;
   --font-body: 1rem;
+  --font-body-compact: 0.92rem;
   --font-small: 0.875rem;
+  --font-label: 0.8rem;
   --font-meta: 0.75rem;
+
+  /* # TYPE RHYTHM */
+  --line-height-heading: 1.1;
+  --line-height-body: 1.6;
+  --line-height-reading: 1.85;
+  --line-height-meta: 1.4;
+  --letter-spacing-eyebrow: 0.75px;
 
   /* Existing section aliases keep their current responsive behaviour. */
   --font-section-eyebrow: 16px;
@@ -227,7 +236,7 @@ a {
   color: var(--color-text-muted);
   font-size: var(--font-section-eyebrow);
   font-weight: 700;
-  letter-spacing: 0.75px;
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
 }
 
@@ -256,7 +265,7 @@ a {
   justify-content: center;
   color: var(--color-text);
   text-decoration: none;
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-weight: 800;
   line-height: 1;
   white-space: nowrap;

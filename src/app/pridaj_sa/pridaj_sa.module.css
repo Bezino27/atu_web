@@ -621,7 +621,7 @@
   display: block;
   margin-top: 6px;
   color: var(--color-text-muted);
-  font-size: 0.92rem;
+  font-size: var(--font-body-compact);
   line-height: 1.5;
 }
 
@@ -643,7 +643,7 @@
 
 .formField label {
   color: var(--color-text);
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   font-weight: 700;
 }
 
@@ -853,7 +853,7 @@
   }
 
   .categoriesGrid {
-    gap: 14px;
+    gap: clamp(10px, 2.2vw, 14px);
   }
 
   .categoryCard {
@@ -862,39 +862,39 @@
 
   .categoryCard,
   .categoryCardContent {
-    min-height: 138px;
+    min-height: clamp(104px, 24vw, 138px);
   }
 
   .categoryCardContent {
-    padding: 17px 18px;
+    padding: clamp(11px, 3vw, 17px) clamp(12px, 3.4vw, 18px);
   }
 
   .categoryTop {
-    gap: 10px;
+    gap: clamp(7px, 2vw, 10px);
   }
 
   .categoryTitle {
-    font-size: 1rem;
+    font-size: clamp(0.82rem, 2.2vw, 0.92rem);
   }
 
   .categoryMeta {
-    padding: 0 10px;
-    min-height: 22px;
-    font-size: 0.66rem;
+    min-height: clamp(18px, 5vw, 22px);
+    padding: 0 clamp(7px, 2vw, 10px);
+    font-size: clamp(0.55rem, 1.55vw, 0.66rem);
   }
 
   .categoryWatermark {
-    right: 10px;
-    bottom: 10px;
-    font-size: clamp(3.8rem, 15vw, 5.2rem);
+    right: clamp(8px, 1.7vw, 10px);
+    bottom: clamp(8px, 1.7vw, 10px);
+    font-size: clamp(2.8rem, 14vw, 5.2rem);
   }
 
   .categoryArrow {
-    left: 14px;
-    bottom: 14px;
-    width: 25px;
-    height: 25px;
-    font-size: 0.78rem;
+    left: clamp(11px, 2.2vw, 14px);
+    bottom: clamp(11px, 2.2vw, 14px);
+    width: clamp(20px, 5.5vw, 25px);
+    height: clamp(20px, 5.5vw, 25px);
+    font-size: clamp(0.64rem, 1.8vw, 0.78rem);
   }
 
   .ctaText p,
@@ -1006,24 +1006,10 @@
     border-radius: var(--radius-md);
   }
 
-  .categoryCard,
-  .categoryCardContent {
-    min-height: 116px;
-  }
-
-  .categoryCardContent {
-    padding: 14px 14px;
-  }
-
-  .categoryTop {
-    gap: 10px;
-  }
-
   .categoryTitle {
     margin: 0;
     flex: 1;
     min-width: 0;
-    font-size: 0.9rem;
     line-height: 1;
     letter-spacing: 0.07em;
   }
@@ -1031,25 +1017,8 @@
   .categoryMeta {
     flex-shrink: 0;
     align-self: flex-start;
-    min-height: 20px;
-    font-size: 0.58rem;
-    padding: 0 8px;
     border-radius: var(--radius-pill);
     white-space: nowrap;
-  }
-
-  .categoryWatermark {
-    right: 8px;
-    bottom: 8px;
-    font-size: clamp(3.1rem, 16vw, 4.2rem);
-  }
-
-  .categoryArrow {
-    left: 12px;
-    bottom: 12px;
-    width: 22px;
-    height: 22px;
-    font-size: 0.7rem;
   }
 
   .ctaText p,

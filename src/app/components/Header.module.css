@@ -1865,7 +1865,7 @@
   }
 
   .logoText strong {
-    font-size: 0.88rem;
+    font-size: var(--font-small);
   }
 
   .menuButton {
@@ -1915,7 +1915,7 @@
     padding-left: var(--text-x);
     padding-right: 0;
 
-    font-size: 0.88rem;
+    font-size: var(--font-small);
   }
 
   .mobileSubmenuArrow {

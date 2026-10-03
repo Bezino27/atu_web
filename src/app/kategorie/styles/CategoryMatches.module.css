@@ -875,7 +875,11 @@
 }
 
 .recentMatchesHeader .resultsPanelTitle {
+  flex: 1 1 auto;
+  min-width: 0;
   margin-bottom: 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.3rem);
+  white-space: nowrap;
 }
 
 .recentLeagueBadge {
@@ -1413,5 +1417,11 @@
 
   .latestMatchTeams {
     grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 340px) {
+  .recentMatchesHeader .resultsPanelTitle {
+    white-space: normal;
   }
 }

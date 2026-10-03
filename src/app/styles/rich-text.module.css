@@ -1,8 +1,8 @@
 .richTextContent {
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-weight: 400;
-  line-height: 1.85;
+  line-height: var(--line-height-reading);
   overflow-wrap: anywhere;
 }
 

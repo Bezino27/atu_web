@@ -132,7 +132,7 @@
   text-align: center;
   font-size: var(--font-body);
   font-weight: 700;
-  line-height: 1.6;
+  line-height: var(--line-height-body);
   box-sizing: border-box;
 }
 

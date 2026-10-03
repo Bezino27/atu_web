@@ -977,11 +977,11 @@
   }
 
   .cardTitle {
-    font-size: 1rem;
+    font-size: var(--font-body);
   }
 
   .cardTitleLong {
-    font-size: 0.8rem;
+    font-size: var(--font-label);
   }
 
   .cardText {
@@ -1142,7 +1142,7 @@
   }
 
   .cardText {
-    font-size: 0.8rem;
+    font-size: var(--font-label);
 
     line-height: 1.34;
   }

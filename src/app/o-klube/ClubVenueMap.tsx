@@ -54,9 +54,49 @@ function MapAutoCenter({ location }: { location: HeroLocation | null }) {
   useEffect(() => {
     if (!location) return;
 
-    map.setView([location.lat, location.lng], map.getZoom(), {
-      animate: true,
-    });
+    let animationFrame = 0;
+
+    const positionLocation = () => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(() => {
+        map.invalidateSize({ animate: false, pan: false });
+        map.setView([location.lat, location.lng], map.getZoom(), {
+          animate: false,
+        });
+
+        animationFrame = requestAnimationFrame(() => {
+          const mapElement = map.getContainer();
+          const markerElement = mapElement.querySelector<HTMLElement>(
+            `.${styles.markerActive}`,
+          );
+
+          if (!markerElement) return;
+
+          const mapBounds = mapElement.getBoundingClientRect();
+          const markerBounds = markerElement.getBoundingClientRect();
+          const safeInset = 12;
+          const rightOverflow = Math.max(
+            0,
+            markerBounds.right - (mapBounds.right - safeInset),
+          );
+
+          if (rightOverflow > 0) {
+            map.panBy([rightOverflow, 0], { animate: false });
+          }
+        });
+      });
+    };
+
+    positionLocation();
+
+    const mapElement = map.getContainer();
+    const resizeObserver = new ResizeObserver(positionLocation);
+    resizeObserver.observe(mapElement);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+    };
   }, [map, location]);
 
   return null;

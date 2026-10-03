@@ -221,7 +221,7 @@
   display: inline-block;
   margin-bottom: 6px;
   color: var(--color-text-muted);
-  font-size: 0.74rem;
+  font-size: var(--font-meta);
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -233,7 +233,7 @@
   font-family: var(--font-sans), sans-serif;
   font-size: var(--font-panel-title);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: var(--line-height-heading);
   letter-spacing: -0.03em;
 }
 
@@ -478,7 +478,7 @@
 
 .recentMatchDate {
   color: var(--color-text-muted);
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   font-weight: 600;
   text-align: right;
 }
@@ -1088,7 +1088,7 @@
 
   .table tbody td {
     padding: 14px 10px;
-    font-size: 0.88rem;
+    font-size: var(--font-small);
   }
 
   .positionBadge {
@@ -2590,7 +2590,7 @@
     padding-left: 12px;
   }
   .topNewsSmallContent h3 {
-    font-size: 0.88rem;
+    font-size: var(--font-small);
   }
   .topNewsSmallArrow {
     right: 9px;
@@ -2612,7 +2612,7 @@
     font-size: 0.61rem;
   }
   .topNewsMobileList :global(.articleSidebar_relatedItemTitle) {
-    font-size: 0.88rem;
+    font-size: var(--font-small);
   }
   .topNewsMobileList :global(.articleSidebar_relatedDate) {
     font-size: 0.66rem;

@@ -1594,15 +1594,24 @@
   }
 
   :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleMedium {
-    font-size: clamp(3.25rem, 14.5vw, 6.4rem);
+    max-width: calc(100% - 8px);
+    font-size: clamp(2.5rem, 11vw, 5.2rem);
   }
 
-  :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleLong {
-    font-size: clamp(2.95rem, 12.8vw, 5.7rem);
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
+    .bannerTitle.heroTitleLong {
+    max-width: calc(100% - 8px);
+    font-size: clamp(1.25rem, 8.5vw, 4.1rem);
   }
 
   :is(.heroMenBanner, .heroArtworkBanner) .bannerTitle.heroTitleExtraLong {
     font-size: clamp(2.7rem, 11.5vw, 5.1rem);
+  }
+
+  :is(.heroMenBanner, .heroArtworkBanner, .heroSplitBanner)
+    .bannerTitle.heroTitleExtraLong:not(.heroTitleMultiline) {
+    max-width: calc(100% - 8px);
+    font-size: clamp(1rem, 5.4vw, 2.65rem);
   }
 
   :is(.heroMenBanner, .heroArtworkBanner) .heroDescription,

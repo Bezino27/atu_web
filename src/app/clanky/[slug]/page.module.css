@@ -92,9 +92,9 @@
 
   color: rgba(255, 255, 255, 0.58);
 
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 650;
-  line-height: 1.4;
+  line-height: var(--line-height-meta);
 
   transform: translateY(22px);
 }
@@ -235,7 +235,7 @@
 
   color: rgba(255, 255, 255, 0.72);
 
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-weight: 650;
   line-height: 1.2;
 }
@@ -306,7 +306,7 @@
 .authorMetaText span {
   color: rgba(255, 255, 255, 0.52);
 
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   line-height: 1.15;
 }
 
@@ -566,7 +566,7 @@
 .articleContent :global(blockquote p) {
   margin: 0;
 
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-style: italic;
   font-weight: 500;
   line-height: 1.58;
@@ -986,7 +986,7 @@
 
     color: rgba(255, 255, 255, 0.8);
 
-    font-size: 1rem;
+    font-size: var(--font-body);
 
     line-height: 1.52;
   }
@@ -1149,7 +1149,7 @@
 
     font-size: 1.02rem;
 
-    line-height: 1.6;
+    line-height: var(--line-height-body);
   }
 
   .articleContent :global(p:first-of-type) {
@@ -1270,7 +1270,7 @@
   }
 
   .authorMetaText strong {
-    font-size: 0.8rem;
+    font-size: var(--font-label);
   }
 
   .authorMetaText span {

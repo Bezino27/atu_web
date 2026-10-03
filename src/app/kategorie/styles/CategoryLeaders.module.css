@@ -1206,14 +1206,14 @@
   .playerCardRank1,
   .playerCardRank2,
   .playerCardRank3 {
-    padding: 12px;
+    padding: 10px;
   }
 
   .playerCardBody {
     grid-template-columns:
-      minmax(0, 0.51fr)
-      minmax(136px, 0.49fr);
-    gap: 10px;
+      minmax(0, 1fr)
+      minmax(128px, 0.9fr);
+    gap: 8px;
     align-items: start;
   }
 
@@ -1232,7 +1232,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
     max-width: none;
-    gap: 6px;
+    gap: 5px;
   }
 
   .statItem {
@@ -1253,8 +1253,8 @@
     aspect-ratio: 4 / 5;
     min-height: 0;
     height: auto;
-    max-height: 205px;
-    margin-top: 64px;
+    max-height: 195px;
+    margin-top: 60px;
     align-self: end;
   }
 

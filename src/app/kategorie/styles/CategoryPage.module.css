@@ -92,7 +92,7 @@
   color: var(--color-text-muted);
   font-size: var(--font-section-eyebrow);
   font-weight: 700;
-  letter-spacing: 0.75px;
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
 }
 
@@ -128,7 +128,7 @@
   font-size: var(--font-panel-title);
   font-weight: 300;
   font-style: italic;
-  line-height: 1.1;
+  line-height: var(--line-height-heading);
   letter-spacing: -0.03em;
 }
 
