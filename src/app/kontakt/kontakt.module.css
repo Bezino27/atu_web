@@ -38,10 +38,13 @@
 /* # CONTACT SHOWCASE */
 
 .contactShowcase {
+  --contact-showcase-height: clamp(520px, 50vw, 570px);
+  --contact-map-height: var(--contact-showcase-height);
+
   position: relative;
   isolation: isolate;
   width: 100%;
-  min-height: 570px;
+  min-height: var(--contact-showcase-height);
   overflow: hidden;
   border: 1px solid rgba(17, 24, 39, 0.08);
   border-radius: 28px;
@@ -56,7 +59,7 @@
 .contactMapLayer {
   position: absolute;
   z-index: 0;
-  inset: 0 0 0 35%;
+  inset: 0 0 0 34%;
   overflow: hidden;
 }
 
@@ -99,12 +102,16 @@
 .contactContent {
   position: relative;
   z-index: 4;
-  width: min(47%, 535px);
-  min-height: 570px;
+  width: min(clamp(500px, calc(230px + 26.4vw), 535px), 56%);
+  min-height: var(--contact-showcase-height);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 38px 0 38px 42px;
+  padding:
+    clamp(30px, calc(-24px + 5.3vw), 38px)
+    0
+    clamp(30px, calc(-24px + 5.3vw), 38px)
+    clamp(28px, calc(-26px + 5.3vw), 42px);
   box-sizing: border-box;
 }
 
@@ -354,11 +361,15 @@
 /* # CONTACT MAP */
 
 .contactMapWrap {
+  --map-control-size: clamp(32px, 2.36vw, 34px);
+  --map-control-font-size: clamp(15px, 1.11vw, 16px);
+  --map-control-margin: clamp(var(--space-3), 1.25vw, 18px);
+
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  min-height: 570px;
+  min-height: var(--contact-map-height);
   overflow: hidden;
   background: var(--color-surface);
 }
@@ -366,7 +377,7 @@
 .leafletMap {
   width: 100%;
   height: 100%;
-  min-height: 570px;
+  min-height: var(--contact-map-height);
 }
 
 /* # MAP MARKER */
@@ -491,7 +502,7 @@
 .contactMapWrap :global(.leaflet-container) {
   width: 100%;
   height: 100%;
-  min-height: 570px;
+  min-height: var(--contact-map-height);
 }
 
 .contactMapWrap :global(.leaflet-control-container) {
@@ -504,22 +515,22 @@
 
 .contactMapWrap :global(.leaflet-control-zoom) {
   z-index: 10 !important;
-  margin: 18px !important;
+  margin: var(--map-control-margin) !important;
   border: none !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
 .contactMapWrap :global(.leaflet-control-zoom-in),
 .contactMapWrap :global(.leaflet-control-zoom-out) {
-  width: 34px !important;
-  height: 34px !important;
+  width: var(--map-control-size) !important;
+  height: var(--map-control-size) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   background-color: rgba(255, 255, 255, 0.92) !important;
   color: var(--color-text) !important;
   border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  font-size: 16px !important;
+  font-size: var(--map-control-font-size) !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   transition:
@@ -553,7 +564,7 @@
 .mapLoading {
   width: 100%;
   height: 100%;
-  min-height: 570px;
+  min-height: var(--contact-map-height);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -870,31 +881,6 @@ background 0.3s ease;
   line-height: 1.5;
 }
 
-/* # 1100 */
-
-@media (max-width: 1100px) {
-  .contactShowcase {
-    min-height: 545px;
-  }
-
-  .contactMapLayer {
-    inset: 0 0 0 32%;
-  }
-
-  .contactContent {
-    width: min(52%, 520px);
-    min-height: 545px;
-    padding: 34px 0 34px var(--space-8);
-  }
-
-  .contactMapWrap,
-  .leafletMap,
-  .mapLoading,
-  .contactMapWrap :global(.leaflet-container) {
-    min-height: 545px;
-  }
-}
-
 /* # 1024 */
 
 @media (max-width: 1024px) {
@@ -916,20 +902,6 @@ background 0.3s ease;
     padding-top: 30px;
   }
 
-  .contactShowcase {
-    min-height: 520px;
-  }
-
-  .contactMapLayer {
-    inset: 0 0 0 34%;
-  }
-
-  .contactContent {
-    width: min(56%, 500px);
-    min-height: 520px;
-    padding: 30px 0 30px 28px;
-  }
-
   .contactIntro {
     margin-bottom: var(--space-5);
   }
@@ -944,24 +916,6 @@ background 0.3s ease;
 
   .contactInfoItem {
     padding: 10px 0;
-  }
-
-  .contactMapWrap,
-  .leafletMap,
-  .mapLoading,
-  .contactMapWrap :global(.leaflet-container) {
-    min-height: 520px;
-  }
-
-  .contactMapWrap :global(.leaflet-control-zoom) {
-    margin: var(--space-3) !important;
-  }
-
-  .contactMapWrap :global(.leaflet-control-zoom-in),
-  .contactMapWrap :global(.leaflet-control-zoom-out) {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 15px !important;
   }
 
   .documentsSection {
@@ -984,6 +938,8 @@ background 0.3s ease;
 
 @media (max-width: 820px) {
   .contactShowcase {
+    --contact-map-height: clamp(300px, calc(-143px + 57.7vw), 330px);
+
     display: flex;
     min-height: 0;
     flex-direction: column;
@@ -994,7 +950,7 @@ background 0.3s ease;
     inset: auto;
     order: 2;
     width: 100%;
-    height: 330px;
+    height: var(--contact-map-height);
   }
 
   .contactMapLayer::before {
@@ -1034,8 +990,8 @@ background 0.3s ease;
   .leafletMap,
   .mapLoading,
   .contactMapWrap :global(.leaflet-container) {
-    height: 330px;
-    min-height: 330px;
+    height: var(--contact-map-height);
+    min-height: var(--contact-map-height);
   }
 }
 
@@ -1061,6 +1017,8 @@ background 0.3s ease;
   }
 
   .contactShowcase {
+    --contact-map-height: clamp(260px, calc(20px + 50vw), 300px);
+
     border-radius: var(--radius-xl);
   }
 
@@ -1093,47 +1051,46 @@ background 0.3s ease;
     margin-top: 18px;
   }
 
-  .contactMapLayer {
-    height: 300px;
-  }
-
-  .contactMapWrap,
-  .leafletMap,
-  .mapLoading,
-  .contactMapWrap :global(.leaflet-container) {
-    height: 300px;
-    min-height: 300px;
+  .contactMapWrap {
+    --map-control-size: clamp(28px, 3.9vw, 30px);
+    --map-control-font-size: clamp(13px, 1.83vw, 14px);
+    --map-control-margin: clamp(var(--space-2), 1.3vw, 10px);
   }
 
   .markerDot {
-    width: 38px;
-    height: 49px;
+    width: clamp(32px, calc(22px + 2.1vw), 38px);
+    height: clamp(41px, calc(27.6px + 2.8vw), 49px);
   }
 
   .markerLabel {
-    max-width: 165px;
-    padding: var(--space-2) var(--space-3);
-    border-radius: 14px;
+    --marker-tail-size: clamp(10px, 1.56vw, 12px);
+
+    max-width: clamp(140px, calc(98.2px + 8.7vw), 165px);
+    padding:
+      clamp(7px, calc(5.3px + 0.35vw), var(--space-2))
+      clamp(10px, calc(6.65px + 0.7vw), var(--space-3));
+    border-radius: clamp(var(--radius-md), calc(8.65px + 0.7vw), 14px);
+  }
+
+  .markerLabel::before {
+    left: calc(var(--marker-tail-size) / -2);
+    width: var(--marker-tail-size);
+    height: var(--marker-tail-size);
   }
 
   .markerLabel strong {
-    font-size: 13px;
+    font-size: clamp(12px, calc(10.33px + 0.35vw), 13px);
   }
 
   .markerLabel span {
-    font-size: 10.5px;
+    margin-top: clamp(2px, calc(0.33px + 0.35vw), 3px);
+    font-size: clamp(9.5px, calc(7.83px + 0.35vw), 10.5px);
     line-height: 1.22;
   }
 
-  .contactMapWrap :global(.leaflet-control-zoom) {
-    margin: 10px !important;
-  }
-
-  .contactMapWrap :global(.leaflet-control-zoom-in),
-  .contactMapWrap :global(.leaflet-control-zoom-out) {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 14px !important;
+  .customMarker:hover .markerLabel,
+  .markerActive .markerLabel {
+    transform: translateX(clamp(1px, calc(-2.35px + 0.7vw), 3px));
   }
 
   .documentsAnchor {
@@ -1223,62 +1180,6 @@ background 0.3s ease;
 
   .contactCopyButton {
     margin-top: var(--space-4);
-  }
-
-  .contactMapLayer {
-    height: 260px;
-  }
-
-  .contactMapWrap,
-  .leafletMap,
-  .mapLoading,
-  .contactMapWrap :global(.leaflet-container) {
-    height: 260px;
-    min-height: 260px;
-  }
-
-  .markerDot {
-    width: 32px;
-    height: 41px;
-  }
-
-  .markerLabel {
-    max-width: 140px;
-    padding: 7px 10px;
-    border-radius: var(--radius-md);
-  }
-
-  .markerLabel::before {
-    left: -5px;
-    width: 10px;
-    height: 10px;
-  }
-
-  .markerLabel strong {
-    font-size: 12px;
-    line-height: 1.12;
-  }
-
-  .markerLabel span {
-    margin-top: 2px;
-    font-size: 9.5px;
-    line-height: 1.22;
-  }
-
-  .customMarker:hover .markerLabel,
-  .markerActive .markerLabel {
-    transform: translateX(1px);
-  }
-
-  .contactMapWrap :global(.leaflet-control-zoom) {
-    margin: var(--space-2) !important;
-  }
-
-  .contactMapWrap :global(.leaflet-control-zoom-in),
-  .contactMapWrap :global(.leaflet-control-zoom-out) {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 13px !important;
   }
 
   .documentsSection {
