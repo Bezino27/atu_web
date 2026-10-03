@@ -949,6 +949,111 @@
 }
 
 /* ######################################################### */
+/* # HOMEPAGE PREVIEW VARIANT                              # */
+/* ######################################################### */
+
+@media (max-width: 900px) {
+  .articleSidebar_homepageRelatedItem {
+    grid-template-columns: 150px minmax(0, 1fr) 48px;
+    min-height: 170px;
+    gap: 18px;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedThumb {
+    width: 150px;
+    border-radius: 10px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedContent {
+    gap: 7px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_categoryBadge {
+    min-height: 28px;
+    padding-inline: 11px;
+    font-size: 0.68rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedItemTitle {
+    font-size: 1.08rem;
+    line-height: 1.22;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedDate {
+    font-size: 0.78rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedArrow {
+    width: 46px;
+    height: 46px;
+  }
+
+  .articleSidebar_homepageBottomCta {
+    margin-top: var(--space-1);
+  }
+}
+
+@media (max-width: 560px) {
+  .articleSidebar_homepageRelatedItem {
+    grid-template-columns: 126px minmax(0, 1fr) 40px;
+    min-height: 146px;
+    gap: 13px;
+    padding: 11px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedThumb {
+    width: 126px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedItemTitle {
+    font-size: 0.98rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedDate {
+    font-size: 0.72rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedArrow {
+    width: 39px;
+    height: 39px;
+  }
+}
+
+@media (max-width: 400px) {
+  .articleSidebar_homepageRelatedItem {
+    grid-template-columns: 102px minmax(0, 1fr) 34px;
+    min-height: 124px;
+    gap: 10px;
+    padding: 9px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedThumb {
+    width: 102px;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_categoryBadge {
+    min-height: 25px;
+    padding-inline: 9px;
+    font-size: 0.61rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedItemTitle {
+    font-size: var(--font-small);
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedDate {
+    font-size: 0.66rem;
+  }
+
+  .articleSidebar_homepageRelatedItem .articleSidebar_relatedArrow {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* ######################################################### */
 /* # REDUCED MOTION                                        # */
 /* ######################################################### */
 

@@ -26,6 +26,11 @@ type ArticleSidebarProps = {
 
 type ArticlePreviewCardProps = {
   post: Post;
+  variant?: "default" | "homepage";
+};
+
+type AllArticlesLinkProps = {
+  variant?: "default" | "homepage";
 };
 
 const PRODUCTION_ORIGIN = "https://atukosice.sk";
@@ -73,6 +78,8 @@ const styles = {
   relatedArrow: "articleSidebar_relatedArrow",
 
   bottomCta: "articleSidebar_bottomCta",
+  homepageRelatedItem: "articleSidebar_homepageRelatedItem",
+  homepageBottomCta: "articleSidebar_homepageBottomCta",
 } as const;
 
 /* ######################################################### */
@@ -95,14 +102,22 @@ function formatDate(value?: string | null) {
   });
 }
 
-export function ArticlePreviewCard({ post }: ArticlePreviewCardProps) {
+export function ArticlePreviewCard({
+  post,
+  variant = "default",
+}: ArticlePreviewCardProps) {
   const image = post.featured_image
     ? getImageUrl(post.featured_image)
     : null;
   const date = post.published_at || post.updated_at;
 
   return (
-    <Link href={`/clanky/${post.slug}`} className={styles.relatedItem}>
+    <Link
+      href={`/clanky/${post.slug}`}
+      className={`${styles.relatedItem} ${
+        variant === "homepage" ? styles.homepageRelatedItem : ""
+      }`}
+    >
       <div className={styles.relatedThumb}>
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -131,9 +146,16 @@ export function ArticlePreviewCard({ post }: ArticlePreviewCardProps) {
   );
 }
 
-export function AllArticlesLink() {
+export function AllArticlesLink({
+  variant = "default",
+}: AllArticlesLinkProps = {}) {
   return (
-    <Link href="/clanky" className={styles.bottomCta}>
+    <Link
+      href="/clanky"
+      className={`${styles.bottomCta} ${
+        variant === "homepage" ? styles.homepageBottomCta : ""
+      }`}
+    >
       <span>Všetky články</span>
       <span aria-hidden="true"><ArrowRightIcon /></span>
     </Link>

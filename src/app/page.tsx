@@ -335,9 +335,13 @@ export default async function HomePage() {
             </div>
             <div className={styles.topNewsMobileList}>
               {sideArticles.map((article) => (
-                <ArticlePreviewCard key={article.id} post={article} />
+                <ArticlePreviewCard
+                  key={article.id}
+                  post={article}
+                  variant="homepage"
+                />
               ))}
-              <AllArticlesLink />
+              <AllArticlesLink variant="homepage" />
             </div>
           </div>
         ) : (
@@ -397,7 +401,7 @@ export default async function HomePage() {
 
     return (
       <section key={section.id} className="sectionContainer">
-        <div className={`resultsHeader ${styles.clubContentHeader}`}>
+        <div className="resultsHeader">
           <div>
             <span className="preTitle">
               {getSectionPreTitle(section, "Klubový obsah")}
