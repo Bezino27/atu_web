@@ -28,12 +28,16 @@ function getVideoEmbed(videoUrl?: string | null): VideoEmbed | null {
 
     if (hostname === "youtu.be") {
       const id = pathname.split("/").filter(Boolean)[0];
-      return id ? { type: "youtube", src: `https://www.youtube.com/embed/${id}` } : null;
+      return id
+        ? { type: "youtube", src: `https://www.youtube-nocookie.com/embed/${id}` }
+        : null;
     }
 
     if (hostname === "youtube.com" || hostname === "www.youtube.com") {
       const id = url.searchParams.get("v");
-      return id ? { type: "youtube", src: `https://www.youtube.com/embed/${id}` } : null;
+      return id
+        ? { type: "youtube", src: `https://www.youtube-nocookie.com/embed/${id}` }
+        : null;
     }
 
     if (hostname === "vimeo.com" || hostname === "www.vimeo.com") {
