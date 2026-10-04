@@ -373,7 +373,6 @@ export default async function PridajSaPage() {
             wrapperClassName={styles.heroLoadZoom}
             imageClassName={styles.heroBackgroundImage}
             priority
-            unoptimized
             scrollZoom={1.05}
             scrollDistance={0.2}
             smoothing={0.12}

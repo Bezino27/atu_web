@@ -86,6 +86,12 @@
   opacity: 1;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .featuredMatchCard::before {
+    animation: none;
+  }
+}
+
 .featuredMatchCardTop {
   display: flex;
   align-items: center;
@@ -433,7 +439,7 @@
   border-color: rgba(255, 255, 255, 0.1);
   background:
     linear-gradient(105deg, rgba(5, 7, 9, 0.58), rgba(9, 12, 15, 0.46)),
-    url("/atu-article-bg.png") center 45% / cover no-repeat;
+    url("/atu-article-bg.webp") center 45% / cover no-repeat;
   box-shadow:
     0 14px 32px rgba(15, 23, 42, 0.08),
     inset 0 0 0 1px rgba(255, 255, 255, 0.35);

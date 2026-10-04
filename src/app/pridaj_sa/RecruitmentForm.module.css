@@ -94,7 +94,7 @@
 .inputWrap input::placeholder,
 .inputWrap textarea::placeholder,
 .dateInput::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
   font-weight: 500;
 }
 
@@ -106,6 +106,13 @@
   box-shadow:
     0 0 0 4px rgba(211, 15, 29, 0.08),
     0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.inputWrap input:focus-visible,
+.inputWrap textarea:focus-visible,
+.dateInput:focus-visible {
+  outline: 3px solid var(--color-red);
+  outline-offset: 2px;
 }
 
 .inputIcon {
@@ -214,6 +221,7 @@
 }
 
 .datePickerNavButton {
+  position: relative;
   width: 36px;
   height: 36px;
   border: 1px solid rgba(17, 24, 39, 0.08);
@@ -230,6 +238,18 @@
     background var(--hover-duration-fast) var(--hover-ease),
     border-color var(--hover-duration-fast) var(--hover-ease),
     transform var(--hover-duration-fast) var(--hover-ease);
+}
+
+.datePickerNavButton::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+.datePickerNavButton:focus-visible,
+.datePickerSelect:focus-visible {
+  outline: 3px solid var(--color-red);
+  outline-offset: 2px;
 }
 
 .datePickerNavButton:hover:not(:disabled) {
@@ -795,7 +815,7 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  color: #8b8f98;
+  color: #666b73;
   font-size: var(--font-body-compact);
   font-weight: 700;
   line-height: 1.35;
@@ -806,7 +826,7 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: #8b8f98;
+  color: #666b73;
 }
 
 .safeNoticeIcon svg {

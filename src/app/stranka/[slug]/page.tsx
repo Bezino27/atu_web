@@ -502,7 +502,7 @@ export default async function CustomPage({ params }: PageProps) {
               alt=""
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 1300px"
+              sizes="(min-width: 1300px) 1300px, 100vw"
               className={styles.heroImage}
             />
           )}

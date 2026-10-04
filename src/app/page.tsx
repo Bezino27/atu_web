@@ -283,7 +283,7 @@ export default async function HomePage() {
                     </time>
                   ) : null}
                 </div>
-                <h1>{heroArticle.title}</h1>
+                <h2>{heroArticle.title}</h2>
                 <span className={styles.topNewsMainArrow} aria-hidden="true">
                   <PiArrowRight />
                 </span>
@@ -303,13 +303,12 @@ export default async function HomePage() {
                     className={styles.topNewsSmall}
                   >
                     <div className={styles.topNewsSmallImageWrap}>
-                      {/* Keep the complete source image visible in the compact preview. */}
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={getImageUrl(article.featured_image)}
                         alt={article.title}
+                        fill
+                        sizes="(max-width: 900px) 0px, 420px"
                         className={styles.cardImage}
-                        loading="lazy"
                       />
                       <div className={styles.imageOverlay} />
                     </div>

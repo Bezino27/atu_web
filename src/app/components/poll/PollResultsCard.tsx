@@ -146,6 +146,7 @@ export default function PollResultsCard({ result }: PollResultsCardProps) {
               onClick={highlightEndedPoll}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
                   highlightEndedPoll();
                 }
               }}
@@ -193,6 +194,7 @@ export default function PollResultsCard({ result }: PollResultsCardProps) {
                 onClick={highlightEndedPoll}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
                     highlightEndedPoll();
                   }
                 }}

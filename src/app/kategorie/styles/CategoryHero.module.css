@@ -28,7 +28,7 @@
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   background:
     linear-gradient(90deg, rgba(5, 8, 13, 0.08), rgba(5, 8, 13, 0.08)),
-    url("/atu-article-bg.png") right center / auto 100% no-repeat,
+    url("/atu-article-bg.webp") right center / auto 100% no-repeat,
     #05080d;
   isolation: isolate;
 }
@@ -45,7 +45,7 @@
 
   width: calc(36% + 100px);
 
-  background: url("/atu-article-bg.png") right center / auto 100% no-repeat;
+  background: url("/atu-article-bg.webp") right center / auto 100% no-repeat;
 
   -webkit-mask-image: linear-gradient(
     90deg,
@@ -744,7 +744,7 @@
     min-height: 0;
     background:
       linear-gradient(180deg, rgba(5, 8, 13, 0.04), rgba(5, 8, 13, 0.12)),
-      url("/atu-article-bg.png") center bottom / cover no-repeat,
+      url("/atu-article-bg.webp") center bottom / cover no-repeat,
       #05080d;
   }
 

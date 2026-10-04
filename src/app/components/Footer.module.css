@@ -439,6 +439,17 @@
   color: var(--hover-link-color-inverse);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .shareToggle,
+  .shareItem {
+    transition: none;
+  }
+
+  .shareMenuOpen .shareToggle {
+    transform: none;
+  }
+}
+
 /* # FOOTER RESPONSIVE 1024 — CENTERED TABLET/MOBILE LAYOUT */
 @media (max-width: 1024px) {
   .footer {

@@ -788,6 +788,8 @@
 .menuButton {
   width: 54px;
   height: 54px;
+  min-width: 44px;
+  min-height: 44px;
 
   border: none;
 

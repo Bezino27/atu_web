@@ -61,7 +61,7 @@ function normalizeMediaPath(path: string) {
 
 export function normalizeMediaUrl(
   image?: string | null,
-  fallback = "/images/news1.jpg",
+  fallback = "/images/news1.webp",
 ): string {
   if (!image) return fallback;
 

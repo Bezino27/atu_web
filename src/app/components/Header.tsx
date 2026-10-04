@@ -36,6 +36,10 @@ type NavItem = {
 
 const headerLinkIconTypes = new Set(["instagram", "youtube", "facebook"]);
 const CLUB_SLUG = "atu-kosice";
+const CATEGORIES_MENU_ID = "header-categories-menu";
+const CONTACT_MENU_ID = "header-contact-menu";
+const MOBILE_MENU_ID = "header-mobile-menu";
+const MOBILE_CATEGORIES_ID = "header-mobile-categories";
 
 type CategoryItem = {
   href: string;
@@ -179,6 +183,7 @@ export default function Header() {
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
   const categoriesDropdownRef = useRef<HTMLDivElement>(null);
   const contactDropdownRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [contactEmail, setContactEmail] = useState<string>(
     HEADER_DEFAULTS.contactEmail,
   );
@@ -257,6 +262,11 @@ export default function Header() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeDesktopDropdowns();
+
+        if (menuOpen) {
+          closeMenu();
+          menuButtonRef.current?.focus();
+        }
       }
     };
 
@@ -267,7 +277,7 @@ export default function Header() {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [closeDesktopDropdowns]);
+  }, [closeDesktopDropdowns, menuOpen]);
 
   useEffect(() => {
     let isMounted = true;
@@ -453,6 +463,8 @@ export default function Header() {
                         className={styles.navLink}
                         onClick={handleCategoriesToggle}
                         aria-expanded={categoriesOpen}
+                        aria-controls={CATEGORIES_MENU_ID}
+                        aria-haspopup="true"
                       >
                         <Icon className={styles.navIcon} aria-hidden="true" />
                         <span>{item.label}</span>
@@ -465,9 +477,11 @@ export default function Header() {
                       </button>
 
                       <div
+                        id={CATEGORIES_MENU_ID}
                         className={`${styles.dropdownMenu} ${
                           categoriesOpen ? styles.show : ""
                         }`}
+                        inert={!categoriesOpen}
                       >
                         <div className={styles.dropdownContent}>
                           <span className={styles.dropdownLabel}>
@@ -512,6 +526,8 @@ export default function Header() {
                         className={styles.navLink}
                         onClick={handleContactToggle}
                         aria-expanded={contactOpen}
+                        aria-controls={CONTACT_MENU_ID}
+                        aria-haspopup="true"
                       >
                         <Icon className={styles.navIcon} aria-hidden="true" />
                         <span>{item.label}</span>
@@ -524,9 +540,11 @@ export default function Header() {
                       </button>
 
                       <div
+                        id={CONTACT_MENU_ID}
                         className={`${styles.dropdownMenu} ${
                           contactOpen ? styles.show : ""
                         }`}
+                        inert={!contactOpen}
                       >
                         <div className={styles.dropdownContent}>
                           <span className={styles.dropdownLabel}>
@@ -575,13 +593,15 @@ export default function Header() {
               ) : null}
 
               <button
+                ref={menuButtonRef}
                 type="button"
                 className={`${styles.menuButton} ${
                   menuOpen ? styles.menuButtonOpen : ""
                 }`}
                 onClick={() => setMenuOpen((prev) => !prev)}
-                aria-label="Otvoriť menu"
+                aria-label={menuOpen ? "Zavrieť menu" : "Otvoriť menu"}
                 aria-expanded={menuOpen}
+                aria-controls={MOBILE_MENU_ID}
               >
                 <span />
                 <span />
@@ -594,9 +614,12 @@ export default function Header() {
 
       {/* MOBILE MENU */}
       <div
+        id={MOBILE_MENU_ID}
         className={`${styles.mobileMenu} ${
           menuOpen ? styles.mobileMenuOpen : ""
         }`}
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
         <div className={styles.container}>
           <nav className={styles.mobileNav}>
@@ -611,6 +634,7 @@ export default function Header() {
                       className={styles.mobileNavToggle}
                       onClick={handleMobileCategoriesToggle}
                       aria-expanded={mobileCategoriesOpen}
+                      aria-controls={MOBILE_CATEGORIES_ID}
                     >
                       <span className={styles.mobileNavLabel}>
                         <Icon
@@ -629,9 +653,12 @@ export default function Header() {
                     </button>
 
                     <div
+                      id={MOBILE_CATEGORIES_ID}
                       className={`${styles.mobileSubmenu} ${
                         mobileCategoriesOpen ? styles.mobileSubmenuOpen : ""
                       }`}
+                      aria-hidden={!mobileCategoriesOpen}
+                      inert={!mobileCategoriesOpen}
                     >
                       <MobileYouthTree
                         itemCount={youthItems.length}

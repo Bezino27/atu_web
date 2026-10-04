@@ -44,7 +44,7 @@ export default function Novinky({ posts }: NovinkyProps) {
                   src={getImageUrl(item.featured_image)}
                   alt={item.title}
                   fill
-                  sizes="(max-width: 768px) 92vw, 380px"
+                  sizes="(max-width: 767px) 92vw, 380px"
                   className={newsStyles.novinkyImg}
                 />
                 <div className={newsStyles.novinkyCardOverlay}>

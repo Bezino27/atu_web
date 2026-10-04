@@ -203,12 +203,12 @@
   padding: var(--space-5);
 }
 
-.topNewsMainContent h1,
+.topNewsMainContent h2,
 .topNewsSmallContent h3 {
   color: var(--color-surface);
 }
 
-.topNewsMainContent h1 {
+.topNewsMainContent h2 {
   max-width: calc(100% - 64px);
   margin: 13px 0 0;
   font-size: clamp(2.15rem, 3.45vw, 3.35rem);
@@ -737,7 +737,7 @@
     padding: 17px;
   }
 
-  .topNewsMainContent h1 {
+  .topNewsMainContent h2 {
     max-width: calc(100% - 52px);
     margin-top: 10px;
     font-size: clamp(1.55rem, 7.7vw, 2.05rem);

@@ -42,6 +42,7 @@
 .arrowButton {
   width: 58px;
   height: 42px;
+  min-height: 44px;
 
   border: 1px solid rgba(17, 24, 39, 0.11);
   border-radius: 14px;
@@ -802,6 +803,7 @@
 }
 
 .dot {
+  position: relative;
   width: 36px;
   height: 4px;
 
@@ -819,6 +821,12 @@
     width 0.28s ease,
     background-color 0.28s ease,
     transform 0.22s ease;
+}
+
+.dot::before {
+  content: "";
+  position: absolute;
+  inset: -20px -4px;
 }
 
 .dot:hover {
@@ -1220,6 +1228,8 @@
   .arrowButton {
     width: 36px;
     height: 36px;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .arrowButton span {

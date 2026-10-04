@@ -561,7 +561,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           alt={`ATU Košice ${categoryName}`}
           fill
           priority
-          sizes="(max-width: 768px) 100vw, 1300px"
+          sizes="(min-width: 1300px) 1300px, 100vw"
           className={heroStyles.heroImg}
         />
 

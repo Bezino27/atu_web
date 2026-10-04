@@ -205,6 +205,19 @@ a {
   color: inherit;
 }
 
+:where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+  outline: 3px solid var(--color-red);
+  outline-offset: 3px;
+}
+
 /* # GLOBAL SECTION LAYOUT */
 
 .sectionContainer,

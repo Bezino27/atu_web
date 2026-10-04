@@ -301,7 +301,7 @@ export default function RecruitmentForm() {
         <div className={styles.formGrid}>
           <div className={styles.formFieldFull}>
             <label htmlFor="child_full_name">
-              Meno a priezvisko dieťaťa <span>*</span>
+              Meno a priezvisko dieťaťa <span aria-hidden="true">*</span>
             </label>
 
             <div className={styles.inputWrap}>
@@ -312,6 +312,13 @@ export default function RecruitmentForm() {
                 placeholder="Zadajte meno a priezvisko"
                 value={formData.child_full_name}
                 onChange={handleChange}
+                required
+                aria-invalid={Boolean(errors.child_full_name?.length)}
+                aria-describedby={
+                  errors.child_full_name?.length
+                    ? "child_full_name-error"
+                    : undefined
+                }
               />
 
               <span className={styles.inputIcon}>
@@ -319,16 +326,16 @@ export default function RecruitmentForm() {
               </span>
             </div>
 
-            {errors.child_full_name?.map((error) => (
-              <p key={error} className={styles.fieldError}>
-                {error}
+            {errors.child_full_name?.length ? (
+              <p id="child_full_name-error" className={styles.fieldError}>
+                {errors.child_full_name.join(" ")}
               </p>
-            ))}
+            ) : null}
           </div>
 
           <div className={styles.formField}>
             <label htmlFor="birth_date">
-              Dátum narodenia dieťaťa <span>*</span>
+              Dátum narodenia dieťaťa <span aria-hidden="true">*</span>
             </label>
 
             <div className={styles.inputWrap}>
@@ -352,6 +359,12 @@ export default function RecruitmentForm() {
                 ]}
                 showPopperArrow={false}
                 formatWeekDay={(nameOfDay) => nameOfDay.slice(0, 2)}
+                required
+                ariaInvalid={errors.birth_year?.length ? "true" : "false"}
+                ariaDescribedBy={
+                  errors.birth_year?.length ? "birth_date-error" : undefined
+                }
+                ariaRequired="true"
                 renderCustomHeader={({
                   date,
                   changeYear,
@@ -391,6 +404,7 @@ export default function RecruitmentForm() {
                     <div className={styles.datePickerSelectors}>
                       <select
                         className={styles.datePickerSelect}
+                        aria-label="Mesiac"
                         value={date.getMonth()}
                         onChange={(e) => changeMonth(Number(e.target.value))}
                       >
@@ -403,6 +417,7 @@ export default function RecruitmentForm() {
 
                       <select
                         className={styles.datePickerSelect}
+                        aria-label="Rok"
                         value={date.getFullYear()}
                         onChange={(e) => changeYear(Number(e.target.value))}
                       >
@@ -422,11 +437,11 @@ export default function RecruitmentForm() {
               </span>
             </div>
 
-            {errors.birth_year?.map((error) => (
-              <p key={error} className={styles.fieldError}>
-                {error}
+            {errors.birth_year?.length ? (
+              <p id="birth_date-error" className={styles.fieldError}>
+                {errors.birth_year.join(" ")}
               </p>
-            ))}
+            ) : null}
           </div>
 
           <div className={styles.formField}>
@@ -442,6 +457,8 @@ export default function RecruitmentForm() {
                 placeholder="+421 900 000 000"
                 value={formData.phone}
                 onChange={handleChange}
+                aria-invalid={Boolean(errors.phone?.length)}
+                aria-describedby={errors.phone?.length ? "phone-error" : undefined}
               />
 
               <span className={styles.inputIcon}>
@@ -449,16 +466,16 @@ export default function RecruitmentForm() {
               </span>
             </div>
 
-            {errors.phone?.map((error) => (
-              <p key={error} className={styles.fieldError}>
-                {error}
+            {errors.phone?.length ? (
+              <p id="phone-error" className={styles.fieldError}>
+                {errors.phone.join(" ")}
               </p>
-            ))}
+            ) : null}
           </div>
 
           <div className={styles.formFieldFull}>
             <label htmlFor="email">
-              Email <span>*</span>
+              Email <span aria-hidden="true">*</span>
             </label>
 
             <div className={styles.inputWrap}>
@@ -469,6 +486,9 @@ export default function RecruitmentForm() {
                 placeholder="vas@email.sk"
                 value={formData.email}
                 onChange={handleChange}
+                required
+                aria-invalid={Boolean(errors.email?.length)}
+                aria-describedby={errors.email?.length ? "email-error" : undefined}
               />
 
               <span className={styles.inputIcon}>
@@ -476,11 +496,11 @@ export default function RecruitmentForm() {
               </span>
             </div>
 
-            {errors.email?.map((error) => (
-              <p key={error} className={styles.fieldError}>
-                {error}
+            {errors.email?.length ? (
+              <p id="email-error" className={styles.fieldError}>
+                {errors.email.join(" ")}
               </p>
-            ))}
+            ) : null}
           </div>
 
           <div className={styles.formFieldFull}>
@@ -494,6 +514,8 @@ export default function RecruitmentForm() {
                 value={formData.note}
                 onChange={handleChange}
                 rows={5}
+                aria-invalid={Boolean(errors.note?.length)}
+                aria-describedby={errors.note?.length ? "note-error" : undefined}
               />
 
               <span className={styles.inputIcon}>
@@ -501,25 +523,25 @@ export default function RecruitmentForm() {
               </span>
             </div>
 
-            {errors.note?.map((error) => (
-              <p key={error} className={styles.fieldError}>
-                {error}
+            {errors.note?.length ? (
+              <p id="note-error" className={styles.fieldError}>
+                {errors.note.join(" ")}
               </p>
-            ))}
+            ) : null}
           </div>
         </div>
 
-        {errors.non_field_errors?.map((error) => (
-          <p key={error} className={styles.submitError}>
-            {error}
+        {errors.non_field_errors?.length ? (
+          <p className={styles.submitError} role="alert">
+            {errors.non_field_errors.join(" ")}
           </p>
-        ))}
-
-        {submitError ? (
-          <p className={styles.submitError}>{submitError}</p>
         ) : null}
 
-        <p className={styles.srOnly} aria-live="polite">
+        {submitError ? (
+          <p className={styles.submitError} role="alert">{submitError}</p>
+        ) : null}
+
+        <p className={styles.srOnly} aria-live="polite" aria-atomic="true">
           {isSubmitting
             ? "Formulár sa odosiela."
             : isSuccess

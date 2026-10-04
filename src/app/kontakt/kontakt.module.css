@@ -361,7 +361,7 @@
 /* # CONTACT MAP */
 
 .contactMapWrap {
-  --map-control-size: clamp(32px, 2.36vw, 34px);
+  --map-control-size: 44px;
   --map-control-font-size: clamp(15px, 1.11vw, 16px);
   --map-control-margin: clamp(var(--space-3), 1.25vw, 18px);
 
@@ -1052,7 +1052,7 @@ background 0.3s ease;
   }
 
   .contactMapWrap {
-    --map-control-size: clamp(28px, 3.9vw, 30px);
+    --map-control-size: 44px;
     --map-control-font-size: clamp(13px, 1.83vw, 14px);
     --map-control-margin: clamp(var(--space-2), 1.3vw, 10px);
   }

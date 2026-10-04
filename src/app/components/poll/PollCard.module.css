@@ -436,7 +436,6 @@
   border-color: var(--hover-border);
   box-shadow: var(--hover-shadow-card);
   transform: translateY(var(--hover-lift-card));
-  outline: none;
 }
 
 .previousWinnerCard > * {
@@ -535,7 +534,6 @@
   border-color: var(--hover-border);
   box-shadow: var(--hover-shadow-card);
   transform: translateY(var(--hover-lift-card));
-  outline: none;
 }
 
 .previousRankingOrder {
