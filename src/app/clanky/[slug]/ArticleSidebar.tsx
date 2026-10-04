@@ -13,7 +13,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 
-import { getImageUrl } from "@/app/lib/api";
+import ArticleImage from "@/app/components/ArticleImage";
 import type { Post } from "@/app/lib/posts";
 
 import "./sidebar.css";
@@ -106,9 +106,7 @@ export function ArticlePreviewCard({
   post,
   variant = "default",
 }: ArticlePreviewCardProps) {
-  const image = post.featured_image
-    ? getImageUrl(post.featured_image)
-    : null;
+  const image = Boolean(post.featured_image);
   const date = post.published_at || post.updated_at;
 
   return (
@@ -120,8 +118,11 @@ export function ArticlePreviewCard({
     >
       <div className={styles.relatedThumb}>
         {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt="" loading="lazy" />
+          <ArticleImage
+            post={post}
+            alt=""
+            sizes={variant === "homepage" ? "84px" : "94px"}
+          />
         ) : (
           <span>ATU</span>
         )}

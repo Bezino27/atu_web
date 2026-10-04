@@ -13,6 +13,8 @@ export type Post = {
   excerpt?: string | null;
   content?: string | null;
   featured_image?: string | null;
+  image_width?: number | null;
+  image_height?: number | null;
   published_at?: string | null;
   created_at?: string | null;
   updated_at?: string | null;

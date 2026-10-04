@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
+import ArticleImage from "@/app/components/ArticleImage";
 import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
 import {
   getHomepagePosts,
@@ -575,17 +576,16 @@ export default async function ArticleDetailPage({
                       styles.figureMedia
                     }
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={
-                        imageUrl
-                      }
+                    <ArticleImage
+                      post={post}
                       alt={
                         post.title
                       }
+                      sizes="(max-width: 767px) 100vw, (max-width: 1200px) 52vw, 620px"
                       className={
                         styles.figureImage
                       }
+                      loading="eager"
                       fetchPriority="high"
                     />
                   </div>

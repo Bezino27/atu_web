@@ -5,10 +5,11 @@ import { connection } from "next/server";
 import { PiArrowRight } from "react-icons/pi";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import ArticleImage from "@/app/components/ArticleImage";
 import styles from "./page.module.css";
 import { AllArticlesLink, ArticlePreviewCard } from "./clanky/[slug]/ArticleSidebar";
 import { getHomepagePosts, type Post } from "./lib/posts";
-import { getClubHomePage, getImageUrl, type PageSection } from "./lib/api";
+import { getClubHomePage, type PageSection } from "./lib/api";
 import {
   getSzfbDashboard,
   getSzfbWatchIdForCategory,
@@ -261,11 +262,10 @@ export default async function HomePage() {
               className={styles.topNewsMain}
             >
               <div className={styles.topNewsMainImageWrap}>
-                {/* Preserve the source image's full natural aspect ratio. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={getImageUrl(heroArticle.featured_image)}
+                <ArticleImage
+                  post={heroArticle}
                   alt={heroArticle.title}
+                  sizes="(max-width: 900px) 100vw, 66vw"
                   className={styles.cardImage}
                   loading="eager"
                   fetchPriority="high"
@@ -303,10 +303,9 @@ export default async function HomePage() {
                     className={styles.topNewsSmall}
                   >
                     <div className={styles.topNewsSmallImageWrap}>
-                      <Image
-                        src={getImageUrl(article.featured_image)}
+                      <ArticleImage
+                        post={article}
                         alt={article.title}
-                        fill
                         sizes="(max-width: 900px) 0px, 420px"
                         className={styles.cardImage}
                       />

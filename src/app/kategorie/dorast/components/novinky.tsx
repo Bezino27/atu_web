@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
+import ArticleImage from "@/app/components/ArticleImage";
 import newsStyles from "../../styles/CategoryNews.module.css";
 import type { Post } from "@/app/lib/posts";
-import { getImageUrl } from "@/app/lib/api";
 
 type NovinkyProps = {
   posts: Post[];
@@ -40,10 +39,9 @@ export default function Novinky({ posts }: NovinkyProps) {
               className={newsStyles.novinkyCard}
             >
               <div className={newsStyles.novinkyImageWrapper}>
-                <Image
-                  src={getImageUrl(item.featured_image)}
+                <ArticleImage
+                  post={item}
                   alt={item.title}
-                  fill
                   sizes="(max-width: 767px) 92vw, 380px"
                   className={newsStyles.novinkyImg}
                 />
