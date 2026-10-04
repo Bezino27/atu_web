@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Fragment, type CSSProperties } from "react";
 import pageStyles from "../../styles/CategoryPage.module.css";
 import standingsStyles from "../../styles/CategoryStandings.module.css";
@@ -128,6 +129,8 @@ function TeamLogo({ team }: { team: SzfbStandingRow }) {
       style={logo ? logoStyle : undefined}
     >
       {logo ? (
+        // SZFB branding may point to a runtime host outside the Next image allowlist.
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={logo} alt="" loading="lazy" />
       ) : (
         <span className={standingsStyles.teamLogoFallback} aria-hidden="true">
@@ -161,9 +164,11 @@ export default function Tabulka({
 
         <div className={standingsStyles.competitionBrand}>
           {competitionLogoSrc ? (
-            <img
+            <Image
               src={competitionLogoSrc}
               alt={competitionName}
+              width={2085}
+              height={559}
               className={standingsStyles.competitionLogo}
             />
           ) : (

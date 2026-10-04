@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
@@ -307,6 +306,9 @@ function TeamLogo({
       style={logoStyle}
     >
       {logo ? (
+        // Keep the original runtime URL: canvas color sampling and unknown SZFB hosts
+        // are not compatible with the fixed Next image allowlist.
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={logo} alt="" loading="lazy" />
       ) : (
         <span aria-label={`Logo tímu ${teamName} nie je dostupné`}>

@@ -18,7 +18,6 @@ import {
   getSzfbWatchIdForCategory,
 } from "@/app/lib/szfb";
 import { getHomepagePosts, type Post } from "@/app/lib/posts";
-import { getClubSeason } from "../../lib/season";
 import { API_URL } from "@/app/lib/api";
 import {
   getActiveSortedSections,
@@ -179,11 +178,10 @@ async function getCategories(): Promise<BackendCategory[]> {
 export default async function JunioriPage() {
   await connection();
 
-  const [categoryPage, posts, clubSeason, categories, watchId] =
+  const [categoryPage, posts, categories, watchId] =
     await Promise.all([
       getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
       getHomepagePosts(CLUB_SLUG),
-      getClubSeason(CLUB_SLUG),
       getCategories(),
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);
@@ -216,8 +214,6 @@ export default async function JunioriPage() {
     "Extraliga";
 
   const nextMatch = upcomingMatches[0] ?? null;
-  const currentSeason =
-    currentCategory?.season ?? clubSeason?.season ?? "2025 / 2026";
 
   const heroDescription = currentCategory?.description?.trim() || "";
 

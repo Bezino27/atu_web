@@ -1,3 +1,4 @@
+import Image from "next/image";
 import matchesStyles from "../../styles/CategoryMatches.module.css";
 import { getTeamLogo } from "@/app/lib/teamLogos";
 import type {
@@ -156,6 +157,8 @@ function TeamLogo({
       }`}
     >
       {logo ? (
+        // SZFB branding may point to a runtime host outside the Next image allowlist.
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={logo} alt="" />
       ) : (
         <span className={matchesStyles.resultTeamLogoFallback} aria-hidden="true">
@@ -274,9 +277,11 @@ export default function RecentMatches({
               <span>{formatDate(latestMatch.match_date)}</span>
               <span className={matchesStyles.latestMatchMetaDivider} />
               {competitionLogoSrc ? (
-                <img
+                <Image
                   src={competitionLogoSrc}
                   alt={competitionName}
+                  width={2085}
+                  height={559}
                   className={matchesStyles.latestMatchCompetitionLogo}
                 />
               ) : (
@@ -298,9 +303,11 @@ export default function RecentMatches({
 
               <div className={matchesStyles.latestScoreBlock}>
                 <div className={matchesStyles.latestScoreVisual}>
-                  <img
+                  <Image
                     src="/logo/ATU_logo_black_transp.svg"
                     alt=""
+                    width={1024}
+                    height={1024}
                     className={matchesStyles.latestCompetitionBackdrop}
                     aria-hidden="true"
                   />
@@ -377,7 +384,12 @@ export default function RecentMatches({
           <h3 className={matchesStyles.resultsPanelTitle}>Posledné zápasy</h3>
           <span className={matchesStyles.recentLeagueBadge}>
             {competitionLogoSrc ? (
-              <img src={competitionLogoSrc} alt={competitionName} />
+              <Image
+                src={competitionLogoSrc}
+                alt={competitionName}
+                width={2085}
+                height={559}
+              />
             ) : (
               competitionName
             )}
