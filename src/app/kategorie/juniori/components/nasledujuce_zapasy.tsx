@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 
+import RuntimeImage from "@/app/components/RuntimeImage";
 import matchesStyles from "../../styles/CategoryMatches.module.css";
 import { getTeamLogo } from "@/app/lib/teamLogos";
 import type { SzfbMatch, SzfbTeamBrand } from "@/app/lib/szfb";
@@ -306,10 +307,16 @@ function TeamLogo({
       style={logoStyle}
     >
       {logo ? (
-        // Keep the original runtime URL: canvas color sampling and unknown SZFB hosts
-        // are not compatible with the fixed Next image allowlist.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={logo} alt="" loading="lazy" />
+        <RuntimeImage
+          src={logo}
+          alt=""
+          loading="lazy"
+          fallback={
+            <span aria-label={`Logo tímu ${teamName} nie je dostupné`}>
+              {fallback || "?"}
+            </span>
+          }
+        />
       ) : (
         <span aria-label={`Logo tímu ${teamName} nie je dostupné`}>
           {fallback || "?"}

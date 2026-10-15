@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ATU Košice frontend
+
+Next.js frontend for the ATU Košice website.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in a browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set these required variables in the deployment platform and Docker build environment:
 
-## Learn More
+- `NEXT_PUBLIC_API_URL` — public Django API base URL, including `/api` (for example `https://atukosice.sk/api`).
+- `NEXT_PUBLIC_MEDIA_ORIGIN` — HTTPS origin serving uploaded media (for example `https://atukosice.sk`).
+- `NEXT_PUBLIC_ADMIN_URL` — explicit HTTPS URL of the administration frontend. Production intentionally has no HTTP/IP fallback.
+- `REVALIDATE_SECRET` — server-only secret used by the revalidation endpoint. Never expose it as a `NEXT_PUBLIC_*` variable or commit it.
 
-To learn more about Next.js, take a look at the following resources:
+`NEXT_PUBLIC_SITE_URL` remains an optional Docker compatibility value. The current canonical site URL is fixed to `https://atukosice.sk` in the SEO configuration.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `NEXT_PUBLIC_*` values are embedded into the client/build output where used and are not secrets. `REVALIDATE_SECRET` must be supplied only at runtime to the server container.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Before a release, run:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm audit --omit=dev
+npm run lint
+npx tsc --noEmit
+npm run build
+```

@@ -4,7 +4,7 @@ export const SITE_NAME = "ATU Košice";
 export const SITE_DESCRIPTION =
   "Oficiálna stránka florbalového klubu ATU Košice – novinky, zápasy, výsledky, kategórie, tabuľky a nábor hráčov.";
 
-export const DEFAULT_OG_IMAGE_PATH = "/images/news_hero.jpg";
+export const DEFAULT_OG_IMAGE_PATH = "/images/news_hero-og.jpg";
 
 export const DEFAULT_OG_IMAGE_URL = absoluteUrl(DEFAULT_OG_IMAGE_PATH);
 

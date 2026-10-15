@@ -12,6 +12,7 @@ import {
   getClubLinkIcon,
 } from "@/app/lib/clubLinks";
 import { getClubNavigation, getNavigationLabel } from "@/app/lib/pages";
+import { getImageUrl } from "@/app/lib/api";
 import Aurora from "./Aurora";
 import styles from "./Footer.module.css";
 
@@ -41,8 +42,9 @@ const CLUB_SLUG = "atu-kosice";
 const SHARE_MENU_ID = "footer-social-links";
 
 
-const PRIVACY_POLICY_URL =
-  "https://atukosice.sk/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf";
+const PRIVACY_POLICY_URL = getImageUrl(
+  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf",
+);
 function isCategoryHref(href: string) {
   return href.startsWith("/kategorie/");
 }

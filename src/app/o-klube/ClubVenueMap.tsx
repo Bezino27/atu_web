@@ -4,13 +4,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   Marker,
-  TileLayer,
   ZoomControl,
   useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import MapTileLayer from "@/app/components/MapTileLayer";
+import { escapeHtml } from "@/app/lib/html";
 import styles from "./o-klube.module.css";
 import type { HeroLocation } from "@/app/lib/o-klube-hero-data";
 
@@ -153,8 +154,8 @@ const ClubVenueMap: React.FC<ClubVenueMapProps> = ({
           >
             <div class="${styles.markerDot}"></div>
             <div class="${styles.markerLabel}">
-              <strong>${loc.name}</strong>
-              <span>${loc.address}</span>
+              <strong>${escapeHtml(loc.name)}</strong>
+              <span>${escapeHtml(loc.address)}</span>
             </div>
           </div>
         `,
@@ -181,11 +182,7 @@ const ClubVenueMap: React.FC<ClubVenueMapProps> = ({
         <MapAutoCenter location={currentLocation} />
         <MapZoomWatcher onZoomChange={setCurrentZoom} />
 
-        <TileLayer
-          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-          maxZoom={20}
-        />
+        <MapTileLayer />
 
         <ZoomControl position="topleft" />
 

@@ -403,16 +403,18 @@ export default function Header() {
                 </div>
               )}
 
-              <a
-                href={ADMIN_URL}
-                target="_blank"
-                rel="nofollow noreferrer"
-                aria-label="Otvoriť administráciu"
-                title="Administrácia"
-                className={styles.adminTopLink}
-              >
-                <PiShieldCheck aria-hidden="true" />
-              </a>
+              {ADMIN_URL ? (
+                <a
+                  href={ADMIN_URL}
+                  target="_blank"
+                  rel="nofollow noreferrer"
+                  aria-label="Otvoriť administráciu"
+                  title="Administrácia"
+                  className={styles.adminTopLink}
+                >
+                  <PiShieldCheck aria-hidden="true" />
+                </a>
+              ) : null}
             </div>
           </div>
         </div>
@@ -754,17 +756,19 @@ export default function Header() {
                 );
               })}
 
-              <a
-                href={ADMIN_URL}
-                target="_blank"
-                rel="nofollow noreferrer"
-                aria-label="Otvoriť administráciu"
-                title="Administrácia"
-                className={styles.mobileAdminIcon}
-                onClick={closeMenu}
-              >
-                <PiShieldCheck aria-hidden="true" />
-              </a>
+              {ADMIN_URL ? (
+                <a
+                  href={ADMIN_URL}
+                  target="_blank"
+                  rel="nofollow noreferrer"
+                  aria-label="Otvoriť administráciu"
+                  title="Administrácia"
+                  className={styles.mobileAdminIcon}
+                  onClick={closeMenu}
+                >
+                  <PiShieldCheck aria-hidden="true" />
+                </a>
+              ) : null}
             </div>
 
           </nav>

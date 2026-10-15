@@ -1,8 +1,21 @@
 const rawAdminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
 
-const fallbackAdminUrl =
-  process.env.NODE_ENV === "production"
-    ? "http://178.104.54.84:4173"
-    : "http://localhost:5173";
+function getConfiguredAdminUrl() {
+  const candidate = rawAdminUrl?.trim();
 
-export const ADMIN_URL = (rawAdminUrl || fallbackAdminUrl).replace(/\/$/, "");
+  if (candidate) {
+    try {
+      const url = new URL(candidate);
+
+      if (process.env.NODE_ENV !== "production" || url.protocol === "https:") {
+        return url.toString().replace(/\/$/, "");
+      }
+    } catch {
+      // Fall through to the environment-specific safe value.
+    }
+  }
+
+  return process.env.NODE_ENV === "production" ? null : "http://localhost:5173";
+}
+
+export const ADMIN_URL = getConfiguredAdminUrl();

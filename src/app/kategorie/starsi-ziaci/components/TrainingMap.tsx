@@ -4,13 +4,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   Marker,
-  TileLayer,
   ZoomControl,
   useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import MapTileLayer from "@/app/components/MapTileLayer";
+import { escapeHtml } from "@/app/lib/html";
 import styles from "../../styles/TrainingTable.module.css";
 import type { PublicTrainingLocation } from "./treningy_starsi_ziaci";
 
@@ -89,8 +90,8 @@ const TrainingMap: React.FC<TrainingMapProps> = ({ locations, activeLocation }) 
           <div class="${styles.customMarker} ${isActive ? styles.markerActive : ""}" style="--marker-scale: ${markerScale};">
             <div class="${styles.markerDot}"></div>
             <div class="${styles.markerLabel}">
-              <strong>${location.name}</strong>
-              <span>${location.address}</span>
+              <strong>${escapeHtml(location.name)}</strong>
+              <span>${escapeHtml(location.address)}</span>
             </div>
           </div>
         `,
@@ -116,11 +117,7 @@ const TrainingMap: React.FC<TrainingMapProps> = ({ locations, activeLocation }) 
       >
         <MapAutoCenter location={currentLocation} />
         <MapZoomWatcher onZoomChange={setCurrentZoom} />
-        <TileLayer
-          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-          maxZoom={20}
-        />
+        <MapTileLayer />
         <ZoomControl position="topleft" />
         {markerEntries.map(({ id, location, icon, isActive }) => (
           <Marker

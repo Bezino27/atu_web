@@ -4,12 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   Marker,
-  TileLayer,
   ZoomControl,
   useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
+import MapTileLayer from "@/app/components/MapTileLayer";
+import { escapeHtml } from "@/app/lib/html";
 import styles from "./kontakt.module.css";
 
 type Location = {
@@ -26,10 +27,7 @@ type ContactMapClientProps = {
 
 const FALLBACK_CENTER: [number, number] = [48.69814880000001, 21.23390379325404];
 
-const getInitialZoom = () => {
-  if (typeof window === "undefined") return 16;
-  return window.innerWidth <= 1024 ? 17 : 17;
-};
+const getInitialZoom = () => (typeof window === "undefined" ? 16 : 17);
 
 function getMarkerScale(zoom: number) {
   if (zoom >= 17) return 1;
@@ -164,8 +162,8 @@ export default function ContactMap({
           >
             <div class="${styles.markerDot}"></div>
             <div class="${styles.markerLabel}">
-              <strong>${loc.name}</strong>
-              <span>${loc.address}</span>
+              <strong>${escapeHtml(loc.name)}</strong>
+              <span>${escapeHtml(loc.address)}</span>
             </div>
           </div>
         `,
@@ -196,11 +194,7 @@ export default function ContactMap({
       <MapAutoCenter location={currentLocation} markerScale={markerScale} />
       <MapZoomWatcher onZoomChange={setCurrentZoom} />
 
-      <TileLayer
-          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-        maxZoom={20}
-      />
+      <MapTileLayer />
 
       <ZoomControl position="topright" />
 

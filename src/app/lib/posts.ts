@@ -27,6 +27,25 @@ export type Post = {
   category?: PostCategory | null;
 };
 
+type PostListResponse =
+  | Post[]
+  | {
+      results?: Post[];
+      next?: string | null;
+    };
+
+const MAX_POST_PAGES = 100;
+
+async function fetchPostsPage(url: string) {
+  const response = await fetch(url, getApiFetchOptions(60));
+
+  if (!response.ok) {
+    throw new Error(`Nepodarilo sa načítať články: ${response.status}`);
+  }
+
+  return (await response.json()) as PostListResponse;
+}
+
 export async function getHomepagePosts(
   clubSlug: string,
   limit?: number,
@@ -38,14 +57,7 @@ export async function getHomepagePosts(
       url.searchParams.set("limit", String(limit));
     }
 
-    const res = await fetch(url, getApiFetchOptions(60));
-
-    if (!res.ok) {
-      console.error(`Nepodarilo sa načítať články: ${res.status}`);
-      return [];
-    }
-
-    const data = await res.json();
+    const data = await fetchPostsPage(url.toString());
 
     if (Array.isArray(data)) {
       return data;
@@ -59,6 +71,49 @@ export async function getHomepagePosts(
   } catch (error) {
     console.error("Chyba pri načítaní článkov:", error);
     return [];
+  }
+}
+
+export async function getAllPosts(clubSlug: string): Promise<Post[]> {
+  const posts: Post[] = [];
+  const visitedPages = new Set<string>();
+  let nextUrl: string | null = `${API_URL}/public/posts/${clubSlug}/`;
+
+  try {
+    while (nextUrl && visitedPages.size < MAX_POST_PAGES) {
+      const currentUrl: string = nextUrl;
+
+      if (visitedPages.has(currentUrl)) {
+        console.error("Stránkovanie článkov obsahuje opakovanú URL.");
+        nextUrl = null;
+        break;
+      }
+
+      visitedPages.add(currentUrl);
+
+      const data = await fetchPostsPage(currentUrl);
+
+      if (Array.isArray(data)) {
+        posts.push(...data);
+        nextUrl = null;
+        break;
+      }
+
+      if (Array.isArray(data.results)) {
+        posts.push(...data.results);
+      }
+
+      nextUrl = data.next ? new URL(data.next, currentUrl).toString() : null;
+    }
+
+    if (nextUrl) {
+      console.error(`Stránkovanie článkov prekročilo limit ${MAX_POST_PAGES} strán.`);
+    }
+
+    return posts;
+  } catch (error) {
+    console.error("Chyba pri načítaní všetkých článkov:", error);
+    return posts;
   }
 }
 
@@ -91,11 +146,10 @@ function isPostInCategory(post: Post, categorySlug: string) {
   );
 }
 
-export async function getPostsByCategory(
-  clubSlug: string,
+export function filterPostsByCategory(
+  posts: Post[],
   categorySlug: string,
-): Promise<Post[]> {
-  const posts = await getHomepagePosts(clubSlug);
+) {
   return posts.filter((post) => isPostInCategory(post, categorySlug));
 }
 

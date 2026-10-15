@@ -1,12 +1,12 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { flip } from "@floating-ui/dom";
 import { sk } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./RecruitmentForm.module.css";
-import { API_URL } from "@/app/lib/api";
+import { API_URL, getImageUrl } from "@/app/lib/api";
 
 type FormData = {
   child_full_name: string;
@@ -36,8 +36,9 @@ const initialFormData: FormData = {
 const RECRUITMENT_FORM_ENDPOINT =
   `${API_URL}/guli/recruitment-forms/create/`;
 
-const PRIVACY_POLICY_URL =
-  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf";
+const PRIVACY_POLICY_URL = getImageUrl(
+  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf",
+);
 
 const monthNames = [
   "január",
@@ -146,10 +147,6 @@ export default function RecruitmentForm() {
   const [submitErrorAttempt, setSubmitErrorAttempt] = useState(0);
   const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
 
-  const endpoint = useMemo(() => {
-    return RECRUITMENT_FORM_ENDPOINT;
-  }, []);
-
   const isSuccess = Boolean(successMessage);
 
   useEffect(() => {
@@ -222,6 +219,28 @@ export default function RecruitmentForm() {
     setSuccessMessage("");
     setSubmitError("");
 
+    const clientErrors: FormErrors = {};
+
+    if (!formData.child_full_name.trim()) {
+      clientErrors.child_full_name = ["Zadajte meno a priezvisko dieťaťa."];
+    }
+
+    if (!formData.birth_date) {
+      clientErrors.birth_year = ["Vyberte dátum narodenia dieťaťa."];
+    }
+
+    if (!formData.email.trim()) {
+      clientErrors.email = ["Zadajte emailovú adresu."];
+    }
+
+    if (Object.keys(clientErrors).length > 0) {
+      setErrors(clientErrors);
+      setSubmitError("Formulár sa nepodarilo odoslať. Skontrolujte údaje.");
+      setSubmitErrorAttempt((attempt) => attempt + 1);
+      setIsSubmitting(false);
+      return;
+    }
+
     const normalizedPhone = normalizeSlovakPhone(formData.phone);
 
     if (normalizedPhone === null) {
@@ -237,7 +256,7 @@ export default function RecruitmentForm() {
     }
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(RECRUITMENT_FORM_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

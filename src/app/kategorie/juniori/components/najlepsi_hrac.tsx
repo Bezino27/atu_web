@@ -185,7 +185,7 @@ function PlayerCard({ player }: { player: Player }) {
               src={player.photoSrc}
               alt={displayName}
               fill
-              sizes="(max-width: 767px) 100vw, 260px"
+              sizes="(max-width: 480px) 146px, (max-width: 767px) 190px, (max-width: 1099px) 220px, 260px"
               className={leadersStyles.playerPhoto}
             />
           ) : (

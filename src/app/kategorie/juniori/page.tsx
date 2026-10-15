@@ -17,7 +17,7 @@ import {
   getSzfbDashboard,
   getSzfbWatchIdForCategory,
 } from "@/app/lib/szfb";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getAllPosts, type Post } from "@/app/lib/posts";
 import { API_URL } from "@/app/lib/api";
 import {
   getActiveSortedSections,
@@ -181,7 +181,7 @@ export default async function JunioriPage() {
   const [categoryPage, posts, categories, watchId] =
     await Promise.all([
       getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
-      getHomepagePosts(CLUB_SLUG),
+      getAllPosts(CLUB_SLUG),
       getCategories(),
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RuntimeImage from "@/app/components/RuntimeImage";
 import matchesStyles from "../../styles/CategoryMatches.module.css";
 import { getTeamLogo } from "@/app/lib/teamLogos";
 import type {
@@ -157,9 +158,15 @@ function TeamLogo({
       }`}
     >
       {logo ? (
-        // SZFB branding may point to a runtime host outside the Next image allowlist.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={logo} alt="" />
+        <RuntimeImage
+          src={logo}
+          alt=""
+          fallback={
+            <span className={matchesStyles.resultTeamLogoFallback} aria-hidden="true">
+              {initials || "?"}
+            </span>
+          }
+        />
       ) : (
         <span className={matchesStyles.resultTeamLogoFallback} aria-hidden="true">
           {initials || "?"}

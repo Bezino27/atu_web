@@ -9,26 +9,28 @@
 .novinkyGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 345px), 1fr));
-  gap: var(--space-6);
+  gap: clamp(var(--space-4), 1.8vw, var(--space-6));
   width: 100%;
   align-items: stretch;
 }
 
 .novinkyCard {
   position: relative;
+  isolation: isolate;
   display: block;
   width: 100%;
   min-width: 0;
-  height: 290px;
-  border-radius: var(--radius-xl);
   overflow: hidden;
+  border: 0;
+  border-radius: clamp(var(--radius-lg), 1.6vw, var(--radius-xl));
+  background: #0b0d10;
+  box-shadow: var(--shadow-card-strong);
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
-  background: var(--color-black);
   transition:
     transform var(--hover-duration-normal) var(--hover-ease),
     box-shadow var(--hover-duration-normal) var(--hover-ease);
-  box-sizing: border-box;
-  box-shadow: var(--shadow-card-strong);
 }
 
 .novinkyCard:hover {
@@ -38,40 +40,50 @@
 
 .novinkyImageWrapper {
   position: relative;
+  z-index: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  background: #111318;
 }
 
 .novinkyImg {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.55s ease;
-}
-
-.novinkyCard:hover .novinkyImg {
-  transform: scale(1.05);
+  height: auto;
+  object-fit: contain;
 }
 
 .novinkyCardOverlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.16) 40%,
+    rgba(0, 0, 0, 0.86) 100%
+  );
+  pointer-events: none;
+}
+
+.novinkyCardContent {
+  position: absolute;
   z-index: 2;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: var(--space-6);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.62) 38%, rgba(0, 0, 0, 0.22) 68%, rgba(0, 0, 0, 0.04) 100%);
+  min-width: 0;
+  padding: clamp(12px, 1.65vw, 22px);
   box-sizing: border-box;
 }
 
 .novinkyMetaRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: clamp(6px, 0.75vw, 10px);
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: clamp(7px, 0.75vw, 10px);
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
@@ -79,45 +91,79 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-red) 0%, var(--color-red) 100%);
+  min-height: clamp(21px, 2vw, 25px);
+  padding: 0 clamp(7px, 0.75vw, 10px);
+  border-radius: 6px;
+  background: var(--color-red);
   color: var(--color-white);
+  font-size: clamp(0.5rem, 0.7vw, 0.66rem);
   font-weight: 800;
-  font-size: var(--font-badge-sm);
+  letter-spacing: 0.065em;
   line-height: 1;
   text-transform: uppercase;
-  border-radius: var(--radius-pill);
-  padding: 6px 10px;
 }
 
 .novinkyDate {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.56rem, 0.75vw, 0.72rem);
+  font-weight: 650;
   line-height: 1.2;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 .novinkyCardTitle {
-  margin: 0 0 var(--space-2);
+  display: -webkit-box;
+  max-width: calc(100% - clamp(38px, 4vw, 48px));
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
   color: var(--color-surface);
-  font-size: var(--font-card-title);
+  font-size: clamp(0.92rem, 1.35vw, 1.22rem);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
   text-wrap: balance;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
-.novinkyCardDescription {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  line-height: 1.42;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+.novinkyArrow {
+  position: absolute;
+  right: clamp(11px, 1.4vw, 18px);
+  bottom: clamp(11px, 1.4vw, 18px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(30px, 3.2vw, 38px);
+  height: clamp(30px, 3.2vw, 38px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.14);
+  color: var(--color-white);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    transform var(--duration-normal) ease,
+    border-color var(--duration-normal) ease,
+    background var(--duration-normal) ease;
+}
+
+.novinkyArrow svg {
+  width: clamp(14px, 1.5vw, 17px);
+  height: clamp(14px, 1.5vw, 17px);
 }
 
 .novinkyCard:hover .novinkyMetaRow,
-.novinkyCard:hover .novinkyCardTitle,
-.novinkyCard:hover .novinkyCardDescription {
+.novinkyCard:hover .novinkyCardTitle {
   transform: translateY(-4px);
+}
+
+.novinkyCard:hover .novinkyArrow {
+  transform: translateX(3px);
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.09);
 }
 
 .novinkyEmptyState {
@@ -139,133 +185,44 @@
   box-sizing: border-box;
 }
 
-/* # 1100 */
-
-@media (max-width: 1100px) {
-  .novinkyGrid {
-      gap: var(--space-5);
-    }
-
-  .novinkyCard {
-      height: 280px;
-      border-radius: var(--radius-xl);
-    }
-
-  .novinkyCardOverlay {
-      padding: 22px;
-    }
-
-  .novinkyCardTitle {
-      font-size: var(--font-card-title-sm);
-    }
-}
-
 /* # MOBILE (< 768) */
 
 @media (max-width: 767px) {
   .novinkyGrid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-  /* # MOBILE ARTICLE PREVIEW – SHOW FULL IMAGE */
-
-  .novinkyCard {
-      min-height: 0;
-      height: auto;
-      border-radius: var(--radius-lg);
-    }
-
-  .novinkyImageWrapper {
-      position: relative;
-      inset: auto;
-      width: 100%;
-      height: auto;
-    }
-
-  .novinkyImageWrapper .novinkyImg {
-      position: relative !important;
-      inset: auto !important;
-      display: block;
-      width: 100% !important;
-      height: auto !important;
-      object-fit: contain;
-    }
-
-  .novinkyCardOverlay {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      height: 100%;
-      justify-content: flex-end;
-      padding: 18px;
-    }
-
-  .novinkyMetaRow {
-      gap: var(--space-2);
-      margin-bottom: var(--space-2);
-    }
-
-  .novinkyBadge {
-      padding: 5px 9px;
-    }
-
-  .novinkyDate {
-      font-size: 12px;
-    }
-
-  .novinkyCardDescription {
-      font-size: 13px;
-      line-height: 1.36;
-    }
+    grid-template-columns: 1fr;
+  }
 
   .novinkyEmptyState {
-      min-height: 180px;
-      padding: var(--space-6) 18px;
-      border-radius: var(--radius-lg);
-      font-size: 0.95rem;
-    }
+    min-height: 180px;
+    padding: var(--space-6) 18px;
+    border-radius: var(--radius-lg);
+    font-size: 0.95rem;
+  }
 }
 
 /* # 480 */
 
 @media (max-width: 480px) {
-  .novinkyGrid {
-      gap: 14px;
-    }
-
-  .novinkyCard {
-      min-height: 0;
-      height: auto;
-      border-radius: var(--radius-lg);
-    }
-
-  .novinkyCardOverlay {
-      padding: 14px;
-    }
-
-  .novinkyMetaRow {
-      gap: 7px;
-      margin-bottom: 7px;
-    }
-
-  .novinkyBadge {
-      padding: var(--space-1) var(--space-2);
-    }
-
-  .novinkyDate {
-      font-size: 10px;
-    }
-
-  .novinkyCardDescription {
-      font-size: 11.5px;
-      line-height: 1.3;
-    }
-
   .novinkyEmptyState {
-      min-height: 155px;
-      padding: 18px 14px;
-      border-radius: var(--radius-lg);
-      font-size: 0.9rem;
-    }
+    min-height: 155px;
+    padding: 18px 14px;
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novinkyCard,
+  .novinkyMetaRow,
+  .novinkyCardTitle,
+  .novinkyArrow {
+    transition: none;
+  }
+
+  .novinkyCard:hover,
+  .novinkyCard:hover .novinkyMetaRow,
+  .novinkyCard:hover .novinkyCardTitle,
+  .novinkyCard:hover .novinkyArrow {
+    transform: none;
+  }
 }

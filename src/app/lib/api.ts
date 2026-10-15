@@ -1,15 +1,15 @@
 const rawApiUrl = process.env.NEXT_PUBLIC_API_URL;
+const IS_DEV = process.env.NODE_ENV !== "production";
 
 const SERVER_API_URL =
-  rawApiUrl?.replace(/\/$/, "") ?? "http://127.0.0.1:8000/api";
+  rawApiUrl?.replace(/\/$/, "") ??
+  (IS_DEV ? "http://127.0.0.1:8000/api" : "https://atukosice.sk/api");
 
 const CLIENT_API_URL = "/backend-api";
 
 const PUBLIC_MEDIA_ORIGIN =
   process.env.NEXT_PUBLIC_MEDIA_ORIGIN?.replace(/\/$/, "") ??
-  "https://atukosice.sk";
-
-const IS_DEV = process.env.NODE_ENV !== "production";
+  (IS_DEV ? "http://127.0.0.1:8000" : "https://atukosice.sk");
 
 type NextFetchOptions = RequestInit & {
   cache?: "no-store";
@@ -61,7 +61,7 @@ function normalizeMediaPath(path: string) {
 
 export function normalizeMediaUrl(
   image?: string | null,
-  fallback = "/images/news1.webp",
+  fallback = "/images/news_hero-og.jpg",
 ): string {
   if (!image) return fallback;
 

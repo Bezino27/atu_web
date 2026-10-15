@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Fragment, type CSSProperties } from "react";
+import RuntimeImage from "@/app/components/RuntimeImage";
 import pageStyles from "../../styles/CategoryPage.module.css";
 import standingsStyles from "../../styles/CategoryStandings.module.css";
 import { getTeamLogo, getTeamLogoGlow } from "@/app/lib/teamLogos";
@@ -129,9 +130,16 @@ function TeamLogo({ team }: { team: SzfbStandingRow }) {
       style={logo ? logoStyle : undefined}
     >
       {logo ? (
-        // SZFB branding may point to a runtime host outside the Next image allowlist.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={logo} alt="" loading="lazy" />
+        <RuntimeImage
+          src={logo}
+          alt=""
+          loading="lazy"
+          fallback={
+            <span className={standingsStyles.teamLogoFallback} aria-hidden="true">
+              {initials || "?"}
+            </span>
+          }
+        />
       ) : (
         <span className={standingsStyles.teamLogoFallback} aria-hidden="true">
           {initials || "?"}

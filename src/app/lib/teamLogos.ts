@@ -1,19 +1,4 @@
 const ATU_TEAM_LOGO = "/logo/znak_atu_nove.svg";
-const VISIBLE_TEAM_LOGOS = new Set([
-  "atu-kosice",
-  "as-trencin",
-  "detva-joxers",
-  "fbk-nizna",
-  "florko-kosice",
-  "grasshoppers-zilina",
-  "hurikan-bratislava",
-  "sk-lido-bratislava",
-  "predator-sabinov",
-  "presov",
-  "snipers-bratislava",
-  "tsunami-zahorska-bystrica",
-]);
-
 const RAW_TEAM_ALIASES: Record<string, string> = {
   "fabk atu kosice": "atu-kosice",
   "atu kosice": "atu-kosice",
@@ -62,19 +47,6 @@ const RAW_TEAM_ALIASES: Record<string, string> = {
 
 const TEAM_LOGOS: Record<string, string> = {
   "atu-kosice": ATU_TEAM_LOGO,
-  "fbc-trencin": "/logo/teams/fbc-trencin.png",
-  "sk-lido-bratislava": "/logo/teams/lido-ruzinov.png",
-  "tsunami-zahorska-bystrica": "/logo/teams/tsunami-zahorska-bystrica.png",
-  "grasshoppers-zilina": "/logo/teams/grasshoppers-zilina.png",
-  "presov": "/logo/teams/presov.png",
-  "florko-kosice": "/logo/teams/florko-kosice.png",
-  "snipers-bratislava": "/logo/teams/snipers-bratislava.png",
-  "fbk-nizna": "/logo/teams/fbk-nizna.png",
-  "as-trencin": "/logo/teams/as-trencin.png",
-  "hurikan-bratislava": "/logo/teams/hurikan-bratislava.png",
-  "detva-joxers": "/logo/teams/detva.png",
-  "predator-sabinov": "/logo/teams/predator-sabinov.png",
-  "tempish-capitol": "/logo/teams/tempish-capitol.png",
 };
 
 const TEAM_LOGO_GLOWS: Record<string, string> = {
@@ -119,9 +91,9 @@ export function getTeamLogo(teamName?: string | null) {
   const normalized = normalizeTeamName(teamName);
   const teamKey = TEAM_ALIASES[normalized];
 
-  if (!teamKey || !VISIBLE_TEAM_LOGOS.has(teamKey)) return null;
+  if (!teamKey) return null;
 
-  return TEAM_LOGOS[teamKey];
+  return TEAM_LOGOS[teamKey] ?? null;
 }
 
 export function getTeamLogoGlow(

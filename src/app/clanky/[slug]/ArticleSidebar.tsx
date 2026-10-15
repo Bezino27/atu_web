@@ -13,7 +13,9 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 
-import ArticleImage from "@/app/components/ArticleImage";
+import ArticleImage, {
+  ArticleImageFallback,
+} from "@/app/components/ArticleImage";
 import type { Post } from "@/app/lib/posts";
 
 import "./sidebar.css";
@@ -124,7 +126,7 @@ export function ArticlePreviewCard({
             sizes={variant === "homepage" ? "84px" : "94px"}
           />
         ) : (
-          <span>ATU</span>
+          <ArticleImageFallback />
         )}
       </div>
 
