@@ -3,7 +3,7 @@ import { connection } from "next/server";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import styles from "./page.module.css";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getAllPosts, type Post } from "@/app/lib/posts";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "../lib/seo";
 import ArticleCard from "./ArticleCard";
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default async function ArticlesPage() {
   await connection();
 
-  const posts: Post[] = await getHomepagePosts("atu-kosice");
+  const posts: Post[] = await getAllPosts("atu-kosice");
 
   return (
     <>

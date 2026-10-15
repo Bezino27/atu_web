@@ -7,13 +7,13 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  padding: 36px 0 56px;
+  gap: var(--space-section);
+  padding: 36px 0 var(--space-section);
 }
 
 .section {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
@@ -66,7 +66,7 @@
 }
 
 .infoCard {
-  padding: 16px 18px;
+  padding: var(--space-4) 18px;
   border-radius: var(--radius-lg);
   background: var(--color-page);
   border: 1px solid rgba(17, 17, 17, 0.05);
@@ -93,7 +93,7 @@
 
 .infoCardLabel {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
   color: var(--color-text-muted);
   font-size: 0.76rem;
   font-weight: 800;
@@ -110,13 +110,869 @@
 }
 
 .infoCardText {
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
-  font-size: 0.92rem;
+  font-size: var(--font-body-compact);
   line-height: 1.58;
 }
 
 /* # MAP */
+
+/* # CUSTOM MARKER */
+
+/* # HISTORY TEXT */
+
+.textSectionCard {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 38px var(--space-10);
+  border: 1px solid rgba(17, 17, 17, 0.07);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow:
+    0 20px 50px rgba(17, 17, 17, 0.06),
+    0 2px 10px rgba(17, 17, 17, 0.03);
+  transition:
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.textSectionCard::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(430px, 48%);
+  aspect-ratio: 1;
+  background: url("/logo/ATU_logo_black_transp.svg") center / contain no-repeat;
+  opacity: 0.035;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.textSectionCard:hover {
+  background: var(--color-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
+}
+
+.textColumns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.bodyText {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.84;
+  letter-spacing: 0.01em;
+  break-inside: avoid;
+}
+
+/* # ACHIEVEMENT GROUPS */
+
+.groupsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.groupCard {
+  position: relative;
+  padding: 30px 30px 28px;
+  border: 1px solid rgba(17, 17, 17, 0.07);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow:
+    0 22px 50px rgba(17, 17, 17, 0.06),
+    0 4px 14px rgba(17, 17, 17, 0.03);
+  overflow: hidden;
+  transition:
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.groupCard:hover {
+  background: var(--color-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
+}
+
+.groupHeader {
+  position: relative;
+  min-height: 74px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 22px;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  overflow: hidden;
+}
+
+.groupTitle {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-unison), sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.groupCode {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  z-index: 0;
+  color: var(--color-surface-strong);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: clamp(3rem, 4.5vw, 4.35rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 0.78;
+  letter-spacing: 0.02em;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* # ACHIEVEMENT ITEM */
+
+.achievementItem {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: var(--space-5);
+  align-items: center;
+  padding: var(--space-5);
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-soft);
+  box-shadow:
+    0 10px 24px rgba(17, 17, 17, 0.035),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition:
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.achievementItem:hover {
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
+}
+
+.itemLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.itemCountRow {
+  display: grid;
+  grid-template-columns: 86px 64px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.itemCount {
+  color: var(--color-text);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
+/* # MEDAL ICON */
+
+.medalIcon {
+  width: 64px;
+  height: 64px;
+  justify-self: center;
+}
+
+.itemRight {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.itemSeasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.seasonChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  box-shadow:
+    0 4px 10px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* # ALUMNI */
+
+.alumniSectionIntro {
+  max-width: 920px;
+  margin: 0 0 22px;
+  color: var(--color-text-muted);
+  font-size: var(--font-body);
+  line-height: 1.75;
+}
+
+.alumniGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.alumniCard {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 22px var(--space-5);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  background: var(--color-surface);
+  box-shadow:
+    0 16px 36px rgba(17, 17, 17, 0.05),
+    0 3px 12px rgba(17, 17, 17, 0.025);
+  transition:
+    background var(--hover-duration-normal) var(--hover-ease),
+    border-color var(--hover-duration-normal) var(--hover-ease),
+    box-shadow var(--hover-duration-normal) var(--hover-ease),
+    transform var(--hover-duration-normal) var(--hover-ease);
+}
+
+.alumniCard:hover {
+  border-color: var(--hover-border);
+  box-shadow: var(--hover-shadow-card);
+  transform: translateY(var(--hover-lift-card));
+}
+
+.alumniCardHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  z-index: 1;
+}
+
+.alumniBadge {
+  width: 86px;
+  height: 86px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  box-shadow:
+    0 12px 24px rgba(17, 17, 17, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.alumniBadgeLogo {
+  width: 66px;
+  height: 66px;
+  object-fit: contain;
+}
+
+.logoLargeSingle {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.alumniBadgeLogoAtu {
+  width: 65px;
+  height: 65px;
+  transform: none;
+}
+
+.alumniMeta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.alumniKicker {
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.alumniName {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-unison), var(--font-sans), sans-serif;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.alumniDescriptionWrap {
+  position: relative;
+  z-index: 1;
+  padding: 14px 14px 0 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.07);
+}
+
+.alumniText {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+  line-height: 1.72;
+}
+
+/* # 1024 */
+@media (max-width: 1024px) {
+  .content {
+    gap: var(--space-section);
+    padding: 30px 0 var(--space-section);
+  }
+
+  .section {
+    padding: 0 var(--space-5);
+  }
+
+  .heroCard {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 18px;
+    border-radius: var(--radius-xl);
+  }
+
+  .heroRight {
+    min-height: 320px;
+  }
+
+  .heroStatsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .infoCard {
+    padding: var(--space-4) 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .infoCardValue {
+    font-size: var(--font-body);
+  }
+
+  .infoCardText {
+    font-size: 0.9rem;
+  }
+
+  .textColumns {
+    columns: 1;
+  }
+
+  /* # ACHIEVEMENTS */
+  .groupsGrid {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .groupCard {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    box-sizing: border-box;
+  }
+
+  .groupTitle {
+    font-size: 1.8rem;
+  }
+
+  .achievementItem {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    grid-template-columns: 150px 1fr;
+    gap: var(--space-4);
+    padding: 18px;
+    border-radius: var(--radius-lg);
+    box-sizing: border-box;
+  }
+
+  .itemCount {
+    font-size: 2rem;
+  }
+
+  .itemCountRow {
+    grid-template-columns: 72px 52px;
+  }
+
+  .medalIcon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .seasonChip {
+    min-height: 32px;
+    padding: 0 11px;
+    font-size: 0.86rem;
+  }
+
+  .alumniGrid {
+    gap: 18px;
+  }
+
+  .alumniCard {
+    padding: var(--space-5) var(--space-5) 18px;
+    border-radius: var(--radius-xl);
+  }
+
+  .alumniBadge {
+    width: 78px;
+    height: 78px;
+    border-radius: var(--radius-lg);
+  }
+
+  .alumniBadgeLogo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logoLargeSingle {
+    width: 66px;
+    height: 66px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 58px;
+    height: 58px;
+  }
+
+  .alumniName {
+    font-size: clamp(1.05rem, 1.8vw, 1.12rem);
+  }
+
+  .alumniText {
+    font-size: 0.96rem;
+  }
+}
+
+/* # MOBILE (< 768) */
+@media (max-width: 767px) {
+  .content {
+    gap: var(--space-section);
+    padding: var(--space-5) 0 var(--space-section);
+  }
+
+  .section {
+    padding: 0 var(--space-4);
+  }
+
+  .heroCard,
+  .textSectionCard {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .infoCard {
+    padding: clamp(10px, 2.5vw, 15px) clamp(10px, 2.7vw, 14px);
+    border-radius: var(--radius-lg);
+  }
+
+  .infoCardLabel {
+    margin-bottom: clamp(5px, 1.4vw, var(--space-2));
+    font-size: clamp(0.6rem, 1.8vw, 0.72rem);
+  }
+
+  .infoCardValue {
+    font-size: clamp(0.82rem, 2.5vw, 0.98rem);
+  }
+
+  .infoCardText {
+    font-size: clamp(0.78rem, 2.25vw, 0.92rem);
+    line-height: 1.6;
+  }
+
+  .bodyText {
+    font-size: var(--font-body-compact);
+    line-height: 1.65;
+  }
+
+  .heroStatsGrid,
+  .alumniGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroStatsGrid {
+    gap: clamp(var(--space-2), 2vw, 14px);
+  }
+
+  .heroRight {
+    min-height: 270px;
+  }
+
+  /* # ACHIEVEMENTS */
+  .groupsGrid {
+    width: 100%;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .groupCard {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    padding: var(--space-4);
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-panel);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .groupCard:hover {
+    background: var(--color-surface);
+    border-color: var(--hover-border);
+    box-shadow: var(--hover-shadow-card);
+    transform: translateY(var(--hover-lift-card));
+  }
+
+  .groupCard::before {
+    display: none;
+  }
+
+  .groupHeader {
+    min-height: 58px;
+    margin-bottom: 14px;
+    padding: 0 0 var(--space-3);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  }
+
+  .groupTitle {
+    font-size: 1.02rem;
+  }
+
+  .groupCode {
+    right: 8px;
+    bottom: 6px;
+    font-size: 2.7rem;
+  }
+
+  .itemsList {
+    gap: 14px;
+  }
+
+  .achievementItem {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-sizing: border-box;
+  }
+
+  .itemLeft {
+    gap: var(--space-2);
+  }
+
+  .itemCount {
+    font-size: clamp(1.45rem, 4vw, 1.85rem);
+  }
+
+  .itemCountRow {
+    grid-template-columns: 72px 48px;
+  }
+
+  .medalIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .itemRight {
+    gap: 10px;
+  }
+
+  .seasonChip {
+    min-height: clamp(24px, 4vw, 30px);
+    padding: 0 clamp(7px, 1.5vw, 10px);
+    font-size: clamp(0.68rem, 2vw, 0.84rem);
+  }
+
+  .alumniSectionIntro {
+    margin-bottom: 18px;
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+
+  .alumniCard {
+    padding: 18px 18px var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .alumniCardHeader {
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .alumniBadge {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-md);
+  }
+
+  .alumniBadgeLogo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .logoLargeSingle {
+    width: 62px;
+    height: 62px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 54px;
+    height: 54px;
+  }
+
+  .alumniKicker {
+    font-size: 0.68rem;
+  }
+
+  .alumniName {
+    font-size: clamp(1rem, 3vw, 1.05rem);
+  }
+
+  .alumniDescriptionWrap {
+    padding-top: var(--space-3);
+  }
+
+  .alumniText {
+    font-size: var(--font-body-compact);
+    line-height: 1.65;
+  }
+}
+
+/* # 480 */
+@media (max-width: 480px) {
+  .content {
+    gap: var(--space-section);
+    padding: var(--space-4) 0 var(--space-section);
+  }
+
+  .section {
+    padding: 0 var(--space-3);
+  }
+
+  .heroCard,
+  .textSectionCard {
+    padding: 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .bodyText {
+    font-size: 0.86rem;
+    line-height: var(--line-height-body);
+  }
+
+  .heroRight {
+    min-height: 235px;
+  }
+
+  /* # ACHIEVEMENTS */
+  .groupsGrid {
+    width: 100%;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .groupCard {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    padding: 14px;
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-panel);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .groupCard:hover {
+    background: var(--color-surface);
+    border-color: var(--hover-border);
+    box-shadow: var(--hover-shadow-card);
+    transform: translateY(var(--hover-lift-card));
+  }
+
+  .groupCard::before {
+    display: none;
+  }
+
+  .groupHeader {
+    min-height: 52px;
+    margin-bottom: var(--space-3);
+    padding: 0 0 10px;
+  }
+
+  .groupTitle {
+    font-size: var(--font-body-compact);
+  }
+
+  .groupCode {
+    right: 6px;
+    bottom: 5px;
+    font-size: 2.3rem;
+  }
+
+  .itemsList {
+    gap: var(--space-3);
+  }
+
+  .achievementItem {
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+    padding: 14px;
+    border-radius: var(--radius-lg);
+    box-sizing: border-box;
+  }
+
+  .itemCountRow {
+    grid-template-columns: 62px 42px;
+    gap: 10px;
+  }
+
+  .medalIcon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .itemSeasons {
+    gap: 6px;
+  }
+
+  .alumniSectionIntro {
+    margin-bottom: var(--space-4);
+    font-size: 0.86rem;
+  }
+
+  .alumniCard {
+    padding: var(--space-4) 14px 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .alumniCardHeader {
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .alumniBadge {
+    width: 66px;
+    height: 66px;
+    border-radius: var(--radius-md);
+  }
+
+  .alumniBadgeLogo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .logoLargeSingle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .alumniBadgeLogoAtu {
+    width: 50px;
+    height: 50px;
+  }
+
+  .alumniKicker {
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+  }
+
+  .alumniName {
+    line-height: 1.1;
+  }
+
+  .alumniDescriptionWrap {
+    padding-top: 10px;
+  }
+
+  .alumniText {
+    font-size: 0.86rem;
+    line-height: 1.58;
+  }
+}
+/* # ACHIEVEMENTS MOBILE WIDTH */
+
+@media (max-width: 767px) {
+  .achievementsSection {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .achievementsSection {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Preserve existing map styles; map recovery is handled separately. */
 
 .venueMapWrap {
   min-width: 0;
@@ -162,7 +1018,9 @@
 }
 
 .mapWrapper :global(.leaflet-control-attribution) {
-  display: none !important;
+  display: block !important;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .mapWrapper :global(.leaflet-control-zoom) {
@@ -229,8 +1087,6 @@
   padding: 20px;
   box-sizing: border-box;
 }
-
-/* # CUSTOM MARKER */
 
 .leafletMarkerIcon {
   background: transparent !important;
@@ -356,391 +1212,7 @@
     0 4px 12px rgba(15, 23, 42, 0.14);
 }
 
-/* # HISTORY TEXT */
-
-.textSectionCard {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 38px 40px;
-  border: 1px solid rgba(17, 17, 17, 0.07);
-  border-radius: var(--radius-xl);
-  background: var(--color-surface);
-  box-shadow:
-    0 20px 50px rgba(17, 17, 17, 0.06),
-    0 2px 10px rgba(17, 17, 17, 0.03);
-  transition:
-    background var(--hover-duration-normal) var(--hover-ease),
-    border-color var(--hover-duration-normal) var(--hover-ease),
-    box-shadow var(--hover-duration-normal) var(--hover-ease),
-    transform var(--hover-duration-normal) var(--hover-ease);
-}
-
-.textSectionCard::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  width: min(430px, 48%);
-  aspect-ratio: 1;
-  background: url("/logo/ATU_logo_black_transp.svg") center / contain no-repeat;
-  opacity: 0.035;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.textSectionCard:hover {
-  background: var(--color-surface);
-  border-color: var(--hover-border);
-  box-shadow: var(--hover-shadow-card);
-  transform: translateY(var(--hover-lift-card));
-}
-
-.textColumns {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.bodyText {
-  margin: 0;
-  color: var(--color-text-soft);
-  font-family: var(--font-sans), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  line-height: 1.84;
-  letter-spacing: 0.01em;
-  break-inside: avoid;
-}
-
-/* # ACHIEVEMENT GROUPS */
-
-.groupsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-}
-
-.groupCard {
-  position: relative;
-  padding: 30px 30px 28px;
-  border: 1px solid rgba(17, 17, 17, 0.07);
-  border-radius: var(--radius-xl);
-  background: var(--color-surface);
-  box-shadow:
-    0 22px 50px rgba(17, 17, 17, 0.06),
-    0 4px 14px rgba(17, 17, 17, 0.03);
-  overflow: hidden;
-  transition:
-    background var(--hover-duration-normal) var(--hover-ease),
-    border-color var(--hover-duration-normal) var(--hover-ease),
-    box-shadow var(--hover-duration-normal) var(--hover-ease),
-    transform var(--hover-duration-normal) var(--hover-ease);
-}
-
-.groupCard:hover {
-  background: var(--color-surface);
-  border-color: var(--hover-border);
-  box-shadow: var(--hover-shadow-card);
-  transform: translateY(var(--hover-lift-card));
-}
-
-.groupHeader {
-  position: relative;
-  min-height: 74px;
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 22px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
-  overflow: hidden;
-}
-
-.groupTitle {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  color: var(--color-text);
-  font-family: var(--font-unison), sans-serif;
-  font-size: 1.65rem;
-  font-weight: 700;
-  font-style: normal;
-  line-height: 1.05;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.groupCode {
-  position: absolute;
-  right: 12px;
-  bottom: 8px;
-  z-index: 0;
-  color: var(--color-surface-strong);
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
-  font-size: clamp(3rem, 4.5vw, 4.35rem);
-  font-weight: 700;
-  font-style: italic;
-  line-height: 0.78;
-  letter-spacing: 0.02em;
-  opacity: 0.72;
-  pointer-events: none;
-}
-
-.itemsList {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* # ACHIEVEMENT ITEM */
-
-.achievementItem {
-  display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 20px;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid rgba(17, 17, 17, 0.06);
-  border-radius: var(--radius-xl);
-  background: var(--color-surface-soft);
-  box-shadow:
-    0 10px 24px rgba(17, 17, 17, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  transition:
-    background var(--hover-duration-normal) var(--hover-ease),
-    border-color var(--hover-duration-normal) var(--hover-ease),
-    box-shadow var(--hover-duration-normal) var(--hover-ease),
-    transform var(--hover-duration-normal) var(--hover-ease);
-}
-
-.achievementItem:hover {
-  background: var(--hover-surface);
-  border-color: var(--hover-border);
-  box-shadow: var(--hover-shadow-card);
-  transform: translateY(var(--hover-lift-card));
-}
-
-.itemLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.itemCountRow {
-  display: grid;
-  grid-template-columns: 86px 64px;
-  align-items: center;
-  gap: 12px;
-}
-
-.itemCount {
-  color: var(--color-text);
-  font-family: var(--font-unison), var(--font-sans), sans-serif;
-  font-size: 2.3rem;
-  font-weight: 700;
-  font-style: italic;
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-}
-
-/* # MEDAL ICON */
-
-.medalIcon {
-  width: 64px;
-  height: 64px;
-  justify-self: center;
-}
-
-.itemRight {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.itemSeasons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.seasonChip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-  padding: 0 12px;
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-strong);
-  box-shadow:
-    0 4px 10px rgba(15, 23, 42, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-/* # ALUMNI */
-
-.alumniSectionIntro {
-  max-width: 920px;
-  margin: 0 0 22px;
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-.alumniGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.alumniCard {
-  position: relative;
-  overflow: hidden;
-  padding: 22px 22px 20px;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  background: var(--color-surface);
-  box-shadow:
-    0 16px 36px rgba(17, 17, 17, 0.05),
-    0 3px 12px rgba(17, 17, 17, 0.025);
-  transition:
-    background var(--hover-duration-normal) var(--hover-ease),
-    border-color var(--hover-duration-normal) var(--hover-ease),
-    box-shadow var(--hover-duration-normal) var(--hover-ease),
-    transform var(--hover-duration-normal) var(--hover-ease);
-}
-
-.alumniCard:hover {
-  border-color: var(--hover-border);
-  box-shadow: var(--hover-shadow-card);
-  transform: translateY(var(--hover-lift-card));
-}
-
-.alumniCardHeader {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  z-index: 1;
-}
-
-.alumniBadge {
-  width: 86px;
-  height: 86px;
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: var(--color-surface);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow:
-    0 12px 24px rgba(17, 17, 17, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-.alumniBadgeLogo {
-  width: 66px;
-  height: 66px;
-  object-fit: contain;
-}
-
-.logoLargeSingle {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-}
-
-.alumniBadgeLogoAtu {
-  width: 65px;
-  height: 65px;
-  transform: none;
-}
-
-.alumniMeta {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.alumniKicker {
-  color: var(--color-text-muted);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.alumniName {
-  margin: 0;
-  color: var(--color-text);
-  font-size: 1.5rem;
-  font-weight: 850;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-}
-
-.alumniDescriptionWrap {
-  position: relative;
-  z-index: 1;
-  padding: 14px 14px 0 0;
-  border-top: 1px solid rgba(17, 17, 17, 0.07);
-}
-
-.alumniText {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: 0.98rem;
-  line-height: 1.72;
-}
-
-/* # 1024 */
 @media (max-width: 1024px) {
-  .content {
-    gap: 48px;
-    padding: 30px 0 48px;
-  }
-
-  .section {
-    padding: 0 20px;
-  }
-
-  .heroCard {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 18px;
-    border-radius: var(--radius-xl);
-  }
-
-  .heroRight {
-    min-height: 320px;
-  }
-
-  .heroStatsGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .infoCard {
-    padding: 16px 14px;
-    border-radius: var(--radius-lg);
-  }
-
-  .infoCardValue {
-    font-size: 1rem;
-  }
-
-  .infoCardText {
-    font-size: 0.9rem;
-  }
 
   .mapWrapper,
   .leafletMap,
@@ -749,6 +1221,9 @@
     min-height: 300px;
     height: auto;
   }
+}
+
+@media (max-width: 1024px) {
 
   .heroRight .venueMapWrap,
   .heroRight .mapWrapper,
@@ -757,140 +1232,9 @@
     min-height: 320px;
     height: 320px;
   }
-
-  .textColumns {
-    columns: 1;
-  }
-
-  /* # ACHIEVEMENTS */
-  .groupsGrid {
-    width: 100%;
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .groupCard {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    padding: 24px;
-    border-radius: var(--radius-xl);
-    box-sizing: border-box;
-  }
-
-  .groupTitle {
-    font-size: 1.8rem;
-  }
-
-  .achievementItem {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    grid-template-columns: 150px 1fr;
-    gap: 16px;
-    padding: 18px;
-    border-radius: var(--radius-lg);
-    box-sizing: border-box;
-  }
-
-  .itemCount {
-    font-size: 2rem;
-  }
-
-  .itemCountRow {
-    grid-template-columns: 72px 52px;
-  }
-
-  .medalIcon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .seasonChip {
-    min-height: 32px;
-    padding: 0 11px;
-    font-size: 0.86rem;
-  }
-
-  .alumniGrid {
-    gap: 18px;
-  }
-
-  .alumniCard {
-    padding: 20px 20px 18px;
-    border-radius: var(--radius-xl);
-  }
-
-  .alumniBadge {
-    width: 78px;
-    height: 78px;
-    border-radius: var(--radius-lg);
-  }
-
-  .alumniBadgeLogo {
-    width: 60px;
-    height: 60px;
-  }
-
-  .logoLargeSingle {
-    width: 66px;
-    height: 66px;
-  }
-
-  .alumniBadgeLogoAtu {
-    width: 58px;
-    height: 58px;
-  }
-
-  .alumniName {
-    font-size: 1.12rem;
-  }
-
-  .alumniText {
-    font-size: 0.96rem;
-  }
 }
 
-/* # 768 */
 @media (max-width: 768px) {
-  .content {
-    gap: 40px;
-    padding: 20px 0 40px;
-  }
-
-  .section {
-    padding: 0 16px;
-  }
-
-  .heroCard,
-  .textSectionCard {
-    padding: 16px;
-    border-radius: var(--radius-lg);
-  }
-
-  .infoCard {
-    padding: 15px 14px;
-    border-radius: var(--radius-lg);
-  }
-
-  .infoCardLabel {
-    font-size: 0.72rem;
-  }
-
-  .infoCardValue {
-    font-size: 0.98rem;
-  }
-
-  .infoCardText,
-  .bodyText {
-    font-size: 0.92rem;
-    line-height: 1.65;
-  }
-
-  .heroStatsGrid,
-  .alumniGrid {
-    grid-template-columns: 1fr;
-  }
 
   .mapWrapper,
   .leafletMap,
@@ -899,10 +1243,9 @@
     min-height: 240px;
     border-radius: var(--radius-lg);
   }
+}
 
-  .heroRight {
-    min-height: 270px;
-  }
+@media (max-width: 768px) {
 
   .heroRight .venueMapWrap,
   .heroRight .mapWrapper,
@@ -911,6 +1254,9 @@
     min-height: 270px;
     height: 270px;
   }
+}
+
+@media (max-width: 768px) {
 
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
@@ -918,214 +1264,48 @@
     height: 28px !important;
     font-size: 13px !important;
   }
+}
+
+@media (max-width: 768px) {
 
   .mapLoading {
     font-size: 11px;
   }
+}
+
+@media (max-width: 768px) {
 
   .markerDot {
     width: 38px;
     height: 49px;
   }
+}
+
+@media (max-width: 768px) {
 
   .markerLabel {
     max-width: 165px;
     padding: 8px 12px;
     border-radius: 14px;
   }
+}
+
+@media (max-width: 768px) {
 
   .markerLabel strong {
     font-size: 13px;
   }
+}
+
+@media (max-width: 768px) {
 
   .markerLabel span {
     font-size: 10.5px;
     line-height: 1.22;
   }
-
-  /* # ACHIEVEMENTS */
-  .groupsGrid {
-    width: 100%;
-    max-width: none;
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .groupCard {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    padding: 16px;
-    border: 1px solid rgba(17, 17, 17, 0.07);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow:
-      0 12px 30px rgba(15, 23, 42, 0.06),
-      0 2px 8px rgba(15, 23, 42, 0.03);
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  .groupCard:hover {
-    background: var(--color-surface);
-    border-color: var(--hover-border);
-    box-shadow: var(--hover-shadow-card);
-    transform: translateY(var(--hover-lift-card));
-  }
-
-  .groupCard::before {
-    display: none;
-  }
-
-  .groupHeader {
-    min-height: 58px;
-    margin-bottom: 14px;
-    padding: 0 0 12px;
-    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
-  }
-
-  .groupTitle {
-    font-size: 1.02rem;
-  }
-
-  .groupCode {
-    right: 8px;
-    bottom: 6px;
-    font-size: 2.7rem;
-  }
-
-  .itemsList {
-    gap: 14px;
-  }
-
-  .achievementItem {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 16px;
-    border-radius: var(--radius-lg);
-    box-sizing: border-box;
-  }
-
-  .itemLeft {
-    gap: 8px;
-  }
-
-  .itemCount {
-    font-size: 1.85rem;
-  }
-
-  .itemCountRow {
-    grid-template-columns: 72px 48px;
-  }
-
-  .medalIcon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .itemRight {
-    gap: 10px;
-  }
-
-  .seasonChip {
-    min-height: 30px;
-    padding: 0 10px;
-    font-size: 0.84rem;
-  }
-
-  .alumniSectionIntro {
-    margin-bottom: 18px;
-    font-size: 0.94rem;
-    line-height: 1.68;
-  }
-
-  .alumniCard {
-    padding: 18px 18px 16px;
-    border-radius: var(--radius-lg);
-  }
-
-  .alumniCardHeader {
-    gap: 14px;
-    margin-bottom: 14px;
-  }
-
-  .alumniBadge {
-    width: 72px;
-    height: 72px;
-    border-radius: var(--radius-md);
-  }
-
-  .alumniBadgeLogo {
-    width: 56px;
-    height: 56px;
-  }
-
-  .logoLargeSingle {
-    width: 62px;
-    height: 62px;
-  }
-
-  .alumniBadgeLogoAtu {
-    width: 54px;
-    height: 54px;
-  }
-
-  .alumniKicker {
-    font-size: 0.68rem;
-  }
-
-  .alumniName {
-    font-size: 1.05rem;
-  }
-
-  .alumniDescriptionWrap {
-    padding-top: 12px;
-  }
-
-  .alumniText {
-    font-size: 0.92rem;
-    line-height: 1.65;
-  }
 }
 
-/* # 480 */
 @media (max-width: 480px) {
-  .content {
-    gap: 32px;
-    padding: 16px 0 32px;
-  }
-
-  .section {
-    padding: 0 12px;
-  }
-
-  .heroCard,
-  .textSectionCard {
-    padding: 14px;
-    border-radius: var(--radius-lg);
-  }
-
-  .infoCard {
-    padding: 14px 12px;
-    border-radius: var(--radius-lg);
-  }
-
-  .infoCardLabel {
-    font-size: 0.68rem;
-  }
-
-  .infoCardValue {
-    font-size: 0.92rem;
-  }
-
-  .infoCardText,
-  .bodyText {
-    font-size: 0.86rem;
-    line-height: 1.6;
-  }
 
   .mapWrapper,
   .leafletMap,
@@ -1133,10 +1313,9 @@
   .mapLoading {
     min-height: 210px;
   }
+}
 
-  .heroRight {
-    min-height: 235px;
-  }
+@media (max-width: 480px) {
 
   .heroRight .venueMapWrap,
   .heroRight .mapWrapper,
@@ -1145,168 +1324,14 @@
     min-height: 235px;
     height: 235px;
   }
+}
+
+@media (max-width: 480px) {
 
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
     width: 26px !important;
     height: 26px !important;
     font-size: 12px !important;
-  }
-
-  /* # ACHIEVEMENTS */
-  .groupsGrid {
-    width: 100%;
-    max-width: none;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .groupCard {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    padding: 14px;
-    border: 1px solid rgba(17, 17, 17, 0.07);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow:
-      0 12px 30px rgba(15, 23, 42, 0.06),
-      0 2px 8px rgba(15, 23, 42, 0.03);
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-
-  .groupCard:hover {
-    background: var(--color-surface);
-    border-color: var(--hover-border);
-    box-shadow: var(--hover-shadow-card);
-    transform: translateY(var(--hover-lift-card));
-  }
-
-  .groupCard::before {
-    display: none;
-  }
-
-  .groupHeader {
-    min-height: 52px;
-    margin-bottom: 12px;
-    padding: 0 0 10px;
-  }
-
-  .groupTitle {
-    font-size: 0.92rem;
-  }
-
-  .groupCode {
-    right: 6px;
-    bottom: 5px;
-    font-size: 2.3rem;
-  }
-
-  .itemsList {
-    gap: 12px;
-  }
-
-  .achievementItem {
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-    padding: 14px;
-    border-radius: var(--radius-lg);
-    box-sizing: border-box;
-  }
-
-  .itemCountRow {
-    grid-template-columns: 62px 42px;
-    gap: 10px;
-  }
-
-  .itemCount {
-    font-size: 1.6rem;
-  }
-
-  .medalIcon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .itemSeasons {
-    gap: 6px;
-  }
-
-  .seasonChip {
-    min-height: 28px;
-    padding: 0 9px;
-    font-size: 0.8rem;
-  }
-
-  .alumniSectionIntro {
-    margin-bottom: 16px;
-    font-size: 0.86rem;
-  }
-
-  .alumniCard {
-    padding: 16px 14px 14px;
-    border-radius: var(--radius-lg);
-  }
-
-  .alumniCardHeader {
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .alumniBadge {
-    width: 66px;
-    height: 66px;
-    border-radius: var(--radius-md);
-  }
-
-  .alumniBadgeLogo {
-    width: 52px;
-    height: 52px;
-  }
-
-  .logoLargeSingle {
-    width: 58px;
-    height: 58px;
-  }
-
-  .alumniBadgeLogoAtu {
-    width: 50px;
-    height: 50px;
-  }
-
-  .alumniKicker {
-    font-size: 0.64rem;
-    letter-spacing: 0.1em;
-  }
-
-  .alumniName {
-    font-size: 0.98rem;
-    line-height: 1.25;
-  }
-
-  .alumniDescriptionWrap {
-    padding-top: 10px;
-  }
-
-  .alumniText {
-    font-size: 0.86rem;
-    line-height: 1.58;
-  }
-}
-/* # ACHIEVEMENTS MOBILE WIDTH */
-
-@media (max-width: 768px) {
-  .achievementsSection {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .achievementsSection {
-    padding-left: 0;
-    padding-right: 0;
   }
 }

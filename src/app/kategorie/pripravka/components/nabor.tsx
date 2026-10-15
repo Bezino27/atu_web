@@ -119,7 +119,7 @@ const Nabor = async () => {
             src="/images/nabor/pripravka_nabor.jpg"
             alt=""
             fill
-            sizes="(max-width: 768px) 100vw, 65vw"
+            sizes="(max-width: 767px) 100vw, (min-width: 1300px) 845px, 65vw"
             className={recruitmentStyles.naborPhoto}
           />
         </div>

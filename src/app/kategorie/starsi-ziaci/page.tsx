@@ -8,7 +8,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import Image from "next/image";
 import Novinky from "./components/novinky";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getAllPosts, type Post } from "@/app/lib/posts";
 import KdeTrenujeme from "./components/treningy_starsi_ziaci";
 import Nabor from "./components/nabor";
 import CategoryHeroContent from "../components/CategoryHeroContent";
@@ -164,7 +164,7 @@ const StarsiZiaciPage = async () => {
 
   const [categoryPage, posts, categories] = await Promise.all([
     getClubPageBySlug(CLUB_SLUG, CATEGORY_SLUG),
-    getHomepagePosts(CLUB_SLUG),
+    getAllPosts(CLUB_SLUG),
     getCategories(),
   ]);
 

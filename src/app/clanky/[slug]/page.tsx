@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
-import { getImageUrl, normalizeHtmlMediaUrls } from "@/app/lib/api";
+import ArticleImage from "@/app/components/ArticleImage";
+import { getImageUrl } from "@/app/lib/api";
+import { prepareBackendRichHtml } from "@/app/lib/richHtml";
 import {
   getHomepagePosts,
   getPostDetail,
@@ -44,6 +46,16 @@ function formatDate(value?: string | null) {
 
 function getSeoTitle(post?: Post | null) {
   return post?.meta_title || post?.title || "Článok";
+}
+
+function includesSiteName(title: string) {
+  return title
+    .toLocaleLowerCase("sk-SK")
+    .includes(SITE_NAME.toLocaleLowerCase("sk-SK"));
+}
+
+function getOpenGraphTitle(title: string) {
+  return includesSiteName(title) ? title : `${title} | ${SITE_NAME}`;
 }
 
 function getSeoDescription(post?: Post | null) {
@@ -196,7 +208,7 @@ export async function generateMetadata({
         : DEFAULT_OG_IMAGE_URL;
 
     return {
-      title,
+      title: includesSiteName(title) ? { absolute: title } : title,
       description,
 
       alternates: {
@@ -205,8 +217,7 @@ export async function generateMetadata({
       },
 
       openGraph: {
-        title:
-          `${title} | ${SITE_NAME}`,
+        title: getOpenGraphTitle(title),
 
         description,
 
@@ -575,17 +586,16 @@ export default async function ArticleDetailPage({
                       styles.figureMedia
                     }
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={
-                        imageUrl
-                      }
+                    <ArticleImage
+                      post={post}
                       alt={
                         post.title
                       }
+                      sizes="(max-width: 767px) 100vw, (max-width: 1200px) 52vw, 620px"
                       className={
                         styles.figureImage
                       }
+                      loading="eager"
                       fetchPriority="high"
                     />
                   </div>
@@ -647,7 +657,7 @@ export default async function ArticleDetailPage({
                   className={`${styles.articleContent} ${richTextStyles.richTextContent}`}
                   dangerouslySetInnerHTML={{
                     __html:
-                      normalizeHtmlMediaUrls(
+                      prepareBackendRichHtml(
                         post.content
                       ),
                   }}

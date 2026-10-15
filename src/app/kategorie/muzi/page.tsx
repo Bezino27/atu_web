@@ -14,7 +14,7 @@ import SeasonLeadersSection from "./components/najlepsi_hrac";
 import CategoryHeroContent from "../components/CategoryHeroContent";
 import HeroScrollZoomImage from "@/app/components/HeroScrollZoomImage";
 import { getSzfbDashboard, getSzfbWatchIdForCategory } from "@/app/lib/szfb";
-import { getHomepagePosts, type Post } from "@/app/lib/posts";
+import { getAllPosts, type Post } from "@/app/lib/posts";
 import {
   API_URL,
   getApiFetchOptions,
@@ -231,7 +231,7 @@ export default async function MuziPage() {
   const [categoryPage, posts, categories, watchId] =
     await Promise.all([
       getCategoryPage(),
-      getHomepagePosts(CLUB_SLUG),
+      getAllPosts(CLUB_SLUG),
       getCategories(),
       getSzfbWatchIdForCategory(CLUB_SLUG, CATEGORY_SLUG),
     ]);

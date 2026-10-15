@@ -25,7 +25,8 @@ import {
   type ClubPage,
   type PageSection,
 } from "@/app/lib/pages";
-import { normalizeHtmlMediaUrls, normalizeMediaUrl } from "@/app/lib/api";
+import { normalizeMediaUrl } from "@/app/lib/api";
+import { prepareBackendRichHtml } from "@/app/lib/richHtml";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
 import contactStyles from "@/app/kontakt/kontakt.module.css";
 import styles from "./stranka.module.css";
@@ -502,7 +503,7 @@ export default async function CustomPage({ params }: PageProps) {
               alt=""
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 1300px"
+              sizes="(min-width: 1300px) 1300px, 100vw"
               className={styles.heroImage}
             />
           )}
@@ -534,7 +535,7 @@ export default async function CustomPage({ params }: PageProps) {
   };
 
   const renderCustomTextSection = (section: PageSection) => {
-    const content = normalizeHtmlMediaUrls(section.content?.trim() || "");
+    const content = prepareBackendRichHtml(section.content?.trim() || "");
 
     if (section.hide_when_empty && !content) {
       return null;
@@ -866,7 +867,7 @@ export default async function CustomPage({ params }: PageProps) {
   };
 
   const renderGallerySection = (section: PageSection) => {
-    const content = normalizeHtmlMediaUrls(section.content?.trim() || "");
+    const content = prepareBackendRichHtml(section.content?.trim() || "");
 
     if (section.hide_when_empty && !content) {
       return null;

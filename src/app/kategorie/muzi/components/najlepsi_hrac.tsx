@@ -1,5 +1,6 @@
 import Image from "next/image";
 import leadersStyles from "../../styles/CategoryLeaders.module.css";
+import CategoryLeaderPlayerName from "../../components/CategoryLeaderPlayerName";
 import type { SzfbPlayerStat } from "@/app/lib/szfb";
 
 type PlayerStat = {
@@ -88,36 +89,6 @@ function getPlayerPhotoSrc(player: SzfbPlayerStat) {
   return player.photo_url || player.photo || null;
 }
 
-function renderPlayerName(name: string) {
-  const trimmed = name.trim();
-  const parts = trimmed.split(/\s+/);
-
-  if (parts.length <= 1) {
-    return <span className={leadersStyles.playerNameLine}>{trimmed}</span>;
-  }
-
-  const firstLine = parts[0];
-  const secondLine = parts.slice(1).join(" ");
-
-  return (
-    <>
-      <span className={leadersStyles.playerNameLine}>{firstLine}</span>
-      <span className={leadersStyles.playerNameLine}>{secondLine}</span>
-    </>
-  );
-}
-
-function getPlayerNameSizeClass(name: string) {
-  const longestPart = Math.max(
-    0,
-    ...name.trim().split(/\s+/).map((part) => part.length),
-  );
-
-  if (longestPart > 12) return leadersStyles.playerNameLong;
-  if (longestPart > 10) return leadersStyles.playerNameMedium;
-  return "";
-}
-
 function mapBackendPlayers(players: SzfbPlayerStat[] = []): Player[] {
   const activePlayers = players.filter((player) => player.is_active !== false);
   const topPlayers = activePlayers.slice(0, 3);
@@ -170,13 +141,7 @@ function PlayerCard({ player }: { player: Player }) {
       <div className={leadersStyles.playerCardBody}>
         <div className={leadersStyles.playerContent}>
           <div className={leadersStyles.playerHeading}>
-            <h3
-              className={`${leadersStyles.playerName} ${getPlayerNameSizeClass(
-                displayName,
-              )}`}
-            >
-              {renderPlayerName(displayName)}
-            </h3>
+            <CategoryLeaderPlayerName name={displayName} />
           </div>
 
           <div className={leadersStyles.statsGrid}>
@@ -195,7 +160,7 @@ function PlayerCard({ player }: { player: Player }) {
               src={player.photoSrc}
               alt={displayName}
               fill
-              sizes="(max-width: 768px) 100vw, 260px"
+              sizes="(max-width: 480px) 146px, (max-width: 767px) 190px, (max-width: 1099px) 220px, 260px"
               className={leadersStyles.playerPhoto}
             />
           ) : (

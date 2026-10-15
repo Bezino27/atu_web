@@ -5,10 +5,11 @@ import { connection } from "next/server";
 import { PiArrowRight } from "react-icons/pi";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import ArticleImage from "@/app/components/ArticleImage";
 import styles from "./page.module.css";
 import { AllArticlesLink, ArticlePreviewCard } from "./clanky/[slug]/ArticleSidebar";
 import { getHomepagePosts, type Post } from "./lib/posts";
-import { getClubHomePage, getImageUrl, type PageSection } from "./lib/api";
+import { getClubHomePage, type PageSection } from "./lib/api";
 import {
   getSzfbDashboard,
   getSzfbWatchIdForCategory,
@@ -261,11 +262,10 @@ export default async function HomePage() {
               className={styles.topNewsMain}
             >
               <div className={styles.topNewsMainImageWrap}>
-                {/* Preserve the source image's full natural aspect ratio. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={getImageUrl(heroArticle.featured_image)}
+                <ArticleImage
+                  post={heroArticle}
                   alt={heroArticle.title}
+                  sizes="(max-width: 900px) 100vw, 66vw"
                   className={styles.cardImage}
                   loading="eager"
                   fetchPriority="high"
@@ -283,7 +283,7 @@ export default async function HomePage() {
                     </time>
                   ) : null}
                 </div>
-                <h1>{heroArticle.title}</h1>
+                <h2>{heroArticle.title}</h2>
                 <span className={styles.topNewsMainArrow} aria-hidden="true">
                   <PiArrowRight />
                 </span>
@@ -303,13 +303,11 @@ export default async function HomePage() {
                     className={styles.topNewsSmall}
                   >
                     <div className={styles.topNewsSmallImageWrap}>
-                      {/* Keep the complete source image visible in the compact preview. */}
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={getImageUrl(article.featured_image)}
+                      <ArticleImage
+                        post={article}
                         alt={article.title}
+                        sizes="(max-width: 900px) 0px, 420px"
                         className={styles.cardImage}
-                        loading="lazy"
                       />
                       <div className={styles.imageOverlay} />
                     </div>
@@ -335,9 +333,13 @@ export default async function HomePage() {
             </div>
             <div className={styles.topNewsMobileList}>
               {sideArticles.map((article) => (
-                <ArticlePreviewCard key={article.id} post={article} />
+                <ArticlePreviewCard
+                  key={article.id}
+                  post={article}
+                  variant="homepage"
+                />
               ))}
-              <AllArticlesLink />
+              <AllArticlesLink variant="homepage" />
             </div>
           </div>
         ) : (
@@ -397,7 +399,7 @@ export default async function HomePage() {
 
     return (
       <section key={section.id} className="sectionContainer">
-        <div className={`resultsHeader ${styles.clubContentHeader}`}>
+        <div className="resultsHeader">
           <div>
             <span className="preTitle">
               {getSectionPreTitle(section, "Klubový obsah")}

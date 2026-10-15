@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   type CSSProperties,
   type ReactNode,
@@ -388,6 +389,8 @@ export default function WhyAtuCarousel({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         aria-label="Prečo ATU"
+        role="region"
+        aria-roledescription="karusel"
       >
         <div className={styles.stage}>
           {mappedItems.map((item) => {
@@ -417,15 +420,26 @@ export default function WhyAtuCarousel({
                   handleCardClick(item.index)
                 }
                 aria-hidden={hidden}
+                role="button"
+                tabIndex={hidden ? -1 : 0}
+                aria-label={`${item.title}. Zobraziť benefit ${item.index + 1}.`}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    handleCardClick(item.index);
+                  }
+                }}
               >
                 <div className={styles.cardInner}>
                   <div
                     className={styles.photoLayer}
                   >
                     {item.image ? (
-                      <img
+                      <Image
                         src={item.image}
-                        alt={item.imageAlt}
+                        alt={item.imageAlt ?? item.title}
+                        fill
+                        sizes="(max-width: 767px) 84vw, (max-width: 1024px) 320px, (max-width: 1200px) 350px, 370px"
                         className={
                           styles.cardImage
                         }
@@ -442,9 +456,12 @@ export default function WhyAtuCarousel({
                         }
                         aria-hidden="true"
                       >
-                        <img
+                        <Image
                           src="/logo/znak_atu_black.svg"
                           alt=""
+                          width={128}
+                          height={128}
+                          draggable={false}
                         />
                       </div>
                     )}
@@ -546,9 +563,11 @@ export default function WhyAtuCarousel({
                         MLÁDEŽ
                       </span>
 
-                      <img
+                      <Image
                         src="/logo/znak_atu_black.svg"
                         alt=""
+                        width={25}
+                        height={25}
                         className={
                           styles.brandLogo
                         }
@@ -565,7 +584,7 @@ export default function WhyAtuCarousel({
 
         <div className={styles.bottomArea}>
           <div className={styles.bottomRow}>
-            <div className={styles.counter}>
+            <div className={styles.counter} aria-live="polite" aria-atomic="true">
               <strong>
                 {formatIndex(
                   activeIndex + 1
@@ -599,6 +618,7 @@ export default function WhyAtuCarousel({
                     onClick={() =>
                       setActiveIndex(index)
                     }
+                    aria-current={index === activeIndex ? "true" : undefined}
                     aria-label={`Prejsť na benefit ${
                       index + 1
                     }`}

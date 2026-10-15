@@ -24,6 +24,7 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
       {items.map((item, index) => {
         const isOpen = openItem === index;
         const answerId = `faq-answer-${index}`;
+        const questionId = `faq-question-${index}`;
 
         return (
           <div
@@ -32,6 +33,7 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
           >
             <button
               type="button"
+              id={questionId}
               className={styles.faqQuestion}
               aria-expanded={isOpen}
               aria-controls={answerId}
@@ -45,6 +47,8 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
               id={answerId}
               className={styles.faqAnswer}
               aria-hidden={!isOpen}
+              role="region"
+              aria-labelledby={questionId}
             >
               <div className={styles.faqAnswerInner}>
                 {Array.isArray(item.answer) ? (

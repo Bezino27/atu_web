@@ -19,10 +19,10 @@ import NextMatchCountdown from "../juniori/components/NextMatchCountdown";
 import {
   API_URL,
   getApiFetchOptions,
-  normalizeHtmlMediaUrls,
   normalizeMediaUrl,
   withDevMediaCacheBuster,
 } from "@/app/lib/api";
+import { prepareBackendRichHtml } from "@/app/lib/richHtml";
 import { getClub, type ClubLink } from "@/app/lib/club";
 import { getActiveClubLinks } from "@/app/lib/clubLinks";
 import {
@@ -34,7 +34,11 @@ import {
   type PageSection,
   type PageSectionItem,
 } from "@/app/lib/pages";
-import { getHomepagePosts, getPostsByCategory, type Post } from "@/app/lib/posts";
+import {
+  filterPostsByCategory,
+  getAllPosts,
+  type Post,
+} from "@/app/lib/posts";
 import { getClubSeason } from "@/app/lib/season";
 import { getSzfbDashboard, getSzfbNextMatch } from "@/app/lib/szfb";
 import { absoluteUrl, DEFAULT_OG_IMAGE_URL, SITE_NAME } from "@/app/lib/seo";
@@ -486,13 +490,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const categoryDataSlug = dataCategorySlug;
 
-  const [allPosts, postsByCategory, clubSeason, categories, club] = await Promise.all([
-    getHomepagePosts(CLUB_SLUG),
-    getPostsByCategory(CLUB_SLUG, categoryDataSlug),
+  const [allPosts, clubSeason, categories, club] = await Promise.all([
+    getAllPosts(CLUB_SLUG),
     getClubSeason(CLUB_SLUG),
     getCategories(),
     getClub(CLUB_SLUG),
   ]);
+  const postsByCategory = filterPostsByCategory(allPosts, categoryDataSlug);
 
   const backendCategory = categories.find(
     (category) =>
@@ -561,7 +565,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           alt={`ATU Košice ${categoryName}`}
           fill
           priority
-          sizes="(max-width: 768px) 100vw, 1300px"
+          sizes="(min-width: 1300px) 1300px, 100vw"
           className={heroStyles.heroImg}
         />
 
@@ -581,7 +585,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <span className={heroStyles.heroSeasonValue}>{currentSeason}</span>
         </div>
 
-        <div className={heroStyles.bannerOverlay}>
+        <div>
           <div className={heroStyles.heroTextContent}>
             <CategoryHeroTitle title={heroTitle} />
 
@@ -643,7 +647,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       return null;
     }
 
-    const contentHtml = normalizeHtmlMediaUrls(section.content);
+    const contentHtml = prepareBackendRichHtml(section.content);
 
     return (
       <section key={section.id} className={pageStyles.sectionContainer}>
@@ -711,7 +715,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       return null;
     }
 
-    const contentHtml = normalizeHtmlMediaUrls(section.content);
+    const contentHtml = prepareBackendRichHtml(section.content);
 
     if (TrainingComponent) {
       return (
@@ -745,7 +749,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const renderRecruitmentSection = (section: PageSection) => {
     const RecruitmentComponent = getRecruitmentComponent(categoryDataSlug);
-    const contentHtml = normalizeHtmlMediaUrls(section.content);
+    const contentHtml = prepareBackendRichHtml(section.content);
 
     if (section.hide_when_empty && !RecruitmentComponent && !contentHtml) {
       return null;
@@ -778,15 +782,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className={recruitmentStyles.naborSection}>
           <div className={recruitmentStyles.naborCard}>
             <div className={recruitmentStyles.naborContent}>
-              <div className={recruitmentStyles.naborTopRow}>
-                <div className={recruitmentStyles.naborTextWrap}>
+              <div>
+                <div>
                   <span className={pageStyles.preTitle}>
                     {getSectionPreTitle(section, "Nábor")}
                   </span>
                   <h2 className={pageStyles.sectionTitle}>
                     {getSectionTitle(section, "Pridaj sa k nám")}
                   </h2>
-                  <div className={recruitmentStyles.naborDescription}>
+                  <div>
                     {contentHtml ? (
                       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
                     ) : (

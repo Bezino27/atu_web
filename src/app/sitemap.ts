@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "./lib/seo";
 import { getClubPages } from "./lib/pages";
-import { getHomepagePosts } from "./lib/posts";
+import { getAllPosts } from "./lib/posts";
 
 const staticRoutes = [
   "/",
@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const [posts, pages] = await Promise.all([
-    getHomepagePosts("atu-kosice"),
+    getAllPosts("atu-kosice"),
     getClubPages("atu-kosice"),
   ]);
 
