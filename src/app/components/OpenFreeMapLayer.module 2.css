@@ -1,0 +1,15 @@
+.error {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  z-index: 800;
+  max-width: calc(100% - 24px);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #333;
+  font-size: 0.8rem;
+  text-align: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
