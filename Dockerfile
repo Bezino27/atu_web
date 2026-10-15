@@ -5,10 +5,12 @@ WORKDIR /app
 ARG NEXT_PUBLIC_API_URL=https://atukosice.sk/api
 ARG NEXT_PUBLIC_MEDIA_ORIGIN=https://atukosice.sk
 ARG NEXT_PUBLIC_SITE_URL=https://atukosice.sk
+ARG NEXT_PUBLIC_ADMIN_URL
 
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_MEDIA_ORIGIN=$NEXT_PUBLIC_MEDIA_ORIGIN
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_ADMIN_URL=$NEXT_PUBLIC_ADMIN_URL
 
 COPY package*.json ./
 RUN npm ci
@@ -26,10 +28,12 @@ ENV NODE_ENV=production
 ARG NEXT_PUBLIC_API_URL=https://atukosice.sk/api
 ARG NEXT_PUBLIC_MEDIA_ORIGIN=https://atukosice.sk
 ARG NEXT_PUBLIC_SITE_URL=https://atukosice.sk
+ARG NEXT_PUBLIC_ADMIN_URL
 
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_MEDIA_ORIGIN=$NEXT_PUBLIC_MEDIA_ORIGIN
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_ADMIN_URL=$NEXT_PUBLIC_ADMIN_URL
 
 COPY package*.json ./
 RUN npm ci --omit=dev
@@ -38,6 +42,12 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.ts ./next.config.ts
 
-EXPOSE 3000
+# Prepare writable Next.js cache
+RUN mkdir -p /app/.next/cache && \
+    chown -R node:node /app
 
+# Run Next.js without root privileges
+USER node
+
+EXPOSE 3000
 CMD ["npm", "run", "start"]
