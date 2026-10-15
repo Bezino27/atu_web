@@ -358,7 +358,13 @@ export default function Header() {
                 title="Administrácia"
                 className={styles.adminTopLink}
               >
-                <PiShieldCheck aria-hidden="true" />
+                <Image
+                  src="/logo/ludimus.png"
+                  alt=""
+                  width={34}
+                  height={34}
+                  className={styles.adminLogo}
+                />
               </a>
             </div>
           </div>
@@ -681,7 +687,13 @@ export default function Header() {
                 className={styles.mobileAdminIcon}
                 onClick={closeMenu}
               >
-                <PiShieldCheck aria-hidden="true" />
+                <Image
+                  src="/logo/ludimus.png"
+                  alt=""
+                  width={34}
+                  height={34}
+                  className={styles.adminLogo}
+                />
               </a>
             </div>
 
