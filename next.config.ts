@@ -5,6 +5,15 @@ const apiUrl =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ??
   "http://127.0.0.1:8000/api";
 
+// OpenFreeMap styles, tiles, sprites and glyphs all use fetch/XHR on this
+// single origin. MapLibre's bundled worker is created from a blob URL.
+// Keep this map policy limited to connections/workers; an additional CSP
+// enforced by a reverse proxy must allow these sources independently.
+const mapContentSecurityPolicy = [
+  "connect-src 'self' https://tiles.openfreemap.org",
+  "worker-src 'self' blob:",
+].join("; ");
+
 const nextConfig: NextConfig = {
   experimental: {
     serverComponentsHmrCache: false,
@@ -60,6 +69,22 @@ const nextConfig: NextConfig = {
         pathname: "/media/**",
       },
     ],
+  },
+  async headers() {
+    // Leave the development server's HMR and local backend connections intact.
+    if (isDev) return [];
+
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: mapContentSecurityPolicy,
+          },
+        ],
+      },
+    ];
   },
   async rewrites() {
     return [

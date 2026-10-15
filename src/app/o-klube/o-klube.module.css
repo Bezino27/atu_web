@@ -1018,7 +1018,9 @@
 }
 
 .mapWrapper :global(.leaflet-control-attribution) {
-  display: none !important;
+  display: block !important;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .mapWrapper :global(.leaflet-control-zoom) {

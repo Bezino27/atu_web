@@ -4,12 +4,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   Marker,
-  TileLayer,
   ZoomControl,
   useMap,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
+import OpenFreeMapLayer from "@/app/components/OpenFreeMapLayer";
 import "leaflet/dist/leaflet.css";
 import styles from "../../styles/TrainingTable.module.css";
 
@@ -147,11 +147,7 @@ const TrainingMap: React.FC<TrainingMapProps> = ({
         <MapAutoCenter location={currentLocation} />
         <MapZoomWatcher onZoomChange={setCurrentZoom} />
 
-        <TileLayer
-          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-          maxZoom={20}
-        />
+        <OpenFreeMapLayer />
 
         <ZoomControl position="topleft" />
 

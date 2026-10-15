@@ -1140,7 +1140,9 @@ background 0.3s ease;
   z-index: 5 !important;
 }
 .contactMapWrap :global(.leaflet-control-attribution) {
-  display: none !important;
+  display: block !important;
+  max-width: 100%;
+  white-space: normal;
 }
 .contactMapWrap :global(.leaflet-control-zoom) {
   z-index: 10 !important;
