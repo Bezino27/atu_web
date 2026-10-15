@@ -20,9 +20,7 @@
   border-radius: var(--radius-xl);
   background: var(--color-surface);
   border: 1px solid rgba(17, 24, 39, 0.06);
-  box-shadow:
-    0 12px 30px rgba(15, 23, 42, 0.06),
-    0 2px 8px rgba(15, 23, 42, 0.03);
+  box-shadow: var(--shadow-panel);
   overflow: hidden;
 }
 
@@ -50,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .pollMiniLabel {
@@ -101,7 +99,7 @@
 .pollDescription {
   margin: 0px 0 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   line-height: 1.15;
 }
 
@@ -127,16 +125,16 @@
 .optionsList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .optionButton {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   width: 100%;
-  padding: 15px 16px;
+  padding: 15px var(--space-4);
   background: var(--color-surface-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -200,7 +198,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .optionLabel {
@@ -243,8 +241,8 @@
 .pollResultItem {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 14px 16px;
+  gap: var(--space-2);
+  padding: 14px var(--space-4);
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-md);
   background: var(--color-surface-soft);
@@ -278,12 +276,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .pollResultLabel {
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: var(--font-body-large);
   font-weight: 800;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -297,7 +295,7 @@
 .pollResultValue {
   flex-shrink: 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 900;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
@@ -343,7 +341,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 22px;
+  padding: var(--space-4) 22px;
   border-top: 1px solid var(--color-border-soft);
   background: var(--color-surface-soft);
   flex-wrap: wrap;
@@ -352,12 +350,12 @@
 
 .voteButton {
   flex-shrink: 0;
-  padding: 10px 24px;
+  padding: 10px var(--space-6);
   background: var(--color-red);
   color: var(--color-white);
   border: none;
   border-radius: var(--radius-pill);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -391,7 +389,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text-subtle);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 600;
   line-height: 1.4;
 }
@@ -407,7 +405,7 @@
 .pollErrorText {
   width: 100%;
   color: var(--color-red);
-  font-size: 0.8rem;
+  font-size: var(--font-label);
   font-weight: 700;
 }
 
@@ -438,7 +436,6 @@
   border-color: var(--hover-border);
   box-shadow: var(--hover-shadow-card);
   transform: translateY(var(--hover-lift-card));
-  outline: none;
 }
 
 .previousWinnerCard > * {
@@ -458,7 +455,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .previousWinnerName {
@@ -518,8 +515,8 @@
 .previousRankingItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
+  gap: var(--space-3);
+  padding: var(--space-3) 14px;
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-md);
   background: var(--color-surface-soft);
@@ -537,7 +534,6 @@
   border-color: var(--hover-border);
   box-shadow: var(--hover-shadow-card);
   transform: translateY(var(--hover-lift-card));
-  outline: none;
 }
 
 .previousRankingOrder {
@@ -552,7 +548,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-size: var(--font-body);
   font-weight: 750;
   line-height: 1.35;
   white-space: nowrap;
@@ -576,7 +572,7 @@
   justify-content: center;
   text-align: center;
   min-height: 180px;
-  padding: 32px 24px;
+  padding: var(--space-8) var(--space-6);
   gap: 10px;
   border-radius: var(--radius-lg);
   background: var(--color-surface-soft);
@@ -600,7 +596,7 @@
 .pollEmptyText {
   margin: 0;
   color: var(--color-text-subtle);
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   font-weight: 600;
   max-width: 280px;
   line-height: 1.55;
@@ -623,7 +619,7 @@
 
   .pollTopMeta {
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .pollMiniLabel {
@@ -642,7 +638,7 @@
   }
 
   .pollFooter {
-    padding: 12px 14px;
+    padding: var(--space-3) 14px;
     gap: 10px;
   }
 
@@ -656,8 +652,8 @@
   }
 
   .previousWinnerCard {
-    gap: 12px;
-    padding: 18px 16px;
+    gap: var(--space-3);
+    padding: 18px var(--space-4);
   }
 
   .previousWinnerSubtitle {
@@ -667,7 +663,7 @@
 
   .previousWinnerMainRow {
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .previousWinnerNumbers {
@@ -680,7 +676,7 @@
   }
 
   .pollResultItem {
-    padding: 12px 14px;
+    padding: var(--space-3) 14px;
   }
 
   .pollResultTop {
@@ -699,7 +695,7 @@
   }
 
   .voteButton {
-    padding: 8px 18px;
+    padding: var(--space-2) 18px;
     font-size: 0.74rem;
   }
 }

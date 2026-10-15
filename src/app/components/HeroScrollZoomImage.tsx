@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image, { getImageProps } from "next/image";
@@ -137,6 +136,7 @@ export default function HeroScrollZoomImage({
           />
           <img
             {...desktopImageProps}
+            alt={alt}
             ref={imageRef}
             className={`${styles.scrollImage} ${imageClassName}`}
           />

@@ -33,8 +33,8 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  padding-bottom: 56px;
+  gap: var(--space-section);
+  padding-bottom: var(--space-section);
 }
 
 /* # GLOBAL SECTION LAYOUT */
@@ -43,9 +43,9 @@
 .bottomSection,
 .overviewSection {
   width: 100%;
-  max-width: 1300px;
+  max-width: var(--container-main);
   margin: 0 auto;
-  padding: 0 16px;
+  padding-inline: var(--page-gutter);
   box-sizing: border-box;
 }
 
@@ -82,23 +82,23 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   margin-bottom: 18px;
 }
 
 .preTitle {
   display: block;
-  margin: 0 0 8px 18px;
+  margin: 0 0 var(--space-2) 18px;
   color: var(--color-text-muted);
   font-size: var(--font-section-eyebrow);
   font-weight: 700;
-  letter-spacing: 0.75px;
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
 }
 
 .sectionTitle {
   margin: 0;
-  padding-left: 12px;
+  padding-left: var(--space-3);
   border-left: 6px solid var(--color-text-subtle);
   color: var(--color-text);
   font-family: var(--font-unison), var(--font-sans), sans-serif;
@@ -117,7 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   margin-bottom: 18px;
 }
 
@@ -128,7 +128,7 @@
   font-size: var(--font-panel-title);
   font-weight: 300;
   font-style: italic;
-  line-height: 1.1;
+  line-height: var(--line-height-heading);
   letter-spacing: -0.03em;
 }
 
@@ -158,14 +158,8 @@
   }
 
   .content {
-    gap: 48px;
-    padding-bottom: 48px;
-  }
-
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 14px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
   .overviewGrid {
@@ -182,9 +176,9 @@
   }
 }
 
-/* # 768 */
+/* # MOBILE (< 768) */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .pageContainer {
     --font-panel-title: clamp(0.95rem, 3.8vw, 1.1rem);
     --font-card-title: 18px;
@@ -208,14 +202,8 @@
   }
 
   .content {
-    gap: 40px;
-    padding-bottom: 40px;
-  }
-
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 10px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
   .panelHeader {
@@ -227,12 +215,12 @@
 
 @media (max-width: 480px) {
   .pageContainer {
-    --font-panel-title: clamp(0.9rem, 4.5vw, 1rem);
+    --font-panel-title: clamp(0.9rem, calc(0.5rem + 1.8vw), 1rem);
     --font-card-title: 16px;
     --font-card-title-sm: 15px;
     --font-player-name: 1.45rem;
     --font-goalie-name: 1.4rem;
-    --font-team-name: 0.85rem;
+    --font-team-name: clamp(0.72rem, calc(0.4rem + 1.5vw), 0.82rem);
     --font-table-team-name: 0.8rem;
     --font-featured-date: 0.8rem;
     --font-featured-place: 0.75rem;
@@ -249,13 +237,8 @@
   }
 
   .content {
-    gap: 32px;
-    padding-bottom: 32px;
+    gap: var(--space-section);
+    padding-bottom: var(--space-section);
   }
 
-  .bottomSection,
-  .overviewSection,
-  .sectionContainer {
-    padding: 0 8px;
-  }
 }

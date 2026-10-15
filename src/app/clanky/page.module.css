@@ -6,7 +6,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 82px 24px 160px;
+  padding: 82px var(--page-gutter) 160px;
   background-color: #06080b;
   background-image:
     linear-gradient(
@@ -15,7 +15,7 @@
       rgba(4, 6, 9, 0.48) 58%,
       rgba(4, 6, 9, 0.58) 100%
     ),
-    url("/atu-article-bg.png");
+    url("/atu-article-bg.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,7 +24,7 @@
 
 .heroInner {
   position: relative;
-  width: min(1300px, 100%);
+  width: min(var(--container-main), 100%);
   margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@
 
 .eyebrow {
   display: inline-block;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-3);
   color: rgba(255, 255, 255, 0.56);
   font-size: 13px;
   font-weight: 750;
@@ -43,7 +43,7 @@
 }
 
 .heroInner h1 {
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-4);
   font-family:
     var(--font-unison),
     sans-serif;
@@ -68,14 +68,14 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px 11px;
-  margin-top: 24px;
+  gap: var(--space-2) 11px;
+  margin-top: var(--space-6);
   color: rgba(255, 255, 255, 0.42);
   font-family: var(--font-sans), sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  line-height: 1.4;
+  line-height: var(--line-height-meta);
   text-transform: uppercase;
 }
 
@@ -88,15 +88,15 @@
   position: relative;
   z-index: 2;
   margin-top: -90px;
-  padding: 0 24px 92px;
+  padding: 0 var(--page-gutter) 92px;
 }
 
 .grid {
-  width: min(1300px, 100%);
+  width: min(var(--container-main), 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: var(--space-6);
   align-items: stretch;
 }
 
@@ -124,11 +124,11 @@
 }
 
 .cardCompact {
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 }
 
 .cardCompact .cardContent {
-  padding: 16px 17px 18px;
+  padding: var(--space-4) 17px 18px;
 }
 
 .cardCompact .meta {
@@ -140,7 +140,7 @@
 }
 
 .cardCompact .cardContent p {
-  font-size: 0.88rem;
+  font-size: var(--font-small);
   line-height: 1.42;
 }
 
@@ -169,7 +169,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px 12px;
+  gap: var(--space-2) var(--space-3);
   margin-bottom: 13px;
 }
 
@@ -182,7 +182,7 @@
   border-radius: 6px;
   background: var(--color-red);
   color: #ffffff;
-  font-size: 0.72rem;
+  font-size: clamp(0.6rem, calc(0.47rem + 0.5vw), 0.72rem);
   font-weight: 850;
   letter-spacing: 0.055em;
   line-height: 1;
@@ -191,7 +191,7 @@
 
 .date {
   color: #8b929a;
-  font-size: 0.78rem;
+  font-size: clamp(0.66rem, calc(0.52rem + 0.55vw), 0.78rem);
   font-weight: 500;
   line-height: 1.25;
 }
@@ -210,20 +210,13 @@
 .cardContent p {
   margin: 0;
   color: #6f7780;
-  font-size: 0.93rem;
+  font-size: var(--font-body-compact);
   font-weight: 400;
   line-height: 1.5;
 }
 
 @media (max-width: 1024px) {
-  .hero,
-  .contentSection {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
   }
 
@@ -231,7 +224,7 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 54px 16px 52px;
+    padding: 54px var(--page-gutter) 52px;
     background-position: 60% center;
   }
 
@@ -245,28 +238,27 @@
   }
 
   .categoryLine {
-    gap: 6px 8px;
-    margin-top: 20px;
+    gap: 6px var(--space-2);
+    margin-top: var(--space-5);
     font-size: 0.61rem;
     letter-spacing: 0.11em;
   }
 
   .contentSection {
     margin-top: 0;
-    padding: 28px 16px 70px;
+    padding: 28px var(--page-gutter) 70px;
   }
 
   .grid {
-    grid-template-columns: 1fr;
     gap: 18px;
   }
 
   .card {
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
   }
 
   .cardContent {
-    padding: 16px 17px 19px;
+    padding: var(--space-4) 17px 19px;
   }
 
   .cardContent h2 {

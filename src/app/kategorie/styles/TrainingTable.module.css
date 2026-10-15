@@ -3,7 +3,7 @@
 }
 
 .sectionHeader {
-  margin-bottom: 24px;
+  margin-bottom: var(--space-6);
 }
 
 /* # TWO COLUMN LAYOUT */
@@ -31,7 +31,7 @@
 
 /* # LIST HEADER */
 .listHeader {
-  padding: 0 8px 12px;
+  padding: 0 var(--space-2) var(--space-3);
   margin-bottom: 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -57,8 +57,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  padding: 18px 20px;
+  gap: var(--space-4);
+  padding: 18px var(--space-5);
   border-radius: var(--radius-lg);
   background: var(--color-page);
   border: 1px solid transparent;
@@ -86,7 +86,7 @@
 .timeBlock {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-4);
   min-width: 0;
   flex: 1;
 }
@@ -142,9 +142,9 @@
 .locationBadge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-shrink: 0;
-  padding: 9px 16px;
+  padding: 9px var(--space-4);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -201,15 +201,15 @@
 
 .mapWrapper :global(.leaflet-control-zoom) {
   z-index: 10 !important;
-  margin: 20px !important;
+  margin: var(--space-5) !important;
   border: none !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
 }
 
 .mapWrapper :global(.leaflet-control-zoom-in),
 .mapWrapper :global(.leaflet-control-zoom-out) {
-  width: 40px !important;
-  height: 40px !important;
+  width: 44px !important;
+  height: 44px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -226,11 +226,11 @@
 }
 
 .mapWrapper :global(.leaflet-control-zoom-in) {
-  border-radius: var(--radius-md) 12px 0 0 !important;
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
 }
 
 .mapWrapper :global(.leaflet-control-zoom-out) {
-  border-radius: 0 0 12px 12px !important;
+  border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
   border-top: none !important;
 }
 
@@ -261,7 +261,7 @@
   font-family: var(--font-sans), sans-serif;
   letter-spacing: 1px;
   text-align: center;
-  padding: 20px;
+  padding: var(--space-5);
   box-sizing: border-box;
 }
 
@@ -277,7 +277,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   width: max-content;
   max-width: min(300px, calc(100vw - 80px));
   transform: scale(var(--marker-scale));
@@ -313,7 +313,7 @@
   padding: 10px 15px;
   background: var(--color-red);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   box-shadow:
     0 14px 28px rgba(211, 47, 47, 0.24),
     0 3px 10px rgba(15, 23, 42, 0.12);
@@ -406,11 +406,11 @@
   }
 
   .trainingList {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .trainingRow {
-    padding: 16px 18px;
+    padding: var(--space-4) 18px;
     border-radius: var(--radius-lg);
   }
 
@@ -432,7 +432,7 @@
   }
 
   .locationBadge {
-    padding: 8px 14px;
+    padding: var(--space-2) 14px;
     font-size: 0.86rem;
   }
 
@@ -453,16 +453,16 @@
 
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
-    width: 34px !important;
-    height: 34px !important;
+    width: 44px !important;
+    height: 44px !important;
     font-size: 15px !important;
   }
 }
 
-/* # 768 */
-@media (max-width: 768px) {
+/* # MOBILE (< 768) */
+@media (max-width: 767px) {
   .sectionHeader {
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   .layout {
@@ -470,7 +470,7 @@
   }
 
   .tableWrapper {
-    padding: 16px 14px;
+    padding: var(--space-4) 14px;
     border-radius: var(--radius-lg);
   }
 
@@ -480,7 +480,7 @@
   }
 
   .headerLabel {
-    font-size: 0.8rem;
+    font-size: var(--font-label);
     letter-spacing: 0.08em;
   }
 
@@ -493,7 +493,7 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 10px;
-    padding: 12px;
+    padding: var(--space-3);
     border-radius: var(--radius-lg);
   }
 
@@ -519,7 +519,7 @@
   }
 
   .dayName {
-    font-size: 0.92rem;
+    font-size: var(--font-body-compact);
     line-height: 1.18;
   }
 
@@ -536,9 +536,9 @@
 
   .locationBadge {
     max-width: 160px;
-    padding: 7px 12px;
+    padding: 7px var(--space-3);
     gap: 6px;
-    font-size: 0.8rem;
+    font-size: var(--font-label);
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
@@ -568,8 +568,8 @@
 
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
-    width: 30px !important;
-    height: 30px !important;
+    width: 44px !important;
+    height: 44px !important;
     font-size: 14px !important;
   }
 
@@ -580,7 +580,7 @@
 
   .markerLabel {
     max-width: 165px;
-    padding: 8px 12px;
+    padding: var(--space-2) var(--space-3);
     border-radius: 14px;
   }
 
@@ -607,17 +607,17 @@
   }
 
   .layout {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .tableWrapper {
-    padding: 14px 12px;
+    padding: 14px var(--space-3);
     border-radius: var(--radius-lg);
   }
 
   .listHeader {
-    padding: 0 2px 8px;
-    margin-bottom: 8px;
+    padding: 0 2px var(--space-2);
+    margin-bottom: var(--space-2);
   }
 
   .headerLabel {
@@ -626,18 +626,18 @@
   }
 
   .trainingList {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .trainingRow {
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px;
+    gap: var(--space-2);
     padding: 10px;
     border-radius: var(--radius-md);
   }
 
   .timeBlock {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   .dayBadge {
@@ -683,13 +683,13 @@
   }
 
   .mapWrapper :global(.leaflet-control-zoom) {
-    margin: 8px !important;
+    margin: var(--space-2) !important;
   }
 
   .mapWrapper :global(.leaflet-control-zoom-in),
   .mapWrapper :global(.leaflet-control-zoom-out) {
-    width: 28px !important;
-    height: 28px !important;
+    width: 44px !important;
+    height: 44px !important;
     font-size: 13px !important;
   }
 
@@ -701,7 +701,7 @@
   .markerLabel {
     max-width: 140px;
     padding: 7px 10px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
   }
 
   .markerLabel::before {

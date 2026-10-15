@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getImageUrl } from "@/app/lib/api";
+import ArticleImage from "@/app/components/ArticleImage";
 import type { Post } from "@/app/lib/posts";
 import styles from "./page.module.css";
 
@@ -32,12 +32,11 @@ export default function ArticleCard({ post, compact = false }: ArticleCardProps)
       className={`${styles.card} ${compact ? styles.cardCompact : ""}`}
     >
       <div className={styles.imageWrap}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={getImageUrl(post.featured_image)}
+        <ArticleImage
+          post={post}
           alt={post.title}
+          sizes="(max-width: 767px) calc(100vw - 16px), (max-width: 1200px) 50vw, 420px"
           className={styles.image}
-          loading="lazy"
         />
       </div>
 

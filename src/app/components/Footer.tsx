@@ -12,6 +12,7 @@ import {
   getClubLinkIcon,
 } from "@/app/lib/clubLinks";
 import { getClubNavigation, getNavigationLabel } from "@/app/lib/pages";
+import { getImageUrl } from "@/app/lib/api";
 import Aurora from "./Aurora";
 import styles from "./Footer.module.css";
 
@@ -38,10 +39,12 @@ const categoryLinks: NavItem[] = [
 ];
 
 const CLUB_SLUG = "atu-kosice";
+const SHARE_MENU_ID = "footer-social-links";
 
 
-const PRIVACY_POLICY_URL =
-  "https://atukosice.sk/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf";
+const PRIVACY_POLICY_URL = getImageUrl(
+  "/media/club_documents/Zasady_ochrany_osobnych_udajov_ATU_Kosice_Ji8ZnyO.pdf",
+);
 function isCategoryHref(href: string) {
   return href.startsWith("/kategorie/");
 }
@@ -193,7 +196,7 @@ export default function Footer() {
 
       <div className={styles.container}>
         <div className={styles.topRow}>
-          <nav className={styles.navArea} aria-label="Pätičková navigácia">
+          <nav className={styles.navArea} aria-label="Navigácia v pätičke">
             <div className={styles.navColumn}>
               <h3 className={styles.navTitle}>Klub</h3>
 
@@ -242,51 +245,59 @@ export default function Footer() {
                     <button
                       type="button"
                       className={styles.shareToggle}
-                      aria-label="Sociálne odkazy"
+                      aria-label={
+                        isMenuOpen
+                          ? "Skryť sociálne odkazy"
+                          : "Zobraziť sociálne odkazy"
+                      }
                       aria-expanded={isMenuOpen}
-                      tabIndex={-1}
+                      aria-controls={SHARE_MENU_ID}
+                      onClick={() => setIsMenuOpen((open) => !open)}
                     >
-                      <IoShareSocialOutline />
+                      <IoShareSocialOutline aria-hidden="true" />
                     </button>
 
-                    {socialItems.map((item, index) => {
-                      const logoUrl = getClubLinkLogoUrl(item);
-                      const customStyle = {
-                        "--i": index,
-                        "--clr": getClubLinkColor(item.icon_type),
-                      } as CSSProperties;
+                    <div id={SHARE_MENU_ID} aria-hidden={!isMenuOpen}>
+                      {socialItems.map((item, index) => {
+                        const logoUrl = getClubLinkLogoUrl(item);
+                        const customStyle = {
+                          "--i": index,
+                          "--clr": getClubLinkColor(item.icon_type),
+                        } as CSSProperties;
 
-                      return (
-                        <a
-                          key={item.id}
-                          href={item.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={styles.shareItem}
-                          style={customStyle}
-                          aria-label={item.title}
-                          title={item.title}
-                        >
-                          <span className={styles.shareItemIcon}>
-                            {logoUrl ? (
-                              <Image
-                                src={logoUrl}
-                                alt=""
-                                width={36}
-                                height={36}
-                                className={`${styles.clubLinkImageIcon} ${
-                                  item.icon_type === "ludimus"
-                                    ? styles.ludimusClubLinkImageIcon
-                                    : ""
-                                }`}
-                              />
-                            ) : (
-                              getClubLinkIcon(item.icon_type)
-                            )}
-                          </span>
-                        </a>
-                      );
-                    })}
+                        return (
+                          <a
+                            key={item.id}
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.shareItem}
+                            style={customStyle}
+                            aria-label={item.title}
+                            title={item.title}
+                            tabIndex={isMenuOpen ? 0 : -1}
+                          >
+                            <span className={styles.shareItemIcon}>
+                              {logoUrl ? (
+                                <Image
+                                  src={logoUrl}
+                                  alt=""
+                                  width={36}
+                                  height={36}
+                                  className={`${styles.clubLinkImageIcon} ${
+                                    item.icon_type === "ludimus"
+                                      ? styles.ludimusClubLinkImageIcon
+                                      : ""
+                                  }`}
+                                />
+                              ) : (
+                                getClubLinkIcon(item.icon_type)
+                              )}
+                            </span>
+                          </a>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
